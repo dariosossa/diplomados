@@ -1,0 +1,3650 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DIPLOMADO EN DESARROLLO WEB Y APLICACIONES MÓVILES</title>
+    <style>
+        :root {
+            --bg: #12141c;
+            --surface: #1e222d;
+            --accent: #61dafb;
+            --accent2: #61dafb76;
+            --text: #e2e8f0;
+            --text-dim: #94a3b8;
+            --border: #2d3343;
+            --nav-h: 75px;
+            --header-h: 60px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        body.visor-activo {
+            overflow: hidden !important;
+        }
+
+        h1 {
+            font-size: 1rem;
+        }
+
+        header#top-bar {
+            height: var(--header-h);
+            background: #12141c;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3100;
+        }
+
+        #content-wrapper {
+            flex: 1;
+            position: relative;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        main#content-main {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- CONTENIDO --- */
+        section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        section h2 {
+            font-size: 1.6rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        section h2::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        section h3 {
+            font-size: 1.8rem;
+            color: var(--accent2);
+            text-transform: uppercase;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        p {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        /* --- BLOQUE DE CÓDIGO CON BOTÓN A LA IZQUIERDA --- */
+        .code-block {
+            position: relative;
+            margin: 20px 0;
+            background: #0d0f14;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            /* Posicionado a la izquierda */
+            background: var(--border);
+            color: var(--text);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .copy-btn:active {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        pre {
+            /* Padding superior para no chocar con el botón */
+            /* Padding izquierdo aumentado para que el botón no tape el código */
+            padding: 50px 20px 20px 20px;
+            font-family: "Consolas", "Monaco", monospace;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+
+        /* Alineación perfecta de listas con párrafos */
+        ul,
+        ol {
+            /* Elimina el margen por defecto y ajusta el padding */
+            margin-left: 0;
+            padding-left: 1.2rem;
+            /* Espacio justo para la viñeta o número */
+            margin-bottom: 16px;
+            list-style-position: outside;
+            /* Mantiene el texto alineado si hay varias líneas */
+        }
+
+        li {
+            font-size: 1.6rem;
+            margin-left: 16px;
+            margin-bottom: 8px;
+            color: var(--text);
+            /* Asegura que el texto del li tenga el mismo tamaño que el p */
+            line-height: 1.8;
+        }
+
+        /* Si usas párrafos, asegúrate que no tengan márgenes laterales extra */
+        p {
+            margin-left: 0;
+            padding-left: 0;
+        }
+
+
+        /* --- ESTILO ESPECÍFICO PARA CONTENEDOR MULTIMEDIA CON TEXTO --- */
+
+        .media-container {
+            position: relative;
+            /* Esencial para posicionar el texto absolutamente dentro */
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            /* Mantiene la imagen y el degradado dentro de los bordes redondeados */
+            border: 1px solid var(--border);
+            background: #1a1d26;
+            /* Color de fondo mientras carga la imagen */
+            /* aspect-ratio: 16 / 9; */
+            /* Opcional: fuerza una proporción si las imágenes varían mucho */
+        }
+
+        .media-container img {
+            width: 100%;
+            height: auto;
+            /* Mantiene la proporción original de la imagen */
+            display: block;
+            /* Elimina espacio en blanco inferior no deseado */
+            object-fit: cover;
+            /* Evita que aparezca el menú de selección de texto sobre la imagen */
+            user-select: none;
+            -webkit-user-select: none;
+            /* Safari */
+            -moz-user-select: none;
+            /* Firefox */
+            -ms-user-select: none;
+
+            /* Evita que se resalte en azul al mantener presionado en móviles */
+            -webkit-touch-callout: none;
+
+            /* Asegura que los eventos de mouse pasen a través si fuera necesario 
+       (Opcional: solo si quieres que el puntero láser ignore la imagen por completo) */
+            /* pointer-events: none; */
+        }
+
+        /* Estilo base para el texto superpuesto */
+        .texto-encima-imagen {
+            position: absolute;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            color: white;
+            /* Color de texto fijo para contraste sobre imagen */
+            font-weight: 700;
+            font-size: 1.8rem;
+            /* Ajustable según necesidad */
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            /* Sombra suave para mejorar legibilidad */
+            z-index: 10;
+            /* Asegura que esté sobre la imagen */
+            /* Evita la selección del texto */
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+
+            /* Evita que el cursor cambie a la "I" de texto al pasar el mouse */
+            cursor: default;
+
+            /* Asegura que los eventos de clic pasen a través si fuera necesario */
+            /* pointer-events: none; */
+        }
+
+        /* Posicionamiento específico: ARRIBA con degradado de fondo */
+        .texto-arriba {
+            top: 0;
+            bottom: auto;
+            /* Degradado oscuro de arriba hacia abajo para que el texto resalte */
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+            padding-top: 25px;
+            /* Un poco más de espacio arriba */
+            padding-bottom: 40px;
+            /* Espacio para que el degradado se desvanezca */
+        }
+
+        /* Opcional: Si tuvieras la clase .texto-abajo */
+        .texto-abajo {
+            bottom: 0;
+            top: auto;
+            /* Degradado oscuro de abajo hacia arriba */
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+            padding-bottom: 25px;
+            padding-top: 40px;
+        }
+
+        /* Adaptación para pantallas más grandes (Escritorio) */
+        @media (min-width: 1024px) {
+            .texto-encima-imagen {
+                font-size: 2.2rem;
+                /* Texto un poco más grande en PC */
+                padding: 30px;
+            }
+
+            .texto-arriba {
+                padding-top: 35px;
+                padding-bottom: 60px;
+            }
+        }
+
+        /* --- MARCADOR --- */
+        .marker-mode-active #content-main {
+            user-select: text !important;
+            cursor: crosshair;
+        }
+
+        .highlight-span {
+            display: inline;
+            font-size: inherit;
+            line-height: inherit;
+            border-bottom: 3px solid;
+            font-weight: 700;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        /* --- VISOR E IFRAME --- */
+        #visor-container {
+            display: none;
+            position: fixed;
+            top: var(--header-h);
+            left: 0;
+            width: 100%;
+            height: calc(100vh - var(--header-h) - var(--nav-h));
+            background: #000;
+            z-index: 2000;
+        }
+
+        #frame-visor {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        #mouse-overlay {
+            position: fixed;
+            top: var(--header-h);
+            left: 0;
+            width: 98%;
+            height: calc(100vh - var(--header-h) - var(--nav-h));
+            z-index: 2500;
+            background: transparent;
+            display: none;
+            pointer-events: none;
+        }
+
+        body.laser-on #mouse-overlay {
+            display: block;
+            pointer-events: auto;
+            cursor: none;
+        }
+
+        /* --- CONTENEDOR DE ACTIVIDADES (DETAILS) --- */
+        .respuesta-box {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .respuesta-box[open] {
+            border-color: var(--accent);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- ESTILO DEL RESUMEN (SUMMARY) --- */
+        summary {
+            list-style: none;
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--accent);
+            padding: 10px;
+            outline: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        summary::before {
+            content: '▶';
+            font-size: 1.6rem;
+            transition: transform 0.3s;
+        }
+
+        .respuesta-box[open] summary::before {
+            transform: rotate(90deg);
+        }
+
+        /* --- ESTILO DE LOS ITEMS DEL CHECKLIST --- */
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 10px;
+            margin: 5px 0;
+            border-radius: 8px;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+
+        .checklist-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Personalización del Checkbox */
+        .checklist-item input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent);
+            border-radius: 4px;
+            background: transparent;
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .checklist-item input[type="checkbox"]:checked {
+            background-color: var(--accent);
+        }
+
+        .checklist-item input[type="checkbox"]:checked::after {
+            content: '✔';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--bg);
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Efecto de texto tachado al marcar */
+        .checklist-item span {
+            font-size: 1.6rem;
+            color: var(--text);
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .checklist-item input:checked+span {
+            text-decoration: line-through;
+            color: var(--text-dim);
+            opacity: 0.6;
+        }
+
+        /* Adaptación para títulos dentro de la actividad */
+        .respuesta-box h3 {
+            font-size: 1.6rem;
+            margin: 20px 0 10px 10px;
+            color: var(--text);
+            border-left: 3px solid var(--accent);
+            padding-left: 10px;
+        }
+
+        /* RESPONSIVE */
+        @media (min-width: 1024px) {
+            .checklist-item span {
+                font-size: 2rem;
+                /* Tamaño más grande para escritorio como pediste */
+            }
+        }
+
+        /* --- MODALES (COLOR Y BUSCADOR) --- */
+        dialog {
+            position: fixed;
+            bottom: calc(var(--nav-h) + 10px);
+            left: 10px;
+            right: 10px;
+            width: calc(100% - 20px);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            color: white;
+            z-index: 4500;
+            border: 1px solid var(--accent);
+        }
+
+        dialog::backdrop {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        #results li {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            list-style: none;
+            color: var(--text-dim);
+        }
+
+        #results li:hover {
+            color: var(--accent);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* --- NAVEGACIÓN --- */
+        nav.bar {
+            height: var(--nav-h);
+            background: #1e222d;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            border-top: 1px solid var(--border);
+            z-index: 4000;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .nav-btn.active-tool {
+            color: var(--accent);
+            background: rgba(97, 218, 251, 0.1);
+        }
+
+        .nav-btn span {
+            font-size: 0.6rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        /* --- LÁSER --- */
+        .punteroRojo {
+            position: fixed;
+            width: 14px;
+            height: 14px;
+            background: red;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 5000;
+            box-shadow: 0 0 10px red;
+            display: none;
+            transform: translate(-50%, -50%);
+        }
+
+        .puntoEstela {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: red;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 4999;
+            transform: translate(-50%, -50%);
+            animation: desvanecer 0.7s forwards;
+        }
+
+        @keyframes desvanecer {
+            from {
+                opacity: 0.8;
+            }
+
+            to {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.2);
+            }
+        }
+    </style>
+</head>
+
+<body oncontextmenu="return false;">
+
+    <header id="top-bar">
+        <h1>MODULO I <span style="color:white">•</span> DESARROLLO WEB Y APLICACIONES MÓVILES</h1>
+    </header>
+
+    <div id="content-wrapper">
+        <div id="mouse-overlay"></div>
+        <main id="content-main">
+            <section>
+                <h2>DESARROLLO WEB Y APLICACIONES MÓVILES</h2>
+                <h3>¿Qué esperan del diplomado?</h3>
+                <div class="media-container">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200" alt="Code"
+                        loading="lazy">
+                </div>
+                <h3>¿Que es el desarrollo Web?</h3>
+                <div class="media-container">
+                    <img src="https://tekla.io/wp-content/uploads/2022/03/Recurso1.png" alt="Code" loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        El desarrollo web es el proceso de crear y mantener sitios o aplicaciones que funcionan en
+                        internet.
+                    </div>
+                </div>
+                <h3>¿Que es el desarrollo Móvil?</h3>
+                <div class="media-container">
+                    <img src="https://capgo.app/cross-platform-app-dev-2024.webp" alt="Code" loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        El desarrollo móvil es el proceso de crear aplicaciones diseñadas para funcionar en dispositivos
+                        móviles.
+                    </div>
+                </div>
+            </section>
+            <section>
+                <h2>Introducción al Desarrollo Web y Móvil</h2>
+                <h3>¿Qué es un sistema operativo?</h3>
+                <div class="media-container">
+                    <img src="https://cdn.mos.cms.futurecdn.net/LwSQUvab8XXfBLErwPzerM.jpg" alt="Code" loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        Un sistema operativo es el “software” (sof-güer) principal que controla y administra los
+                        recursos de un
+                        dispositivo.
+                    </div>
+                </div>
+                <p>
+                    Se estudiarán los sistemas operativos Android, iOS, Windows y Linux.
+                </p>
+                <h3>¿Qué es Android?</h3>
+                <div class="media-container">
+                    <img src="https://imgmedia.larepublica.pe/850x501/larepublica/original/2023/02/16/63ee79c49a224468ad01dda9.webp"
+                        alt="Code" loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        Es un sistema operativo para dispositivos móviles. <br> Fue desarrollado por Google y está
+                        basado en Linux.
+                    </div>
+                </div>
+                <h3>¿Qué es iOS (“ai-ou-es”)?</h3>
+                <div class="media-container">
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/021/496/368/small/ios-icon-logo-software-phone-apple-symbol-with-name-black-design-mobile-illustration-free-vector.jpg"
+                        alt="Code" loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        Es el sistema operativo desarrollado por Apple para sus dispositivos móviles.
+                    </div>
+                </div>
+                <h3>¿Qué es Windows (“uín-dous”)?</h3>
+                <div class="media-container">
+                    <img src="https://tecnogaming.com/wp-content/uploads/2021/06/Hero-Bloom-Logo.jpg" alt="Code"
+                        loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        Windows es un sistema operativo creado por Microsoft, permite utilizar programas y conectarse a
+                        internet.
+                    </div>
+                </div>
+                <h3>¿Qué es Linux (“lí-nux”)?</h3>
+                <div class="media-container">
+                    <img src="https://electronicaonline.net/wp-content/uploads/2024/09/linux-sistema-operativo.webp"
+                        alt="Code" loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        Linux es un sistema operativo libre y de código abierto, creado inicialmente por Linus Torvalds
+                        en 1991.
+                    </div>
+                </div>
+                <p>
+                    Se utilizarán diferentes dispositivos, como computadoras, laptops, tabletas y teléfonos móviles.
+                </p>
+                <h3>¿Qué es una computadora?</h3>
+                <div class="media-container">
+                    <img src="https://images-cdn.ubuy.co.in/65f1abea6f15032e663e11fe-dell-optiplex-7040-desktop-computer-pc.jpg"
+                        alt="Code" loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        Es un dispositivo electrónico capaz de recibir, procesar y almacenar información.
+                    </div>
+                </div>
+                <h3>¿Qué es una laptop?</h3>
+                <div class="media-container">
+                    <img src="https://shop.villman.com/cdn/shop/files/RW1iUuD_a41a4763-0bd6-49ff-bba7-f5ed4281e973_1200x.png?v=1732243774"
+                        alt="Code" loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        Es una computadora diseñada para ser transportada fácilmente y utilizada en diferentes lugares.
+                    </div>
+                </div>
+                <h3>¿Qué es una tableta?</h3>
+                <div class="media-container">
+                    <img src="https://electronicaonline.net/wp-content/uploads/2023/04/tableta-que-es.webp" alt="Code"
+                        loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        Es un dispositivo con pantalla táctil que permite interactuar directamente con la pantalla.
+                    </div>
+                </div>
+                <h3>¿Qué son los teléfonos móviles?</h3>
+                <div class="media-container">
+                    <img src="https://root-nation.com/wp-content/uploads/2025/05/smartphones-2.jpg" alt="Code"
+                        loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        Son dispositivos electrónicos portátiles que permiten la comunicación inalámbrica entre
+                        personas.
+                    </div>
+                </div>
+                <h3>Evolución del desarrollo web</h3>
+                <h3>¿Cómo era la Web 1.0?</h3>
+                <div class="media-container">
+                    <img src="https://disenowebakus.net/imagenes/articulos/web-1.jpg" alt="Code" loading="lazy" />
+                </div>
+                <p>
+                    La Web 1.0 se caracterizaba por estar formada por páginas web estáticas, donde la información era
+                    publicada por
+                    los administradores del sitio y los usuarios solo podían leer el contenido sin interactuar con él.
+                </p>
+                <p>
+                    Las páginas estaban compuestas principalmente por texto, imágenes y enlaces, y su función principal
+                    era mostrar
+                    información, similar a una biblioteca digital.
+                </p>
+                <h3>¿Cómo era la Web 2.0?</h3>
+                <div class="media-container">
+                    <img src="https://www.comstar.com.pk/assets/files/blog/web_2_0_social_marketing.png" alt="Code"
+                        loading="lazy" />
+                </div>
+                <p>
+                    La Web 2.0 se caracterizó por permitir la interacción y participación activa de los usuarios en
+                    internet.
+                </p>
+                <p>
+                    A diferencia de la Web 1.0, donde los usuarios solo podían leer información, en la Web 2.0 las
+                    personas pueden
+                    crear, compartir y comentar contenido en diferentes plataformas digitales.
+                </p>
+                <p>
+                    En esta etapa surgieron servicios como redes sociales, blogs, wikis, plataformas de video y
+                    aplicaciones web
+                    interactivas, donde los usuarios se convierten también en creadores de contenido.
+                </p>
+                <p>
+                    Ejemplos claros de Web 2.0 son plataformas como Facebook, YouTube y Twitter, donde la información es
+                    generada y
+                    compartida por millones de usuarios.
+                </p>
+                <h3>¿Cómo es la actual Web 3.0?</h3>
+                <div class="media-container">
+                    <img src="https://mpost.io/wp-content/uploads/4211web_3_2-1024x536.jpg" alt="Code" loading="lazy" />
+                </div>
+                <p>
+                    La Web 3.0 se caracteriza por ser una web más inteligente, conectada y personalizada, donde las
+                    aplicaciones
+                    pueden analizar grandes cantidades de información para ofrecer resultados más precisos a los
+                    usuarios.
+                </p>
+                <p>
+                    En esta etapa de internet se utilizan tecnologías como inteligencia artificial, procesamiento de
+                    datos,
+                    computación en la nube y sistemas semánticos, que permiten que las plataformas comprendan mejor la
+                    información y
+                    el comportamiento de las personas.
+                </p>
+                <h3>Evolución del desarrollo móvil</h3>
+                <h3>¿Cómo fue la primera etapa?</h3>
+                <div class="media-container">
+                    <img src="https://i.redd.it/fxp9ewkx9hje1.jpeg" alt="Code" loading="lazy" />
+                </div>
+                <p>
+                    La primera etapa del desarrollo móvil se caracterizó por el uso de teléfonos móviles básicos que
+                    tenían
+                    funciones limitadas, principalmente llamadas telefónicas y envío de mensajes de texto (SMS).
+                </p>
+                <p>
+                    En ese periodo, los dispositivos tenían pantallas pequeñas, poca capacidad de almacenamiento y
+                    recursos de
+                    procesamiento muy reducidos, por lo que las aplicaciones eran simples y con pocas funciones.
+                </p>
+                <h3>¿Cómo fue la segunda etapa?</h3>
+                <div class="media-container">
+                    <img src="https://i.redd.it/9xa8kso56eqe1.jpeg" alt="Code" loading="lazy" />
+                </div>
+                <p>
+                    La segunda etapa del desarrollo móvil se caracterizó por la aparición de los primeros teléfonos
+                    inteligentes o
+                    smartphones, que comenzaron a ofrecer más funciones además de llamadas y mensajes.
+                </p>
+                <p>
+                    En esta etapa los dispositivos incorporaron pantallas más grandes, conexión a internet, cámaras y
+                    sistemas
+                    operativos más avanzados, lo que permitió el desarrollo de aplicaciones más complejas.
+                </p>
+                <p>
+                    También surgieron las primeras tiendas de aplicaciones, donde los usuarios podían descargar
+                    diferentes programas
+                    para ampliar las funciones de sus dispositivos.
+                </p>
+                <h3>¿Cómo es la etapa actual?</h3>
+                <div class="media-container">
+                    <img src="https://eldistrito.es/wp-content/uploads/2026/01/moviles-smartphones-2026-novedades-ia-1024x682.jpg"
+                        alt="Code" loading="lazy" />
+                </div>
+                <p>
+                    La etapa actual del desarrollo móvil se caracteriza por el uso de teléfonos inteligentes avanzados
+                    con gran
+                    capacidad de procesamiento, conexión permanente a internet y aplicaciones cada vez más complejas.
+                </p>
+                <p>
+                    En esta etapa los dispositivos móviles permiten realizar múltiples actividades como comunicación,
+                    comercio
+                    electrónico, educación en línea, redes sociales, entretenimiento y trabajo remoto.
+                </p>
+                <p>
+                    Además, las aplicaciones móviles actuales integran tecnologías como inteligencia artificial,
+                    computación en la
+                    nube, geolocalización y servicios digitales en tiempo real, lo que permite ofrecer experiencias más
+                    rápidas y
+                    personalizadas a los usuarios.
+                </p>
+                <details class="respuesta-box">
+                    <summary>Actividad 1</summary>
+
+                    <p>
+                        Responde todas las preguntas <b>en tu cuaderno</b>.
+                        Luego toma una fotografía clara de tus respuestas y <b>súbela a la plataforma</b>.
+                    </p>
+
+                    <h3>Desarrollo Web y Móvil</h3>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Qué es el desarrollo Web?</span>
+                    </div>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Qué es el desarrollo Móvil?</span>
+                    </div>
+
+                    <h3>Sistemas Operativos</h3>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Qué es un sistema operativo?</span>
+                    </div>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Qué es Android?</span>
+                    </div>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Qué es iOS?</span>
+                    </div>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Qué es Windows?</span>
+                    </div>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Qué es Linux?</span>
+                    </div>
+
+                    <h3>Dispositivos</h3>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Qué es una computadora?</span>
+                    </div>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Qué es una laptop?</span>
+                    </div>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Qué es una tableta?</span>
+                    </div>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Qué son los teléfonos móviles?</span>
+                    </div>
+
+                    <h3>Evolución del desarrollo web</h3>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Cómo era la Web 1.0?</span>
+                    </div>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Cómo era la Web 2.0?</span>
+                    </div>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Cómo es la actual Web 3.0?</span>
+                    </div>
+
+                    <h3>Evolución del desarrollo móvil</h3>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Cómo fue la primera etapa?</span>
+                    </div>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Cómo fue la segunda etapa?</span>
+                    </div>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Cómo es la etapa actual?</span>
+                    </div>
+
+                </details>
+
+            </section>
+            <section>
+                <h2>Arquitectura de Aplicaciones Web y Móviles</h2>
+                <h3>¿Qué es la arquitectura de una aplicación?</h3>
+                <div class="media-container">
+                    <img src="https://kinsta.com/es/wp-content/uploads/sites/8/2022/10/arquitectura-aplicaciones-web.png"
+                        alt="Code" loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        Es la forma en que se organiza un sistema.
+                    </div>
+                </div>
+                <h3>¿Qué es el frontend (“front-end”)?</h3>
+                <div class="media-container">
+                    <img src="https://codedamn.com/assets/images/learnpaths/og/frontend.png" alt="Code"
+                        loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        Es la parte de una aplicación o página web que el usuario puede ver y con la que puede
+                        interactuar.
+                    </div>
+                </div>
+                <h3>¿Qué es el backend (“bak-end”)?</h3>
+                <div class="media-container">
+                    <img src="https://uds.com.br/blog/wp-content/uploads/2024/09/Imagem-1-Comparativo-ilustrativo-das-diferencas-entre-front-end-e-back-end-1.jpg"
+                        alt="Code" loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        Es la parte de una aplicación que funciona en el servidor y que el usuario no ve.
+                    </div>
+                </div>
+                <h3>Tipos de aplicaciones</h3>
+                <h3>¿Qué son las aplicaciones nativas?</h3>
+                <div class="media-container">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2d2SOz6KrdeShcKJyzZYEGXcEAyq0zNoDHg&s"
+                        alt="Code" loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        Son programas desarrollados específicamente para un sistema operativo.
+                    </div>
+                </div>
+                <h3>¿Qué son las aplicaciones híbridas?</h3>
+                <div class="media-container">
+                    <img src="https://concepto.de/wp-content/uploads/2018/02/sistemas-de-informacion.jpg" alt="Code"
+                        loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        Son aplicaciones desarrolladas con tecnologías web, pero que pueden instalarse en dispositivos
+                        móviles.
+                    </div>
+                </div>
+                <h3>¿Qué son las aplicaciones web?</h3>
+                <div class="media-container">
+                    <img src="https://www.zervizgroup.com/wp-content/uploads/2021/09/omni-channel-technology-of-online-retail-business-1-scaled-1.jpg"
+                        alt="Code" loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        Son programas que funcionan a través de un navegador de internet, sin necesidad de instalarlos.
+                    </div>
+                </div>
+                <h3>¿Qué es el cliente–servidor?</h3>
+                <div class="media-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Cliente-Servidor.png" alt="Code"
+                        loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        Es un modelo de comunicación donde se comunica un dispositivo cliente con otro llamado servidor.
+                    </div>
+                </div>
+                <h3>¿Qué es MVC?</h3>
+                <div class="media-container">
+                    <img src="https://www.freecodecamp.org/espanol/news/content/images/2021/06/MVC3.png" alt="Code"
+                        loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        Es un patrón de arquitectura de software que organiza una aplicación en tres partes.
+                    </div>
+                </div>
+                <h3>¿Qué es MVVM?</h3>
+                <div class="media-container">
+                    <img src="https://keepcoding.io/wp-content/uploads/2023/07/image-34.png" alt="Code"
+                        loading="lazy" />
+                    <div class="texto-encima-imagen texto-abajo">
+                        Es un patrón de arquitectura de software que organiza una aplicación en tres partes.
+                    </div>
+                </div>
+                <h3>Diferencia entre Controlador (MVC) y ViewModel (MVVM)</h3>
+                <p>
+                    El Controlador responde a eventos del usuario y controla el flujo de la aplicación, mientras que el
+                    ViewModel
+                    prepara los datos y mantiene sincronizada la vista con el modelo.
+                </p>
+                <h3>¿Qué es SPA (“es-pi-ei”)?</h3>
+                <div class="media-container">
+                    <img src="https://i.ytimg.com/vi/2z0FChkphvo/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLD56g0SHJv2BZ9cTFg7j4WeJLNy_Q"
+                        alt="Code" loading="lazy" />
+                    <div class="texto-encima-imagen texto-abajo">
+                        Es una aplicación de una sola página.
+                    </div>
+                </div>
+                <details class="respuesta-box">
+                    <summary>Actividad 2</summary>
+
+                    <p>
+                        Lee cada una de las siguientes preguntas y responde <b>en tu cuaderno</b>.
+                        Cuando termines, toma una fotografía clara de tus respuestas y <b>súbela a la plataforma</b>.
+                    </p>
+
+                    <h3>Arquitectura de aplicaciones</h3>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Qué es la arquitectura de una aplicación?</span>
+                    </div>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Qué es el frontend?</span>
+                    </div>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Qué es el backend?</span>
+                    </div>
+
+                    <h3>Tipos de aplicaciones</h3>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Qué son las aplicaciones nativas?</span>
+                    </div>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Qué son las aplicaciones híbridas?</span>
+                    </div>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Qué son las aplicaciones web?</span>
+                    </div>
+
+                    <h3>Arquitectura de comunicación</h3>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Qué es el modelo cliente–servidor?</span>
+                    </div>
+
+                    <h3>Patrones de arquitectura</h3>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Qué es MVC?</span>
+                    </div>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Qué es MVVM?</span>
+                    </div>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>Explica la diferencia entre (MVC) y (MVVM).</span>
+                    </div>
+
+                    <h3>Arquitectura web moderna</h3>
+
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <span>¿Qué es SPA?</span>
+                    </div>
+
+                </details>
+            </section>
+
+            <section>
+                <h2>Programación para el Desarrollo Web y Móvil</h2>
+                <h3>HTML, CSS y JavaScript</h3>
+                <ul>
+                    <li><b>HTML</b> (estructura de la página)</li>
+                    <li><b>CSS</b> (diseño y estilo)</li>
+                    <li><b>JavaScript</b> (funcionalidad e interactividad)</li>
+                </ul>
+                <h3>¿Qué es HTML (“ei-ch-ti-em-el”)?</h3>
+                <div class="media-container">
+                    <img src="https://niaxus.com/wp-content/uploads/2025/06/etiquetas-html.jpg" alt="Code"
+                        loading="lazy" />
+                    <div class="texto-encima-imagen texto-abajo">
+                        Es el lenguaje estándar que se utiliza para crear y estructurar
+                        páginas web.
+                    </div>
+                </div>
+                <p>
+                    HTML permite organizar el contenido de una página mediante etiquetas,
+                    indicando qué es cada elemento, por ejemplo:
+                </p>
+                <ul>
+                    <li>Títulos</li>
+                    <li>Párrafos</li>
+                    <li>Enlaces</li>
+                    <li>Imágenes</li>
+                    <li>Listas</li>
+                    <li>Tarjetas</li>
+                    <li>Tablas</li>
+                </ul>
+                <h3>Instalación de Visual Studio Code</h3>
+                <p>
+                    Visual Studio Code es un editor de código muy utilizado para desarrollar
+                    páginas web, aplicaciones y programas.
+                </p>
+                <p>
+                    Para comenzar primero debemos instalar Visual Studio Code
+                    en nuestro computador.
+                </p>
+
+                <p>
+                    <b>Paso 1.</b> Ingresa al sitio oficial de descarga.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+https://code.visualstudio.com
+</pre>
+                </div>
+
+                <p>
+                    <b>Paso 2.</b> Haz clic en el botón de descarga según tu sistema operativo.
+                </p>
+
+                <p>
+                    <b>Paso 3.</b> Ejecuta el archivo descargado para iniciar la instalación.
+                </p>
+
+                <p>
+                    <b>Paso 4.</b> Durante la instalación es recomendable activar las siguientes
+                    opciones.
+                </p>
+
+                <ul>
+                    <li>Add to PATH</li>
+                    <li>Add "Open with Code"</li>
+                    <li>Add to context menu</li>
+                </ul>
+                <br>
+
+                <p>
+                    <b>Paso 5.</b> Haz clic en <b>Install</b> y espera a que termine la instalación.
+                </p>
+
+                <p>
+                    <b>Paso 6.</b> Una vez finalizada la instalación puedes abrir Visual Studio Code
+                    y comenzar a crear tus archivos de programación.
+                </p>
+                <h3>¿Qué es la estructura básica de HTML?</h3>
+                <p>
+                    La estructura básica de HTML es la organización inicial que debe tener toda página web para que el
+                    navegador
+                    pueda interpretarla correctamente.
+                </p>
+                <p>
+                    Esta estructura define el tipo de documento, la configuración de la página y el contenido que se
+                    mostrará al
+                    usuario.
+                </p>
+                <h3>Ejemplo de estructura básica:</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+
+    &lt;head&gt;
+
+    &lt;/head&gt;
+
+    &lt;body&gt;
+
+    &lt;/body&gt;
+
+&lt;/html&gt;
+</pre>
+                </div>
+                <p>
+                    La indentación es importante porque permite que el código sea más ordenado y fácil de leer.
+                </p>
+                <h3>¿Cómo se colocan títulos del 1 al 6 en HTML?</h3>
+                <p>
+                    En HTML los títulos se crean utilizando las etiquetas h1 hasta h6.
+                </p>
+                <p>
+                    El h1 es el título más importante y el h6 es el menos importante.
+                </p>
+                <p>
+                    Ejemplo:
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;h1&gt;Título principal&lt;/h1&gt;
+&lt;h2&gt;Subtítulo&lt;/h2&gt;
+&lt;h3&gt;Sección&lt;/h3&gt;
+&lt;h4&gt;Subsección&lt;/h4&gt;
+&lt;h5&gt;Título menor&lt;/h5&gt;
+&lt;h6&gt;Título más pequeño&lt;/h6&gt;
+</pre>
+                </div>
+                <p>
+                    Para probar este código, debes colocarlo dentro de la etiqueta body de tu archivo HTML, ya que el
+                    contenido
+                    visible de la página web se escribe dentro de esta sección.
+                </p>
+                <h3>¿Cómo colocar un párrafo en HTML?</h3>
+                <p>
+                    Para colocar un párrafo en HTML se utiliza la etiqueta p, la cual permite escribir bloques de texto
+                    dentro de
+                    una página web.
+                </p>
+                <p>
+                    Ejemplo:
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;p&gt;Este es un párrafo de texto en una página web.&lt;/p&gt;
+</pre>
+                </div>
+                <p>
+                    Para probar este código, debes colocarlo dentro de la etiqueta body de tu archivo HTML.
+                </p>
+                <h3>¿Cómo hacer un salto de línea en HTML?</h3>
+                <p>
+                    Para hacer un salto de línea en HTML se utiliza la etiqueta br, que permite continuar el texto en la
+                    siguiente
+                    línea sin crear un nuevo párrafo.
+                </p>
+                <p>
+                    Ejemplo:
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;p&gt;
+Primera línea de texto.&lt;br&gt;
+Segunda línea de texto.&lt;br&gt;
+Tercera línea de texto.
+&lt;/p&gt;
+</pre>
+                </div>
+                <h3>¿Cómo crear una línea horizontal en HTML?</h3>
+                <p>
+                    Para crear una línea horizontal en HTML se utiliza la etiqueta hr, la cual permite separar secciones
+                    de
+                    contenido dentro de una página web.
+                </p>
+                <p>
+                    Ejemplo:
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;p&gt;Primer contenido&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;Segundo contenido&lt;/p&gt;
+</pre>
+                </div>
+                <h3>¿Cómo colocar texto en negrita en HTML?</h3>
+                <p>
+                    Para colocar texto en negrita se utiliza la etiqueta b, la cual hace que el texto se vea más
+                    destacado.
+                </p>
+                <p>
+                    Ejemplo:
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;p&gt;Este texto está en &lt;b&gt;negrita&lt;/b&gt;.&lt;/p&gt;
+</pre>
+                </div>
+                <h3>¿Cómo colocar texto en cursiva en HTML?</h3>
+                <p>
+                    Para colocar texto en cursiva se utiliza la etiqueta i, la cual inclina el texto para resaltarlo.
+                </p>
+                <p>
+                    Ejemplo:
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;p&gt;Este texto está en &lt;i&gt;cursiva&lt;/i&gt;.&lt;/p&gt;
+</pre>
+                </div>
+                <h3>¿Cómo colocar listas en HTML?</h3>
+                <p>
+                    En HTML se pueden crear listas para organizar información.
+                </p>
+                <p>
+                    Existen principalmente dos tipos de listas: listas ordenadas y listas no ordenadas.
+                </p>
+                <p>
+                    Los elementos de la lista se crean con la etiqueta li.
+                </p>
+                <p>
+                    Lista no ordenada (con viñetas):
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;ul&gt;
+  &lt;li&gt;Manzana&lt;/li&gt;
+  &lt;li&gt;Naranja&lt;/li&gt;
+  &lt;li&gt;Banana&lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+                </div>
+                <p>
+                    Lista ordenada (con números):
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;ol&gt;
+  &lt;li&gt;Primer paso&lt;/li&gt;
+  &lt;li&gt;Segundo paso&lt;/li&gt;
+  &lt;li&gt;Tercer paso&lt;/li&gt;
+&lt;/ol&gt;
+</pre>
+                </div>
+                <p>
+                    La lista ordenada permite cambiar el estilo de numeración utilizando el atributo type.
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;ol type="A"&gt;
+  &lt;li&gt;Primer punto&lt;/li&gt;
+  &lt;li&gt;Segundo punto&lt;/li&gt;
+  &lt;li&gt;Tercer punto&lt;/li&gt;
+&lt;/ol&gt;
+</pre>
+                </div>
+                <p>
+                    Tipos más comunes:
+                </p>
+                <ul>
+                    <li>
+                        1 → números (por defecto)
+                    </li>
+                    <li>
+                        A → letras mayúsculas
+                    </li>
+                    <li>
+                        a → letras minúsculas
+                    </li>
+                    <li>
+                        I → números romanos mayúsculos
+                    </li>
+                    <li>
+                        i → números romanos minúsculos
+                    </li>
+                </ul>
+                <p>
+                    Se utiliza el atributo start para indicar desde qué número comenzará la lista.
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;ol start="5"&gt;
+  &lt;li&gt;Paso cinco&lt;/li&gt;
+  &lt;li&gt;Paso seis&lt;/li&gt;
+  &lt;li&gt;Paso siete&lt;/li&gt;
+&lt;/ol&gt;
+</pre>
+                </div>
+                <p>
+                    Se utiliza el atributo reversed para mostrar la lista en orden descendente.
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;ol reversed&gt;
+  &lt;li&gt;Tercer lugar&lt;/li&gt;
+  &lt;li&gt;Segundo lugar&lt;/li&gt;
+  &lt;li&gt;Primer lugar&lt;/li&gt;
+&lt;/ol&gt;
+</pre>
+                </div>
+                <h3>¿Cómo crear enlaces en HTML?</h3>
+                <p>
+                    Para crear enlaces en HTML se utiliza la etiqueta a (anchor).
+                </p>
+                <p>
+                    Esta etiqueta permite dirigir al usuario a otra página web, archivo o sección dentro de la misma
+                    página.
+                </p>
+                <p>
+                    Ejemplo:
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;a href="https://www.google.com"&gt;Ir a Google&lt;/a&gt;
+</pre>
+                </div>
+                <p>
+                    Se puede abrir el enlace en una nueva pestaña con el atributo target="_blank"
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;a href="https://www.wikipedia.org" target="_blank"&gt;Abrir Wikipedia&lt;/a&gt;
+</pre>
+                </div>
+                <h3>¿Cómo agrupar elementos en HTML?</h3>
+                <p>
+                    Para agrupar elementos en HTML se utiliza la etiqueta div, la cual permite reunir varios elementos
+                    dentro de un
+                    mismo contenedor.
+                </p>
+                <p>
+                    Ejemplo:
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;div&gt;
+  &lt;h2&gt;Información del curso&lt;/h2&gt;
+  &lt;p&gt;Este curso enseña desarrollo web.&lt;/p&gt;
+  &lt;a href="#"&gt;Leer más&lt;/a&gt;
+&lt;/div&gt;
+</pre>
+                </div>
+                <details class="respuesta-box">
+                    <summary>Actividad 3</summary>
+
+                    <p>
+                        Realiza los siguientes ejercicios en tu computadora creando archivos HTML.
+                        Cada ejercicio debe tener su propio archivo <b>index.html</b>.
+                    </p>
+
+                    <h3>Ejercicios básicos</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>1. Crear una página HTML con un título h1
+                            que diga "Mi
+                            primera página".</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>2. Crear una página con un título h1 y un
+                            párrafo.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>3. Crear una página con dos párrafos
+                            diferentes.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>4. Crear una página con un texto en
+                            negrita.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>5. Crear una página con un texto en
+                            cursiva.</span>
+                    </div>
+
+                    <h3>Títulos</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>6. Crear una página que utilice los títulos
+                            h1, h2 y
+                            h3.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>7. Crear una página que utilice todos los
+                            títulos desde
+                            h1 hasta h6.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>8. Crear una página con un título principal
+                            y dos
+                            subtítulos.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>9. Crear una página con tres secciones
+                            usando
+                            títulos.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>10. Crear una página con un título y tres
+                            párrafos.</span></div>
+
+                    <h3>Formato de texto</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>11. Crear un párrafo que tenga una palabra
+                            en
+                            negrita.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>12. Crear un párrafo que tenga una palabra
+                            en
+                            cursiva.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>13. Crear un párrafo que combine negrita y
+                            cursiva.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>14. Crear dos párrafos separados por una
+                            línea
+                            horizontal.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>15. Crear un párrafo con tres saltos de
+                            línea.</span>
+                    </div>
+
+                    <h3>Listas</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>16. Crear una lista no ordenada con tres
+                            frutas.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>17. Crear una lista ordenada con tres pasos
+                            para
+                            estudiar.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>18. Crear una lista ordenada con cinco
+                            elementos.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>19. Crear una lista ordenada con
+                            letras.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>20. Crear una lista ordenada con números
+                            romanos.</span></div>
+
+                    <h3>Listas avanzadas</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>21. Crear una lista ordenada que comience
+                            desde el
+                            número 5.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>22. Crear una lista ordenada en orden
+                            inverso.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>23. Crear una lista de tres
+                            ciudades.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>24. Crear una lista con cinco comidas
+                            favoritas.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>25. Crear una lista de tres materias de
+                            estudio.</span>
+                    </div>
+
+                    <h3>Enlaces</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>26. Crear un enlace que lleve a
+                            Google.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>27. Crear un enlace que lleve a
+                            Wikipedia.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>28. Crear un enlace que abra una página en
+                            otra
+                            pestaña.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>29. Crear dos enlaces diferentes en la
+                            misma
+                            página.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>30. Crear un párrafo que contenga un
+                            enlace.</span>
+                    </div>
+
+                    <h3>Div y agrupación</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>31. Crear un div que contenga un título y
+                            un
+                            párrafo.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>32. Crear un div con un título, un párrafo
+                            y un
+                            enlace.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>33. Crear dos div diferentes con contenido
+                            distinto.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>34. Crear un div que contenga una
+                            lista.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>35. Crear un div con tres párrafos.</span>
+                    </div>
+
+                    <h3>Retos</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>36. Crear una página con tres secciones
+                            usando
+                            div.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>37. Crear una página con un título, una
+                            lista y un
+                            enlace.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>38. Crear una página con dos listas
+                            diferentes.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>39. Crear una página que tenga cinco
+                            párrafos.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>40. Crear una página con dos enlaces y una
+                            lista.</span></div>
+
+                    <h3>Desafíos finales</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>41. Crear una página con una sección de
+                            presentación
+                            personal.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>42. Crear una página con una lista de
+                            hobbies.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>43. Crear una página con una lista de
+                            objetivos.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>44. Crear una página con tres enlaces de
+                            páginas
+                            educativas.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>45. Crear una página con un título y cuatro
+                            párrafos.</span></div>
+
+                    <div class="checklist-item"><input type="checkbox"><span>46. Crear una página que combine títulos,
+                            listas y
+                            enlaces.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>47. Crear una página que tenga tres div
+                            organizando el
+                            contenido.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>48. Crear una página con un título, una
+                            lista y un
+                            párrafo en negrita.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>49. Crear una página con una lista ordenada
+                            y otra no
+                            ordenada.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>50. Crear una página que combine todo lo
+                            aprendido:
+                            títulos, párrafos, listas, enlaces y div.</span></div>
+
+                </details>
+                <h3>¿Cómo colocar imágenes en HTML?</h3>
+                <p>
+                    Para mostrar imágenes en una página web se utiliza la etiqueta img.
+                </p>
+                <p>
+                    Existen dos formas comunes de usar imágenes en HTML:
+                </p>
+                <ul>
+                    <li>
+                        Usando una imagen descargada en la computadora
+                    </li>
+                    <li>
+                        Usando la URL de una imagen en internet
+                    </li>
+                </ul>
+                <h3>Usar una imagen descargada</h3>
+                <p>
+                    Primero debes descargar la imagen y guardarla dentro de tu proyecto.
+                </p>
+                <p>
+                    Una forma organizada de trabajar es crear una carpeta llamada img dentro de tu proyecto.
+                </p>
+                <p>
+                    Ejemplo:
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+mi-proyecto
+│
+├── index.html
+└── img
+    └── paisaje.jpg
+</pre>
+                </div>
+                <p>
+                    Luego puedes mostrar la imagen en tu página HTML indicando la ruta de la carpeta.
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;img src="img/paisaje.jpg" alt="Paisaje de montañas"&gt;
+</pre>
+                </div>
+                <p>
+                    Explicación
+                </p>
+                <ul>
+                    <li>
+                        img → etiqueta para mostrar imágenes
+                    </li>
+                    <li>
+                        src → indica la ubicación de la imagen
+                    </li>
+                    <li>
+                        alt → describe la imagen
+                    </li>
+                </ul>
+                <h3>Usar una imagen desde internet (URL)</h3>
+                <p>
+                    También se puede mostrar una imagen utilizando la dirección de internet de la imagen.
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;img src="https://images.unsplash.com/photo-1506744038136-de0b4c0b4c4b" alt="Paisaje natural"&gt;
+</pre>
+                </div>
+                <h3>Cambiar el tamaño de la imagen</h3>
+                <p>
+                    Puedes modificar el tamaño utilizando el atributo width.
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;img src="img/paisaje.jpg" alt="Paisaje" width="300"&gt;
+</pre>
+                </div>
+                <h3>¿Cómo crear tablas en HTML?</h3>
+                <p>
+                    Las tablas en HTML permiten organizar información en filas y columnas, de forma similar a una hoja
+                    de cálculo.
+                </p>
+                <p>
+                    Para crear una tabla se utilizan tres etiquetas principales:
+                </p>
+                <ul>
+                    <li>
+                        table → define la tabla
+                    </li>
+                    <li>
+                        tr → define una fila
+                    </li>
+                    <li>
+                        td → define una celda
+                    </li>
+                </ul>
+                <p>
+                    Ejmeplo:
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;table&gt;
+
+  &lt;tr&gt;
+    &lt;td&gt;Juan&lt;/td&gt;
+    &lt;td&gt;20&lt;/td&gt;
+  &lt;/tr&gt;
+
+  &lt;tr&gt;
+    &lt;td&gt;María&lt;/td&gt;
+    &lt;td&gt;22&lt;/td&gt;
+  &lt;/tr&gt;
+
+&lt;/table&gt;
+</pre>
+                </div>
+                <h3>Tabla con encabezados</h3>
+                <p>
+                    Para los títulos utiliza la etiqueta th.
+                </p>
+                <p>
+                    Ejemplo:
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;table&gt;
+
+  &lt;tr&gt;
+    &lt;th&gt;Nombre&lt;/th&gt;
+    &lt;th&gt;Edad&lt;/th&gt;
+  &lt;/tr&gt;
+
+  &lt;tr&gt;
+    &lt;td&gt;Juan&lt;/td&gt;
+    &lt;td&gt;20&lt;/td&gt;
+  &lt;/tr&gt;
+
+  &lt;tr&gt;
+    &lt;td&gt;María&lt;/td&gt;
+    &lt;td&gt;22&lt;/td&gt;
+  &lt;/tr&gt;
+
+&lt;/table&gt;
+</pre>
+                </div>
+                <h3>¿Cómo unir celdas en tablas HTML?</h3>
+                <p>
+                    En HTML es posible unir celdas de una tabla para que ocupen más espacio.
+                </p>
+                <p>
+                    Esto se puede hacer horizontalmente o verticalmente.
+                </p>
+                <p>
+                    Para ello se utilizan dos atributos:
+                </p>
+                <ul>
+                    <li>
+                        colspan → une celdas horizontalmente (columnas)
+                    </li>
+                    <li>
+                        rowspan → une celdas verticalmente (filas)
+                    </li>
+                </ul>
+                <br>
+                <p>
+                    Ejemplo Unir celdas horizontalmente
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;table border="1"&gt;
+
+  &lt;tr&gt;
+    &lt;th colspan="2"&gt;Información del estudiante&lt;/th&gt;
+  &lt;/tr&gt;
+
+  &lt;tr&gt;
+    &lt;td&gt;Nombre&lt;/td&gt;
+    &lt;td&gt;Edad&lt;/td&gt;
+  &lt;/tr&gt;
+
+  &lt;tr&gt;
+    &lt;td&gt;Juan&lt;/td&gt;
+    &lt;td&gt;20&lt;/td&gt;
+  &lt;/tr&gt;
+
+&lt;/table&gt;
+</pre>
+                </div>
+                <p>
+                    Ejemplo Unir celdas verticalmente
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;table border="1"&gt;
+
+  &lt;tr&gt;
+    &lt;th&gt;Nombre&lt;/th&gt;
+    &lt;th&gt;Materia&lt;/th&gt;
+  &lt;/tr&gt;
+
+  &lt;tr&gt;
+    &lt;td rowspan="2"&gt;Juan&lt;/td&gt;
+    &lt;td&gt;Matemática&lt;/td&gt;
+  &lt;/tr&gt;
+
+  &lt;tr&gt;
+    &lt;td&gt;Programación&lt;/td&gt;
+  &lt;/tr&gt;
+
+&lt;/table&gt;
+</pre>
+                </div>
+                <h3>¿Cómo crear botones en HTML?</h3>
+                <p>
+                    Los botones permiten que el usuario realice acciones en una página web, como enviar información,
+                    ejecutar
+                    funciones o navegar a otra página.
+                </p>
+                <p>
+                    Ejemplo:
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;button&gt;Haz clic aquí&lt;/button&gt;
+</pre>
+                </div>
+                <h3>Botón dentro de un enlace</h3>
+                <p>
+                    Un botón también puede utilizarse para abrir otra página web.
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;a href="https://www.google.com"&gt;
+  &lt;button&gt;Ir a Google&lt;/button&gt;
+&lt;/a&gt;
+</pre>
+                </div>
+                <h3>Botón con atributo type</h3>
+                <p>
+                    Los botones también pueden tener diferentes tipos.
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;button type="button"&gt;Botón normal&lt;/button&gt;
+</pre>
+                </div>
+                <p>
+                    Algunos tipos comunes son:
+                </p>
+                <ul>
+                    <li>
+                        button → botón normal
+                    </li>
+                    <li>
+                        submit → enviar formularios
+                    </li>
+                    <li>
+                        reset → reiniciar formularios
+                    </li>
+                </ul>
+                <h3>¿Cómo crear elementos para guardar datos en HTML?</h3>
+                <p>
+                    Para permitir que los usuarios ingresen información en una página web, se utilizan los inputs.
+                </p>
+                <h3>Input de texto</h3>
+                <p>
+                    Permite que el usuario escriba información.
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;input type="text"&gt;
+</pre>
+                </div>
+                <h3>Input con etiqueta</h3>
+                <p>
+                    Cuando se crean inputs, es recomendable usar la etiqueta label.
+                </p>
+                <p>
+                    Para relacionar correctamente la etiqueta con el campo se utilizan los atributos for y id.
+                </p>
+                <p>
+                    Ejemplo:
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;label for="nombre"&gt;Nombre&lt;/label&gt;
+&lt;input type="text" id="nombre"&gt;
+</pre>
+                </div>
+                <p>
+                    Explicación
+                </p>
+                <ul>
+                    <li>
+                        label → muestra el texto que describe el campo.
+                    </li>
+                    <li>
+                        for="nombre" → conecta la etiqueta con el input.
+                    </li>
+                    <li>
+                        id="nombre" → identifica el campo de entrada.
+                    </li>
+                </ul>
+                <h3>Input para correo electrónico</h3>
+                <p>
+                    Se utiliza cuando el usuario debe ingresar un correo electrónico.
+                </p>
+                <p>
+                    Ejemplo:
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;label for="correo"&gt;Correo electrónico&lt;/label&gt;
+&lt;input type="email" id="correo"&gt;
+</pre>
+                </div>
+                <h3>Input para contraseña</h3>
+                <p>
+                    Permite ingresar una contraseña y oculta los caracteres que se escriben.
+                </p>
+                <p>
+                    Ejemplo:
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;label for="clave"&gt;Contraseña&lt;/label&gt;
+&lt;input type="password" id="clave"&gt;
+</pre>
+                </div>
+                <h3>Input para números</h3>
+                <p>
+                    Se utiliza para ingresar valores numéricos.
+                </p>
+                <p>
+                    Ejemplo:
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;label for="edad"&gt;Edad&lt;/label&gt;
+&lt;input type="number" id="edad"&gt;
+</pre>
+                </div>
+                <h3>¿Cómo crear un formulario en HTML?</h3>
+                <p>
+                    Un formulario permite que los usuarios ingresen y envíen información en una página web, como
+                    nombres, correos o
+                    contraseñas.
+                </p>
+                <p>
+                    Ejemplo:
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;form&gt;
+
+&lt;label for="nombre"&gt;Nombre&lt;/label&gt;
+&lt;input type="text" id="nombre"&gt;
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;label for="correo"&gt;Correo electrónico&lt;/label&gt;
+&lt;input type="email" id="correo"&gt;
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;label for="clave"&gt;Contraseña&lt;/label&gt;
+&lt;input type="password" id="clave"&gt;
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;button type="submit"&gt;Enviar&lt;/button&gt;
+
+&lt;/form&gt;
+</pre>
+                </div>
+                <p>
+                    Explicación
+                </p>
+                <ul>
+                    <li>
+                        form → crea el formulario.
+                    </li>
+                    <li>
+                        label → describe el campo que debe llenar el usuario.
+                    </li>
+                    <li>
+                        input → campo donde el usuario escribe información.
+                    </li>
+                    <li>
+                        button → botón para enviar el formulario.
+                    </li>
+                </ul>
+                <h3>Formularios con GET y POST</h3>
+                <p>
+                    Cuando un formulario envía información a un servidor, se utilizan los atributos action y method
+                    dentro de la
+                    etiqueta form.
+                </p>
+                <ul>
+                    <li>
+                        action → indica a qué página se enviarán los datos.
+                    </li>
+                    <li>
+                        method → indica cómo se enviarán los datos.
+                    </li>
+                </ul>
+                <p>
+                    Los métodos más usados son:
+                </p>
+                <ul>
+                    <li>
+                        GET → envía los datos en la URL.
+                    </li>
+                    <li>
+                        POST → envía los datos de forma oculta en el cuerpo de la petición
+                    </li>
+                </ul>
+                <p>
+                    Ejemplo de GET
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;form action="procesar.html" method="get"&gt;
+
+&lt;label for="nombre"&gt;Nombre&lt;/label&gt;
+&lt;input type="text" id="nombre" name="nombre"&gt;
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;label for="correo"&gt;Correo&lt;/label&gt;
+&lt;input type="email" id="correo" name="correo"&gt;
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;button type="submit"&gt;Enviar&lt;/button&gt;
+
+&lt;/form&gt;
+</pre>
+                </div>
+                <p>
+                    Ejemplo de POST
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;form action="procesar.html" method="post"&gt;
+
+&lt;label for="usuario"&gt;Usuario&lt;/label&gt;
+&lt;input type="text" id="usuario" name="usuario"&gt;
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;label for="clave"&gt;Contraseña&lt;/label&gt;
+&lt;input type="password" id="clave" name="clave"&gt;
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;button type="submit"&gt;Iniciar sesión&lt;/button&gt;
+
+&lt;/form&gt;
+</pre>
+                </div>
+                <h3>¿Cómo crear áreas de texto en HTML?</h3>
+                <p>
+                    En los formularios, a veces se necesita que el usuario escriba textos más largos, como comentarios,
+                    mensajes o
+                    descripciones.
+                </p>
+                <p>
+                    Para esto se utiliza la etiqueta textarea, que permite ingresar varias líneas de texto.
+                </p>
+                <p>
+                    A diferencia del input, que permite escribir en una sola línea, textarea permite escribir en varias
+                    líneas.
+                </p>
+                <p>
+                    Ejemplo:
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;label for="mensaje"&gt;Mensaje&lt;/label&gt;
+&lt;textarea id="mensaje"&gt;&lt;/textarea&gt;
+</pre>
+                </div>
+                <h3>Área de texto con tamaño definido</h3>
+                <p>
+                    Se puede controlar el tamaño usando los atributos rows y cols.
+                </p>
+                <ul>
+                    <li>
+                        rows → indica la cantidad de líneas visibles.
+                    </li>
+                    <li>
+                        cols → indica el ancho del área de texto.
+                    </li>
+                </ul>
+                <br>
+                <p>
+                    Ejemplo:
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;label for="comentario"&gt;Comentario&lt;/label&gt;
+
+&lt;textarea id="comentario" rows="5" cols="30"&gt;&lt;/textarea&gt;
+</pre>
+                </div>
+                <p>
+                    Ejemplo dentro de un formulario:
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;form&gt;
+
+&lt;label for="nombre"&gt;Nombre&lt;/label&gt;
+&lt;input type="text" id="nombre"&gt;
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;label for="mensaje"&gt;Mensaje&lt;/label&gt;
+&lt;textarea id="mensaje" rows="4" cols="30"&gt;&lt;/textarea&gt;
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;button type="submit"&gt;Enviar&lt;/button&gt;
+
+&lt;/form&gt;
+</pre>
+                </div>
+                <details class="respuesta-box">
+                    <summary>Actividad 4</summary>
+
+                    <p>
+                        Realiza los siguientes ejercicios en tu computadora.
+                        Cada ejercicio debe realizarse en un archivo <b>index.html</b>.
+                        Responde en tu cuaderno qué etiqueta utilizaste y luego sube tu trabajo a la plataforma.
+                    </p>
+
+                    <h3>Ejercicios básicos</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>1. Crear un formulario con un campo para
+                            escribir el
+                            nombre.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>2. Crear un formulario con un campo para
+                            ingresar
+                            correo electrónico.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>3. Crear un formulario con un campo para
+                            contraseña.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>4. Crear un formulario con un campo para
+                            ingresar la
+                            edad.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>5. Crear un formulario con dos campos:
+                            nombre y
+                            apellido.</span></div>
+
+                    <h3>Inputs</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>6. Crear un formulario con tres inputs de
+                            texto.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>7. Crear un formulario con un input de
+                            número.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>8. Crear un formulario con un input para
+                            correo.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>9. Crear un formulario con un input para
+                            contraseña.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>10. Crear un formulario con cuatro inputs
+                            diferentes.</span></div>
+
+                    <h3>Labels</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>11. Crear un input con su etiqueta
+                            label.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>12. Crear dos inputs con sus
+                            etiquetas.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>13. Crear tres campos con etiquetas
+                            conectadas usando
+                            id y for.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>14. Crear un formulario con nombre, correo
+                            y contraseña
+                            usando label.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>15. Crear un formulario con cuatro
+                            etiquetas
+                            diferentes.</span></div>
+
+                    <h3>Textarea</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>16. Crear un formulario con un textarea
+                            para
+                            comentarios.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>17. Crear un textarea con 4 filas.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>18. Crear un textarea con 6 filas.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>19. Crear un formulario con nombre y un
+                            textarea de
+                            mensaje.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>20. Crear un formulario con dos
+                            textarea.</span></div>
+
+                    <h3>Botones</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>21. Crear un formulario con un botón
+                            enviar.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>22. Crear un formulario con botón
+                            reset.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>23. Crear un formulario con dos
+                            botones.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>24. Crear un formulario con un botón que
+                            diga "Guardar
+                            datos".</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>25. Crear un formulario con un botón que
+                            diga "Enviar
+                            formulario".</span></div>
+
+                    <h3>GET y POST</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>26. Crear un formulario usando
+                            method="get".</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>27. Crear un formulario usando
+                            method="post".</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>28. Crear un formulario que envíe datos a
+                            procesar.php
+                            usando GET.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>29. Crear un formulario que envíe datos a
+                            procesar.php
+                            usando POST.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>30. Crear un formulario con
+                            action="guardar.php".</span></div>
+
+                    <h3>Retos</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>31. Crear un formulario con nombre, correo
+                            y
+                            edad.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>32. Crear un formulario de registro de
+                            estudiante.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>33. Crear un formulario para enviar
+                            comentarios.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>34. Crear un formulario de contacto.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>35. Crear un formulario de inicio de
+                            sesión.</span>
+                    </div>
+
+                    <h3>Desafíos</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>36. Crear un formulario con cinco campos
+                            diferentes.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>37. Crear un formulario con nombre, correo,
+                            contraseña
+                            y comentario.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>38. Crear un formulario para registrar un
+                            usuario.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>39. Crear un formulario con dos
+                            textarea.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>40. Crear un formulario con cuatro inputs y
+                            un
+                            botón.</span></div>
+
+                    <h3>Desafío final</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>41. Crear un formulario de registro
+                            completo.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>42. Crear un formulario de contacto con
+                            nombre, correo
+                            y mensaje.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>43. Crear un formulario para registrar
+                            estudiantes.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>44. Crear un formulario para enviar
+                            sugerencias.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>45. Crear un formulario para registro de
+                            usuarios.</span></div>
+
+                    <div class="checklist-item"><input type="checkbox"><span>46. Crear un formulario con nombre, edad,
+                            correo y
+                            mensaje.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>47. Crear un formulario con 6 campos
+                            diferentes.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>48. Crear un formulario que combine inputs,
+                            textarea y
+                            botones.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>49. Crear un formulario completo usando
+                            method
+                            POST.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>50. Crear un formulario que utilice todo lo
+                            aprendido.</span></div>
+
+                </details>
+                <h3>¿Cómo crear campos de selección en HTML?</h3>
+                <p>
+                    En los formularios también es posible permitir que el usuario seleccione una opción de una lista.
+                </p>
+                <p>
+                    En los formularios también es posible permitir que el usuario seleccione una opción de una lista.
+                </p>
+                <p>
+                    Este tipo de campo es útil cuando el usuario debe elegir una opción entre varias, por ejemplo: país,
+                    ciudad o
+                    carrera.
+                </p>
+                <p>
+                    Ejemplo:
+                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;form&gt;
+
+&lt;label for="nombre"&gt;Nombre&lt;/label&gt;
+&lt;input type="text" id="nombre"&gt;
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;label for="carrera"&gt;Carrera&lt;/label&gt;
+
+&lt;select id="carrera"&gt;
+  &lt;option&gt;Informática&lt;/option&gt;
+  &lt;option&gt;Administración&lt;/option&gt;
+  &lt;option&gt;Marketing&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;button type="submit"&gt;Enviar&lt;/button&gt;
+
+&lt;/form&gt;
+</pre>
+                </div>
+                <h3>Selección con opción inicial</h3>
+                <p>
+                    Se puede colocar una opción inicial para indicar al usuario que debe elegir una opción válida.
+                    Esta opción funciona como un mensaje inicial y no puede ser seleccionada.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;form&gt;
+
+&lt;label for="ciudad"&gt;Ciudad&lt;/label&gt;
+
+&lt;select id="ciudad" name="ciudad"&gt;
+  &lt;option value="tarija"&gt;Tarija&lt;/option&gt;
+  &lt;option value="lapaz"  selected&gt;La Paz&lt;/option&gt;
+  &lt;option value="santacruz"&gt;Santa Cruz&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;button type="submit"&gt;Enviar&lt;/button&gt;
+
+&lt;/form&gt;
+</pre>
+                </div>
+                <h3>¿Cómo seleccionar una opción?</h3>
+                <p>
+                    Cuando se necesita que el usuario elija <b>solo una opción entre varias</b>, se utilizan los
+                    <b>radio button</b>. Este tipo de control permite seleccionar una única alternativa dentro de un
+                    grupo.
+                </p>
+
+                <p>
+                    Para que los radio button funcionen correctamente, todos deben tener el mismo atributo
+                    <b>name</b>. De esta manera el navegador entiende que pertenecen al mismo grupo y solo
+                    permitirá seleccionar una opción.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;form&gt;
+
+&lt;p&gt;Seleccione su turno&lt;/p&gt;
+
+&lt;input type="radio" id="manana" name="turno" value="manana"&gt;
+&lt;label for="manana"&gt;Mañana&lt;/label&gt;
+&lt;br&gt;
+
+&lt;input type="radio" id="tarde" name="turno" value="tarde"&gt;
+&lt;label for="tarde"&gt;Tarde&lt;/label&gt;
+&lt;br&gt;
+
+&lt;input type="radio" id="noche" name="turno" value="noche"&gt;
+&lt;label for="noche"&gt;Noche&lt;/label&gt;
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;button type="submit"&gt;Enviar&lt;/button&gt;
+
+&lt;/form&gt;
+</pre>
+                </div>
+
+                <p>
+                    En este ejemplo se presentan tres opciones: <b>Mañana</b>, <b>Tarde</b> y <b>Noche</b>.
+                    Todas las opciones tienen el mismo atributo <b>name="turno"</b>, lo que indica que
+                    pertenecen al mismo grupo. Por esta razón, el usuario solo podrá seleccionar
+                    <b>una sola opción</b>.
+                </p>
+
+                <p>
+                    El atributo <b>value</b> representa el dato que se enviará cuando el formulario sea enviado.
+                    Por ejemplo, si el usuario selecciona <b>Tarde</b>, el formulario enviará el valor <b>tarde</b>.
+                </p>
+                <h3>Seleccionar varias opciones</h3>
+                <p>
+                    Cuando se necesita que el usuario pueda elegir <b>varias opciones al mismo tiempo</b>,
+                    se utilizan los <b>checkbox</b>. A diferencia de los radio button, los checkbox permiten
+                    marcar una o más opciones dentro de un formulario.
+                </p>
+
+                <p>
+                    Cada opción utiliza <b>type="checkbox"</b>. El usuario puede marcar todas las opciones
+                    que considere necesarias.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;form&gt;
+
+&lt;p&gt;Seleccione los lenguajes que conoce&lt;/p&gt;
+
+&lt;input type="checkbox" id="html" name="lenguajes" value="html"&gt;
+&lt;label for="html"&gt;HTML&lt;/label&gt;
+&lt;br&gt;
+
+&lt;input type="checkbox" id="css" name="lenguajes" value="css"&gt;
+&lt;label for="css"&gt;CSS&lt;/label&gt;
+&lt;br&gt;
+
+&lt;input type="checkbox" id="javascript" name="lenguajes" value="javascript"&gt;
+&lt;label for="javascript"&gt;JavaScript&lt;/label&gt;
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;button type="submit"&gt;Enviar&lt;/button&gt;
+
+&lt;/form&gt;
+</pre>
+                </div>
+
+                <p>
+                    En este ejemplo el usuario puede seleccionar uno, dos o todos los lenguajes.
+                    Cada opción funciona de manera independiente, por lo que se pueden marcar
+                    varias al mismo tiempo.
+                </p>
+                <details class="respuesta-box">
+                    <summary>Actividad 5</summary>
+
+                    <p>
+                        Realiza los siguientes ejercicios en tu computadora.
+                        Cada ejercicio debe realizarse en un archivo <b>index.html</b>.
+                        Responde en tu cuaderno qué etiqueta utilizaste y luego sube tu trabajo a la plataforma.
+                    </p>
+
+                    <h3>Select</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>1. Crear un formulario con un select de
+                            ciudades.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>2. Crear un select con tres países.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>3. Crear un select con una opción inicial
+                            que diga
+                            "Seleccione una opción".</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>4. Crear un select con cuatro opciones
+                            diferentes.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>5. Crear un formulario con un select de
+                            carreras
+                            universitarias.</span></div>
+
+                    <h3>Radio Button</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>6. Crear tres radio button para seleccionar
+                            turno
+                            (mañana, tarde, noche).</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>7. Crear dos radio button para seleccionar
+                            género.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>8. Crear tres radio button para elegir
+                            método de
+                            pago.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>9. Crear cuatro radio button para elegir
+                            nivel de
+                            estudio.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>10. Crear un formulario con radio button
+                            para elegir
+                            modalidad de estudio.</span></div>
+
+                    <h3>Checkbox</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>11. Crear tres checkbox para seleccionar
+                            lenguajes de
+                            programación.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>12. Crear cuatro checkbox para seleccionar
+                            hobbies.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>13. Crear checkbox para seleccionar redes
+                            sociales.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>14. Crear checkbox para seleccionar
+                            materias
+                            favoritas.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>15. Crear checkbox para seleccionar
+                            servicios de una
+                            empresa.</span></div>
+
+                    <h3>Select + Inputs</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>16. Crear un formulario con nombre y un
+                            select de
+                            ciudad.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>17. Crear un formulario con correo y un
+                            select de
+                            país.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>18. Crear un formulario con edad y un
+                            select de
+                            carrera.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>19. Crear un formulario con nombre, correo
+                            y select de
+                            país.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>20. Crear un formulario con tres inputs y
+                            un
+                            select.</span></div>
+
+                    <h3>Radio + Checkbox</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>21. Crear un formulario con radio button de
+                            turno y
+                            checkbox de materias.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>22. Crear un formulario con radio button de
+                            género y
+                            checkbox de hobbies.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>23. Crear un formulario con radio button de
+                            modalidad y
+                            checkbox de herramientas digitales.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>24. Crear un formulario con radio button de
+                            pago y
+                            checkbox de productos.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>25. Crear un formulario con radio button y
+                            tres
+                            checkbox.</span></div>
+
+                    <h3>Formularios completos</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>26. Crear un formulario con nombre, correo
+                            y selección
+                            de ciudad.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>27. Crear un formulario con nombre, edad y
+                            selección de
+                            carrera.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>28. Crear un formulario con radio button
+                            para
+                            seleccionar turno.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>29. Crear un formulario con checkbox para
+                            seleccionar
+                            habilidades.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>30. Crear un formulario que combine input,
+                            select y
+                            radio button.</span></div>
+
+                    <h3>Retos</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>31. Crear un formulario de registro de
+                            estudiante.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>32. Crear un formulario de encuesta.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>33. Crear un formulario de registro de
+                            usuario.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>34. Crear un formulario de preferencias de
+                            estudio.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>35. Crear un formulario de contacto.</span>
+                    </div>
+
+                    <h3>Desafíos</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>36. Crear un formulario con cinco campos
+                            diferentes.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>37. Crear un formulario con nombre, correo,
+                            ciudad y
+                            turno.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>38. Crear un formulario con radio button y
+                            checkbox
+                            combinados.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>39. Crear un formulario con select, radio
+                            button y
+                            checkbox.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>40. Crear un formulario con cuatro inputs y
+                            un
+                            select.</span></div>
+
+                    <h3>Desafío final</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>41. Crear un formulario de inscripción
+                            universitaria.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>42. Crear un formulario de registro de
+                            curso.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>43. Crear un formulario de encuesta
+                            estudiantil.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>44. Crear un formulario de registro con
+                            select, radio y
+                            checkbox.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>45. Crear un formulario completo con
+                            nombre, correo,
+                            ciudad, turno y habilidades.</span></div>
+
+                    <div class="checklist-item"><input type="checkbox"><span>46. Crear un formulario con seis campos
+                            diferentes.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>47. Crear un formulario con select, radio
+                            button y
+                            checkbox.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>48. Crear un formulario que combine inputs,
+                            select y
+                            checkbox.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>49. Crear un formulario completo usando
+                            method
+                            POST.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>50. Crear un formulario que utilice todo lo
+                            aprendido.</span></div>
+
+                </details>
+                <h3>¿Cómo organizar correctamente una página web para que sea fácil de entender para los buscadores?
+                </h3>
+
+                <p>
+                    Para organizar correctamente una página web y mejorar las buenas prácticas de SEO,
+                    HTML utiliza <b>etiquetas semánticas</b>. Estas etiquetas ayudan a estructurar el
+                    contenido de la página y permiten que los motores de búsqueda comprendan mejor
+                    qué tipo de información contiene cada parte del sitio.
+                </p>
+
+                <p>
+                    Las etiquetas semánticas más utilizadas son <b>header, nav, main, section, article,
+                        aside y footer</b>. Cada una tiene una función específica dentro de la estructura
+                    de la página.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;header&gt;
+  &lt;h1&gt;Mi sitio web&lt;/h1&gt;
+&lt;/header&gt;
+
+&lt;nav&gt;
+  &lt;a href="#"&gt;Inicio&lt;/a&gt;
+  &lt;a href="#"&gt;Servicios&lt;/a&gt;
+  &lt;a href="#"&gt;Contacto&lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;main&gt;
+
+  &lt;section&gt;
+    &lt;h2&gt;Servicios&lt;/h2&gt;
+
+    &lt;article&gt;
+      &lt;h3&gt;Desarrollo web&lt;/h3&gt;
+      &lt;p&gt;Creamos páginas web modernas.&lt;/p&gt;
+    &lt;/article&gt;
+
+    &lt;article&gt;
+      &lt;h3&gt;Aplicaciones móviles&lt;/h3&gt;
+      &lt;p&gt;Desarrollamos apps para Android.&lt;/p&gt;
+    &lt;/article&gt;
+
+  &lt;/section&gt;
+
+  &lt;aside&gt;
+    &lt;p&gt;Publicidad o información adicional&lt;/p&gt;
+  &lt;/aside&gt;
+
+&lt;/main&gt;
+
+&lt;footer&gt;
+  &lt;p&gt;© 2026 Mi sitio web&lt;/p&gt;
+&lt;/footer&gt;
+</pre>
+                </div>
+
+                <p>
+                    En este ejemplo cada etiqueta cumple una función específica:
+                </p>
+
+                <p>
+                    <b>header</b> representa el encabezado del sitio web.<br>
+                    <b>nav</b> contiene los enlaces de navegación.<br>
+                    <b>main</b> agrupa el contenido principal de la página.<br>
+                    <b>section</b> divide el contenido en secciones.<br>
+                    <b>article</b> contiene contenido independiente como noticias o artículos.<br>
+                    <b>aside</b> muestra información secundaria o complementaria.<br>
+                    <b>footer</b> representa el pie de página.
+                </p>
+
+                <p>
+                    Utilizar esta estructura mejora la organización del contenido y ayuda a que los
+                    motores de búsqueda comprendan mejor la página.
+                </p>
+                <h3>¿Cómo crear un encabezado en una página web?</h3>
+
+                <p>
+                    Para crear un encabezado en una página web se utiliza la etiqueta
+                    <b>header</b>. Esta etiqueta representa la parte superior del sitio y
+                    generalmente contiene el título del sitio, un logotipo o información
+                    introductoria.
+                </p>
+
+                <p>
+                    El encabezado ayuda a organizar la página y permite que los usuarios
+                    identifiquen rápidamente de qué trata el sitio web.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;header&gt;
+
+  &lt;h1&gt;Mi sitio web&lt;/h1&gt;
+
+  &lt;p&gt;Bienvenido a mi página&lt;/p&gt;
+
+&lt;/header&gt;
+</pre>
+                </div>
+
+                <p>
+                    En este ejemplo se crea un encabezado con un título principal y un
+                    pequeño texto de bienvenida.
+                </p>
+
+                <p>
+                    Normalmente el <b>header</b> se coloca al inicio de la página y puede
+                    contener también el menú de navegación del sitio.
+                </p>
+                <h3>¿Cómo crear un menú de navegación con nav?</h3>
+
+                <p>
+                    Para crear un menú de navegación en una página web se utiliza la etiqueta
+                    <b>nav</b>. Esta etiqueta se emplea para agrupar enlaces que permiten al
+                    usuario desplazarse a diferentes páginas o secciones del sitio.
+                </p>
+
+                <p>
+                    Dentro de la etiqueta <b>nav</b> normalmente se colocan enlaces utilizando
+                    la etiqueta <b>a</b>. Cada enlace representa una opción del menú.
+                </p>
+
+                <p>
+                    En este ejemplo no utilizaremos CSS, por lo tanto el menú aparecerá de forma
+                    vertical, mostrando un enlace debajo del otro.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;nav&gt;
+
+  &lt;a href="#"&gt;Inicio&lt;/a&gt;
+  &lt;br&gt;
+
+  &lt;a href="#"&gt;Servicios&lt;/a&gt;
+  &lt;br&gt;
+
+  &lt;a href="#"&gt;Cursos&lt;/a&gt;
+  &lt;br&gt;
+
+  &lt;a href="#"&gt;Contacto&lt;/a&gt;
+
+&lt;/nav&gt;
+</pre>
+                </div>
+
+                <p>
+                    En este ejemplo se crea un menú con cuatro enlaces: Inicio, Servicios,
+                    Cursos y Contacto. Cada enlace utiliza la etiqueta <b>a</b> y el atributo
+                    <b>href</b>, que indica a qué página se dirigirá el usuario cuando haga clic.
+                </p>
+
+                <p>
+                    La etiqueta <b>nav</b> ayuda a organizar los enlaces del sitio y permite
+                    que los buscadores identifiquen fácilmente el menú de navegación.
+                </p>
+                <h3>¿Cómo crear secciones en una página web?</h3>
+
+                <p>
+                    Para dividir el contenido de una página web en diferentes partes se utiliza
+                    la etiqueta <b>section</b>. Esta etiqueta permite organizar la información
+                    en bloques que tratan un mismo tema.
+                </p>
+
+                <p>
+                    Cada sección normalmente tiene un título utilizando una etiqueta
+                    <b>h2</b> o <b>h3</b>, seguido de un párrafo o contenido relacionado.
+                    Esto ayuda a que la página esté mejor organizada y sea más fácil de
+                    entender tanto para los usuarios como para los motores de búsqueda.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;section&gt;
+
+  &lt;h2&gt;Nuestros servicios&lt;/h2&gt;
+
+  &lt;p&gt;
+  Ofrecemos desarrollo de páginas web, aplicaciones móviles
+  y cursos de programación.
+  &lt;/p&gt;
+
+&lt;/section&gt;
+</pre>
+                </div>
+
+                <p>
+                    En este ejemplo se crea una sección llamada <b>Nuestros servicios</b>.
+                    Dentro de la sección se coloca un título y un párrafo que describe
+                    la información de ese apartado.
+                </p>
+
+                <p>
+                    En una página web pueden existir varias etiquetas <b>section</b>, cada una
+                    representando una parte diferente del contenido.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;section&gt;
+  &lt;h2&gt;Servicios&lt;/h2&gt;
+  &lt;p&gt;Desarrollo web y aplicaciones móviles.&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;section&gt;
+  &lt;h2&gt;Cursos&lt;/h2&gt;
+  &lt;p&gt;Cursos de programación y desarrollo web.&lt;/p&gt;
+&lt;/section&gt;
+</pre>
+                </div>
+
+                <p>
+                    De esta manera se puede dividir la página en diferentes secciones,
+                    permitiendo que el contenido esté más organizado.
+                </p>
+
+                <h3>¿Cómo crear artículos en una página web?</h3>
+
+                <p>
+                    Para mostrar contenido independiente dentro de una página web se utiliza
+                    la etiqueta <b>article</b>. Esta etiqueta se usa para representar
+                    información que puede entenderse por sí sola, como una noticia,
+                    una publicación de blog o un artículo informativo.
+                </p>
+
+                <p>
+                    Generalmente un <b>article</b> contiene un título y uno o más párrafos
+                    que explican el contenido.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;article&gt;
+
+  &lt;h3&gt;Curso de programación&lt;/h3&gt;
+
+  &lt;p&gt;
+  Aprende desarrollo web desde cero con ejemplos prácticos.
+  &lt;/p&gt;
+
+&lt;/article&gt;
+</pre>
+                </div>
+
+                <p>
+                    En este ejemplo se crea un artículo con un título y un párrafo que
+                    describe el contenido.
+                </p>
+
+                <p>
+                    Es común que los <b>article</b> se encuentren dentro de una
+                    <b>section</b>, especialmente cuando una sección contiene
+                    varios artículos relacionados.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;section&gt;
+
+  &lt;h2&gt;Cursos disponibles&lt;/h2&gt;
+
+  &lt;article&gt;
+    &lt;h3&gt;Curso de HTML&lt;/h3&gt;
+    &lt;p&gt;Aprende a crear páginas web desde cero.&lt;/p&gt;
+  &lt;/article&gt;
+
+  &lt;article&gt;
+    &lt;h3&gt;Curso de JavaScript&lt;/h3&gt;
+    &lt;p&gt;Aprende a programar interactividad en páginas web.&lt;/p&gt;
+  &lt;/article&gt;
+
+&lt;/section&gt;
+</pre>
+                </div>
+
+                <p>
+                    De esta manera se pueden organizar varios artículos dentro
+                    de una misma sección.
+                </p>
+                <h3>¿Cómo crear secciones con artículos dentro?</h3>
+
+                <p>
+                    Para organizar mejor el contenido de una página web se puede utilizar
+                    la etiqueta <b>section</b> para crear una sección temática y dentro de
+                    ella colocar uno o varios <b>article</b>. De esta manera se agrupan
+                    contenidos relacionados dentro de una misma parte de la página.
+                </p>
+
+                <p>
+                    La etiqueta <b>section</b> representa una parte del contenido que trata
+                    sobre un mismo tema, mientras que la etiqueta <b>article</b> representa
+                    contenido independiente como noticias, publicaciones o información específica.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;section&gt;
+
+  &lt;h2&gt;Cursos disponibles&lt;/h2&gt;
+
+  &lt;article&gt;
+    &lt;h3&gt;Curso de HTML&lt;/h3&gt;
+    &lt;p&gt;Aprende a crear páginas web desde cero.&lt;/p&gt;
+  &lt;/article&gt;
+
+  &lt;article&gt;
+    &lt;h3&gt;Curso de CSS&lt;/h3&gt;
+    &lt;p&gt;Aprende a diseñar páginas web modernas.&lt;/p&gt;
+  &lt;/article&gt;
+
+  &lt;article&gt;
+    &lt;h3&gt;Curso de JavaScript&lt;/h3&gt;
+    &lt;p&gt;Aprende a agregar interactividad a las páginas web.&lt;/p&gt;
+  &lt;/article&gt;
+
+&lt;/section&gt;
+</pre>
+                </div>
+
+                <p>
+                    En este ejemplo se crea una sección llamada <b>Cursos disponibles</b>.
+                    Dentro de esa sección se agregan tres artículos diferentes, cada uno con
+                    su propio título y descripción.
+                </p>
+
+                <p>
+                    Esta estructura permite organizar el contenido de manera clara y facilita
+                    que los buscadores comprendan mejor la información del sitio web.
+                </p>
+                <h3>¿Cómo crear una parte secundaria usando aside?</h3>
+
+                <p>
+                    Cuando una página web tiene información adicional o complementaria al
+                    contenido principal, se utiliza la etiqueta <b>aside</b>. Esta etiqueta
+                    representa contenido secundario que está relacionado con la página,
+                    pero que no forma parte del contenido principal.
+                </p>
+
+                <p>
+                    Dentro de <b>aside</b> se puede colocar información como publicidad,
+                    enlaces relacionados, recomendaciones, noticias o información extra.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;aside&gt;
+
+  &lt;h3&gt;Información adicional&lt;/h3&gt;
+
+  &lt;p&gt;
+  También puedes visitar nuestros cursos de programación
+  y desarrollo web disponibles en la plataforma.
+  &lt;/p&gt;
+
+&lt;/aside&gt;
+</pre>
+                </div>
+
+                <p>
+                    En este ejemplo se crea una sección secundaria con un título y un
+                    párrafo que muestra información adicional para el usuario.
+                </p>
+
+                <p>
+                    La etiqueta <b>aside</b> normalmente se coloca dentro de <b>main</b>
+                    junto al contenido principal de la página.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;main&gt;
+
+  &lt;section&gt;
+    &lt;h2&gt;Cursos&lt;/h2&gt;
+    &lt;p&gt;Aprende programación desde cero.&lt;/p&gt;
+  &lt;/section&gt;
+
+  &lt;aside&gt;
+    &lt;p&gt;Publicidad o contenido adicional.&lt;/p&gt;
+  &lt;/aside&gt;
+
+&lt;/main&gt;
+</pre>
+                </div>
+
+                <p>
+                    De esta forma se separa el contenido principal del contenido secundario,
+                    mejorando la organización de la página.
+                </p>
+                <h3>¿Cómo crear el pie de página en una página web?</h3>
+
+                <p>
+                    El pie de página se crea utilizando la etiqueta <b>footer</b>. Esta etiqueta
+                    se coloca generalmente al final de la página y contiene información
+                    adicional sobre el sitio web.
+                </p>
+
+                <p>
+                    Dentro del <b>footer</b> se suelen colocar elementos como derechos de autor,
+                    información de contacto, enlaces a redes sociales o información del autor
+                    de la página.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;footer&gt;
+
+  &lt;p&gt;© 2026 Mi sitio web&lt;/p&gt;
+
+&lt;/footer&gt;
+</pre>
+                </div>
+
+                <p>
+                    En este ejemplo se crea un pie de página con un texto que indica los
+                    derechos de autor del sitio web.
+                </p>
+
+                <p>
+                    El <b>footer</b> normalmente se coloca al final del documento HTML,
+                    después del contenido principal de la página.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+&lt;footer&gt;
+
+  &lt;p&gt;© 2026 Mi sitio web&lt;/p&gt;
+  &lt;p&gt;Contacto: info@misitio.com&lt;/p&gt;
+
+&lt;/footer&gt;
+</pre>
+                </div>
+
+                <p>
+                    De esta manera el usuario puede encontrar información adicional del
+                    sitio en la parte final de la página.
+                </p>
+
+
+
+
+
+
+
+
+
+
+
+                <details class="respuesta-box">
+                    <summary>Actividad 6</summary>
+
+                    <p>
+                        Realiza los siguientes ejercicios en tu computadora.
+                        Cada ejercicio debe realizarse en un archivo <b>index.html</b>.
+                        Responde en tu cuaderno qué etiquetas utilizaste y luego sube tu trabajo a la plataforma.
+                    </p>
+
+                    <h3>Estructura básica</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>1. Crear una página que tenga las etiquetas
+                            header,
+                            main y footer.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>2. Crear una página con un header que
+                            contenga el
+                            título del sitio.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>3. Crear una página con un nav que tenga
+                            tres
+                            enlaces.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>4. Crear una página con header, nav y
+                            main.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>5. Crear una página con header, main y
+                            footer.</span>
+                    </div>
+
+                    <h3>Navegación</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>6. Crear un menú de navegación con cuatro
+                            enlaces.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>7. Crear un menú con enlaces a Inicio,
+                            Servicios y
+                            Contacto.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>8. Crear un nav dentro de un header.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>9. Crear un nav con cinco enlaces.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>10. Crear un menú de navegación dentro del
+                            header.</span></div>
+
+                    <h3>Secciones</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>11. Crear una section con un título y un
+                            párrafo.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>12. Crear dos section dentro de
+                            main.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>13. Crear tres section dentro de
+                            main.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>14. Crear una section llamada
+                            "Servicios".</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>15. Crear una section llamada "Acerca de
+                            nosotros".</span></div>
+
+                    <h3>Artículos</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>16. Crear un article con un título y un
+                            párrafo.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>17. Crear dos article dentro de una
+                            section.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>18. Crear tres article dentro de una
+                            section.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>19. Crear un article con información de un
+                            curso.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>20. Crear un article con una
+                            noticia.</span></div>
+
+                    <h3>Contenido adicional</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>21. Crear un aside con información
+                            adicional.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>22. Crear un aside con publicidad.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>23. Crear un aside dentro de main.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>24. Crear un aside con un título y un
+                            párrafo.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>25. Crear un aside con dos párrafos.</span>
+                    </div>
+
+                    <h3>Footer</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>26. Crear un footer con derechos de
+                            autor.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>27. Crear un footer con redes
+                            sociales.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>28. Crear un footer con información de
+                            contacto.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>29. Crear un footer con el año
+                            actual.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>30. Crear un footer con dos
+                            párrafos.</span></div>
+
+                    <h3>Retos</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>31. Crear una página con header, nav, main
+                            y
+                            footer.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>32. Crear una página con tres section
+                            dentro de
+                            main.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>33. Crear una página con una section y dos
+                            article.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>34. Crear una página con header, nav, main,
+                            aside y
+                            footer.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>35. Crear una página con dos section y tres
+                            article.</span></div>
+
+                    <h3>Desafíos</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>36. Crear la estructura de una página web
+                            básica.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>37. Crear una página con menú, contenido y
+                            pie de
+                            página.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>38. Crear una página con section, article y
+                            aside.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>39. Crear una página que tenga todas las
+                            etiquetas
+                            semánticas vistas.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>40. Crear una página con header, nav, main,
+                            section y
+                            footer.</span></div>
+
+                    <h3>Desafío final</h3>
+
+                    <div class="checklist-item"><input type="checkbox"><span>41. Crear una página web con header, nav,
+                            main y
+                            footer.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>42. Crear una página con dos section y un
+                            aside.</span>
+                    </div>
+                    <div class="checklist-item"><input type="checkbox"><span>43. Crear una página con tres article
+                            dentro de una
+                            section.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>44. Crear una página con menú de navegación
+                            y contenido
+                            principal.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>45. Crear una página que represente un
+                            sitio web
+                            sencillo.</span></div>
+
+                    <div class="checklist-item"><input type="checkbox"><span>46. Crear una página con header, nav, main,
+                            section,
+                            article y footer.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>47. Crear una página con header, nav,
+                            section, article,
+                            aside y footer.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>48. Crear una página con dos section y dos
+                            article.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>49. Crear una página con estructura
+                            semántica
+                            completa.</span></div>
+                    <div class="checklist-item"><input type="checkbox"><span>50. Crear una página que utilice todas las
+                            etiquetas
+                            semánticas aprendidas.</span></div>
+
+                </details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h3>¿Qué es el CSS?</h3>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUH-oIAvcVSDEN54K4XFbmUAynW9xva-dQ0g&s"
+                    alt="Web" loading="lazy" />
+                <p>
+                    Es el lenguaje que se utiliza para dar diseño y estilo a las páginas
+                    web creadas con HTML.
+                </p>
+                <p>
+                    Mientras HTML estructura el contenido, CSS se encarga de la apariencia
+                    visual de la página.
+                </p>
+                <p>Con CSS se pueden modificar aspectos como:</p>
+                <ul>
+                    <li>Colores</li>
+                    <li>Tipos de letra</li>
+                    <li>Tamaños de texto</li>
+                    <li>Espacios y márgenes</li>
+                    <li>Posición de los elementos</li>
+                </ul>
+                <br>
+                <h3>¿Cómo limpiar el CSS que viene por defecto en el navegador?</h3>
+
+                <p>
+                    Los navegadores aplican estilos automáticos a muchos elementos HTML.
+                    Por ejemplo, los títulos tienen márgenes, las listas tienen sangrías
+                    y los párrafos tienen espacio entre ellos.
+                </p>
+
+                <p>
+                    Si queremos diseñar una página web desde cero, es recomendable
+                    <b>eliminar o reiniciar estos estilos</b>. A esto se le conoce como
+                    <b>CSS Reset</b>. De esta forma todos los navegadores comienzan con
+                    los mismos estilos básicos.
+                </p>
+
+                <p>
+                    Una forma sencilla de hacerlo es reiniciando los márgenes y
+                    espaciados de todos los elementos utilizando el selector universal
+                    <b>*</b>.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+</pre>
+                </div>
+
+                <p>
+                    En este ejemplo se eliminan los márgenes y los espacios internos
+                    que los navegadores aplican automáticamente.
+                </p>
+
+                <p>
+                    La propiedad <b>box-sizing: border-box</b> permite que el ancho y alto
+                    de los elementos se calculen de una forma más fácil cuando se agregan
+                    bordes o padding.
+                </p>
+
+                <p>
+                    Este pequeño código suele colocarse al inicio del archivo CSS para
+                    comenzar a diseñar la página sin los estilos por defecto del navegador.
+                </p>
+                <h3>¿Qué es JS?</h3>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRk8VC2pDcygEEtvSQxqegVKYt4fiLe6DQCFw&s"
+                    alt="Web" loading="lazy" />
+                <p>
+                    JavaScript (JS) es un lenguaje de programación que se utiliza para
+                    agregar funcionalidad e interactividad a las páginas web.
+                </p>
+                <p>
+                    Gracias a JavaScript, las páginas web pueden responder a las acciones
+                    del usuario, como hacer clic en botones, enviar formularios o mostrar
+                    información sin recargar la página.
+                </p>
+
+                <h2>PRÁCTICA</h2>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre>&lt;h1&gt;Hola&lt;/h1&gt;</pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>Actividades</summary>
+                    <div class="checklist-item">
+                        <input type="checkbox" />
+                        <span>Verificar la posición de los menús</span>
+                    </div>
+                </details>
+            </section>
+
+        </main>
+        <div id="visor-container"><iframe id="frame-visor" src="http://127.0.0.1:5500/index.html"></iframe></div>
+    </div>
+
+    <dialog id="palette-dialog">
+        <div id="p-grid" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;"></div>
+    </dialog>
+
+    <dialog id="search-dialog">
+        <h3 style="font-size: 0.8rem; color: var(--accent); margin-bottom: 15px; text-align: center;">TEMAS DISPONIBLES
+        </h3>
+        <ul id="results"></ul>
+    </dialog>
+
+    <nav class="bar">
+        <button class="nav-btn" onclick="goHome()"><i data-lucide="home"></i><span>Inicio</span></button>
+        <button id="marker-btn" class="nav-btn" onclick="toggleMarker()"><i
+                data-lucide="highlighter"></i><span>Marcador</span></button>
+        <button class="nav-btn" onclick="openPalette()">
+            <div id="color-ind"
+                style="width:16px; height:16px; border-radius:50%; background:#61DAFB; border:2px solid white;"></div>
+            <span>Color</span>
+        </button>
+        <button id="pointer-btn" class="nav-btn" onclick="toggleLaser()"><i
+                data-lucide="mouse-pointer-2"></i><span>Puntero</span></button>
+        <button id="visor-btn" class="nav-btn" onclick="toggleVisor()"><i
+                data-lucide="monitor"></i><span>Visor</span></button>
+        <button class="nav-btn" onclick="openSearch()"><i data-lucide="search"></i><span
+                id="reloj">00:00</span></button>
+    </nav>
+    <script src="https://unpkg.com/lucide@0.400.0"></script>
+    <script>
+        lucide.createIcons();
+
+        let markerActive = false, laserActive = false, visorActivo = false;
+        let highlightColor = "#61DAFB";
+        let lastScrollPos = 0; // Variable para guardar la posición
+        const colors = [
+            "#00FFFF", // 1. Cyan Neón (Muy frío/brillante)
+            "#FF0000", // 2. Rojo Sangre (Cálido/Puro)
+            "#00FF00", // 3. Verde Lima (Saturación máxima)
+            "#FFFFFF", // 4. Blanco Puro (Claridad total)
+            "#FF00FF", // 5. Magenta/Fucsia (Color "extra" espectral)
+            "#FFFF00", // 6. Amarillo Eléctrico (Luminosidad alta)
+            "#808080", // 7. Gris Plata (Neutro oscuro)
+            "#4834D4", // 8. Azul Profundo (Frío oscuro/Royal)
+            "#F0932B", // 9. Naranja Tierra (Cálido intermedio)
+            "#000000"  // 10. Negro
+        ];
+
+        const puntero = document.createElement("div");
+        puntero.className = "punteroRojo";
+        document.body.appendChild(puntero);
+
+        // Reloj
+        function actualizarReloj() {
+            const ahora = new Date();
+            document.getElementById("reloj").textContent = ahora.getHours().toString().padStart(2, '0') + ":" + ahora.getMinutes().toString().padStart(2, '0');
+        }
+        setInterval(actualizarReloj, 1000); actualizarReloj();
+
+        // Marcador: Lógica de Colores
+        const grid = document.getElementById("p-grid");
+        colors.forEach(c => {
+            const d = document.createElement("div");
+            d.style.cssText = `aspect-ratio:1; border-radius:50%; background:${c}; cursor:pointer; border:2px solid rgba(255,255,255,0.2);`;
+            d.onclick = () => {
+                highlightColor = c;
+                document.getElementById("color-ind").style.background = c;
+                document.getElementById("palette-dialog").close();
+                if (!markerActive) toggleMarker();
+            };
+            grid.appendChild(d);
+        });
+
+        function toggleMarker() {
+            markerActive = !markerActive;
+            document.getElementById("marker-btn").classList.toggle("active-tool", markerActive);
+            document.body.classList.toggle("marker-mode-active", markerActive);
+        }
+
+        document.addEventListener("mouseup", () => {
+            if (!markerActive || visorActivo || laserActive) return;
+            const sel = window.getSelection();
+            if (sel.isCollapsed) return;
+            const range = sel.getRangeAt(0);
+            const span = document.createElement("span");
+            span.className = "highlight-span";
+            span.style.borderBottomColor = highlightColor;
+            span.style.color = highlightColor;
+            span.onclick = function (e) { e.stopPropagation(); this.replaceWith(...this.childNodes); };
+            try { range.surroundContents(span); } catch (e) {
+                const c = range.extractContents(); span.appendChild(c); range.insertNode(span);
+            }
+            sel.removeAllRanges();
+        });
+
+        // Buscador Inteligente basado en H2
+        function openSearch() {
+            const list = document.getElementById("results");
+            list.innerHTML = "";
+            document.querySelectorAll("section h2").forEach((h2, index) => {
+                const li = document.createElement("li");
+                li.textContent = h2.textContent;
+                li.onclick = () => {
+                    if (visorActivo) toggleVisor();
+                    h2.scrollIntoView({ behavior: "smooth" });
+                    document.getElementById("search-dialog").close();
+                };
+                list.appendChild(li);
+            });
+            document.getElementById("search-dialog").showModal();
+        }
+
+        // Puntero Láser y Visor MEJORADO PARA MANTENER SCROLL
+        function toggleVisor() {
+            const wrapper = document.getElementById("content-wrapper");
+            const mainContent = document.getElementById("content-main");
+            const visorContainer = document.getElementById("visor-container");
+
+            visorActivo = !visorActivo;
+
+            if (visorActivo) {
+                // 1. Guardar la posición actual del scroll antes de ocultar
+                lastScrollPos = wrapper.scrollTop;
+
+                mainContent.style.display = "none";
+                visorContainer.style.display = "block";
+                document.body.classList.add("visor-activo");
+            } else {
+                visorContainer.style.display = "none";
+                mainContent.style.display = "block";
+                document.body.classList.remove("visor-activo");
+
+                // 2. Restaurar la posición del scroll inmediatamente después de mostrar
+                wrapper.scrollTop = lastScrollPos;
+            }
+
+            document.getElementById("visor-btn").classList.toggle("active-tool", visorActivo);
+            actualizarEstadoCapa();
+        }
+
+        function toggleLaser() {
+            laserActive = !laserActive;
+            puntero.style.display = laserActive ? "block" : "none";
+            document.getElementById("pointer-btn").classList.toggle("active-tool", laserActive);
+            actualizarEstadoCapa();
+        }
+
+        function actualizarEstadoCapa() {
+            if (laserActive) {
+                document.body.classList.add("laser-on");
+            } else {
+                document.body.classList.remove("laser-on");
+                document.body.style.cursor = "default";
+            }
+        }
+
+        document.addEventListener("mousemove", (e) => {
+            if (!laserActive) return;
+            puntero.style.left = e.clientX + "px";
+            puntero.style.top = e.clientY + "px";
+            const punto = document.createElement("div");
+            punto.className = "puntoEstela";
+            punto.style.left = e.clientX + "px";
+            punto.style.top = e.clientY + "px";
+            document.body.appendChild(punto);
+            setTimeout(() => punto.remove(), 600);
+        });
+
+        function openPalette() { document.getElementById("palette-dialog").showModal(); }
+
+        // goHome ahora también respeta el reseteo de la variable de posición
+        function goHome() {
+            if (visorActivo) toggleVisor();
+            lastScrollPos = 0;
+            document.getElementById("content-wrapper").scrollTo(0, 0);
+        }
+
+        window.onclick = (e) => { if (e.target.tagName === 'DIALOG') e.target.close(); }
+
+        function copyCode(btn) {
+            const pre = btn.parentElement.querySelector('pre');
+            const textToCopy = pre.innerText;
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalText = btn.innerText;
+                btn.innerText = "¡COPIADO!";
+                btn.style.color = "#12141c";
+                btn.style.backgroundColor = "#61dafb";
+
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.color = "";
+                    btn.style.backgroundColor = "";
+                }, 1500);
+            }).catch(err => {
+                console.error('Error al copiar: ', err);
+                alert("No se pudo copiar el código automáticamente.");
+            });
+        }
+
+        // --- PERSISTENCIA DE SCROLL PARA GO LIVE ---
+
+        // 1. Al cargar la página, recupera la posición guardada
+        document.addEventListener("DOMContentLoaded", () => {
+            const savedScroll = localStorage.getItem("liveServerScrollPos");
+            if (savedScroll) {
+                // Usamos un pequeño timeout para asegurar que el contenido se haya renderizado
+                setTimeout(() => {
+                    document.getElementById("content-wrapper").scrollTop = savedScroll;
+                }, 100);
+            }
+        });
+
+        // 2. Cada vez que el usuario hace scroll, guarda la posición
+        document.getElementById("content-wrapper").addEventListener("scroll", () => {
+            const currentScroll = document.getElementById("content-wrapper").scrollTop;
+            localStorage.setItem("liveServerScrollPos", currentScroll);
+        });
+
+        // 3. Opcional: Si el usuario pulsa "Inicio", limpiamos la memoria
+        const originalGoHome = goHome;
+        goHome = function () {
+            localStorage.removeItem("liveServerScrollPos");
+            originalGoHome();
+        };
+    </script>
+</body>
+
+</html>
