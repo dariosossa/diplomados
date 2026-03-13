@@ -493,12 +493,14 @@
             height: var(--nav-h);
             background: #1e222d;
             display: grid;
-            /* Cambiado a 4 columnas para distribuir Inicio, Puntero, Visor y Buscar */
-            grid-template-columns: repeat(4, 1fr);
+            /* 5 columnas en PC */
+            grid-template-columns: repeat(5, 1fr);
             border-top: 1px solid var(--border);
             z-index: 4000;
             padding-bottom: env(safe-area-inset-bottom);
         }
+
+
 
         .nav-btn {
             background: none;
@@ -529,19 +531,13 @@
         /* --- ADAPTACIÓN MÓVIL (SÓLO 2 COLUMNAS) --- */
         @media (max-width: 1023px) {
             nav.bar {
-                /* En móvil ocultamos Puntero y Visor, quedan solo 2 botones */
-                grid-template-columns: repeat(2, 1fr);
+                /* En móvil ocultamos Puntero y Visor, quedan 3: Inicio, Pintar y Buscar */
+                grid-template-columns: repeat(3, 1fr);
             }
 
-            /* Ocultar botones que no funcionan en móvil por lógica de JS */
             #pointer-btn,
             #visor-btn {
                 display: none;
-            }
-
-            .nav-btn span {
-                font-size: 0.75rem;
-                /* Texto un poco más grande en móviles */
             }
         }
 
@@ -5868,231 +5864,213 @@ body {
     </dialog>
 
     <nav class="bar">
-        <button class="nav-btn" onclick="goHome()"><i data-lucide="home"></i><span>Inicio</span></button> <button
-            id="pointer-btn" class="nav-btn" onclick="toggleLaser()"><i
+        <button class="nav-btn" onclick="goHome()"><i data-lucide="home"></i><span>Inicio</span></button>
+
+        <button id="paint-btn" class="nav-btn" onclick="forzarPaleta()"><i
+                data-lucide="palette"></i><span>Pintar</span></button>
+
+        <button id="pointer-btn" class="nav-btn" onclick="toggleLaser()"><i
                 data-lucide="mouse-pointer-2"></i><span>Puntero</span></button>
         <button id="visor-btn" class="nav-btn" onclick="toggleVisor()"><i
                 data-lucide="monitor"></i><span>Visor</span></button>
+
         <button class="nav-btn" onclick="openSearch()"><i data-lucide="search"></i><span
                 id="reloj">00:00</span></button>
     </nav>
     <script src="https://unpkg.com/lucide@0.400.0"></script>
-    <script>
-        lucide.createIcons();
+<script>
+    // Inicialización de iconos
+    lucide.createIcons();
 
-        let laserActive = false, visorActivo = false;
-        let lastScrollPos = 0;
-        let currentRange = null; // Almacén crítico para la selección
+    // Variables de estado
+    let laserActive = false, visorActivo = false;
+    let lastScrollPos = 0;
+    let currentRange = null;
 
-        // Lista de colores de la paleta
-        const colors = [
-            "#00FFFF", // Cyan
-            "#FF0000", // Rojo
-            "#00FF00", // Verde
-            "#FFFFFF", // Blanco
-            "#FF00FF", // Magenta
-            "#FFFF00", // Amarillo
-            "#808080", // Gris
-            "#4834D4", // Azul Profundo
-            "#F0932B", // Naranja
-            "#000000"  // Negro
-        ];
+    const colors = [
+        "#00FFFF", "#FF0000", "#00FF00", "#FFFFFF", "#FF00FF", 
+        "#FFFF00", "#808080", "#4834D4", "#F0932B", "#000000"
+    ];
 
-        const puntero = document.createElement("div");
-        puntero.className = "punteroRojo";
-        document.body.appendChild(puntero);
+    // Crear el puntero láser para escritorio
+    const puntero = document.createElement("div");
+    puntero.className = "punteroRojo";
+    document.body.appendChild(puntero);
 
-        // Reloj digital
-        function actualizarReloj() {
-            const ahora = new Date();
-            document.getElementById("reloj").textContent = ahora.getHours().toString().padStart(2, '0') + ":" + ahora.getMinutes().toString().padStart(2, '0');
-        }
-        setInterval(actualizarReloj, 1000); actualizarReloj();
+    // --- RELOJ ---
+    function actualizarReloj() {
+        const ahora = new Date();
+        document.getElementById("reloj").textContent = ahora.getHours().toString().padStart(2, '0') + ":" + ahora.getMinutes().toString().padStart(2, '0');
+    }
+    setInterval(actualizarReloj, 1000); 
+    actualizarReloj();
 
-        // --- LÓGICA DE LA PALETA (GENERACIÓN Y CLIC CORRECTO) ---
-        const grid = document.getElementById("p-grid");
-        grid.innerHTML = ""; // Limpiar antes de generar
+    // --- LÓGICA DE LA PALETA (MULTICOLOR) ---
+    const grid = document.getElementById("p-grid");
+    grid.innerHTML = ""; 
+    colors.forEach(colorHex => {
+        const d = document.createElement("div");
+        d.style.cssText = `aspect-ratio:1; border-radius:50%; background:${colorHex}; cursor:pointer; border:2px solid rgba(255,255,255,0.2); transition: transform 0.1s;`;
+        
+        d.onmouseover = () => d.style.transform = "scale(1.1)";
+        d.onmouseout = () => d.style.transform = "scale(1)";
 
-        colors.forEach(colorHex => {
-            const d = document.createElement("div");
-            d.style.cssText = `aspect-ratio:1; border-radius:50%; background:${colorHex}; cursor:pointer; border:2px solid rgba(255,255,255,0.2); transition: transform 0.1s;`;
-
-            // Efecto visual al pasar el mouse
-            d.onmouseover = () => d.style.transform = "scale(1.1)";
-            d.onmouseout = () => d.style.transform = "scale(1)";
-
-            // EVENTO CLIC: Usamos el valor de 'colorHex' bloqueado en este bucle
-            d.addEventListener('click', function () {
-                if (currentRange) {
-                    aplicarMarcado(currentRange, colorHex); // Aplica el color específico
-                }
-                document.getElementById("palette-dialog").close(); // Cierra la paleta
-                currentRange = null; // Limpia la referencia
-            });
-            grid.appendChild(d);
+        d.addEventListener('click', function() {
+            if (currentRange) {
+                aplicarMarcado(currentRange, colorHex);
+            }
+            document.getElementById("palette-dialog").close();
+            currentRange = null; 
         });
+        grid.appendChild(d);
+    });
 
-        // --- DETECTAR SELECCIÓN Y EXPANDIR A PALABRAS COMPLETAS ---
-        document.addEventListener("mouseup", () => {
-            const sel = window.getSelection();
+    // --- FUNCIONES DE SELECCIÓN Y MARCADO ---
 
-            // Solo actuar si hay selección, no estamos en visor ni láser
-            if (!sel.isCollapsed && !visorActivo && !laserActive) {
-                const range = sel.getRangeAt(0);
+    // Función para invocar la paleta (Boton Pintar)
+    function forzarPaleta() {
+        const sel = window.getSelection();
+        if (!sel.isCollapsed) {
+            const range = sel.getRangeAt(0);
+            expandirRangoAPalabarasCompletas(range); // Optimizar selección
+            currentRange = range.cloneRange();
+            document.getElementById("palette-dialog").showModal();
+        } else {
+            alert("Selecciona primero una palabra para pintar.");
+        }
+    }
 
-                // OPTIMIZACIÓN: Expandir el rango a palabras completas
-                expandirRangoAPalabarasCompletas(range);
-
-                currentRange = range.cloneRange(); // Guardar copia exacta de la selección expandida
-                document.getElementById("palette-dialog").showModal(); // Abrir paleta automáticamente
-            }
-        });
-
-        // Función auxiliar para expandir la selección a límites de palabras
-        function expandirRangoAPalabarasCompletas(range) {
-            // Expandir inicio hacia atrás
-            while (range.startOffset > 0) {
-                range.setStart(range.startContainer, range.startOffset - 1);
-                if (range.toString().match(/^\s/)) { // Si encontramos un espacio al inicio
-                    range.setStart(range.startContainer, range.startOffset + 1); // Retroceder uno
-                    break;
-                }
-            }
-
-            // Expandir final hacia adelante
-            while (range.endOffset < range.endContainer.length) {
-                range.setEnd(range.endContainer, range.endOffset + 1);
-                if (range.toString().match(/\s$/)) { // Si encontramos un espacio al final
-                    range.setEnd(range.endContainer, range.endOffset - 1); // Retroceder uno
-                    break;
-                }
+    // Expandir la selección a límites de palabras
+    function expandirRangoAPalabarasCompletas(range) {
+        while (range.startOffset > 0) {
+            range.setStart(range.startContainer, range.startOffset - 1);
+            if (range.toString().match(/^\s/)) {
+                range.setStart(range.startContainer, range.startOffset + 1);
+                break;
             }
         }
-
-        // Función que aplica el SPAN de marcado
-        function aplicarMarcado(range, color) {
-            const span = document.createElement("span");
-            span.className = "highlight-span";
-            span.style.borderBottomColor = color;
-            span.style.color = color;
-
-            // Al hacer clic en el texto marcado, se elimina el marcado
-            span.onclick = function (e) {
-                e.stopPropagation();
-                this.replaceWith(...this.childNodes);
-            };
-
-            try {
-                range.surroundContents(span); // Envolver selección simple
-            } catch (e) {
-                // Manejo de selecciones complejas (que cruzan etiquetas HTML)
-                const fragment = range.extractContents();
-                span.appendChild(fragment);
-                range.insertNode(span);
+        while (range.endOffset < range.endContainer.length) {
+            range.setEnd(range.endContainer, range.endOffset + 1);
+            if (range.toString().match(/\s$/)) {
+                range.setEnd(range.endContainer, range.endOffset - 1);
+                break;
             }
-            window.getSelection().removeAllRanges(); // Quitar el sombreado azul del navegador
         }
+    }
 
-        // Buscador Inteligente
-        function openSearch() {
-            const list = document.getElementById("results");
-            list.innerHTML = "";
-            document.querySelectorAll("section h2").forEach((h2) => {
-                const li = document.createElement("li");
-                li.textContent = h2.textContent;
-                li.onclick = () => {
-                    if (visorActivo) toggleVisor();
-                    h2.scrollIntoView({ behavior: "smooth" });
-                    document.getElementById("search-dialog").close();
-                };
-                list.appendChild(li);
-            });
-            document.getElementById("search-dialog").showModal();
-        }
-
-        // Herramientas (BLOQUEADAS EN MÓVIL < 1024px)
-        function toggleVisor() {
-            if (window.innerWidth < 1024) return;
-            const wrapper = document.getElementById("content-wrapper");
-            const mainContent = document.getElementById("content-main");
-            const visorContainer = document.getElementById("visor-container");
-            visorActivo = !visorActivo;
-
-            if (visorActivo) {
-                lastScrollPos = wrapper.scrollTop;
-                mainContent.style.display = "none";
-                visorContainer.style.display = "block";
-                document.body.classList.add("visor-activo");
-            } else {
-                visorContainer.style.display = "none";
-                mainContent.style.display = "block";
-                document.body.classList.remove("visor-activo");
-                wrapper.scrollTop = lastScrollPos;
-            }
-            document.getElementById("visor-btn").classList.toggle("active-tool", visorActivo);
-        }
-
-        function toggleLaser() {
-            if (window.innerWidth < 1024) return;
-            laserActive = !laserActive;
-            puntero.style.display = laserActive ? "block" : "none";
-            document.getElementById("pointer-btn").classList.toggle("active-tool", laserActive);
-            document.body.classList.toggle("laser-on", laserActive);
-        }
-
-        document.addEventListener("mousemove", (e) => {
-            if (!laserActive || window.innerWidth < 1024) return;
-            puntero.style.left = e.clientX + "px";
-            puntero.style.top = e.clientY + "px";
-            const punto = document.createElement("div");
-            punto.className = "puntoEstela";
-            punto.style.left = e.clientX + "px";
-            punto.style.top = e.clientY + "px";
-            // Usa el color del láser actual
-            punto.style.backgroundColor = puntero.style.backgroundColor || "#61DAFB";
-            document.body.appendChild(punto);
-            setTimeout(() => punto.remove(), 600);
-        });
-
-        // Función Ir a Inicio
-        function goHome() {
-            if (visorActivo) toggleVisor();
-            localStorage.removeItem("liveServerScrollPos"); // Limpiar scroll guardado
-            document.getElementById("content-wrapper").scrollTo(0, 0);
-        }
-
-        // Cerrar diálogos al hacer clic fuera
-        window.onclick = (e) => { if (e.target.tagName === 'DIALOG') e.target.close(); }
-
-        // Función Copiar Código
-        function copyCode(btn) {
-            const pre = btn.parentElement.querySelector('pre');
-            navigator.clipboard.writeText(pre.innerText).then(() => {
-                const oldText = btn.innerText;
-                btn.innerText = "¡COPIADO!";
-                setTimeout(() => { btn.innerText = oldText; }, 1500);
-            });
-        }
-
-        // --- PERSISTENCIA DE SCROLL ---
-        document.addEventListener("DOMContentLoaded", () => {
-            const savedScroll = localStorage.getItem("liveServerScrollPos");
-            if (savedScroll) {
-                setTimeout(() => { document.getElementById("content-wrapper").scrollTop = savedScroll; }, 100);
-            }
-        });
-
-        document.getElementById("content-wrapper").addEventListener("scroll", () => {
-            localStorage.setItem("liveServerScrollPos", document.getElementById("content-wrapper").scrollTop);
-        });
-
-        // Sobrescribir goHome para limpiar la persistencia
-        const originalGoHome = goHome;
-        goHome = function () {
-            localStorage.removeItem("liveServerScrollPos");
-            originalGoHome();
+    // Aplicar el SPAN de color
+    function aplicarMarcado(range, color) {
+        const span = document.createElement("span");
+        span.className = "highlight-span";
+        span.style.borderBottomColor = color;
+        span.style.color = color;
+        
+        // Quitar marcado al tocar
+        span.onclick = function (e) { 
+            e.stopPropagation(); 
+            this.replaceWith(...this.childNodes); 
         };
-    </script>
+
+        try {
+            range.surroundContents(span);
+        } catch (e) {
+            const fragment = range.extractContents();
+            span.appendChild(fragment);
+            range.insertNode(span);
+        }
+        window.getSelection().removeAllRanges();
+    }
+
+    // --- BUSCADOR ---
+    function openSearch() {
+        const list = document.getElementById("results");
+        list.innerHTML = "";
+        document.querySelectorAll("section h2").forEach((h2) => {
+            const li = document.createElement("li");
+            li.textContent = h2.textContent;
+            li.onclick = () => {
+                if (visorActivo) toggleVisor();
+                h2.scrollIntoView({ behavior: "smooth" });
+                document.getElementById("search-dialog").close();
+            };
+            list.appendChild(li);
+        });
+        document.getElementById("search-dialog").showModal();
+    }
+
+    // --- HERRAMIENTAS ESCRITORIO (BLOQUEADAS EN MÓVIL) ---
+    function toggleVisor() {
+        if (window.innerWidth < 1024) return;
+        const wrapper = document.getElementById("content-wrapper");
+        const mainContent = document.getElementById("content-main");
+        const visorContainer = document.getElementById("visor-container");
+        visorActivo = !visorActivo;
+
+        if (visorActivo) {
+            lastScrollPos = wrapper.scrollTop;
+            mainContent.style.display = "none";
+            visorContainer.style.display = "block";
+            document.body.classList.add("visor-activo");
+        } else {
+            visorContainer.style.display = "none";
+            mainContent.style.display = "block";
+            document.body.classList.remove("visor-activo");
+            wrapper.scrollTop = lastScrollPos;
+        }
+        document.getElementById("visor-btn").classList.toggle("active-tool", visorActivo);
+    }
+
+    function toggleLaser() {
+        if (window.innerWidth < 1024) return;
+        laserActive = !laserActive;
+        puntero.style.display = laserActive ? "block" : "none";
+        document.getElementById("pointer-btn").classList.toggle("active-tool", laserActive);
+        document.body.classList.toggle("laser-on", laserActive);
+    }
+
+    document.addEventListener("mousemove", (e) => {
+        if (!laserActive || window.innerWidth < 1024) return;
+        puntero.style.left = e.clientX + "px";
+        puntero.style.top = e.clientY + "px";
+        const punto = document.createElement("div");
+        punto.className = "puntoEstela";
+        punto.style.left = e.clientX + "px";
+        punto.style.top = e.clientY + "px";
+        punto.style.backgroundColor = highlightColor;
+        document.body.appendChild(punto);
+        setTimeout(() => punto.remove(), 600);
+    });
+
+    // --- UTILIDADES ---
+    function goHome() {
+        if (visorActivo) toggleVisor();
+        localStorage.removeItem("liveServerScrollPos");
+        document.getElementById("content-wrapper").scrollTo(0, 0);
+    }
+
+    window.onclick = (e) => { if (e.target.tagName === 'DIALOG') e.target.close(); }
+
+    function copyCode(btn) {
+        const pre = btn.parentElement.querySelector('pre');
+        navigator.clipboard.writeText(pre.innerText).then(() => {
+            const oldText = btn.innerText;
+            btn.innerText = "¡COPIADO!";
+            setTimeout(() => { btn.innerText = oldText; }, 1500);
+        });
+    }
+
+    // --- PERSISTENCIA DE SCROLL ---
+    document.addEventListener("DOMContentLoaded", () => {
+        const savedScroll = localStorage.getItem("liveServerScrollPos");
+        if (savedScroll) {
+            setTimeout(() => { document.getElementById("content-wrapper").scrollTop = savedScroll; }, 100);
+        }
+    });
+
+    document.getElementById("content-wrapper").addEventListener("scroll", () => {
+        localStorage.setItem("liveServerScrollPos", document.getElementById("content-wrapper").scrollTop);
+    });
+</script>
 </body>
 
 </html>
