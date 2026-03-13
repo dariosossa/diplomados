@@ -453,24 +453,59 @@
             }
         }
 
-        /* --- MODALES (COLOR Y BUSCADOR) --- */
+        /* --- MODALES OPTIMIZADOS --- */
         dialog {
             position: fixed;
-            bottom: calc(var(--nav-h) + 10px);
-            left: 10px;
-            right: 10px;
-            width: calc(100% - 20px);
+            bottom: calc(var(--nav-h) + 20px);
+            /* Un poco más arriba para que se vea el fondo */
+            left: 5%;
+            right: 5%;
+            width: 90%;
+            max-height: 70vh;
+            /* Para que no tape toda la pantalla */
             background: var(--surface);
-            border: 1px solid var(--border);
+            border: 1px solid var(--accent);
             border-radius: 12px;
-            padding: 20px;
+            padding: 25px 20px 20px 20px;
             color: white;
             z-index: 4500;
-            border: 1px solid var(--accent);
+            overflow-y: auto;
         }
 
         dialog::backdrop {
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Botón de cerrar dentro de los diálogos */
+        .close-dialog-btn {
+            position: sticky;
+            top: -10px;
+            float: right;
+            background: var(--border);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            z-index: 100;
+        }
+
+        #results li {
+            padding: 15px;
+            /* Más grande para el dedo */
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            font-size: 1rem;
+            /* Mejor legibilidad */
+            text-transform: uppercase;
+            list-style: none;
+            color: var(--text-dim);
         }
 
         #results li {
@@ -5878,199 +5913,238 @@ body {
                 id="reloj">00:00</span></button>
     </nav>
     <script src="https://unpkg.com/lucide@0.400.0"></script>
-<script>
-    // Inicialización de iconos
-    lucide.createIcons();
+    <script>
+        // Inicializar iconos de Lucide
+        lucide.createIcons();
 
-    // Variables de estado
-    let laserActive = false, visorActivo = false;
-    let lastScrollPos = 0;
-    let currentRange = null;
+        let laserActive = false, visorActivo = false;
+        let lastScrollPos = 0;
+        let currentRange = null;
 
-    const colors = [
-        "#00FFFF", "#FF0000", "#00FF00", "#FFFFFF", "#FF00FF", 
-        "#FFFF00", "#808080", "#4834D4", "#F0932B", "#000000"
-    ];
+        const colors = [
+            "#00FFFF", "#FF0000", "#00FF00", "#FFFFFF", "#FF00FF",
+            "#FFFF00", "#808080", "#4834D4", "#F0932B", "#000000"
+        ];
 
-    // Crear el puntero láser para escritorio
-    const puntero = document.createElement("div");
-    puntero.className = "punteroRojo";
-    document.body.appendChild(puntero);
+        const puntero = document.createElement("div");
+        puntero.className = "punteroRojo";
+        document.body.appendChild(puntero);
 
-    // --- RELOJ ---
-    function actualizarReloj() {
-        const ahora = new Date();
-        document.getElementById("reloj").textContent = ahora.getHours().toString().padStart(2, '0') + ":" + ahora.getMinutes().toString().padStart(2, '0');
-    }
-    setInterval(actualizarReloj, 1000); 
-    actualizarReloj();
-
-    // --- LÓGICA DE LA PALETA (MULTICOLOR) ---
-    const grid = document.getElementById("p-grid");
-    grid.innerHTML = ""; 
-    colors.forEach(colorHex => {
-        const d = document.createElement("div");
-        d.style.cssText = `aspect-ratio:1; border-radius:50%; background:${colorHex}; cursor:pointer; border:2px solid rgba(255,255,255,0.2); transition: transform 0.1s;`;
-        
-        d.onmouseover = () => d.style.transform = "scale(1.1)";
-        d.onmouseout = () => d.style.transform = "scale(1)";
-
-        d.addEventListener('click', function() {
-            if (currentRange) {
-                aplicarMarcado(currentRange, colorHex);
-            }
-            document.getElementById("palette-dialog").close();
-            currentRange = null; 
-        });
-        grid.appendChild(d);
-    });
-
-    // --- FUNCIONES DE SELECCIÓN Y MARCADO ---
-
-    // Función para invocar la paleta (Boton Pintar)
-    function forzarPaleta() {
-        const sel = window.getSelection();
-        if (!sel.isCollapsed) {
-            const range = sel.getRangeAt(0);
-            expandirRangoAPalabarasCompletas(range); // Optimizar selección
-            currentRange = range.cloneRange();
-            document.getElementById("palette-dialog").showModal();
-        } else {
-            alert("Selecciona primero una palabra para pintar.");
+        // --- RELOJ ---
+        function actualizarReloj() {
+            const ahora = new Date();
+            const hrs = ahora.getHours().toString().padStart(2, '0');
+            const min = ahora.getMinutes().toString().padStart(2, '0');
+            const relojEl = document.getElementById("reloj");
+            if (relojEl) relojEl.textContent = `${hrs}:${min}`;
         }
-    }
+        setInterval(actualizarReloj, 1000);
+        actualizarReloj();
 
-    // Expandir la selección a límites de palabras
-    function expandirRangoAPalabarasCompletas(range) {
-        while (range.startOffset > 0) {
-            range.setStart(range.startContainer, range.startOffset - 1);
-            if (range.toString().match(/^\s/)) {
-                range.setStart(range.startContainer, range.startOffset + 1);
-                break;
+        // --- LÓGICA DE PERSISTENCIA (STORAGE) ---
+        function guardarMarcas() {
+            const contenido = document.getElementById("content-main").innerHTML;
+            localStorage.setItem("marcasGuardadas", contenido);
+        }
+
+        function cargarMarcas() {
+            const marcas = localStorage.getItem("marcasGuardadas");
+            if (marcas) {
+                document.getElementById("content-main").innerHTML = marcas;
+                reVincularEventosBorrado();
             }
         }
-        while (range.endOffset < range.endContainer.length) {
-            range.setEnd(range.endContainer, range.endOffset + 1);
-            if (range.toString().match(/\s$/)) {
-                range.setEnd(range.endContainer, range.endOffset - 1);
-                break;
+
+        // Corregido: Nombre de función sin guion intermedio
+        function reVincularEventosBorrado() {
+            document.querySelectorAll(".highlight-span").forEach(span => {
+                span.onclick = function (e) {
+                    e.stopPropagation();
+                    this.replaceWith(...this.childNodes);
+                    guardarMarcas();
+                };
+            });
+        }
+
+        // --- LÓGICA DE LA PALETA ---
+        const grid = document.getElementById("p-grid");
+        if (grid) {
+            grid.innerHTML = "";
+            colors.forEach(colorHex => {
+                const d = document.createElement("div");
+                d.style.cssText = `aspect-ratio:1; border-radius:50%; background:${colorHex}; cursor:pointer; border:2px solid rgba(255,255,255,0.2); transition: transform 0.1s;`;
+
+                d.addEventListener('click', function () {
+                    if (currentRange) {
+                        aplicarMarcado(currentRange, colorHex);
+                        guardarMarcas();
+                    }
+                    document.getElementById("palette-dialog").close();
+                    currentRange = null;
+                });
+                grid.appendChild(d);
+            });
+        }
+
+        // --- FUNCIONES DE SELECCIÓN ---
+        function forzarPaleta() {
+            const sel = window.getSelection();
+            if (sel.rangeCount > 0 && !sel.isCollapsed) {
+                const range = sel.getRangeAt(0);
+                expandirRangoAPalabarasCompletas(range);
+                currentRange = range.cloneRange();
+                document.getElementById("palette-dialog").showModal();
+            } else {
+                alert("Selecciona primero una palabra para pintar.");
             }
         }
-    }
 
-    // Aplicar el SPAN de color
-    function aplicarMarcado(range, color) {
-        const span = document.createElement("span");
-        span.className = "highlight-span";
-        span.style.borderBottomColor = color;
-        span.style.color = color;
-        
-        // Quitar marcado al tocar
-        span.onclick = function (e) { 
-            e.stopPropagation(); 
-            this.replaceWith(...this.childNodes); 
-        };
-
-        try {
-            range.surroundContents(span);
-        } catch (e) {
-            const fragment = range.extractContents();
-            span.appendChild(fragment);
-            range.insertNode(span);
+        function expandirRangoAPalabarasCompletas(range) {
+            while (range.startOffset > 0) {
+                range.setStart(range.startContainer, range.startOffset - 1);
+                if (range.toString().match(/^\s/)) {
+                    range.setStart(range.startContainer, range.startOffset + 1);
+                    break;
+                }
+            }
+            while (range.endOffset < (range.endContainer.length || range.endContainer.childNodes.length)) {
+                try {
+                    range.setEnd(range.endContainer, range.endOffset + 1);
+                    if (range.toString().match(/\s$/)) {
+                        range.setEnd(range.endContainer, range.endOffset - 1);
+                        break;
+                    }
+                } catch (e) { break; }
+            }
         }
-        window.getSelection().removeAllRanges();
-    }
 
-    // --- BUSCADOR ---
-    function openSearch() {
-        const list = document.getElementById("results");
-        list.innerHTML = "";
-        document.querySelectorAll("section h2").forEach((h2) => {
-            const li = document.createElement("li");
-            li.textContent = h2.textContent;
-            li.onclick = () => {
-                if (visorActivo) toggleVisor();
-                h2.scrollIntoView({ behavior: "smooth" });
-                document.getElementById("search-dialog").close();
+        function aplicarMarcado(range, color) {
+            const span = document.createElement("span");
+            span.className = "highlight-span";
+            span.style.borderBottom = `2px solid ${color}`;
+            span.style.color = color;
+
+            span.onclick = function (e) {
+                e.stopPropagation();
+                this.replaceWith(...this.childNodes);
+                guardarMarcas();
             };
-            list.appendChild(li);
-        });
-        document.getElementById("search-dialog").showModal();
-    }
 
-    // --- HERRAMIENTAS ESCRITORIO (BLOQUEADAS EN MÓVIL) ---
-    function toggleVisor() {
-        if (window.innerWidth < 1024) return;
-        const wrapper = document.getElementById("content-wrapper");
-        const mainContent = document.getElementById("content-main");
-        const visorContainer = document.getElementById("visor-container");
-        visorActivo = !visorActivo;
-
-        if (visorActivo) {
-            lastScrollPos = wrapper.scrollTop;
-            mainContent.style.display = "none";
-            visorContainer.style.display = "block";
-            document.body.classList.add("visor-activo");
-        } else {
-            visorContainer.style.display = "none";
-            mainContent.style.display = "block";
-            document.body.classList.remove("visor-activo");
-            wrapper.scrollTop = lastScrollPos;
+            try {
+                range.surroundContents(span);
+            } catch (e) {
+                const fragment = range.extractContents();
+                span.appendChild(fragment);
+                range.insertNode(span);
+            }
+            window.getSelection().removeAllRanges();
         }
-        document.getElementById("visor-btn").classList.toggle("active-tool", visorActivo);
-    }
 
-    function toggleLaser() {
-        if (window.innerWidth < 1024) return;
-        laserActive = !laserActive;
-        puntero.style.display = laserActive ? "block" : "none";
-        document.getElementById("pointer-btn").classList.toggle("active-tool", laserActive);
-        document.body.classList.toggle("laser-on", laserActive);
-    }
+        // --- BUSCADOR ---
+        function openSearch() {
+            const list = document.getElementById("results");
+            if (!list) return;
+            list.innerHTML = "";
+            document.querySelectorAll("section h2").forEach((h2) => {
+                // CAMBIO: Añade esta validación
+                if (h2.closest('details')) return;
 
-    document.addEventListener("mousemove", (e) => {
-        if (!laserActive || window.innerWidth < 1024) return;
-        puntero.style.left = e.clientX + "px";
-        puntero.style.top = e.clientY + "px";
-        const punto = document.createElement("div");
-        punto.className = "puntoEstela";
-        punto.style.left = e.clientX + "px";
-        punto.style.top = e.clientY + "px";
-        punto.style.backgroundColor = highlightColor;
-        document.body.appendChild(punto);
-        setTimeout(() => punto.remove(), 600);
-    });
-
-    // --- UTILIDADES ---
-    function goHome() {
-        if (visorActivo) toggleVisor();
-        localStorage.removeItem("liveServerScrollPos");
-        document.getElementById("content-wrapper").scrollTo(0, 0);
-    }
-
-    window.onclick = (e) => { if (e.target.tagName === 'DIALOG') e.target.close(); }
-
-    function copyCode(btn) {
-        const pre = btn.parentElement.querySelector('pre');
-        navigator.clipboard.writeText(pre.innerText).then(() => {
-            const oldText = btn.innerText;
-            btn.innerText = "¡COPIADO!";
-            setTimeout(() => { btn.innerText = oldText; }, 1500);
-        });
-    }
-
-    // --- PERSISTENCIA DE SCROLL ---
-    document.addEventListener("DOMContentLoaded", () => {
-        const savedScroll = localStorage.getItem("liveServerScrollPos");
-        if (savedScroll) {
-            setTimeout(() => { document.getElementById("content-wrapper").scrollTop = savedScroll; }, 100);
+                const li = document.createElement("li");
+                li.textContent = h2.textContent;
+                li.onclick = () => {
+                    if (visorActivo) toggleVisor();
+                    h2.scrollIntoView({ behavior: "smooth" });
+                    document.getElementById("search-dialog").close();
+                };
+                list.appendChild(li);
+            });
+            document.getElementById("search-dialog").showModal();
         }
-    });
 
-    document.getElementById("content-wrapper").addEventListener("scroll", () => {
-        localStorage.setItem("liveServerScrollPos", document.getElementById("content-wrapper").scrollTop);
-    });
-</script>
+        // --- HERRAMIENTAS (PC) ---
+        function toggleVisor() {
+            if (window.innerWidth < 1024) return;
+            const wrapper = document.getElementById("content-wrapper");
+            const mainContent = document.getElementById("content-main");
+            const visorContainer = document.getElementById("visor-container");
+            visorActivo = !visorActivo;
+
+            if (visorActivo) {
+                lastScrollPos = wrapper.scrollTop;
+                mainContent.style.display = "none";
+                visorContainer.style.display = "block";
+                document.body.classList.add("visor-activo");
+            } else {
+                visorContainer.style.display = "none";
+                mainContent.style.display = "block";
+                document.body.classList.remove("visor-activo");
+                wrapper.scrollTop = lastScrollPos;
+                reVincularEventosBorrado();
+            }
+            const btn = document.getElementById("visor-btn");
+            if (btn) btn.classList.toggle("active-tool", visorActivo);
+        }
+
+        function toggleLaser() {
+            if (window.innerWidth < 1024) return;
+            laserActive = !laserActive;
+            puntero.style.display = laserActive ? "block" : "none";
+            const btn = document.getElementById("pointer-btn");
+            if (btn) btn.classList.toggle("active-tool", laserActive);
+            document.body.classList.toggle("laser-on", laserActive);
+        }
+
+        document.addEventListener("mousemove", (e) => {
+            if (!laserActive || window.innerWidth < 1024) return;
+            puntero.style.left = e.clientX + "px";
+            puntero.style.top = e.clientY + "px";
+            const punto = document.createElement("div");
+            punto.className = "puntoEstela";
+            punto.style.left = e.clientX + "px";
+            punto.style.top = e.clientY + "px";
+            punto.style.backgroundColor = puntero.style.backgroundColor;
+            document.body.appendChild(punto);
+            setTimeout(() => punto.remove(), 600);
+        });
+
+        // --- INICIO Y PERSISTENCIA ---
+        function goHome() {
+            if (visorActivo) toggleVisor();
+            const wrapper = document.getElementById("content-wrapper");
+            if (wrapper) wrapper.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.onclick = (e) => {
+            if (e.target.tagName === 'DIALOG') e.target.close();
+        }
+
+        function copyCode(btn) {
+            const pre = btn.parentElement.querySelector('pre');
+            if (!pre) return;
+            navigator.clipboard.writeText(pre.innerText).then(() => {
+                const oldText = btn.innerText;
+                btn.innerText = "¡COPIADO!";
+                setTimeout(() => { btn.innerText = oldText; }, 1500);
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            cargarMarcas();
+            const savedScroll = localStorage.getItem("liveServerScrollPos");
+            const wrapper = document.getElementById("content-wrapper");
+            if (savedScroll && wrapper) {
+                setTimeout(() => { wrapper.scrollTop = savedScroll; }, 100);
+            }
+        });
+
+        const wrapperScroll = document.getElementById("content-wrapper");
+        if (wrapperScroll) {
+            wrapperScroll.addEventListener("scroll", () => {
+                localStorage.setItem("liveServerScrollPos", wrapperScroll.scrollTop);
+            });
+        }
+    </script>
+
 </body>
 
 </html>
