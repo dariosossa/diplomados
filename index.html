@@ -488,15 +488,15 @@
             background: rgba(255, 255, 255, 0.05);
         }
 
-        /* --- NAVEGACIÓN --- */
+        /* --- NAVEGACIÓN REORGANIZADA --- */
         nav.bar {
             height: var(--nav-h);
             background: #1e222d;
             display: grid;
-            grid-template-columns: repeat(6, 1fr);
+            /* Cambiado a 4 columnas para distribuir Inicio, Puntero, Visor y Buscar */
+            grid-template-columns: repeat(4, 1fr);
             border-top: 1px solid var(--border);
             z-index: 4000;
-            /* Añade esto para evitar que los gestos del móvil estorben */
             padding-bottom: env(safe-area-inset-bottom);
         }
 
@@ -510,6 +510,7 @@
             justify-content: center;
             cursor: pointer;
             transition: 0.2s;
+            width: 100%;
         }
 
         .nav-btn.active-tool {
@@ -518,18 +519,37 @@
         }
 
         .nav-btn span {
-            font-size: 0.6rem;
+            font-size: 0.65rem;
+            /* Ligeramente más grande para legibilidad */
             font-weight: bold;
             text-transform: uppercase;
             margin-top: 4px;
         }
 
+        /* --- ADAPTACIÓN MÓVIL (SÓLO 2 COLUMNAS) --- */
+        @media (max-width: 1023px) {
+            nav.bar {
+                /* En móvil ocultamos Puntero y Visor, quedan solo 2 botones */
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            /* Ocultar botones que no funcionan en móvil por lógica de JS */
+            #pointer-btn,
+            #visor-btn {
+                display: none;
+            }
+
+            .nav-btn span {
+                font-size: 0.75rem;
+                /* Texto un poco más grande en móviles */
+            }
+        }
+
         /* --- LÁSER --- */
         .punteroRojo {
             position: fixed;
-            width: 14px;
-            height: 14px;
-            background: red;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             pointer-events: none;
             z-index: 5000;
@@ -540,8 +560,8 @@
 
         .puntoEstela {
             position: fixed;
-            width: 8px;
-            height: 8px;
+            width: 24px;
+            height: 24px;
             background: red;
             border-radius: 50%;
             pointer-events: none;
@@ -5848,15 +5868,8 @@ body {
     </dialog>
 
     <nav class="bar">
-        <button class="nav-btn" onclick="goHome()"><i data-lucide="home"></i><span>Inicio</span></button>
-        <button id="marker-btn" class="nav-btn" onclick="toggleMarker()"><i
-                data-lucide="highlighter"></i><span>Marcador</span></button>
-        <button class="nav-btn" onclick="openPalette()">
-            <div id="color-ind"
-                style="width:16px; height:16px; border-radius:50%; background:#61DAFB; border:2px solid white;"></div>
-            <span>Color</span>
-        </button>
-        <button id="pointer-btn" class="nav-btn" onclick="toggleLaser()"><i
+        <button class="nav-btn" onclick="goHome()"><i data-lucide="home"></i><span>Inicio</span></button> <button
+            id="pointer-btn" class="nav-btn" onclick="toggleLaser()"><i
                 data-lucide="mouse-pointer-2"></i><span>Puntero</span></button>
         <button id="visor-btn" class="nav-btn" onclick="toggleVisor()"><i
                 data-lucide="monitor"></i><span>Visor</span></button>
@@ -5867,79 +5880,124 @@ body {
     <script>
         lucide.createIcons();
 
-        let markerActive = false, laserActive = false, visorActivo = false;
-        let highlightColor = "#61DAFB";
-        let lastScrollPos = 0; // Variable para guardar la posición
+        let laserActive = false, visorActivo = false;
+        let lastScrollPos = 0;
+        let currentRange = null; // Almacén crítico para la selección
+
+        // Lista de colores de la paleta
         const colors = [
-            "#00FFFF", // 1. Cyan Neón (Muy frío/brillante)
-            "#FF0000", // 2. Rojo Sangre (Cálido/Puro)
-            "#00FF00", // 3. Verde Lima (Saturación máxima)
-            "#FFFFFF", // 4. Blanco Puro (Claridad total)
-            "#FF00FF", // 5. Magenta/Fucsia (Color "extra" espectral)
-            "#FFFF00", // 6. Amarillo Eléctrico (Luminosidad alta)
-            "#808080", // 7. Gris Plata (Neutro oscuro)
-            "#4834D4", // 8. Azul Profundo (Frío oscuro/Royal)
-            "#F0932B", // 9. Naranja Tierra (Cálido intermedio)
-            "#000000"  // 10. Negro
+            "#00FFFF", // Cyan
+            "#FF0000", // Rojo
+            "#00FF00", // Verde
+            "#FFFFFF", // Blanco
+            "#FF00FF", // Magenta
+            "#FFFF00", // Amarillo
+            "#808080", // Gris
+            "#4834D4", // Azul Profundo
+            "#F0932B", // Naranja
+            "#000000"  // Negro
         ];
 
         const puntero = document.createElement("div");
         puntero.className = "punteroRojo";
         document.body.appendChild(puntero);
 
-        // Reloj
+        // Reloj digital
         function actualizarReloj() {
             const ahora = new Date();
             document.getElementById("reloj").textContent = ahora.getHours().toString().padStart(2, '0') + ":" + ahora.getMinutes().toString().padStart(2, '0');
         }
         setInterval(actualizarReloj, 1000); actualizarReloj();
 
-        // Marcador: Lógica de Colores
+        // --- LÓGICA DE LA PALETA (GENERACIÓN Y CLIC CORRECTO) ---
         const grid = document.getElementById("p-grid");
-        colors.forEach(c => {
+        grid.innerHTML = ""; // Limpiar antes de generar
+
+        colors.forEach(colorHex => {
             const d = document.createElement("div");
-            d.style.cssText = `aspect-ratio:1; border-radius:50%; background:${c}; cursor:pointer; border:2px solid rgba(255,255,255,0.2);`;
-            d.onclick = () => {
-                highlightColor = c; // Guarda el color elegido
-                document.getElementById("color-ind").style.background = c; // Cambia el circulito del menú
+            d.style.cssText = `aspect-ratio:1; border-radius:50%; background:${colorHex}; cursor:pointer; border:2px solid rgba(255,255,255,0.2); transition: transform 0.1s;`;
 
-                // ESTO ES LO NUEVO:
-                puntero.style.backgroundColor = c; // Cambia el color del láser
-                puntero.style.boxShadow = `0 0 10px ${c}`; // Cambia el brillo del láser
+            // Efecto visual al pasar el mouse
+            d.onmouseover = () => d.style.transform = "scale(1.1)";
+            d.onmouseout = () => d.style.transform = "scale(1)";
 
-                document.getElementById("palette-dialog").close();
-                if (!markerActive) toggleMarker();
-            };
+            // EVENTO CLIC: Usamos el valor de 'colorHex' bloqueado en este bucle
+            d.addEventListener('click', function () {
+                if (currentRange) {
+                    aplicarMarcado(currentRange, colorHex); // Aplica el color específico
+                }
+                document.getElementById("palette-dialog").close(); // Cierra la paleta
+                currentRange = null; // Limpia la referencia
+            });
             grid.appendChild(d);
         });
 
-        function toggleMarker() {
-            markerActive = !markerActive;
-            document.getElementById("marker-btn").classList.toggle("active-tool", markerActive);
-            document.body.classList.toggle("marker-mode-active", markerActive);
-        }
-
+        // --- DETECTAR SELECCIÓN Y EXPANDIR A PALABRAS COMPLETAS ---
         document.addEventListener("mouseup", () => {
-            if (!markerActive || visorActivo || laserActive) return;
             const sel = window.getSelection();
-            if (sel.isCollapsed) return;
-            const range = sel.getRangeAt(0);
-            const span = document.createElement("span");
-            span.className = "highlight-span";
-            span.style.borderBottomColor = highlightColor;
-            span.style.color = highlightColor;
-            span.onclick = function (e) { e.stopPropagation(); this.replaceWith(...this.childNodes); };
-            try { range.surroundContents(span); } catch (e) {
-                const c = range.extractContents(); span.appendChild(c); range.insertNode(span);
+
+            // Solo actuar si hay selección, no estamos en visor ni láser
+            if (!sel.isCollapsed && !visorActivo && !laserActive) {
+                const range = sel.getRangeAt(0);
+
+                // OPTIMIZACIÓN: Expandir el rango a palabras completas
+                expandirRangoAPalabarasCompletas(range);
+
+                currentRange = range.cloneRange(); // Guardar copia exacta de la selección expandida
+                document.getElementById("palette-dialog").showModal(); // Abrir paleta automáticamente
             }
-            sel.removeAllRanges();
         });
 
-        // Buscador Inteligente basado en H2
+        // Función auxiliar para expandir la selección a límites de palabras
+        function expandirRangoAPalabarasCompletas(range) {
+            // Expandir inicio hacia atrás
+            while (range.startOffset > 0) {
+                range.setStart(range.startContainer, range.startOffset - 1);
+                if (range.toString().match(/^\s/)) { // Si encontramos un espacio al inicio
+                    range.setStart(range.startContainer, range.startOffset + 1); // Retroceder uno
+                    break;
+                }
+            }
+
+            // Expandir final hacia adelante
+            while (range.endOffset < range.endContainer.length) {
+                range.setEnd(range.endContainer, range.endOffset + 1);
+                if (range.toString().match(/\s$/)) { // Si encontramos un espacio al final
+                    range.setEnd(range.endContainer, range.endOffset - 1); // Retroceder uno
+                    break;
+                }
+            }
+        }
+
+        // Función que aplica el SPAN de marcado
+        function aplicarMarcado(range, color) {
+            const span = document.createElement("span");
+            span.className = "highlight-span";
+            span.style.borderBottomColor = color;
+            span.style.color = color;
+
+            // Al hacer clic en el texto marcado, se elimina el marcado
+            span.onclick = function (e) {
+                e.stopPropagation();
+                this.replaceWith(...this.childNodes);
+            };
+
+            try {
+                range.surroundContents(span); // Envolver selección simple
+            } catch (e) {
+                // Manejo de selecciones complejas (que cruzan etiquetas HTML)
+                const fragment = range.extractContents();
+                span.appendChild(fragment);
+                range.insertNode(span);
+            }
+            window.getSelection().removeAllRanges(); // Quitar el sombreado azul del navegador
+        }
+
+        // Buscador Inteligente
         function openSearch() {
             const list = document.getElementById("results");
             list.innerHTML = "";
-            document.querySelectorAll("section h2").forEach((h2, index) => {
+            document.querySelectorAll("section h2").forEach((h2) => {
                 const li = document.createElement("li");
                 li.textContent = h2.textContent;
                 li.onclick = () => {
@@ -5952,18 +6010,16 @@ body {
             document.getElementById("search-dialog").showModal();
         }
 
-        // Puntero Láser y Visor MEJORADO PARA MANTENER SCROLL
+        // Herramientas (BLOQUEADAS EN MÓVIL < 1024px)
         function toggleVisor() {
+            if (window.innerWidth < 1024) return;
             const wrapper = document.getElementById("content-wrapper");
             const mainContent = document.getElementById("content-main");
             const visorContainer = document.getElementById("visor-container");
-
             visorActivo = !visorActivo;
 
             if (visorActivo) {
-                // 1. Guardar la posición actual del scroll antes de ocultar
                 lastScrollPos = wrapper.scrollTop;
-
                 mainContent.style.display = "none";
                 visorContainer.style.display = "block";
                 document.body.classList.add("visor-activo");
@@ -5971,100 +6027,66 @@ body {
                 visorContainer.style.display = "none";
                 mainContent.style.display = "block";
                 document.body.classList.remove("visor-activo");
-
-                // 2. Restaurar la posición del scroll inmediatamente después de mostrar
                 wrapper.scrollTop = lastScrollPos;
             }
-
             document.getElementById("visor-btn").classList.toggle("active-tool", visorActivo);
-            actualizarEstadoCapa();
         }
 
         function toggleLaser() {
+            if (window.innerWidth < 1024) return;
             laserActive = !laserActive;
             puntero.style.display = laserActive ? "block" : "none";
             document.getElementById("pointer-btn").classList.toggle("active-tool", laserActive);
-            actualizarEstadoCapa();
-        }
-
-        function actualizarEstadoCapa() {
-            if (laserActive) {
-                document.body.classList.add("laser-on");
-            } else {
-                document.body.classList.remove("laser-on");
-                document.body.style.cursor = "default";
-            }
+            document.body.classList.toggle("laser-on", laserActive);
         }
 
         document.addEventListener("mousemove", (e) => {
-            if (!laserActive) return;
+            if (!laserActive || window.innerWidth < 1024) return;
             puntero.style.left = e.clientX + "px";
             puntero.style.top = e.clientY + "px";
-
             const punto = document.createElement("div");
             punto.className = "puntoEstela";
             punto.style.left = e.clientX + "px";
             punto.style.top = e.clientY + "px";
-
-            // NUEVO: Esto hace que el rastro sea del mismo color
-            punto.style.backgroundColor = highlightColor;
-
+            // Usa el color del láser actual
+            punto.style.backgroundColor = puntero.style.backgroundColor || "#61DAFB";
             document.body.appendChild(punto);
             setTimeout(() => punto.remove(), 600);
         });
 
-        function openPalette() { document.getElementById("palette-dialog").showModal(); }
-
-        // goHome ahora también respeta el reseteo de la variable de posición
+        // Función Ir a Inicio
         function goHome() {
             if (visorActivo) toggleVisor();
-            lastScrollPos = 0;
+            localStorage.removeItem("liveServerScrollPos"); // Limpiar scroll guardado
             document.getElementById("content-wrapper").scrollTo(0, 0);
         }
 
+        // Cerrar diálogos al hacer clic fuera
         window.onclick = (e) => { if (e.target.tagName === 'DIALOG') e.target.close(); }
 
+        // Función Copiar Código
         function copyCode(btn) {
             const pre = btn.parentElement.querySelector('pre');
-            const textToCopy = pre.innerText;
-
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                const originalText = btn.innerText;
+            navigator.clipboard.writeText(pre.innerText).then(() => {
+                const oldText = btn.innerText;
                 btn.innerText = "¡COPIADO!";
-                btn.style.color = "#12141c";
-                btn.style.backgroundColor = "#61dafb";
-
-                setTimeout(() => {
-                    btn.innerText = originalText;
-                    btn.style.color = "";
-                    btn.style.backgroundColor = "";
-                }, 1500);
-            }).catch(err => {
-                console.error('Error al copiar: ', err);
-                alert("No se pudo copiar el código automáticamente.");
+                setTimeout(() => { btn.innerText = oldText; }, 1500);
             });
         }
 
-        // --- PERSISTENCIA DE SCROLL PARA GO LIVE ---
-
-        // 1. Al cargar la página, recupera la posición guardada
+        // --- PERSISTENCIA DE SCROLL ---
         document.addEventListener("DOMContentLoaded", () => {
             const savedScroll = localStorage.getItem("liveServerScrollPos");
             if (savedScroll) {
-                // Usamos un pequeño timeout para asegurar que el contenido se haya renderizado
-                setTimeout(() => {
-                    document.getElementById("content-wrapper").scrollTop = savedScroll;
-                }, 100);
+                setTimeout(() => { document.getElementById("content-wrapper").scrollTop = savedScroll; }, 100);
             }
         });
 
-        // 2. Cada vez que el usuario hace scroll, guarda la posición
         document.getElementById("content-wrapper").addEventListener("scroll", () => {
-            const currentScroll = document.getElementById("content-wrapper").scrollTop;
-            localStorage.setItem("liveServerScrollPos", currentScroll);
+            localStorage.setItem("liveServerScrollPos", document.getElementById("content-wrapper").scrollTop);
         });
 
-        // 3. Opcional: Si el usuario pulsa "Inicio", limpiamos la memoria
+        // Sobrescribir goHome para limpiar la persistencia
         const originalGoHome = goHome;
         goHome = function () {
             localStorage.removeItem("liveServerScrollPos");
