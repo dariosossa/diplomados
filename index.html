@@ -5903,54 +5903,105 @@ h1 {
                 <p>
                     Esto permite reutilizar el mismo estilo en varios elementos de la página.
                 </p>
-                <h3>¿Qué unidades se pueden usar en CSS?</h3>
+
+                <details class="respuesta-box">
+                    <summary>Actividad 26</summary>
+
+                    <div style="padding:20px; border:1px dashed #2d3343; background-color:white; color:black;">
+
+                        <h3 style="color:black;">Práctica: tamaños con width y height</h3>
+
+                        <p style="color:black;">
+                            1. Cree un archivo <b style="color:black;">index.html</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            2. Cree un archivo <b style="color:black;">styles.css</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            3. En su archivo <b style="color:black;">index.html</b> cree las siguientes
+                            cajas utilizando la etiqueta <b style="color:black;">div</b>.
+                        </p>
+
+                        <div
+                            style="border:3px solid black; width:280px; height:140px; margin:10px 0; display:flex; align-items:center; justify-content:center;">
+                            280px × 140px
+                        </div>
+
+                        <div
+                            style="border:3px solid black; width:150px; height:80px; margin:10px 0; display:flex; align-items:center; justify-content:center;">
+                            150px × 80px
+                        </div>
+
+                        <div
+                            style="border:3px solid black; width:330px; height:170px; margin:10px 0; display:flex; align-items:center; justify-content:center;">
+                            330px × 170px
+                        </div>
+
+                        <div
+                            style="border:3px solid black; width:120px; height:60px; margin:10px 0; display:flex; align-items:center; justify-content:center;">
+                            120px × 60px
+                        </div>
+
+                        <div
+                            style="border:3px solid black; width:250px; height:120px; margin:10px 0; display:flex; align-items:center; justify-content:center;">
+                            250px × 120px
+                        </div>
+
+                        <div
+                            style="border:3px solid black; width:200px; height:100px; margin:10px 0; display:flex; align-items:center; justify-content:center;">
+                            200px × 100px
+                        </div>
+
+                        <div
+                            style="border:3px solid black; width:360px; height:190px; margin:10px 0; display:flex; align-items:center; justify-content:center;">
+                            360px × 190px
+                        </div>
+
+                        <div
+                            style="border:3px solid black; width:180px; height:90px; margin:10px 0; display:flex; align-items:center; justify-content:center;">
+                            180px × 90px
+                        </div>
+
+                        <div
+                            style="border:3px solid black; width:300px; height:150px; margin:10px 0; display:flex; align-items:center; justify-content:center;">
+                            300px × 150px
+                        </div>
+
+                        <div
+                            style="border:3px solid black; width:220px; height:110px; margin:10px 0; display:flex; align-items:center; justify-content:center;">
+                            220px × 110px
+                        </div>
+
+                        <p style="color:black;">
+                            4. Cree una <b style="color:black;">class</b> para cada caja en su archivo
+                            <b style="color:black;">index.html</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            5. En el archivo <b style="color:black;">styles.css</b> intente replicar exactamente
+                            los tamaños que aparecen dentro de cada caja utilizando:
+                        </p>
+
+                        <ul style="color:black;">
+                            <li><b style="color:black;">width</b></li>
+                            <li><b style="color:black;">height</b></li>
+                        </ul>
+
+                        <p style="color:black;">
+                            6. Observe cómo cada caja cambia de tamaño dependiendo de los valores
+                            que se aplican en CSS.
+                        </p>
+
+                    </div>
+                </details>
+
+                <h3>¿Qué otras unidades se pueden usar?</h3>
 
                 <p>
-                    Cuando modificamos tamaños en CSS, como el ancho, la altura o el tamaño del texto,
-                    debemos indicar una <b>unidad de medida</b>.
+                    Ademas de <b>px</b>, se puede utilizar <b>%</b>, <b>vw</b> y <b>vh</b>.
                 </p>
-
-                <p>
-                    Las unidades indican cuánto espacio ocupará un elemento dentro de la página.
-                </p>
-
-                <ul>
-                    <li><b>px</b> → píxeles</li>
-                    <li><b>%</b> → porcentaje</li>
-                    <li><b>vw</b> → porcentaje del ancho de la pantalla</li>
-                    <li><b>vh</b> → porcentaje de la altura de la pantalla</li>
-                    <li><b>em</b> → tamaño relativo al texto</li>
-                    <li><b>rem</b> → tamaño relativo al elemento raíz</li>
-                </ul>
-
-                <h4>Unidad px</h4>
-
-                <p>
-                    La unidad <b>px</b> representa píxeles. Es una medida fija que permite controlar
-                    con precisión el tamaño de un elemento.
-                </p>
-
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-.contenedor {
-  width: 300px;
-  height: 150px;
-}
-</code></pre>
-                </div>
-
-                <p>
-                    HTML donde se aplicaría este estilo:
-                </p>
-
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-&lt;div class="contenedor"&gt;&lt;/div&gt;
-</code></pre>
-                </div>
-
 
                 <h4>Unidad %</h4>
 
@@ -6019,95 +6070,80 @@ h1 {
 &lt;div class="contenedor"&gt;&lt;/div&gt;
 </code></pre>
                 </div>
+                <details class="respuesta-box">
+                    <summary>Actividad 27</summary>
 
+                    <div style="padding:20px; border:1px dashed #2d3343; background-color:white; color:black;">
 
-                <h4>Unidad em</h4>
+                        <h3 style="color:black;">Práctica: uso de %, vw y vh</h3>
 
-                <p>
-                    La unidad <b>em</b> se calcula tomando como referencia el tamaño de letra
-                    del elemento padre.
-                </p>
+                        <p style="color:black;">
+                            1. Cree un archivo <b style="color:black;">index.html</b>.
+                        </p>
 
-                <p>
-                    En muchos navegadores el tamaño base suele ser <b>16px</b>.
-                </p>
+                        <p style="color:black;">
+                            2. Cree un archivo <b style="color:black;">styles.css</b>.
+                        </p>
 
-                <ul>
-                    <li>1em = 16px</li>
-                    <li>2em = 32px</li>
-                    <li>0.5em = 8px</li>
-                </ul>
+                        <p style="color:black;">
+                            3. En su archivo <b style="color:black;">index.html</b> cree un contenedor principal
+                            y dentro coloque las siguientes cajas.
+                        </p>
 
-                <p>
-                    Esta unidad se utiliza principalmente para <b>controlar el tamaño del texto</b>.
-                </p>
+                        <div style="border:3px solid black; width:90%; padding:15px; margin:15px auto;">
 
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-.texto {
-  font-size: 2em;
-}
-</code></pre>
-                </div>
+                            <div
+                                style="border:3px solid black; width:40%; height:60px; margin:10px 0; display:flex; align-items:center; justify-content:center;">
+                                width: 40% | height: 60px
+                            </div>
 
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-&lt;p class="texto"&gt;Texto de ejemplo&lt;/p&gt;
-</code></pre>
-                </div>
+                            <div
+                                style="border:3px solid black; width:60%; height:70px; margin:10px 0; display:flex; align-items:center; justify-content:center;">
+                                width: 60% | height: 70px
+                            </div>
 
+                            <div
+                                style="border:3px solid black; width:30vw; height:80px; margin:10px 0; display:flex; align-items:center; justify-content:center;">
+                                width: 30vw | height: 80px
+                            </div>
 
-                <h4>Unidad rem</h4>
+                            <div
+                                style="border:3px solid black; width:50vw; height:90px; margin:10px 0; display:flex; align-items:center; justify-content:center;">
+                                width: 50vw | height: 90px
+                            </div>
 
-                <p>
-                    La unidad <b>rem</b> significa <b>root em</b>. El cálculo se basa en el tamaño
-                    del elemento raíz <b>html</b>.
-                </p>
+                            <div
+                                style="border:3px solid black; width:70%; height:15vh; margin:10px 0; display:flex; align-items:center; justify-content:center;">
+                                width: 70% | height: 15vh
+                            </div>
 
-                <ul>
-                    <li>1rem = 16px</li>
-                    <li>2rem = 32px</li>
-                    <li>0.5rem = 8px</li>
-                </ul>
+                            <div
+                                style="border:3px solid black; width:50%; height:20vh; margin:10px 0; display:flex; align-items:center; justify-content:center;">
+                                width: 50% | height: 20vh
+                            </div>
 
-                <p>
-                    Al igual que <b>em</b>, esta unidad se usa con mayor frecuencia para
-                    <b>definir tamaños de texto</b>.
-                </p>
+                        </div>
 
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-.texto {
-  font-size: 1.5rem;
-}
-</code></pre>
-                </div>
+                        <p style="color:black;">
+                            4. Cree una <b style="color:black;">class</b> para cada caja en su archivo
+                            <b style="color:black;">index.html</b>.
+                        </p>
 
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-&lt;p class="texto"&gt;Texto de ejemplo&lt;/p&gt;
-</code></pre>
-                </div>
+                        <p style="color:black;">
+                            5. En el archivo <b style="color:black;">styles.css</b> intente replicar exactamente
+                            los valores de <b style="color:black;">width</b> y <b style="color:black;">height</b>
+                            que aparecen dentro de cada caja.
+                        </p>
+
+                        <p style="color:black;">
+                            6. Cambie el tamaño de la ventana del navegador y observe cómo algunas cajas
+                            cambian automáticamente su tamaño dependiendo de la unidad utilizada.
+                        </p>
+
+                    </div>
+                </details>
+
                 <h3>¿Cómo cambiar el color de la letra en CSS?</h3>
-
-                <p>
-                    En la sección anterior vimos que el color de un <b>borde</b> puede definirse de
-                    diferentes maneras.
-                </p>
-
-                <p>
-                    De la misma forma también podemos cambiar el <b>color de la letra</b>
-                    utilizando la propiedad <b>color</b>.
-                </p>
-
-                <p>
-                    Esta propiedad permite modificar el color del texto de títulos,
-                    párrafos u otros elementos.
-                </p>
 
                 <p>
                     Al igual que en los bordes, el color puede escribirse de varias formas:
@@ -6147,6 +6183,122 @@ h4 {
                     En este ejemplo cada título tendrá un color diferente utilizando
                     distintas formas de escribir el color en CSS.
                 </p>
+
+                <details class="respuesta-box">
+                    <summary>Actividad 28</summary>
+
+                    <div style="padding:20px; border:1px dashed #2d3343; background-color:white; color:black;">
+
+                        <h3 style="color:black;">Práctica: Psicología del color</h3>
+
+                        <p style="color:black;">
+                            En diseño web el color no solo se utiliza para decorar una página.
+                            Los colores transmiten emociones, sensaciones e incluso pueden influir
+                            en la forma en que una persona interpreta un mensaje.
+                        </p>
+
+                        <p style="color:black;">
+                            A este fenómeno se lo conoce como <b style="color: #000;">psicología del color</b>.
+                            La psicología del color estudia cómo los colores afectan la percepción
+                            y las emociones de las personas cuando observan un diseño, una marca
+                            o un sitio web.
+                        </p>
+
+                        <p style="color:black;">
+                            Por ejemplo, algunos colores transmiten tranquilidad, otros energía
+                            y otros pueden generar confianza. Por esta razón las empresas y los
+                            diseñadores eligen cuidadosamente los colores que utilizan en sus
+                            páginas web, logotipos o aplicaciones.
+                        </p>
+
+                        <p style="color:black;">
+                            Imagina que entras a una página bancaria. Probablemente veas mucho
+                            color azul porque ese color suele asociarse con seguridad y confianza.
+                            En cambio, una marca deportiva puede usar rojo o naranja porque esos
+                            colores transmiten fuerza y energía.
+                        </p>
+
+                        <p style="color:black;">
+                            En esta actividad deberás aplicar diferentes colores a ciertas palabras
+                            utilizando CSS para comprender cómo funciona la propiedad
+                            <b style="color: #000;">color</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            1. Cree un archivo <b style="color: #000;">index.html</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            2. Cree un archivo <b style="color: #000;">styles.css</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            3. Cree una <b style="color: #000;">class</b> para cada palabra o frase que aparece en la
+                            siguiente lista.
+                        </p>
+
+                        <p style="color:black;">
+                            4. En el archivo <b style="color: #000;">styles.css</b> aplique el color indicado utilizando
+                            la propiedad <b style="color: #000;">color</b>.
+                        </p>
+
+                        <h3 style="color:black;">Ejemplo de cómo hacerlo</h3>
+
+                        <p style="color:black;">
+                            En el archivo <b style="color: #000;">index.html</b> podrías escribir algo como esto:
+                        </p>
+
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                            <pre><code>
+&lt;p&gt;
+La &lt;span class="psicologia"&gt;psicología del color&lt;/span&gt;
+influye en la forma en que percibimos una marca.
+&lt;/p&gt;
+</code></pre>
+                        </div>
+
+                        <p style="color:black;">
+                            Luego, en el archivo <b style="color: #000;">styles.css</b> podrías definir el color así:
+                        </p>
+
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                            <pre><code>
+.psicologia{
+  color:#b91c1c;
+}
+</code></pre>
+                        </div>
+
+                        <h3 style="color:black;">Colores que debes aplicar</h3>
+
+                        <div
+                            style="border:3px solid black; padding:20px; margin-top:20px; width:90%; margin-left:auto; margin-right:auto;">
+
+                            <p><b style="color: #000;">Psicología del color</b> → #b91c1c</p>
+
+                            <p><b style="color: #000;">Confianza</b> → #1e3a8a</p>
+
+                            <p><b style="color: #000;">Energía</b> → #ea580c</p>
+
+                            <p><b style="color: #000;">Tranquilidad</b> → #047857</p>
+
+                            <p><b style="color: #000;">Creatividad</b> → #7c3aed</p>
+
+                            <p><b style="color: #000;">Elegancia</b> → #111827</p>
+
+                        </div>
+
+                        <p style="color:black;">
+                            El objetivo de la actividad es que el estudiante practique cómo crear
+                            clases en CSS y aplicar colores utilizando valores en formato
+                            hexadecimal.
+                        </p>
+
+                    </div>
+                </details>
+
 
                 <h3>¿Cómo cambiar el color de fondo en CSS?</h3>
 
@@ -6277,6 +6429,120 @@ h4 {
                     <li>Fondo oscuro → texto claro</li>
                     <li>Fondo claro → texto oscuro</li>
                 </ul>
+
+                <details class="respuesta-box">
+                    <summary>Actividad 29</summary>
+
+                    <div style="padding:20px; border:1px dashed #2d3343; background-color:white; color:black;">
+
+                        <h3 style="color:black;">Práctica: Contraste entre fondo, texto y tamaño de cajas</h3>
+
+                        <p style="color:black;">
+                            Cuando diseñamos una página web no solo debemos elegir colores adecuados.
+                            También debemos controlar el <b style="color:#000;">tamaño de los elementos</b>
+                            para que el diseño sea claro y ordenado.
+                        </p>
+
+                        <p style="color:black;">
+                            En CSS podemos modificar el tamaño de una caja utilizando las propiedades
+                            <b style="color:#000;">width</b> (ancho) y <b style="color:#000;">height</b> (alto).
+                        </p>
+
+                        <p style="color:black;">
+                            Estas propiedades permiten definir cuánto espacio ocupará un elemento
+                            dentro de la página.
+                        </p>
+
+                        <p style="color:black;">
+                            En esta actividad practicarás tres cosas al mismo tiempo:
+                        </p>
+
+                        <ul style="color:black;">
+                            <li>Aplicar <b style="color:#000;">color de fondo</b></li>
+                            <li>Aplicar <b style="color:#000;">color de texto</b></li>
+                            <li>Modificar <b style="color:#000;">alto y ancho</b> de las cajas</li>
+                        </ul>
+
+                        <p style="color:black;">
+                            1. Cree un archivo <b style="color:#000;">index.html</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            2. Cree un archivo <b style="color:#000;">styles.css</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            3. Cree cuatro <b style="color:#000;">div</b> con diferentes clases.
+                        </p>
+
+                        <p style="color:black;">
+                            4. En el archivo <b style="color:#000;">styles.css</b> aplique los colores,
+                            el ancho y el alto indicados.
+                        </p>
+
+                        <h3 style="color:black;">Ejemplo de estructura HTML</h3>
+
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                            <pre><code>
+&lt;div class="tarjeta1"&gt;
+  Seguridad bancaria
+&lt;/div&gt;
+
+&lt;div class="tarjeta2"&gt;
+  Oferta especial
+&lt;/div&gt;
+
+&lt;div class="tarjeta3"&gt;
+  Información importante
+&lt;/div&gt;
+
+&lt;div class="tarjeta4"&gt;
+  Área creativa
+&lt;/div&gt;
+</code></pre>
+                        </div>
+
+                        <h3 style="color:black;">Configuración que debes aplicar</h3>
+
+                        <div
+                            style="border:3px solid black; padding:20px; margin-top:20px; width:90%; margin-left:auto; margin-right:auto;">
+
+                            <p><b style="color:#000;">Tarjeta 1</b></p>
+                            <p>Fondo → #1e3a8a</p>
+                            <p>Texto → #ffffff</p>
+                            <p>Ancho → 300px</p>
+                            <p>Alto → 120px</p>
+
+                            <hr>
+
+                            <p><b style="color:#000;">Tarjeta 2</b></p>
+                            <p>Fondo → #facc15</p>
+                            <p>Texto → #111827</p>
+                            <p>Ancho → 350px</p>
+                            <p>Alto → 120px</p>
+
+                            <hr>
+
+                            <p><b style="color:#000;">Tarjeta 3</b></p>
+                            <p>Fondo → #111827</p>
+                            <p>Texto → #f1f5f9</p>
+                            <p>Ancho → 300px</p>
+                            <p>Alto → 150px</p>
+
+                            <hr>
+
+                            <p><b style="color:#000;">Tarjeta 4</b></p>
+                            <p>Fondo → #7c3aed</p>
+                            <p>Texto → #ffffff</p>
+                            <p>Ancho → 350px</p>
+                            <p>Alto → 150px</p>
+
+                        </div>
+
+                    </div>
+                </details>
+
                 <h3>¿Cómo colocar una imagen como fondo en CSS?</h3>
 
                 <p>
@@ -6375,6 +6641,104 @@ h4 {
                     crear <b>secciones con imágenes de fondo limpias y bien ajustadas</b>.
                 </p>
 
+                <details class="respuesta-box">
+                    <summary>Actividad 30</summary>
+
+                    <div style="padding:20px; border:1px dashed #2d3343; background-color:white; color:black;">
+
+                        <h3 style="color:black;">Replica la siguinete Historia</h3>
+
+
+                        <p style="color:black;">
+                            Carlos comenzó su proyecto observando diferentes restaurantes de su ciudad.
+                            Notó que muchas páginas utilizan imágenes grandes para mostrar el ambiente
+                            del lugar y atraer la atención del visitante.
+                        </p>
+
+                        <div style="border:3px solid black; padding:15px; margin:20px 0;">
+                            <p><b>Imagen 1</b></p>
+                            <p>
+                                Fotografía panorámica de un restaurante moderno visto desde el interior.
+                                Debe verse el ambiente del lugar, mesas, luces o decoración.
+                            </p>
+                        </div>
+
+                        <p style="color:black;">
+                            Después pensó que una buena página web también debe mostrar la comida,
+                            porque las personas quieren ver lo que van a comer antes de visitar el lugar.
+                        </p>
+
+                        <div style="border:3px solid black; padding:15px; margin:20px 0;">
+                            <p><b>Imagen 2</b></p>
+                            <p>
+                                Fotografía de un plato de comida visto desde arriba (vista cenital),
+                                donde se puedan observar claramente los ingredientes.
+                            </p>
+                        </div>
+
+                        <p style="color:black;">
+                            Mientras seguía investigando, Carlos descubrió que muchos diseñadores
+                            utilizan imágenes como fondo para crear secciones visualmente atractivas.
+                            Sin embargo, también aprendió que estas imágenes deben estar bien
+                            posicionadas y ajustadas para que el contenido sea fácil de leer.
+                        </p>
+
+                        <p style="color:black;">
+                            Por esta razón comenzó a aplicar propiedades como
+                            <b style="color:#000;">background-size</b>,
+                            <b style="color:#000;">background-position</b>
+                            y <b style="color:#000;">background-repeat</b>.
+                        </p>
+
+                        <div style="border:3px solid black; padding:15px; margin:20px 0;">
+                            <p><b>Imagen 3</b></p>
+                            <p>
+                                Fotografía horizontal de una mesa con varios platos de comida,
+                                bebidas o ingredientes. La imagen debe ser amplia para poder
+                                utilizarse como fondo de una sección.
+                            </p>
+                        </div>
+
+                        <p style="color:black;">
+                            Al final Carlos comprendió algo muy importante: una buena imagen puede
+                            mejorar el diseño de una página web, pero solo si se utiliza con
+                            buenas prácticas de diseño.
+                        </p>
+
+
+                        <h3 style="color:black;">Instrucciones de la actividad</h3>
+
+                        <p style="color:black;">
+                            1. Cree un archivo <b style="color:#000;">index.html</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            2. Cree un archivo <b style="color:#000;">styles.css</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            3. Cree una carpeta llamada <b style="color:#000;">img</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            4. Busque tres imágenes que coincidan con las descripciones anteriores.
+                        </p>
+
+                        <p style="color:black;">
+                            5. Inserte las imágenes dentro de la historia utilizando etiquetas
+                            <b style="color:#000;">img</b> o utilícelas como fondo de secciones
+                            utilizando <b style="color:#000;">background-image</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            El objetivo de esta actividad es que practiques cómo organizar contenido
+                            visual dentro de una página web y cómo utilizar imágenes de forma
+                            correcta dentro del diseño.
+                        </p>
+
+                    </div>
+                </details>
+
                 <h3>¿Cómo cambiar el tamaño del texto?</h3>
 
                 <p>
@@ -6399,7 +6763,199 @@ h4 {
                     En este ejemplo el texto tendrá un tamaño de <b>20 píxeles</b>.
                 </p>
 
+                <ul>
+                    <li><b>em</b> → tamaño relativo al texto</li>
+                    <li><b>rem</b> → tamaño relativo al elemento raíz</li>
+                </ul>
+                <h4>Unidad em</h4>
 
+                <p>
+                    La unidad <b>em</b> se calcula tomando como referencia el tamaño de letra
+                    del elemento padre.
+                </p>
+
+                <p>
+                    En muchos navegadores el tamaño base suele ser <b>16px</b>.
+                </p>
+
+                <ul>
+                    <li>1em = 16px</li>
+                    <li>2em = 32px</li>
+                    <li>0.5em = 8px</li>
+                </ul>
+
+                <p>
+                    Esta unidad se utiliza principalmente para <b>controlar el tamaño del texto</b>.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.texto {
+  font-size: 2em;
+}
+</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;p class="texto"&gt;Texto de ejemplo&lt;/p&gt;
+</code></pre>
+                </div>
+
+
+                <h4>Unidad rem</h4>
+
+                <p>
+                    La unidad <b>rem</b> significa <b>root em</b>. El cálculo se basa en el tamaño
+                    del elemento raíz <b>html</b>.
+                </p>
+
+                <ul>
+                    <li>1rem = 16px</li>
+                    <li>2rem = 32px</li>
+                    <li>0.5rem = 8px</li>
+                </ul>
+
+                <p>
+                    Al igual que <b>em</b>, esta unidad se usa con mayor frecuencia para
+                    <b>definir tamaños de texto</b>.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.texto {
+  font-size: 1.5rem;
+}
+</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;p class="texto"&gt;Texto de ejemplo&lt;/p&gt;
+</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>Actividad 31</summary>
+
+                    <div style="padding:20px; border:1px dashed #2d3343; background-color:white; color:black;">
+
+                        <h3 style="color:black;">Replica la siguiente Historia</h3>
+
+                        <h2 style="color:black;">Laura y su experiencia con los tamaños de letra</h2>
+
+                        <p style="color:black;">
+                            Laura comenzó a diseñar su primer blog personal. Su idea era escribir
+                            artículos sobre tecnología, diseño web y experiencias aprendiendo a programar.
+                            Sin embargo, cuando publicó su primer artículo se dio cuenta de que
+                            algo no estaba funcionando bien.
+                        </p>
+
+                        <p style="color:black;">
+                            Todo el texto tenía exactamente el mismo tamaño. Los títulos,
+                            subtítulos y párrafos se veían iguales, por lo que los lectores
+                            tenían dificultades para identificar qué parte del contenido
+                            era más importante.
+                        </p>
+
+                        <h3 style="color:black;">El descubrimiento de Laura</h3>
+
+                        <p style="color:black;">
+                            Investigando sobre diseño web, Laura descubrió que el tamaño
+                            de la letra es una parte fundamental de la lectura en internet.
+                            Un buen diseño utiliza diferentes tamaños para organizar
+                            la información y guiar al lector dentro de la página.
+                        </p>
+
+                        <div style="border:3px solid black; padding:15px; margin:20px 0;">
+                            <p><b>Imagen 1</b></p>
+                            <p>
+                                Fotografía o ilustración de una persona leyendo un artículo
+                                en una computadora o laptop.
+                            </p>
+                        </div>
+
+                        <p style="color:black;">
+                            Laura aprendió que los títulos principales deben ser más grandes
+                            que los subtítulos, y que los párrafos deben tener un tamaño
+                            cómodo para leer durante varios minutos.
+                        </p>
+
+                        <h3 style="color:black;">Organizando la información</h3>
+
+                        <p style="color:black;">
+                            Después decidió estructurar su artículo utilizando diferentes
+                            niveles de texto. El título principal sería el más grande,
+                            los subtítulos tendrían un tamaño intermedio y los párrafos
+                            utilizarían un tamaño estándar para facilitar la lectura.
+                        </p>
+
+                        <div style="border:3px solid black; padding:15px; margin:20px 0;">
+                            <p><b>Imagen 2</b></p>
+                            <p>
+                                Imagen de una página web donde se puedan observar títulos,
+                                subtítulos y párrafos claramente diferenciados.
+                            </p>
+                        </div>
+
+                        <p style="color:black;">
+                            Mientras continuaba practicando, Laura también descubrió que
+                            existen diferentes unidades para definir el tamaño del texto,
+                            como <b style="color:#000;">px</b>, <b style="color:#000;">em</b>
+                            y <b style="color:#000;">rem</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            Cada una de estas unidades permite controlar el tamaño de la
+                            tipografía de diferentes maneras, lo que ayuda a crear páginas
+                            web más organizadas y fáciles de leer.
+                        </p>
+
+                        <div style="border:3px solid black; padding:15px; margin:20px 0;">
+                            <p><b>Imagen 3</b></p>
+                            <p>
+                                Ilustración de un diseño web mostrando diferentes tamaños
+                                de texto para títulos, subtítulos y contenido.
+                            </p>
+                        </div>
+
+                        <p style="color:black;">
+                            Al finalizar su práctica, Laura comprendió algo importante:
+                            una página web bien diseñada no solo depende de colores o
+                            imágenes, sino también de utilizar correctamente los tamaños
+                            de letra para mejorar la experiencia del lector.
+                        </p>
+
+                        <h3 style="color:black;">Instrucciones de la actividad</h3>
+
+                        <p style="color:black;">
+                            1. Cree un archivo <b style="color:#000;">index.html</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            2. Cree un archivo <b style="color:#000;">styles.css</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            3. Replica la historia anterior utilizando títulos,
+                            subtítulos y párrafos.
+                        </p>
+
+                        <p style="color:black;">
+                            4. Busque tres imágenes que coincidan con las descripciones
+                            indicadas en los recuadros.
+                        </p>
+
+                        <p style="color:black;">
+                            5. Aplique diferentes tamaños de texto utilizando la propiedad
+                            <b style="color:#000;">font-size</b>.
+                        </p>
+                    </div>
+                </details>
 
                 <h3>¿Cómo cambiar el tipo de letra?</h3>
 
@@ -6467,7 +7023,138 @@ h4 {
                     De esta manera el texto utilizará la fuente <b>Roboto</b>.
                 </p>
 
+                <details class="respuesta-box">
+                    <summary>Actividad 32</summary>
 
+                    <div style="padding:20px; border:1px dashed #2d3343; background-color:white; color:black;">
+
+                        <h3 style="color:black;">Replica la siguiente Historia</h3>
+
+                        <h2 style="color:black;">La psicología de la tipografía</h2>
+
+                        <p style="color:black;">
+                            Marcos estaba diseñando la página web de una pequeña cafetería.
+                            El sitio ya tenía imágenes atractivas, colores agradables y un
+                            buen diseño. Sin embargo, cuando mostró el proyecto a sus
+                            compañeros, muchos dijeron que el sitio se veía "extraño"
+                            aunque no sabían exactamente por qué.
+                        </p>
+
+                        <p style="color:black;">
+                            Intrigado por este comentario, Marcos comenzó a investigar más
+                            sobre el diseño web y descubrió un concepto muy importante:
+                            <b style="color:#000;">la psicología de la tipografía</b>.
+                        </p>
+
+                        <h3 style="color:black;">¿Qué es la psicología de la tipografía?</h3>
+
+                        <p style="color:black;">
+                            La psicología de la tipografía estudia cómo los diferentes
+                            tipos de letra pueden transmitir emociones, personalidad
+                            y estilo dentro de un diseño.
+                        </p>
+
+                        <p style="color:black;">
+                            Algunas fuentes pueden parecer elegantes, otras modernas,
+                            otras divertidas y otras muy formales. Por esta razón,
+                            elegir la tipografía correcta es una decisión muy importante
+                            cuando se diseña una página web.
+                        </p>
+
+                        <div style="border:3px solid black; padding:15px; margin:20px 0;">
+                            <p><b>Imagen 1</b></p>
+                            <p>
+                                Imagen comparando diferentes tipos de letra en una misma frase
+                                para observar cómo cambia el estilo visual del texto.
+                            </p>
+                        </div>
+
+                        <h3 style="color:black;">Tipos de tipografía y su personalidad</h3>
+
+                        <p style="color:black;">
+                            Mientras investigaba, Marcos descubrió que las tipografías
+                            pueden transmitir diferentes sensaciones dependiendo
+                            de su estilo.
+                        </p>
+
+                        <p style="color:black;">
+                            Por ejemplo, las tipografías con serifas suelen utilizarse
+                            en textos más formales o tradicionales, mientras que las
+                            tipografías sin serifas suelen utilizarse en diseños
+                            modernos y páginas web.
+                        </p>
+
+                        <div style="border:3px solid black; padding:15px; margin:20px 0;">
+                            <p><b>Imagen 2</b></p>
+                            <p>
+                                Imagen comparando una tipografía con serif (por ejemplo
+                                Times New Roman) y una tipografía sin serif (por ejemplo Arial).
+                            </p>
+                        </div>
+
+                        <h3 style="color:black;">Tipografía y experiencia del usuario</h3>
+
+                        <p style="color:black;">
+                            Marcos también aprendió que elegir una buena tipografía
+                            no solo tiene que ver con estética, sino también con
+                            <b style="color:#000;">legibilidad</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            Si una fuente es difícil de leer, el visitante puede
+                            abandonar la página rápidamente. Por esta razón,
+                            muchos diseñadores utilizan fuentes simples,
+                            limpias y fáciles de leer.
+                        </p>
+
+                        <div style="border:3px solid black; padding:15px; margin:20px 0;">
+                            <p><b>Imagen 3</b></p>
+                            <p>
+                                Imagen de una página web bien diseñada donde se
+                                observe claramente el uso correcto de la tipografía.
+                            </p>
+                        </div>
+
+                        <p style="color:black;">
+                            Al finalizar su investigación, Marcos comprendió que
+                            la tipografía no es solo elegir una fuente bonita,
+                            sino seleccionar una que comunique correctamente
+                            el mensaje del sitio web.
+                        </p>
+
+                        <h3 style="color:black;">Instrucciones de la actividad</h3>
+
+                        <p style="color:black;">
+                            1. Cree un archivo <b style="color:#000;">index.html</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            2. Cree un archivo <b style="color:#000;">styles.css</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            3. Replica la historia anterior utilizando títulos,
+                            subtítulos y párrafos.
+                        </p>
+
+                        <p style="color:black;">
+                            4. Busque tres imágenes que representen los ejemplos
+                            de tipografía mencionados en la historia.
+                        </p>
+
+                        <p style="color:black;">
+                            5. Utilice diferentes tipografías en el diseño usando
+                            la propiedad <b style="color:#000;">font-family</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            El objetivo de esta actividad es comprender cómo el tipo
+                            de letra influye en la forma en que las personas perciben
+                            el diseño de una página web.
+                        </p>
+
+                    </div>
+                </details>
 
                 <h3>¿Cómo poner el texto en negrita?</h3>
 
@@ -6547,6 +7234,155 @@ h4 {
                     Un valor mayor genera más espacio entre líneas, lo que puede mejorar
                     la lectura del texto en párrafos largos.
                 </p>
+
+                <details class="respuesta-box">
+                    <summary>Actividad 33</summary>
+
+                    <div style="padding:20px; border:1px dashed #2d3343; background-color:white; color:black;">
+
+                        <h3 style="color:black;">Replica la siguiente Historia</h3>
+
+                        <h2 style="color:black;">El artículo que nadie quería leer</h2>
+
+                        <p style="color:black;">
+                            Sofía estaba diseñando un blog donde compartiría artículos
+                            sobre tecnología y desarrollo web. Después de publicar su
+                            primer artículo, se dio cuenta de que algo no estaba bien.
+                        </p>
+
+                        <p style="color:black;">
+                            Aunque el contenido era interesante, muchas personas decían
+                            que el texto se veía desordenado y difícil de leer.
+                            Todo el contenido parecía una sola masa de palabras.
+                        </p>
+
+                        <h3 style="color:black;">El primer problema: destacar lo importante</h3>
+
+                        <p style="color:black;">
+                            Investigando sobre diseño web, Sofía descubrió que una
+                            forma de resaltar ideas importantes es utilizar
+                            texto en negrita dentro de los párrafos.
+                        </p>
+
+                        <p style="color:black;">
+                            Cuando ciertas palabras se destacan, el lector puede
+                            identificar rápidamente los conceptos principales
+                            dentro de un artículo.
+                        </p>
+
+                        <div style="border:3px solid black; padding:15px; margin:20px 0;">
+                            <p><b>Imagen 1</b></p>
+                            <p>
+                                Imagen de un artículo web donde algunas palabras
+                                aparecen en negrita para destacar información importante.
+                            </p>
+                        </div>
+
+                        <h3 style="color:black;">El segundo problema: la alineación del texto</h3>
+
+                        <p style="color:black;">
+                            Después Sofía notó que algunos textos estaban alineados
+                            de forma incorrecta. Algunos estaban centrados,
+                            otros a la derecha y otros a la izquierda,
+                            lo que hacía que el diseño se viera desordenado.
+                        </p>
+
+                        <p style="color:black;">
+                            Aprendió que la alineación del texto ayuda a mantener
+                            una estructura clara dentro de la página y facilita
+                            la lectura del contenido.
+                        </p>
+
+                        <div style="border:3px solid black; padding:15px; margin:20px 0;">
+                            <p><b>Imagen 2</b></p>
+                            <p>
+                                Imagen que muestre tres bloques de texto:
+                                uno alineado a la izquierda, otro centrado
+                                y otro alineado a la derecha.
+                            </p>
+                        </div>
+
+                        <h3 style="color:black;">El tercer problema: la distancia entre líneas</h3>
+
+                        <p style="color:black;">
+                            Finalmente Sofía descubrió que los párrafos estaban
+                            demasiado juntos. Las líneas de texto estaban muy
+                            pegadas entre sí, lo que hacía difícil leer el contenido.
+                        </p>
+
+                        <p style="color:black;">
+                            Al aumentar la distancia entre líneas, los párrafos
+                            se vuelven más cómodos de leer y el contenido se
+                            percibe más ordenado.
+                        </p>
+
+                        <div style="border:3px solid black; padding:15px; margin:20px 0;">
+                            <p><b>Imagen 3</b></p>
+                            <p>
+                                Imagen comparando dos párrafos:
+                                uno con líneas muy juntas y otro
+                                con mayor espacio entre líneas.
+                            </p>
+                        </div>
+
+                        <p style="color:black;">
+                            Después de aplicar estos cambios, el blog de Sofía
+                            se veía mucho más ordenado. Los lectores podían
+                            identificar rápidamente los títulos, las ideas
+                            importantes y leer los párrafos con mayor comodidad.
+                        </p>
+
+                        <h3 style="color:black;">Instrucciones de la actividad</h3>
+
+                        <p style="color:black;">
+                            1. Cree un archivo <b style="color:#000;">index.html</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            2. Cree un archivo <b style="color:#000;">styles.css</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            3. Replica la historia anterior utilizando títulos,
+                            subtítulos y párrafos.
+                        </p>
+
+                        <p style="color:black;">
+                            4. Inserte tres imágenes que coincidan con las descripciones
+                            indicadas en los recuadros.
+                        </p>
+
+                        <p style="color:black;">
+                            5. Coloque en <b style="color: #000;">negrita</b> las palabras:
+                            <b style="color: #000;">diseño web</b>, <b style="color: #000;">ideas importantes</b> y
+                            <b style="color: #000;">alineación del texto</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            6. Aplique las siguientes alineaciones:
+                        </p>
+
+                        <ul>
+                            <li>El título principal debe estar <b style="color: #000;">centrado</b>.</li>
+                            <li>Los subtítulos deben estar <b style="color: #000;">alineados a la izquierda</b>.</li>
+                            <li>Los parrafos inpares <b style="color: #000;">alineado justificado</b>.</li>
+                            <li>Los parrafos pares <b style="color: #000;">alineado derecha</b>.</li>
+                        </ul>
+
+                        <p style="color:black;">
+                            7. Aplique un <b style="color: #000;">espacio entre líneas de 1.8</b>
+                            a todos los párrafos del artículo.
+                        </p>
+
+                        <p style="color:black;">
+                            El objetivo de esta actividad es practicar cómo mejorar
+                            la lectura de una página web utilizando negrita,
+                            alineación de texto y espacio entre líneas.
+                        </p>
+
+                    </div>
+                </details>
+
                 <h3>¿Qué es la propiedad display en CSS?</h3>
 
                 <p>
@@ -6709,6 +7545,113 @@ h4 {
                     elementos dinámicamente con JavaScript.
                 </p>
 
+                <details class="respuesta-box">
+                    <summary>Actividad 34</summary>
+
+                    <div style="padding:20px; border:1px dashed #2d3343; background-color:white; color:black;">
+
+                        <h3 style="color:black;">Analizando el comportamiento de display</h3>
+
+                        <p style="color:black;">
+                            En esta actividad observarás cómo algunos elementos HTML ya tienen
+                            un comportamiento definido por defecto y cómo podemos cambiarlo
+                            utilizando la propiedad <b style="color:black;">display</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            Algunos elementos HTML ocupan toda la línea, mientras que otros
+                            solo ocupan el espacio de su contenido.
+                        </p>
+
+                        <h3 style="color:black;">Paso 1. Cree la estructura HTML</h3>
+
+                        <p style="color:black;">
+                            Cree un archivo <b style="color:black;">index.html</b> y agregue
+                            las siguientes etiquetas:
+                        </p>
+
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                            <pre><code>
+&lt;h2&gt;Título principal&lt;/h2&gt;
+
+&lt;p&gt;Este es un párrafo de ejemplo dentro del documento.&lt;/p&gt;
+
+&lt;a href="#"&gt;Primer enlace&lt;/a&gt;
+&lt;a href="#"&gt;Segundo enlace&lt;/a&gt;
+
+&lt;span&gt;Texto corto&lt;/span&gt;
+&lt;span&gt;Otro texto&lt;/span&gt;
+</code></pre>
+                        </div>
+
+                        <p style="color:black;">
+                            Observa cómo se comportan estos elementos antes de aplicar CSS.
+                        </p>
+
+                        <h3 style="color:black;">Paso 2. Cree el archivo CSS</h3>
+
+                        <p style="color:black;">
+                            Cree un archivo <b style="color:black;">styles.css</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            En este archivo realizarás los siguientes cambios utilizando
+                            la propiedad <b style="color:black;">display</b>.
+                        </p>
+
+                        <h3 style="color:black;">Cambios que debes realizar</h3>
+
+                        <ul>
+                            <li>
+                                Cambia el comportamiento del elemento
+                                <b style="color:black;">h2</b> para que utilice
+                                <b style="color:black;">display: inline</b>.
+                            </li>
+
+                            <li>
+                                Cambia el comportamiento del elemento
+                                <b style="color:black;">p</b> para que utilice
+                                <b style="color:black;">display: inline-block</b> y
+                                tenga un ancho de <b style="color:black;">250px</b>.
+                            </li>
+
+                            <li>
+                                Cambia el comportamiento de los enlaces
+                                <b style="color:black;">a</b> para que utilicen
+                                <b style="color:black;">display: block</b>.
+                            </li>
+
+                            <li>
+                                Oculta uno de los elementos
+                                <b style="color:black;">span</b> utilizando
+                                <b style="color:black;">display: none</b>.
+                            </li>
+                        </ul>
+
+                        <h3 style="color:black;">Observa el resultado</h3>
+
+                        <p style="color:black;">
+                            Después de aplicar los estilos, analiza cómo cambió
+                            el comportamiento de cada elemento:
+                        </p>
+
+                        <ul>
+                            <li>¿Qué elemento ahora aparece en la misma línea?</li>
+                            <li>¿Qué elemento comenzó a ocupar toda la línea?</li>
+                            <li>¿Qué elemento desapareció completamente?</li>
+                        </ul>
+
+                        <p style="color:black;">
+                            El objetivo de esta actividad es comprender cómo la propiedad
+                            <b style="color:black;">display</b> puede cambiar el comportamiento
+                            natural de los elementos HTML dentro de una página web.
+                        </p>
+
+                    </div>
+                </details>
+
+
                 <h3>¿Qué es Flexbox en CSS?</h3>
 
                 <p>
@@ -6811,6 +7754,130 @@ h4 {
                     <li><b>space-between</b> → espacio entre los elementos</li>
                     <li><b>space-around</b> → espacio alrededor de los elementos</li>
                 </ul>
+                <details class="respuesta-box">
+                    <summary>Actividad 35</summary>
+
+                    <div style="padding:20px; border:1px dashed #2d3343; background-color:white; color:black;">
+
+                        <h3 style="color:black;">Práctica básica de Flexbox</h3>
+
+                        <p style="color:black;">
+                            En esta actividad practicarás cómo organizar elementos dentro de un contenedor
+                            utilizando <b style="color:black;">Flexbox</b>. El objetivo es que observes cómo
+                            los elementos pueden alinearse fácilmente en una misma fila y cómo se puede
+                            distribuir el espacio entre ellos.
+                        </p>
+
+                        <h3 style="color:black;">Paso 1. Cree la estructura HTML</h3>
+
+                        <p style="color:black;">
+                            Cree un archivo <b style="color:black;">index.html</b> y agregue el siguiente contenido:
+                        </p>
+
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                            <pre><code>
+&lt;div class="contenedor"&gt;
+
+    &lt;div class="caja"&gt;Caja 1&lt;/div&gt;
+
+    &lt;div class="caja"&gt;Caja 2&lt;/div&gt;
+
+    &lt;div class="caja"&gt;Caja 3&lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre>
+                        </div>
+
+                        <p style="color:black;">
+                            Cada elemento representa una pequeña caja dentro del contenedor principal.
+                        </p>
+
+                        <h3 style="color:black;">Paso 2. Cree el archivo CSS</h3>
+
+                        <p style="color:black;">
+                            Cree un archivo llamado <b style="color:black;">styles.css</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            Primero agregue algunos estilos básicos para que las cajas sean visibles:
+                        </p>
+
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                            <pre><code>
+.contenedor {
+  border: 2px solid black;
+  padding: 20px;
+}
+
+.caja {
+  background-color: #4CAF50;
+  color: white;
+  padding: 20px;
+  margin: 10px;
+}
+</code></pre>
+                        </div>
+
+                        <h3 style="color:black;">Paso 3. Convierta el contenedor en Flexbox</h3>
+
+                        <p style="color:black;">
+                            Ahora convierte el contenedor en un contenedor flexible utilizando la propiedad
+                            <b style="color:black;">display: flex</b>.
+                        </p>
+
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                            <pre><code>
+.contenedor {
+  display: flex;
+}
+</code></pre>
+                        </div>
+
+                        <p style="color:black;">
+                            Observa cómo las cajas ahora aparecen una al lado de la otra.
+                        </p>
+
+                        <h3 style="color:black;">Paso 4. Experimente con la distribución</h3>
+
+                        <p style="color:black;">
+                            Ahora modifica la propiedad <b style="color:black;">justify-content</b>
+                            para observar cómo cambia la distribución del espacio entre las cajas.
+                        </p>
+
+                        <p style="color:black;">
+                            Prueba los siguientes valores uno por uno:
+                        </p>
+
+                        <ul>
+                            <li><b style="color:black;">justify-content: flex-start;</b></li>
+                            <li><b style="color:black;">justify-content: center;</b></li>
+                            <li><b style="color:black;">justify-content: flex-end;</b></li>
+                            <li><b style="color:black;">justify-content: space-between;</b></li>
+                            <li><b style="color:black;">justify-content: space-around;</b></li>
+                        </ul>
+
+                        <h3 style="color:black;">Observa el resultado</h3>
+
+                        <p style="color:black;">
+                            Después de probar los diferentes valores responde mentalmente:
+                        </p>
+
+                        <ul>
+                            <li>¿Qué valor centra las cajas?</li>
+                            <li>¿Qué valor coloca espacio entre las cajas?</li>
+                            <li>¿Qué valor coloca todas las cajas al final del contenedor?</li>
+                        </ul>
+
+                        <p style="color:black;">
+                            El objetivo de esta actividad es comprender cómo <b style="color:black;">Flexbox</b>
+                            permite controlar la alineación y distribución de elementos dentro de una página web.
+                        </p>
+
+                    </div>
+                </details>
 
 
 
@@ -6914,6 +7981,133 @@ h4 {
                     <li>Se centran horizontalmente.</li>
                     <li>Se centran verticalmente.</li>
                 </ul>
+                <details class="respuesta-box">
+                    <summary>Actividad 36</summary>
+
+                    <div style="padding:20px; border:1px dashed #2d3343; background-color:white; color:black;">
+
+                        <h3 style="color:black;">Práctica de alineación con Flexbox</h3>
+
+                        <p style="color:black;">
+                            En esta actividad practicarás cómo se alinean los elementos dentro de un contenedor
+                            utilizando las propiedades <b style="color:black;">align-items</b> y
+                            <b style="color:black;">flex-direction</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            El objetivo es observar cómo cambian las posiciones de los elementos cuando se
+                            modifica la dirección y la alineación dentro de un contenedor flexible.
+                        </p>
+
+                        <h3 style="color:black;">Paso 1. Cree la estructura HTML</h3>
+
+                        <p style="color:black;">
+                            Cree un archivo <b style="color:black;">index.html</b> y agregue el siguiente contenido:
+                        </p>
+
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                            <pre><code>
+&lt;div class="contenedor"&gt;
+
+  &lt;div class="caja"&gt;Caja 1&lt;/div&gt;
+  &lt;div class="caja"&gt;Caja 2&lt;/div&gt;
+  &lt;div class="caja"&gt;Caja 3&lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre>
+                        </div>
+
+                        <h3 style="color:black;">Paso 2. Cree el archivo CSS</h3>
+
+                        <p style="color:black;">
+                            Cree un archivo llamado <b style="color:black;">styles.css</b> y agregue los siguientes
+                            estilos:
+                        </p>
+
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                            <pre><code>
+.contenedor{
+  border:2px solid black;
+  height:300px;
+}
+
+.caja{
+  background-color:#2196F3;
+  color:white;
+  padding:20px;
+  margin:10px;
+}
+</code></pre>
+                        </div>
+
+                        <h3 style="color:black;">Paso 3. Convierta el contenedor en Flexbox</h3>
+
+                        <p style="color:black;">
+                            Ahora convierte el contenedor en un contenedor flexible agregando:
+                        </p>
+
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                            <pre><code>
+.contenedor{
+  display:flex;
+}
+</code></pre>
+                        </div>
+
+                        <p style="color:black;">
+                            Observa cómo las cajas aparecen alineadas una al lado de la otra.
+                        </p>
+
+                        <h3 style="color:black;">Paso 4. Experimente con la alineación vertical</h3>
+
+                        <p style="color:black;">
+                            Ahora prueba diferentes valores de <b style="color:black;">align-items</b>.
+                        </p>
+
+                        <ul>
+                            <li><b style="color:black;">align-items: flex-start;</b></li>
+                            <li><b style="color:black;">align-items: center;</b></li>
+                            <li><b style="color:black;">align-items: flex-end;</b></li>
+                            <li><b style="color:black;">align-items: stretch;</b></li>
+                        </ul>
+
+                        <p style="color:black;">
+                            Observa cómo cambian las posiciones verticales de las cajas dentro del contenedor.
+                        </p>
+
+                        <h3 style="color:black;">Paso 5. Cambie la dirección de los elementos</h3>
+
+                        <p style="color:black;">
+                            Ahora agrega la propiedad <b style="color:black;">flex-direction</b> y prueba los
+                            siguientes valores:
+                        </p>
+
+                        <ul>
+                            <li><b style="color:black;">flex-direction: row;</b></li>
+                            <li><b style="color:black;">flex-direction: column;</b></li>
+                            <li><b style="color:black;">flex-direction: row-reverse;</b></li>
+                            <li><b style="color:black;">flex-direction: column-reverse;</b></li>
+                        </ul>
+
+                        <h3 style="color:black;">Observa el resultado</h3>
+
+                        <ul>
+                            <li>¿Qué valor coloca las cajas en forma vertical?</li>
+                            <li>¿Qué valor invierte el orden de los elementos?</li>
+                            <li>¿Qué valor centra las cajas verticalmente?</li>
+                        </ul>
+
+                        <p style="color:black;">
+                            El objetivo de esta actividad es comprender cómo Flexbox permite controlar
+                            la posición y organización de los elementos dentro de una página web.
+                        </p>
+
+                    </div>
+                </details>
+
                 <h3>¿Qué hace flex-wrap?</h3>
 
                 <p>
@@ -6960,6 +8154,132 @@ h4 {
                     <li><b>wrap</b> → los elementos pasan a la siguiente línea</li>
                     <li><b>wrap-reverse</b> → los elementos pasan a la siguiente línea pero en orden invertido</li>
                 </ul>
+                <details class="respuesta-box">
+                    <summary>Actividad 37</summary>
+
+                    <div style="padding:20px; border:1px dashed #2d3343; background-color:white; color:black;">
+
+                        <h3 style="color:black;">Práctica de organización automática con flex-wrap</h3>
+
+                        <p style="color:black;">
+                            En esta actividad observarás qué ocurre cuando un contenedor tiene
+                            muchos elementos dentro y el espacio disponible no es suficiente.
+                        </p>
+
+                        <p style="color:black;">
+                            El objetivo es comprender cómo la propiedad <b style="color:black;">flex-wrap</b>
+                            permite que los elementos pasen automáticamente a la siguiente línea
+                            cuando el contenedor ya no tiene espacio.
+                        </p>
+
+                        <h3 style="color:black;">Paso 1. Cree la estructura HTML</h3>
+
+                        <p style="color:black;">
+                            Cree un archivo <b style="color:black;">index.html</b> y agregue la siguiente estructura:
+                        </p>
+
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                            <pre><code>
+&lt;div class="contenedor"&gt;
+
+  &lt;div class="caja"&gt;1&lt;/div&gt;
+  &lt;div class="caja"&gt;2&lt;/div&gt;
+  &lt;div class="caja"&gt;3&lt;/div&gt;
+  &lt;div class="caja"&gt;4&lt;/div&gt;
+  &lt;div class="caja"&gt;5&lt;/div&gt;
+  &lt;div class="caja"&gt;6&lt;/div&gt;
+  &lt;div class="caja"&gt;7&lt;/div&gt;
+  &lt;div class="caja"&gt;8&lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre>
+                        </div>
+
+                        <p style="color:black;">
+                            Cada caja representa un elemento dentro del contenedor flexible.
+                        </p>
+
+                        <h3 style="color:black;">Paso 2. Cree el archivo CSS</h3>
+
+                        <p style="color:black;">
+                            Cree un archivo llamado <b style="color:black;">styles.css</b> y agregue los
+                            siguientes estilos:
+                        </p>
+
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                            <pre><code>
+.contenedor{
+  display:flex;
+  border:2px solid black;
+  width:400px;
+}
+
+.caja{
+  background-color:#FF5722;
+  color:white;
+  padding:20px;
+  margin:5px;
+  width:80px;
+  text-align:center;
+}
+</code></pre>
+                        </div>
+
+                        <p style="color:black;">
+                            Observa que todas las cajas intentarán colocarse en una sola fila.
+                        </p>
+
+                        <h3 style="color:black;">Paso 3. Active flex-wrap</h3>
+
+                        <p style="color:black;">
+                            Ahora agrega la propiedad <b style="color:black;">flex-wrap</b> al contenedor.
+                        </p>
+
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                            <pre><code>
+.contenedor{
+  display:flex;
+  flex-wrap:wrap;
+}
+</code></pre>
+                        </div>
+
+                        <p style="color:black;">
+                            Observa cómo las cajas comienzan a acomodarse en varias filas
+                            cuando el contenedor ya no tiene espacio suficiente.
+                        </p>
+
+                        <h3 style="color:black;">Paso 4. Experimente con los valores</h3>
+
+                        <p style="color:black;">
+                            Ahora prueba los siguientes valores uno por uno:
+                        </p>
+
+                        <ul>
+                            <li><b style="color:black;">flex-wrap: nowrap;</b></li>
+                            <li><b style="color:black;">flex-wrap: wrap;</b></li>
+                            <li><b style="color:black;">flex-wrap: wrap-reverse;</b></li>
+                        </ul>
+
+                        <h3 style="color:black;">Observa el resultado</h3>
+
+                        <ul>
+                            <li>¿Qué ocurre cuando utilizas <b style="color:black;">nowrap</b>?</li>
+                            <li>¿Qué ocurre cuando utilizas <b style="color:black;">wrap</b>?</li>
+                            <li>¿Qué diferencia observas con <b style="color:black;">wrap-reverse</b>?</li>
+                        </ul>
+
+                        <p style="color:black;">
+                            El objetivo de esta actividad es comprender cómo <b style="color:black;">flex-wrap</b>
+                            permite que los elementos se organicen automáticamente cuando el espacio
+                            dentro del contenedor es limitado.
+                        </p>
+
+                    </div>
+                </details>
 
 
 
@@ -7014,29 +8334,3790 @@ h4 {
                     <b>row-gap</b> controla el espacio entre filas y
                     <b>column-gap</b> controla el espacio entre columnas.
                 </p>
+                <details class="respuesta-box">
+                    <summary>Actividad 38</summary>
+
+                    <div style="padding:20px; border:1px dashed #2d3343; background-color:white; color:black;">
+
+                        <h3 style="color:black;">Práctica de separación entre elementos con gap</h3>
+
+                        <p style="color:black;">
+                            En esta actividad observarás cómo se puede crear espacio entre los elementos
+                            dentro de un contenedor flexible utilizando la propiedad
+                            <b style="color:black;">gap</b>.
+                        </p>
+
+                        <p style="color:black;">
+                            El objetivo es comprender cómo Flexbox permite generar separación entre los
+                            elementos sin necesidad de utilizar <b style="color:black;">margin</b> en cada caja.
+                        </p>
+
+                        <h3 style="color:black;">Paso 1. Cree la estructura HTML</h3>
+
+                        <p style="color:black;">
+                            Cree un archivo <b style="color:black;">index.html</b> y agregue el siguiente contenido:
+                        </p>
+
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                            <pre><code>
+&lt;div class="contenedor"&gt;
+
+  &lt;div class="caja"&gt;Caja 1&lt;/div&gt;
+  &lt;div class="caja"&gt;Caja 2&lt;/div&gt;
+  &lt;div class="caja"&gt;Caja 3&lt;/div&gt;
+  &lt;div class="caja"&gt;Caja 4&lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre>
+                        </div>
+
+                        <h3 style="color:black;">Paso 2. Cree el archivo CSS</h3>
+
+                        <p style="color:black;">
+                            Cree un archivo llamado <b style="color:black;">styles.css</b> y agregue los siguientes
+                            estilos:
+                        </p>
+
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                            <pre><code>
+.contenedor{
+  display:flex;
+  border:2px solid black;
+}
+
+.caja{
+  background-color:#673AB7;
+  color:white;
+  padding:20px;
+}
+</code></pre>
+                        </div>
+
+                        <p style="color:black;">
+                            Observa cómo las cajas aparecen juntas sin espacio entre ellas.
+                        </p>
+
+                        <h3 style="color:black;">Paso 3. Agregue espacio entre las cajas</h3>
+
+                        <p style="color:black;">
+                            Ahora agrega la propiedad <b style="color:black;">gap</b> dentro del contenedor.
+                        </p>
+
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                            <pre><code>
+.contenedor{
+  display:flex;
+  gap:20px;
+}
+</code></pre>
+                        </div>
+
+                        <p style="color:black;">
+                            Ahora aparecerá un espacio de 20 píxeles entre cada una de las cajas.
+                        </p>
+
+                        <h3 style="color:black;">Paso 4. Experimente con diferentes valores</h3>
+
+                        <p style="color:black;">
+                            Modifique el valor de <b style="color:black;">gap</b> para observar
+                            cómo cambia la separación entre los elementos.
+                        </p>
+
+                        <ul>
+                            <li><b style="color:black;">gap: 10px;</b></li>
+                            <li><b style="color:black;">gap: 30px;</b></li>
+                            <li><b style="color:black;">gap: 50px;</b></li>
+                        </ul>
+
+                        <h3 style="color:black;">Paso 5. Controle filas y columnas</h3>
+
+                        <p style="color:black;">
+                            También puedes separar filas y columnas de manera independiente
+                            utilizando las propiedades <b style="color:black;">row-gap</b>
+                            y <b style="color:black;">column-gap</b>.
+                        </p>
+
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                            <pre><code>
+.contenedor{
+  display:flex;
+  flex-wrap:wrap;
+  row-gap:20px;
+  column-gap:40px;
+}
+</code></pre>
+                        </div>
+
+                        <h3 style="color:black;">Observa el resultado</h3>
+
+                        <ul>
+                            <li>¿Qué ocurre cuando aumentas el valor de <b style="color:black;">gap</b>?</li>
+                            <li>¿Qué diferencia observas entre <b style="color:black;">row-gap</b> y <b
+                                    style="color:black;">column-gap</b>?</li>
+                            <li>¿Qué sucede cuando el contenedor utiliza <b style="color:black;">flex-wrap</b>?</li>
+                        </ul>
+
+                        <p style="color:black;">
+                            El objetivo de esta actividad es comprender cómo la propiedad
+                            <b style="color:black;">gap</b> permite controlar el espacio entre los
+                            elementos dentro de un contenedor flexible de forma sencilla.
+                        </p>
+
+                    </div>
+                </details>
+                <h3>Diseño de un botón en interfaces modernas</h3>
+
+                <p>
+                    En diseño de interfaces (UI), el botón es uno de los componentes más importantes
+                    porque permite ejecutar acciones dentro del sistema. Un buen botón debe ser
+                    visible, fácil de identificar y debe comunicar claramente qué acción realizará.
+                </p>
+
+                <p>
+                    Generalmente los botones se utilizan para acciones como guardar información,
+                    enviar formularios o confirmar procesos dentro de una aplicación.
+                </p>
+
+
+
+                <h3>Paso 1. Crear la estructura HTML</h3>
+
+                <p>
+                    Primero se debe crear el botón en el archivo HTML utilizando la etiqueta
+                    <b>&lt;button&gt;</b>.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;button class="btn"&gt;Guardar&lt;/button&gt;
+</code></pre>
+                </div>
+
+                <p>
+                    La clase <b>btn</b> permitirá aplicar estilos desde CSS para mejorar
+                    su apariencia visual.
+                </p>
+
+
+
+                <h3>Paso 2. Diseñar el botón con CSS</h3>
+
+                <p>
+                    Ahora se definen los estilos visuales del botón como color, tamaño,
+                    bordes y espaciado.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.btn{
+  background-color:#2563eb;
+  color:white;
+  padding:10px 20px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+</code></pre>
+                </div>
+
+                <p>
+                    Estos estilos hacen que el botón sea más visible y fácil de identificar
+                    dentro de la interfaz.
+                </p>
+
+
+
+                <h3>Paso 3. Agregar el estado hover</h3>
+
+                <p>
+                    El estado <b>hover</b> aparece cuando el usuario pasa el cursor sobre
+                    el botón y ayuda a indicar que el elemento es interactivo.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.btn:hover{
+  background-color:#1d4ed8;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 4. Agregar el estado activo</h3>
+
+                <p>
+                    El estado <b>active</b> aparece cuando el usuario hace clic en el botón.
+                    Esto genera una pequeña animación que simula que el botón se presiona.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.btn:active{
+  transform:scale(0.95);
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 5. Botón deshabilitado</h3>
+
+                <p>
+                    El estado <b>disabled</b> indica que el botón no puede utilizarse
+                    en ese momento, por ejemplo cuando un formulario está incompleto.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.btn:disabled{
+  background-color:#9ca3af;
+  cursor:not-allowed;
+}
+</code></pre>
+                </div>
+
+                <p>
+                    Estos estados visuales ayudan a mejorar la experiencia del usuario
+                    porque indican claramente cuándo un botón puede utilizarse y cuándo no.
+                </p>
+                <h3>Diseñando botones principales y secundarios</h3>
+
+                <p>
+                    En las interfaces modernas es común encontrar más de un botón dentro
+                    de una misma sección. Generalmente se utiliza un <b>botón principal</b>
+                    para la acción más importante y un <b>botón secundario</b> para una acción
+                    alternativa.
+                </p>
+
+                <p>
+                    Por ejemplo, en un formulario podemos tener un botón <b>Guardar</b>
+                    para confirmar la información y un botón <b>Cancelar</b> para salir
+                    del proceso sin realizar cambios.
+                </p>
+
+                <p>
+                    El botón principal debe llamar más la atención, mientras que el botón
+                    secundario debe verse más neutral para no competir visualmente con
+                    la acción principal.
+                </p>
+
+
+
+                <h3>Paso 1. Crear la estructura HTML</h3>
+
+                <p>
+                    Primero se crea un contenedor que agrupará ambos botones dentro
+                    de la misma sección.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;div class="acciones"&gt;
+
+  &lt;button class="btn-guardar"&gt;Guardar&lt;/button&gt;
+  &lt;button class="btn-cancelar"&gt;Cancelar&lt;/button&gt;
+
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+                <p>
+                    El contenedor <b>acciones</b> permite organizar los botones dentro
+                    de un mismo espacio de la interfaz.
+                </p>
+
+
+
+                <h3>Paso 2. Organizar los botones con Flexbox</h3>
+
+                <p>
+                    Para que los botones se alineen correctamente se puede utilizar
+                    <b>Flexbox</b>. Esto permite colocarlos uno al lado del otro y
+                    generar espacio entre ellos.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.acciones{
+  display:flex;
+  gap:10px;
+}
+</code></pre>
+                </div>
+
+                <p>
+                    La propiedad <b>gap</b> crea un espacio entre los botones para
+                    evitar que queden demasiado juntos.
+                </p>
+
+
+
+                <h3>Paso 3. Diseñar el botón principal (Guardar)</h3>
+
+                <p>
+                    El botón principal debe tener un color más fuerte para destacar
+                    la acción principal que realizará el usuario.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.btn-guardar{
+  background-color:#2563eb;
+  color:white;
+  padding:10px 20px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+</code></pre>
+                </div>
+
+                <p>
+                    Este botón utiliza un color azul porque generalmente se asocia
+                    con acciones positivas como confirmar o guardar información.
+                </p>
+
+
+
+                <h3>Paso 4. Diseñar el botón secundario (Cancelar)</h3>
+
+                <p>
+                    El botón cancelar debe ser visualmente más neutral para indicar
+                    que no es la acción principal del proceso.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.btn-cancelar{
+  background-color:white;
+  color:#374151;
+  padding:10px 20px;
+  border:1px solid #d1d5db;
+  border-radius:6px;
+  cursor:pointer;
+}
+</code></pre>
+                </div>
+
+                <p>
+                    Este estilo genera un botón más discreto que acompaña al botón
+                    principal sin competir visualmente con él.
+                </p>
+
+
+
+                <h3>Paso 5. Agregar estados hover</h3>
+
+                <p>
+                    Los estados <b>hover</b> ayudan a indicar que el botón puede
+                    interactuar con el usuario cuando el cursor pasa sobre él.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.btn-guardar:hover{
+  background-color:#1d4ed8;
+}
+
+.btn-cancelar:hover{
+  background-color:#f3f4f6;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 6. Agregar estado activo</h3>
+
+                <p>
+                    El estado <b>active</b> genera una pequeña animación cuando el
+                    usuario presiona el botón, simulando que el botón se hunde.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.btn-guardar:active,
+.btn-cancelar:active{
+  transform:scale(0.95);
+}
+</code></pre>
+                </div>
+
+
+
+
+                <h3>Construcción de una card semántica utilizando article</h3>
+
+                <p>
+                    En desarrollo web moderno es recomendable utilizar etiquetas semánticas
+                    de HTML cuando el contenido tiene un significado claro dentro de la página.
+                </p>
+
+                <p>
+                    Una de estas etiquetas es <b>&lt;article&gt;</b>, la cual se utiliza cuando
+                    un bloque de contenido puede entenderse de forma independiente, como
+                    un curso, un producto, una noticia o una publicación.
+                </p>
+
+                <p>
+                    En este ejemplo construiremos una <b>card moderna</b> que tendrá
+                    un título, una descripción y dos botones: uno para guardar
+                    y otro para cancelar.
+                </p>
+
+
+
+                <h3>Paso 1. Crear la estructura HTML con article</h3>
+
+                <p>
+                    Primero se crea la estructura de la card utilizando la etiqueta
+                    <b>&lt;article&gt;</b>. Dentro del article colocaremos el título,
+                    la descripción y un contenedor para los botones.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;article class="card"&gt;
+
+  &lt;h3&gt;Curso de Diseño Web&lt;/h3&gt;
+
+  &lt;p&gt;
+    Aprende a crear interfaces modernas utilizando
+    HTML, CSS y buenas prácticas de diseño UI.
+  &lt;/p&gt;
+
+  &lt;div class="acciones"&gt;
+      &lt;button class="btn-guardar"&gt;Guardar&lt;/button&gt;
+      &lt;button class="btn-cancelar"&gt;Cancelar&lt;/button&gt;
+  &lt;/div&gt;
+
+&lt;/article&gt;
+</code></pre>
+                </div>
+
+                <p>
+                    El contenedor <b>acciones</b> se utiliza para agrupar los botones
+                    dentro de la card.
+                </p>
+
+
+
+                <h3>Paso 2. Crear el contenedor de la card con Flexbox</h3>
+
+                <p>
+                    Ahora se diseña la card utilizando <b>Flexbox</b> para organizar
+                    los elementos en forma vertical.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.card{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+
+  width:280px;
+  padding:20px;
+
+  background-color:white;
+  border-radius:10px;
+
+  box-shadow:0 10px 20px rgba(0,0,0,0.08);
+}
+</code></pre>
+                </div>
+
+                <p>
+                    La propiedad <b>flex-direction: column</b> permite colocar
+                    los elementos uno debajo del otro dentro de la card.
+                </p>
+
+                <p>
+                    La propiedad <b>gap</b> crea un espacio entre el título,
+                    el párrafo y los botones.
+                </p>
+
+
+
+                <h3>Paso 3. Estilizar el título y la descripción</h3>
+
+                <p>
+                    Para mejorar la lectura del contenido se pueden ajustar
+                    los estilos del título y del párrafo.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.card h3{
+  margin:0;
+  font-size:20px;
+}
+
+.card p{
+  margin:0;
+  color:#4b5563;
+  line-height:1.5;
+}
+</code></pre>
+                </div>
+
+                <p>
+                    Esto ayuda a mantener una jerarquía visual clara entre
+                    el título y la descripción.
+                </p>
+
+
+
+                <h3>Paso 4. Organizar los botones con Flexbox</h3>
+
+                <p>
+                    Los botones se colocan dentro de un contenedor flexible
+                    para alinearlos correctamente.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.acciones{
+  display:flex;
+  gap:10px;
+}
+</code></pre>
+                </div>
+
+                <p>
+                    Esto permite que los botones aparezcan uno al lado del otro
+                    con un espacio entre ellos.
+                </p>
+
+
+
+                <h3>Paso 5. Diseñar el botón principal (Guardar)</h3>
+
+                <p>
+                    El botón principal debe destacar visualmente porque representa
+                    la acción más importante dentro de la card.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.btn-guardar{
+  background-color:#2563eb;
+  color:white;
+
+  padding:8px 16px;
+  border:none;
+  border-radius:6px;
+
+  cursor:pointer;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 6. Diseñar el botón secundario (Cancelar)</h3>
+
+                <p>
+                    El botón cancelar suele tener un diseño más neutral
+                    para no competir visualmente con el botón principal.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.btn-cancelar{
+  background-color:white;
+  color:#374151;
+
+  padding:8px 16px;
+
+  border:1px solid #d1d5db;
+  border-radius:6px;
+
+  cursor:pointer;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 7. Agregar interacción a los botones</h3>
+
+                <p>
+                    Los estados de interacción ayudan a que la interfaz
+                    se sienta más dinámica cuando el usuario interactúa
+                    con los botones.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.btn-guardar:hover{
+  background-color:#1d4ed8;
+}
+
+.btn-cancelar:hover{
+  background-color:#f3f4f6;
+}
+
+.btn-guardar:active,
+.btn-cancelar:active{
+  transform:scale(0.95);
+}
+</code></pre>
+                </div>
+                <h3>Diseño de una card con imagen para ofrecer un producto o servicio</h3>
+
+                <p>
+                    En muchas páginas web las <b>cards</b> se utilizan para presentar
+                    productos o servicios. Estas cards suelen incluir una imagen,
+                    un título, una breve descripción y un botón que permite
+                    ver más información o realizar una acción.
+                </p>
+
+                <p>
+                    La imagen es importante porque permite captar la atención
+                    del usuario rápidamente y comunicar visualmente lo que
+                    se está ofreciendo.
+                </p>
+
+
+
+                <h3>Paso 1. Crear la estructura HTML</h3>
+
+                <p>
+                    Primero se crea la estructura utilizando la etiqueta
+                    <b>&lt;article&gt;</b> para representar un contenido
+                    independiente dentro de la página.
+                </p>
+
+                <p>
+                    Dentro del article colocaremos la imagen, el título,
+                    la descripción y el botón de acción.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;article class="card-producto"&gt;
+
+  &lt;img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c"
+       alt="Curso de diseño web"&gt;
+
+  &lt;h3&gt;Curso de Diseño Web&lt;/h3&gt;
+
+  &lt;p&gt;
+    Aprende a crear páginas web modernas utilizando
+    HTML, CSS y buenas prácticas de diseño de interfaces.
+  &lt;/p&gt;
+
+  &lt;button class="btn-ver"&gt;Ver servicio&lt;/button&gt;
+
+&lt;/article&gt;
+</code></pre>
+                </div>
+
+                <p>
+                    La etiqueta <b>img</b> permite mostrar una imagen que
+                    representa el producto o servicio.
+                </p>
+
+
+
+                <h3>Paso 2. Diseñar la card con Flexbox</h3>
+
+                <p>
+                    Ahora se define el estilo del contenedor para organizar
+                    los elementos de forma vertical.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.card-producto{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+
+  width:280px;
+
+  background-color:white;
+  border-radius:10px;
+
+  box-shadow:0 10px 20px rgba(0,0,0,0.08);
+}
+</code></pre>
+                </div>
+
+                <p>
+                    Esto permite que la imagen, el título, la descripción
+                    y el botón se ordenen uno debajo del otro.
+                </p>
+
+
+
+                <h3>Paso 3. Ajustar la imagen de la card</h3>
+
+                <p>
+                    Para que la imagen se adapte correctamente a la card
+                    se pueden definir propiedades como ancho y bordes.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.card-producto img{
+  width:100%;
+  height:180px;
+
+  object-fit:cover;
+
+  border-top-left-radius:10px;
+  border-top-right-radius:10px;
+}
+</code></pre>
+                </div>
+
+                <p>
+                    La propiedad <b>object-fit: cover</b> permite que la
+                    imagen mantenga una buena proporción sin deformarse.
+                </p>
+
+
+
+                <h3>Paso 4. Estilizar el contenido de la card</h3>
+
+                <p>
+                    Ahora se ajustan los estilos del título y del texto
+                    para mejorar la lectura dentro de la card.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.card-producto h3{
+  margin:0;
+  padding:0 16px;
+
+  font-size:20px;
+}
+
+.card-producto p{
+  margin:0;
+  padding:0 16px;
+
+  color:#4b5563;
+  line-height:1.5;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 5. Diseñar el botón de acción</h3>
+
+                <p>
+                    El botón permite que el usuario pueda interactuar
+                    con el producto o servicio mostrado en la card.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.btn-ver{
+  margin:16px;
+
+  background-color:#2563eb;
+  color:white;
+
+  padding:10px 16px;
+
+  border:none;
+  border-radius:6px;
+
+  cursor:pointer;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 6. Agregar interacción al botón</h3>
+
+                <p>
+                    Para mejorar la experiencia del usuario se pueden
+                    agregar estados de interacción como hover y active.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.btn-ver:hover{
+  background-color:#1d4ed8;
+}
+
+.btn-ver:active{
+  transform:scale(0.95);
+}
+</code></pre>
+                </div>
+                <h3>Otro estilo de card utilizado en interfaces modernas</h3>
+
+                <p>
+                    Otro diseño muy utilizado en páginas web es la <b>card horizontal</b>.
+                    En este estilo la imagen aparece a un lado y el contenido al otro,
+                    lo que permite aprovechar mejor el espacio en pantallas grandes.
+                </p>
+
+                <p>
+                    Este tipo de card es común en páginas de productos, blogs,
+                    servicios profesionales y plataformas educativas.
+                </p>
+
+
+
+                <h3>Paso 1. Crear la estructura HTML</h3>
+
+                <p>
+                    Primero se crea la estructura utilizando nuevamente la etiqueta
+                    <b>&lt;article&gt;</b> para mantener una estructura semántica correcta.
+                </p>
+
+                <p>
+                    Dentro del article colocaremos la imagen y un contenedor para el
+                    contenido del producto o servicio.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;article class="card-horizontal"&gt;
+
+  &lt;img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085"
+       alt="Servicio de desarrollo web"&gt;
+
+  &lt;div class="contenido"&gt;
+
+      &lt;h3&gt;Desarrollo de páginas web&lt;/h3&gt;
+
+      &lt;p&gt;
+        Creamos sitios web modernos y optimizados
+        para mejorar la presencia digital de tu negocio.
+      &lt;/p&gt;
+
+      &lt;button class="btn-servicio"&gt;Solicitar información&lt;/button&gt;
+
+  &lt;/div&gt;
+
+&lt;/article&gt;
+</code></pre>
+                </div>
+
+                <p>
+                    El contenedor <b>contenido</b> agrupa el título, la descripción
+                    y el botón dentro de la card.
+                </p>
+
+
+
+                <h3>Paso 2. Diseñar la card horizontal con Flexbox</h3>
+
+                <p>
+                    Para colocar la imagen y el contenido uno al lado del otro
+                    se utiliza <b>Flexbox</b>.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.card-horizontal{
+  display:flex;
+  gap:16px;
+
+  width:500px;
+
+  background-color:white;
+  border-radius:10px;
+
+  box-shadow:0 10px 20px rgba(0,0,0,0.08);
+}
+</code></pre>
+                </div>
+
+                <p>
+                    La propiedad <b>display: flex</b> permite que los elementos
+                    se alineen de forma horizontal.
+                </p>
+
+
+
+                <h3>Paso 3. Ajustar la imagen</h3>
+
+                <p>
+                    La imagen debe tener un tamaño adecuado para integrarse
+                    correctamente con el diseño de la card.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.card-horizontal img{
+  width:180px;
+  height:100%;
+
+  object-fit:cover;
+
+  border-top-left-radius:10px;
+  border-bottom-left-radius:10px;
+}
+</code></pre>
+                </div>
+
+                <p>
+                    La propiedad <b>object-fit: cover</b> evita que la imagen
+                    se distorsione.
+                </p>
+
+
+
+                <h3>Paso 4. Diseñar el contenido</h3>
+
+                <p>
+                    Ahora se estiliza el contenedor que tiene el texto
+                    y el botón.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.contenido{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+
+  padding:16px;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 5. Estilizar el texto</h3>
+
+                <p>
+                    El título y la descripción deben mantener una buena
+                    jerarquía visual dentro de la card.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.contenido h3{
+  margin:0;
+  font-size:20px;
+}
+
+.contenido p{
+  margin:0;
+  color:#4b5563;
+  line-height:1.5;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 6. Diseñar el botón</h3>
+
+                <p>
+                    El botón permite que el usuario pueda interactuar
+                    con el servicio presentado en la card.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.btn-servicio{
+  align-self:flex-start;
+
+  background-color:#2563eb;
+  color:white;
+
+  padding:8px 16px;
+
+  border:none;
+  border-radius:6px;
+
+  cursor:pointer;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 7. Agregar interacción</h3>
+
+                <p>
+                    Los estados hover y active ayudan a mejorar
+                    la experiencia de interacción del usuario.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.btn-servicio:hover{
+  background-color:#1d4ed8;
+}
+
+.btn-servicio:active{
+  transform:scale(0.95);
+}
+</code></pre>
+                </div>
+                <h3>Diseño de formularios en interfaces modernas</h3>
+
+                <p>
+                    Los <b>formularios</b> son uno de los componentes más importantes en el
+                    desarrollo web porque permiten a los usuarios enviar información
+                    al sistema. Se utilizan en registros, inicios de sesión,
+                    formularios de contacto y procesos de compra.
+                </p>
+
+                <p>
+                    Un buen diseño de formularios debe ser claro, ordenado
+                    y fácil de completar. Para lograr esto se utilizan etiquetas
+                    correctas de HTML, campos bien organizados y estilos que
+                    mejoren la experiencia del usuario.
+                </p>
+
+
+
+                <h3>Paso 1. Crear la estructura básica del formulario</h3>
+
+                <p>
+                    Primero se crea la estructura utilizando la etiqueta
+                    <b>&lt;form&gt;</b>, que se encarga de agrupar todos los
+                    campos que el usuario deberá completar.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;form class="formulario"&gt;
+
+  &lt;h3&gt;Registro de usuario&lt;/h3&gt;
+
+  &lt;label&gt;Nombre&lt;/label&gt;
+  &lt;input type="text" placeholder="Ingrese su nombre"&gt;
+
+  &lt;label&gt;Correo electrónico&lt;/label&gt;
+  &lt;input type="email" placeholder="Ingrese su correo"&gt;
+
+  &lt;label&gt;Contraseña&lt;/label&gt;
+  &lt;input type="password" placeholder="Ingrese su contraseña"&gt;
+
+  &lt;button type="submit"&gt;Registrarse&lt;/button&gt;
+
+&lt;/form&gt;
+</code></pre>
+                </div>
+
+                <p>
+                    Las etiquetas <b>label</b> ayudan a identificar claramente
+                    cada campo del formulario, lo cual mejora la accesibilidad
+                    y la comprensión del usuario.
+                </p>
+
+
+
+                <h3>Paso 2. Diseñar el contenedor del formulario</h3>
+
+                <p>
+                    Ahora se puede aplicar un diseño moderno utilizando
+                    <b>Flexbox</b> para organizar los campos en columna.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.formulario{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+
+  width:300px;
+
+  padding:20px;
+
+  background-color:white;
+  border-radius:10px;
+
+  box-shadow:0 10px 20px rgba(0,0,0,0.08);
+}
+</code></pre>
+                </div>
+
+                <p>
+                    Esto permite que cada campo aparezca uno debajo del otro
+                    manteniendo un espacio uniforme entre ellos.
+                </p>
+
+
+
+                <h3>Paso 3. Diseñar los campos de entrada</h3>
+
+                <p>
+                    Los campos de entrada deben ser claros y cómodos
+                    para que el usuario pueda escribir fácilmente.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.formulario input{
+  padding:10px;
+
+  border:1px solid #d1d5db;
+  border-radius:6px;
+
+  font-size:14px;
+}
+</code></pre>
+                </div>
+
+                <p>
+                    Un borde suave y un buen espaciado ayudan a que
+                    los campos sean más fáciles de identificar.
+                </p>
+
+
+
+                <h3>Paso 4. Diseñar el botón del formulario</h3>
+
+                <p>
+                    El botón permite enviar la información del formulario
+                    al sistema.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.formulario button{
+  background-color:#2563eb;
+  color:white;
+
+  padding:10px;
+
+  border:none;
+  border-radius:6px;
+
+  cursor:pointer;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 5. Agregar interacción al botón</h3>
+
+                <p>
+                    Los estados de interacción ayudan a indicar que el botón
+                    es un elemento interactivo.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.formulario button:hover{
+  background-color:#1d4ed8;
+}
+
+.formulario button:active{
+  transform:scale(0.97);
+}
+</code></pre>
+                </div>
+                <h3>Otro diseño de formulario utilizado en interfaces modernas</h3>
+
+                <p>
+                    Otro estilo muy utilizado en diseño web es el <b>formulario de dos columnas</b>.
+                    Este tipo de formulario permite aprovechar mejor el espacio de la pantalla,
+                    especialmente en computadoras de escritorio.
+                </p>
+
+                <p>
+                    En lugar de colocar todos los campos uno debajo del otro, algunos campos
+                    se organizan en filas con dos columnas. Esto hace que el formulario sea
+                    más compacto y visualmente ordenado.
+                </p>
+
+
+
+                <h3>Paso 1. Crear la estructura HTML</h3>
+
+                <p>
+                    Primero se crea la estructura básica del formulario utilizando
+                    la etiqueta <b>&lt;form&gt;</b>. Dentro del formulario se agrupan
+                    los campos utilizando contenedores que permitirán organizarlos
+                    en columnas.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;form class="formulario-grid"&gt;
+
+  &lt;h3&gt;Registro de cliente&lt;/h3&gt;
+
+  &lt;div class="fila"&gt;
+
+      &lt;div class="campo"&gt;
+        &lt;label&gt;Nombre&lt;/label&gt;
+        &lt;input type="text" placeholder="Ingrese su nombre"&gt;
+      &lt;/div&gt;
+
+      &lt;div class="campo"&gt;
+        &lt;label&gt;Apellido&lt;/label&gt;
+        &lt;input type="text" placeholder="Ingrese su apellido"&gt;
+      &lt;/div&gt;
+
+  &lt;/div&gt;
+
+  &lt;div class="fila"&gt;
+
+      &lt;div class="campo"&gt;
+        &lt;label&gt;Correo electrónico&lt;/label&gt;
+        &lt;input type="email" placeholder="Ingrese su correo"&gt;
+      &lt;/div&gt;
+
+      &lt;div class="campo"&gt;
+        &lt;label&gt;Teléfono&lt;/label&gt;
+        &lt;input type="text" placeholder="Ingrese su teléfono"&gt;
+      &lt;/div&gt;
+
+  &lt;/div&gt;
+
+  &lt;button type="submit"&gt;Enviar registro&lt;/button&gt;
+
+&lt;/form&gt;
+</code></pre>
+                </div>
+
+                <p>
+                    Los contenedores <b>fila</b> permiten organizar los campos en
+                    dos columnas dentro del formulario.
+                </p>
+
+
+
+                <h3>Paso 2. Diseñar el contenedor del formulario</h3>
+
+                <p>
+                    Ahora se agregan estilos al formulario para darle una apariencia
+                    moderna y ordenada.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.formulario-grid{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+
+  width:420px;
+
+  padding:24px;
+
+  background-color:white;
+  border-radius:10px;
+
+  box-shadow:0 10px 20px rgba(0,0,0,0.08);
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 3. Crear las filas con Flexbox</h3>
+
+                <p>
+                    Las filas del formulario se organizan utilizando <b>Flexbox</b>
+                    para que los campos aparezcan uno al lado del otro.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.fila{
+  display:flex;
+  gap:12px;
+}
+</code></pre>
+                </div>
+
+                <p>
+                    Esto permite crear dos columnas dentro del formulario.
+                </p>
+
+
+
+                <h3>Paso 4. Diseñar los campos del formulario</h3>
+
+                <p>
+                    Cada campo del formulario se organiza en columna
+                    para mostrar el label y el input correctamente.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.campo{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+
+  width:100%;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 5. Estilizar los inputs</h3>
+
+                <p>
+                    Los campos de entrada deben tener un diseño claro
+                    para facilitar la escritura del usuario.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.campo input{
+  padding:10px;
+
+  border:1px solid #d1d5db;
+  border-radius:6px;
+
+  font-size:14px;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 6. Diseñar el botón del formulario</h3>
+
+                <p>
+                    El botón permite enviar la información ingresada
+                    por el usuario.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.formulario-grid button{
+  background-color:#2563eb;
+  color:white;
+
+  padding:10px;
+
+  border:none;
+  border-radius:6px;
+
+  cursor:pointer;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 7. Agregar interacción al botón</h3>
+
+                <p>
+                    Los estados hover y active mejoran la experiencia
+                    del usuario al interactuar con el formulario.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.formulario-grid button:hover{
+  background-color:#1d4ed8;
+}
+
+.formulario-grid button:active{
+  transform:scale(0.97);
+}
+</code></pre>
+                </div>
+                <h3>Formulario moderno con imagen alusiva</h3>
+
+                <p>
+                    Otro diseño muy utilizado en interfaces modernas es el
+                    <b>formulario con imagen</b>. Este tipo de diseño combina
+                    una imagen representativa con los campos del formulario.
+                </p>
+
+                <p>
+                    La imagen ayuda a comunicar visualmente el propósito
+                    del formulario, mientras que el usuario puede completar
+                    los datos en los campos del formulario.
+                </p>
+
+
+
+                <h3>Paso 1. Crear la estructura HTML</h3>
+
+                <p>
+                    Primero se crea un contenedor principal que incluirá
+                    la imagen y el formulario.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;div class="contenedor-form"&gt;
+
+  &lt;div class="imagen"&gt;
+    &lt;img src="https://images.unsplash.com/photo-1553877522-43269d4ea984"
+         alt="Formulario de contacto"&gt;
+  &lt;/div&gt;
+
+  &lt;form class="formulario"&gt;
+
+      &lt;h3&gt;Contáctanos&lt;/h3&gt;
+
+      &lt;label&gt;Nombre&lt;/label&gt;
+      &lt;input type="text" placeholder="Ingrese su nombre"&gt;
+
+      &lt;label&gt;Correo electrónico&lt;/label&gt;
+      &lt;input type="email" placeholder="Ingrese su correo"&gt;
+
+      &lt;label&gt;Mensaje&lt;/label&gt;
+      &lt;textarea placeholder="Escriba su mensaje"&gt;&lt;/textarea&gt;
+
+      &lt;button type="submit"&gt;Enviar mensaje&lt;/button&gt;
+
+  &lt;/form&gt;
+
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 2. Diseñar el contenedor principal</h3>
+
+                <p>
+                    Para colocar la imagen y el formulario uno al lado del otro
+                    se utiliza <b>Flexbox</b>.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.contenedor-form{
+  display:flex;
+
+  width:700px;
+
+  background-color:white;
+
+  border-radius:10px;
+
+  box-shadow:0 10px 20px rgba(0,0,0,0.08);
+
+  overflow:hidden;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 3. Ajustar la imagen</h3>
+
+                <p>
+                    La imagen ocupa una parte del contenedor y ayuda
+                    a representar visualmente el formulario.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.imagen img{
+  width:300px;
+  height:100%;
+
+  object-fit:cover;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 4. Diseñar el formulario</h3>
+
+                <p>
+                    Ahora se organizan los campos utilizando Flexbox
+                    para colocarlos en columna.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.formulario{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+
+  padding:30px;
+
+  width:100%;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 5. Diseñar los campos de entrada</h3>
+
+                <p>
+                    Los campos deben tener buen espacio para facilitar
+                    la escritura del usuario.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.formulario input,
+.formulario textarea{
+  padding:10px;
+
+  border:1px solid #d1d5db;
+  border-radius:6px;
+
+  font-size:14px;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 6. Diseñar el botón</h3>
+
+                <p>
+                    El botón permite enviar la información ingresada
+                    por el usuario.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.formulario button{
+  background-color:#2563eb;
+  color:white;
+
+  padding:10px;
+
+  border:none;
+  border-radius:6px;
+
+  cursor:pointer;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 7. Agregar interacción</h3>
+
+                <p>
+                    Los estados hover y active mejoran la experiencia
+                    del usuario al interactuar con el formulario.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.formulario button:hover{
+  background-color:#1d4ed8;
+}
+
+.formulario button:active{
+  transform:scale(0.97);
+}
+</code></pre>
+                </div>
+                <h3>Diseño de una tabla CRUD moderna</h3>
+
+                <p>
+                    En muchas aplicaciones web se necesita mostrar información almacenada en una base de datos.
+                    Para esto se utilizan interfaces de tipo <b>CRUD</b>, que permiten realizar cuatro acciones:
+                    <b>Crear, Leer, Actualizar y Eliminar</b> registros.
+                </p>
+
+                <p>
+                    Una tabla CRUD permite visualizar los datos de forma ordenada y además incluir botones
+                    para editar o eliminar cada registro.
+                </p>
+
+                <p>
+                    Aunque existen muchos diseños modernos que utilizan tarjetas o listas,
+                    las tablas siguen siendo una forma clara y eficiente de mostrar datos estructurados.
+                </p>
+
+
+
+                <h3>Paso 1. Crear la estructura HTML de la tabla</h3>
+
+                <p>
+                    Primero se crea la estructura básica utilizando la etiqueta
+                    <b>&lt;table&gt;</b>. Dentro de la tabla se definen el encabezado
+                    <b>&lt;thead&gt;</b> y el cuerpo de la tabla <b>&lt;tbody&gt;</b>.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;table class="tabla-crud"&gt;
+
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;ID&lt;/th&gt;
+            &lt;th&gt;Nombre&lt;/th&gt;
+            &lt;th&gt;Correo&lt;/th&gt;
+            &lt;th&gt;Acciones&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+
+    &lt;tbody&gt;
+
+        &lt;tr&gt;
+            &lt;td&gt;1&lt;/td&gt;
+            &lt;td&gt;Juan Pérez&lt;/td&gt;
+            &lt;td&gt;juan@email.com&lt;/td&gt;
+
+            &lt;td class="acciones"&gt;
+            &lt;button class="btn-editar"&gt;Editar&lt;/button&gt;
+            &lt;button class="btn-eliminar"&gt;Eliminar&lt;/button&gt;
+            &lt;/td&gt;
+
+        &lt;/tr&gt;
+
+        &lt;tr&gt;
+            &lt;td&gt;2&lt;/td&gt;
+            &lt;td&gt;María López&lt;/td&gt;
+            &lt;td&gt;maria@email.com&lt;/td&gt;
+
+            &lt;td class="acciones"&gt;
+            &lt;button class="btn-editar"&gt;Editar&lt;/button&gt;
+            &lt;button class="btn-eliminar"&gt;Eliminar&lt;/button&gt;
+            &lt;/td&gt;
+
+        &lt;/tr&gt;
+
+    &lt;/tbody&gt;
+
+&lt;/table&gt;
+</code></pre>
+                </div>
+
+                <p>
+                    Cada fila de la tabla representa un registro del sistema.
+                    Los botones permiten realizar acciones sobre ese registro.
+                </p>
+
+
+
+                <h3>Paso 2. Diseñar el contenedor de la tabla</h3>
+
+                <p>
+                    Ahora se aplican estilos para mejorar la apariencia de la tabla
+                    y darle un diseño moderno.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.tabla-crud{
+    width:100%;
+    border-collapse:collapse;
+    font-family:Arial, sans-serif;
+    background:white;
+    border-radius:8px;
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 3. Diseñar el encabezado de la tabla</h3>
+
+                <p>
+                    El encabezado permite identificar claramente el tipo de información
+                    que se muestra en cada columna.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.tabla-crud thead{
+    background:#2563eb;
+    color:white;
+}
+
+.tabla-crud th{
+    padding:12px;
+    text-align:left;
+    font-weight:600;
+    font-size:14px;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 4. Diseñar las filas de datos</h3>
+
+                <p>
+                    Las filas deben ser fáciles de leer y mantener una separación visual
+                    entre los registros.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.tabla-crud td{
+    padding:12px;
+    border-bottom:1px solid #e5e7eb;
+    font-size:14px;
+}
+
+.tabla-crud tbody tr:hover{
+    background:#f9fafb;
+}
+</code></pre>
+                </div>
+
+                <p>
+                    El efecto <b>hover</b> permite resaltar la fila cuando el usuario
+                    pasa el cursor sobre ella.
+                </p>
+
+
+
+                <h3>Paso 5. Organizar los botones de acciones</h3>
+
+                <p>
+                    Los botones de editar y eliminar se colocan dentro de un contenedor
+                    para alinearlos correctamente.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.acciones{
+    display:flex;
+    gap:8px;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 6. Diseñar el botón editar</h3>
+
+                <p>
+                    El botón editar suele utilizar un color neutral o informativo
+                    para indicar que se modificará el registro.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.btn-editar{
+    background:#3b82f6;
+    color:white;
+    border:none;
+    padding:6px 12px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.btn-editar:hover{
+    background:#2563eb;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 7. Diseñar el botón eliminar</h3>
+
+                <p>
+                    El botón eliminar generalmente utiliza un color rojo
+                    para indicar una acción destructiva.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.btn-eliminar{
+    background:#ef4444;
+    color:white;
+    border:none;
+    padding:6px 12px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.btn-eliminar:hover{
+    background:#dc2626;
+}
+</code></pre>
+                </div>
+                <h3>Tabla CRUD moderna utilizando Flexbox</h3>
+
+                <p>
+                    En interfaces modernas muchas aplicaciones ya no utilizan tablas tradicionales
+                    para mostrar datos. En su lugar se crean estructuras con <b>Flexbox</b> que
+                    permiten diseños más adaptables a dispositivos móviles.
+                </p>
+
+                <p>
+                    En este ejemplo construiremos una tabla CRUD utilizando <b>div</b> y
+                    <b>Flexbox</b>, manteniendo columnas para mostrar información y botones
+                    de acción para editar o eliminar registros.
+                </p>
+
+
+
+                <h3>Paso 1. Crear la estructura HTML</h3>
+
+                <p>
+                    Primero se crea un contenedor principal que representará la tabla.
+                    Dentro de este contenedor se definen el encabezado y las filas de datos.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;div class="tabla-crud"&gt;
+
+  &lt;div class="tabla-header"&gt;
+    &lt;div&gt;ID&lt;/div&gt;
+    &lt;div&gt;Nombre&lt;/div&gt;
+    &lt;div&gt;Correo&lt;/div&gt;
+    &lt;div&gt;Acciones&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="fila"&gt;
+    &lt;div&gt;1&lt;/div&gt;
+    &lt;div&gt;Juan Pérez&lt;/div&gt;
+    &lt;div&gt;juan@email.com&lt;/div&gt;
+
+    &lt;div class="acciones"&gt;
+      &lt;button class="btn-editar"&gt;Editar&lt;/button&gt;
+      &lt;button class="btn-eliminar"&gt;Eliminar&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="fila"&gt;
+    &lt;div&gt;2&lt;/div&gt;
+    &lt;div&gt;María López&lt;/div&gt;
+    &lt;div&gt;maria@email.com&lt;/div&gt;
+
+    &lt;div class="acciones"&gt;
+      &lt;button class="btn-editar"&gt;Editar&lt;/button&gt;
+      &lt;button class="btn-eliminar"&gt;Eliminar&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 2. Diseñar el contenedor de la tabla</h3>
+
+                <p>
+                    Ahora se agregan estilos para que el contenedor tenga una apariencia
+                    moderna similar a una tabla administrativa.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.tabla-crud{
+    width:100%;
+    max-width:800px;
+
+    background:white;
+
+    border-radius:10px;
+
+    box-shadow:0 10px 20px rgba(0,0,0,0.08);
+
+    overflow:hidden;
+    font-family:Arial, sans-serif;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 3. Diseñar el encabezado</h3>
+
+                <p>
+                    El encabezado muestra los nombres de cada columna.
+                    Para organizarlo se utiliza <b>display:flex</b>.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.tabla-header{
+    display:flex;
+
+    background:#2563eb;
+    color:white;
+
+    padding:12px;
+    font-weight:600;
+}
+
+.tabla-header div{
+    flex:1;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 4. Diseñar las filas de datos</h3>
+
+                <p>
+                    Cada registro se representa como una fila flexible que
+                    contiene varias columnas.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.fila{
+    display:flex;
+
+    padding:12px;
+
+    border-bottom:1px solid #e5e7eb;
+}
+
+.fila div{
+    flex:1;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 5. Agregar efecto hover a las filas</h3>
+
+                <p>
+                    Este efecto ayuda a que el usuario identifique mejor
+                    la fila sobre la que está trabajando.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.fila:hover{
+    background:#f9fafb;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 6. Diseñar los botones de acciones</h3>
+
+                <p>
+                    Los botones se colocan dentro de un contenedor flexible
+                    para alinearlos correctamente.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.acciones{
+    display:flex;
+    gap:8px;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 7. Botón editar</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.btn-editar{
+    background:#3b82f6;
+    color:white;
+
+    border:none;
+    padding:6px 12px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+}
+
+.btn-editar:hover{
+    background:#2563eb;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 8. Botón eliminar</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.btn-eliminar{
+    background:#ef4444;
+    color:white;
+
+    border:none;
+    padding:6px 12px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+}
+
+.btn-eliminar:hover{
+    background:#dc2626;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Ventaja de usar Flexbox en CRUD</h3>
+
+                <p>
+                    Cuando la tabla está construida con Flexbox es más fácil
+                    adaptarla a dispositivos móviles. Por ejemplo, se pueden
+                    apilar las columnas en pantallas pequeñas o convertir
+                    cada fila en una card.
+                </p>
+
+                <p>
+                    Este tipo de diseño es muy utilizado en paneles administrativos,
+                    sistemas SaaS y aplicaciones modernas.
+                </p>
+                <h3>Adaptar una tabla CRUD con Flexbox para celular</h3>
+
+                <p>
+                    Cuando una interfaz se utiliza en dispositivos móviles, el espacio de la pantalla
+                    es más reducido. Por esta razón, las tablas tradicionales no funcionan bien en
+                    celulares porque las columnas quedan demasiado comprimidas.
+                </p>
+
+                <p>
+                    Una solución moderna consiste en transformar cada fila en una <b>card vertical</b>.
+                    De esta forma la información se muestra de forma clara y fácil de leer en pantallas pequeñas.
+                </p>
+
+
+
+                <h3>Paso 1. Estructura HTML preparada para móvil</h3>
+
+                <p>
+                    Primero se crea la estructura de cada registro. En lugar de usar columnas,
+                    cada campo se organiza como una pequeña sección dentro de la card.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;div class="crud-mobile"&gt;
+
+  &lt;div class="registro"&gt;
+
+    &lt;div class="campo"&gt;
+      &lt;span class="label"&gt;ID&lt;/span&gt;
+      &lt;span&gt;1&lt;/span&gt;
+    &lt;/div&gt;
+
+    &lt;div class="campo"&gt;
+      &lt;span class="label"&gt;Nombre&lt;/span&gt;
+      &lt;span&gt;Juan Pérez&lt;/span&gt;
+    &lt;/div&gt;
+
+    &lt;div class="campo"&gt;
+      &lt;span class="label"&gt;Correo&lt;/span&gt;
+      &lt;span&gt;juan@email.com&lt;/span&gt;
+    &lt;/div&gt;
+
+    &lt;div class="acciones"&gt;
+      &lt;button class="btn-editar"&gt;Editar&lt;/button&gt;
+      &lt;button class="btn-eliminar"&gt;Eliminar&lt;/button&gt;
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 2. Contenedor principal</h3>
+
+                <p>
+                    El contenedor organiza todos los registros en columna para que cada
+                    registro aparezca como una tarjeta.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.crud-mobile{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+
+    padding:10px;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 3. Diseñar cada registro como card</h3>
+
+                <p>
+                    Cada registro se convierte en una tarjeta con sombra suave
+                    para mejorar la lectura en pantalla.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.registro{
+    display:flex;
+    flex-direction:column;
+
+    gap:10px;
+
+    background:white;
+
+    padding:16px;
+
+    border-radius:10px;
+
+    box-shadow:0 6px 14px rgba(0,0,0,0.08);
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 4. Organizar cada campo</h3>
+
+                <p>
+                    Cada campo tiene un título pequeño (label) y el valor del dato.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.campo{
+    display:flex;
+    justify-content:space-between;
+
+    font-size:14px;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 5. Estilizar los labels</h3>
+
+                <p>
+                    Los labels permiten identificar cada dato dentro del registro.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.label{
+    font-weight:600;
+    color:#6b7280;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 6. Botones de acción</h3>
+
+                <p>
+                    Los botones se organizan horizontalmente utilizando Flexbox.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.acciones{
+    display:flex;
+    gap:10px;
+    margin-top:10px;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 7. Botón editar</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.btn-editar{
+    flex:1;
+
+    background:#3b82f6;
+    color:white;
+
+    border:none;
+
+    padding:10px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+}
+
+.btn-editar:hover{
+    background:#2563eb;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 8. Botón eliminar</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.btn-eliminar{
+    flex:1;
+
+    background:#ef4444;
+    color:white;
+
+    border:none;
+
+    padding:10px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+}
+
+.btn-eliminar:hover{
+    background:#dc2626;
+}
+</code></pre>
+                </div>
+                <h3>Tabs (Pestañas) en interfaces modernas</h3>
+
+                <p>
+                    Las <b>Tabs</b> o pestañas permiten dividir el contenido en varias secciones
+                    sin necesidad de cambiar de página. Esto mejora la organización de la
+                    información y evita que la interfaz se vea demasiado larga.
+                </p>
+
+                <p>
+                    Este componente es muy utilizado en paneles administrativos,
+                    sistemas CRUD, páginas de productos y aplicaciones web modernas.
+                </p>
+
+                <p>
+                    Por ejemplo, una página puede mostrar diferentes secciones como:
+                    <b>Información</b>, <b>Detalles</b> y <b>Comentarios</b>.
+                    Cuando el usuario hace clic en una pestaña, se muestra su contenido.
+                </p>
+
+
+
+                <h3>Paso 1. Crear la estructura HTML de las pestañas</h3>
+
+                <p>
+                    Primero se crea un contenedor para las pestañas y otro para el contenido
+                    de cada sección.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;div class="tabs"&gt;
+
+  &lt;div class="tabs-header"&gt;
+    &lt;button class="tab active" data-tab="info"&gt;Información&lt;/button&gt;
+    &lt;button class="tab" data-tab="detalles"&gt;Detalles&lt;/button&gt;
+    &lt;button class="tab" data-tab="comentarios"&gt;Comentarios&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;div class="tabs-content"&gt;
+
+    &lt;div class="tab-panel active" id="info"&gt;
+      &lt;p&gt;Aquí se muestra la información general del producto.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class="tab-panel" id="detalles"&gt;
+      &lt;p&gt;Aquí aparecen las características técnicas del producto.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class="tab-panel" id="comentarios"&gt;
+      &lt;p&gt;Aquí se muestran los comentarios de los usuarios.&lt;/p&gt;
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 2. Diseñar la barra de pestañas con Flexbox</h3>
+
+                <p>
+                    Las pestañas se organizan horizontalmente utilizando <b>Flexbox</b>.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.tabs-header{
+    display:flex;
+
+    border-bottom:1px solid #e5e7eb;
+
+    gap:10px;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 3. Diseñar los botones de pestaña</h3>
+
+                <p>
+                    Cada pestaña se representa con un botón que permite cambiar
+                    el contenido visible.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.tab{
+    background:none;
+
+    border:none;
+
+    padding:10px 16px;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+    color:#6b7280;
+
+    border-bottom:2px solid transparent;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 4. Estilo de pestaña activa</h3>
+
+                <p>
+                    La pestaña activa se destaca para indicar al usuario
+                    qué sección está visualizando.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.tab.active{
+    color:#2563eb;
+
+    border-bottom:2px solid #2563eb;
+
+    font-weight:600;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 5. Diseñar el contenido de las pestañas</h3>
+
+                <p>
+                    El contenedor de contenido muestra únicamente la sección activa.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.tabs-content{
+    padding:16px;
+
+    background:white;
+}
+
+.tab-panel{
+    display:none;
+}
+
+.tab-panel.active{
+    display:block;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 6. Agregar interacción con JavaScript</h3>
+
+                <p>
+                    Para cambiar el contenido cuando el usuario hace clic en una pestaña
+                    se puede utilizar un pequeño script en JavaScript.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+const tabs = document.querySelectorAll(".tab");
+const panels = document.querySelectorAll(".tab-panel");
+
+tabs.forEach(tab =&gt; {
+
+tab.addEventListener("click", () =&gt; {
+
+tabs.forEach(t =&gt; t.classList.remove("active"));
+panels.forEach(p =&gt; p.classList.remove("active"));
+
+tab.classList.add("active");
+
+const target = tab.dataset.tab;
+
+document.getElementById(target).classList.add("active");
+
+});
+
+});
+</code></pre>
+                </div>
+                <h3>Navbar (Barra de navegación)</h3>
+
+                <p>
+                    La <b>Navbar</b> o barra de navegación es uno de los componentes más importantes
+                    en una página web. Permite al usuario desplazarse entre las diferentes
+                    secciones del sitio o aplicación de forma rápida.
+                </p>
+
+                <p>
+                    Generalmente una barra de navegación contiene elementos como:
+                </p>
+
+                <ul>
+                    <li>Logo del sitio</li>
+                    <li>Enlaces de navegación</li>
+                    <li>Menú desplegable</li>
+                    <li>Botones de acceso o registro</li>
+                </ul>
+
+                <p>
+                    En interfaces modernas la Navbar suele colocarse en la parte superior
+                    de la página y permanece visible para facilitar la navegación.
+                </p>
+
+
+
+                <h3>Paso 1. Crear la estructura HTML de la Navbar</h3>
+
+                <p>
+                    Primero se crea la estructura utilizando la etiqueta semántica
+                    <b>&lt;nav&gt;</b>, que indica que se trata de una sección de navegación.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;nav class="navbar"&gt;
+
+  &lt;div class="logo"&gt;MiSitio&lt;/div&gt;
+
+  &lt;ul class="menu"&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Inicio&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Servicios&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Blog&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Contacto&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;div class="acciones"&gt;
+    &lt;button class="btn-login"&gt;Ingresar&lt;/button&gt;
+    &lt;button class="btn-registro"&gt;Registrarse&lt;/button&gt;
+  &lt;/div&gt;
+
+&lt;/nav&gt;
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 2. Diseñar el contenedor de la Navbar</h3>
+
+                <p>
+                    Se utiliza <b>Flexbox</b> para organizar el logo, el menú
+                    y los botones en una sola fila.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.navbar{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:12px 24px;
+
+    background:white;
+
+    box-shadow:0 4px 10px rgba(0,0,0,0.08);
+
+    font-family:Arial, sans-serif;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 3. Diseñar el logo</h3>
+
+                <p>
+                    El logo identifica visualmente la página o aplicación.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.logo{
+    font-size:18px;
+
+    font-weight:bold;
+
+    color:#2563eb;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 4. Diseñar el menú de navegación</h3>
+
+                <p>
+                    Los enlaces de navegación se organizan horizontalmente
+                    utilizando Flexbox.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.menu{
+    display:flex;
+
+    gap:20px;
+
+    list-style:none;
+
+    margin:0;
+
+    padding:0;
+}
+
+.menu a{
+    text-decoration:none;
+
+    color:#374151;
+
+    font-size:14px;
+}
+
+.menu a:hover{
+    color:#2563eb;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 5. Diseñar los botones de acceso</h3>
+
+                <p>
+                    Los botones permiten al usuario ingresar o registrarse
+                    en la aplicación.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.acciones{
+    display:flex;
+
+    gap:10px;
+}
+
+.btn-login{
+    background:none;
+
+    border:1px solid #d1d5db;
+
+    padding:6px 14px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+}
+
+.btn-registro{
+    background:#2563eb;
+
+    color:white;
+
+    border:none;
+
+    padding:6px 14px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 6. Efectos de interacción</h3>
+
+                <p>
+                    Los estados <b>hover</b> ayudan a indicar que los botones
+                    son interactivos.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.btn-login:hover{
+    background:#f3f4f6;
+}
+
+.btn-registro:hover{
+    background:#1d4ed8;
+}
+</code></pre>
+                </div>
+
+                <h3>Navbar con tres niveles de navegación</h3>
+
+                <p>
+                    En aplicaciones web más grandes es común que la navegación tenga varios
+                    niveles. Esto permite organizar mejor muchas secciones sin saturar la
+                    interfaz.
+                </p>
+
+                <p>
+                    Una navegación de <b>tres niveles</b> suele funcionar así:
+                </p>
+
+                <ul>
+                    <li>Nivel 1 → Sección principal</li>
+                    <li>Nivel 2 → Subcategoría</li>
+                    <li>Nivel 3 → Opciones específicas</li>
+                </ul>
+
+                <p>
+                    Por ejemplo:
+                </p>
+
+                <p>
+                    Inicio | Servicios | Productos
+                    Productos → Software → Sistema CRM
+                </p>
+
+
+
+                <h3>Paso 1. Crear la estructura HTML</h3>
+
+                <p>
+                    Se utiliza la etiqueta semántica <b>&lt;nav&gt;</b> para representar la
+                    navegación del sitio. Dentro se crean listas anidadas para representar
+                    los diferentes niveles.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;nav class="navbar"&gt;
+
+    &lt;div class="logo"&gt;MiSistema&lt;/div&gt;
+
+    &lt;ul class="menu"&gt;
+
+        &lt;li&gt;
+            &lt;a href="#"&gt;Inicio&lt;/a&gt;
+        &lt;/li&gt;
+
+        &lt;li class="submenu"&gt;
+
+            &lt;a href="#"&gt;Productos&lt;/a&gt;
+
+            &lt;ul class="menu-nivel2"&gt;
+
+                &lt;li class="submenu"&gt;
+
+                &lt;a href="#"&gt;Software&lt;/a&gt;
+
+                &lt;ul class="menu-nivel3"&gt;
+
+                    &lt;li&gt;&lt;a href="#"&gt;Sistema CRM&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href="#"&gt;Sistema Contable&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href="#"&gt;Sistema Inventario&lt;/a&gt;&lt;/li&gt;
+
+                &lt;/ul&gt;
+
+                &lt;/li&gt;
+
+                &lt;li&gt;&lt;a href="#"&gt;Aplicaciones móviles&lt;/a&gt;&lt;/li&gt;
+
+            &lt;/ul&gt;
+
+        &lt;/li&gt;
+
+        &lt;li&gt;
+            &lt;a href="#"&gt;Contacto&lt;/a&gt;
+        &lt;/li&gt;
+
+    &lt;/ul&gt;
+
+&lt;/nav&gt;
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 2. Diseñar la barra principal</h3>
+
+                <p>
+                    Flexbox permite organizar el logo y el menú en una sola fila.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.navbar{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:12px 24px;
+
+    background:white;
+
+    box-shadow:0 4px 10px rgba(0,0,0,0.08);
+
+    font-family:Arial, sans-serif;
+
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 3. Menú principal</h3>
+
+                <p>
+                    El primer nivel de navegación se organiza horizontalmente.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.menu{
+
+    display:flex;
+
+    gap:24px;
+
+    list-style:none;
+
+    margin:0;
+
+    padding:0;
+
+}
+
+.menu a{
+
+    text-decoration:none;
+
+    color:#374151;
+
+    font-size:14px;
+
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 4. Crear el segundo nivel</h3>
+
+                <p>
+                    El segundo nivel aparece como un menú desplegable.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.menu-nivel2{
+
+    display:none;
+
+    position:absolute;
+
+    background:white;
+
+    list-style:none;
+
+    padding:10px;
+
+    border-radius:8px;
+
+    box-shadow:0 6px 16px rgba(0,0,0,0.1);
+
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 5. Crear el tercer nivel</h3>
+
+                <p>
+                    El tercer nivel aparece como un submenú lateral.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.menu-nivel3{
+
+    display:none;
+
+    position:absolute;
+
+    left:100%;
+
+    top:0;
+
+    background:white;
+
+    list-style:none;
+
+    padding:10px;
+
+    border-radius:8px;
+
+    box-shadow:0 6px 16px rgba(0,0,0,0.1);
+
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 6. Mostrar submenús al pasar el cursor</h3>
+
+                <p>
+                    El efecto <b>hover</b> permite mostrar los niveles inferiores
+                    cuando el usuario pasa el cursor sobre el menú.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.submenu:hover &gt; .menu-nivel2{
+
+    display:block;
+
+}
+
+.menu-nivel2 .submenu:hover &gt; .menu-nivel3{
+
+    display:block;
+
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 7. Estilo de los submenús</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.menu-nivel2 li,
+.menu-nivel3 li{
+
+    padding:6px 12px;
+
+}
+
+.menu-nivel2 a,
+.menu-nivel3 a{
+
+    color:#374151;
+
+    text-decoration:none;
+
+}
+
+.menu-nivel2 a:hover,
+.menu-nivel3 a:hover{
+
+    color:#2563eb;
+
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Resultado</h3>
+
+                <p>
+                    La navegación ahora tiene tres niveles:
+                </p>
+
+                <p>
+                    Nivel 1 → menú principal
+                    Nivel 2 → subcategorías desplegables
+                    Nivel 3 → opciones específicas
+                </p>
+
+                <p>
+                    Este tipo de navegación es muy utilizado en <b>paneles administrativos,
+                        tiendas en línea, sistemas empresariales y plataformas educativas</b>.
+                </p>
+                <h3>Navbar moderna tipo aplicación (App Navbar)</h3>
+
+                <p>
+                    Otro estilo muy utilizado en interfaces modernas es la <b>Navbar tipo aplicación</b>.
+                    Este diseño es común en <b>dashboards, paneles administrativos y sistemas web</b>.
+                </p>
+
+                <p>
+                    En lugar de usar solo enlaces simples, esta barra de navegación incluye:
+                </p>
+
+                <ul>
+                    <li>Logo o nombre del sistema</li>
+                    <li>Menú principal</li>
+                    <li>Buscador</li>
+                    <li>Iconos de notificaciones</li>
+                    <li>Perfil de usuario</li>
+                </ul>
+
+                <p>
+                    Este tipo de navegación es muy utilizado en plataformas como
+                    paneles administrativos, sistemas CRM o aplicaciones SaaS.
+                </p>
+
+
+
+                <h3>Paso 1. Crear la estructura HTML</h3>
+
+                <p>
+                    Primero se crea la estructura utilizando la etiqueta semántica
+                    <b>&lt;nav&gt;</b>. Dentro se organizan tres áreas:
+                    logo, navegación y acciones del usuario.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;nav class="navbar-app"&gt;
+
+  &lt;div class="logo"&gt;
+    MiSistema
+  &lt;/div&gt;
+
+  &lt;ul class="menu"&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Dashboard&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Usuarios&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Reportes&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Configuración&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;div class="acciones"&gt;
+
+    &lt;input class="buscador" placeholder="Buscar..."&gt;
+
+    &lt;button class="icono"&gt;🔔&lt;/button&gt;
+
+    &lt;div class="perfil"&gt;RS&lt;/div&gt;
+
+  &lt;/div&gt;
+
+&lt;/nav&gt;
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 2. Diseñar la barra de navegación</h3>
+
+                <p>
+                    Flexbox permite distribuir los elementos de forma equilibrada.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.navbar-app{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:10px 20px;
+
+    background:#111827;
+
+    color:white;
+
+    font-family:Arial, sans-serif;
+
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 3. Estilizar el logo</h3>
+
+                <p>
+                    El logo suele ser el primer elemento visible en la navegación.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.logo{
+
+    font-weight:bold;
+
+    font-size:18px;
+
+    color:#60a5fa;
+
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 4. Diseñar el menú principal</h3>
+
+                <p>
+                    Los enlaces del menú se organizan horizontalmente.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.menu{
+
+    display:flex;
+
+    gap:24px;
+
+    list-style:none;
+
+    margin:0;
+
+    padding:0;
+
+}
+
+.menu a{
+
+    text-decoration:none;
+
+    color:#d1d5db;
+
+    font-size:14px;
+
+}
+
+.menu a:hover{
+
+    color:white;
+
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 5. Diseñar el área de acciones</h3>
+
+                <p>
+                    Aquí se ubican el buscador, las notificaciones
+                    y el perfil del usuario.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.acciones{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 6. Diseñar el buscador</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.buscador{
+
+    padding:6px 10px;
+
+    border-radius:6px;
+
+    border:none;
+
+    font-size:13px;
+
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 7. Diseñar iconos y perfil</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.icono{
+
+    background:none;
+
+    border:none;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    color:white;
+
+}
+
+.perfil{
+
+    width:32px;
+
+    height:32px;
+
+    background:#2563eb;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Resultado</h3>
+
+                <p>
+                    Se obtiene una <b>Navbar moderna estilo aplicación</b> con:
+                </p>
+
+                <ul>
+                    <li>Logo del sistema</li>
+                    <li>Menú principal</li>
+                    <li>Buscador</li>
+                    <li>Iconos de acciones</li>
+                    <li>Perfil de usuario</li>
+                </ul>
+
+                <p>
+                    Este tipo de navegación es muy común en <b>paneles administrativos,
+                        sistemas empresariales, dashboards y plataformas SaaS modernas</b>.
+                </p>
+
+                <h3>Sidebar (Barra lateral)</h3>
+
+                <p>
+                    La <b>Sidebar</b> o barra lateral es un componente muy utilizado en
+                    interfaces modernas. Permite organizar la navegación de un sistema
+                    cuando existen muchas secciones.
+                </p>
+
+                <p>
+                    Este tipo de menú se utiliza principalmente en:
+                </p>
+
+                <ul>
+                    <li>Dashboards</li>
+                    <li>Paneles administrativos</li>
+                    <li>Sistemas empresariales</li>
+                </ul>
+
+                <p>
+                    Una Sidebar generalmente contiene:
+                </p>
+
+                <ul>
+                    <li>Iconos</li>
+                    <li>Enlaces de navegación</li>
+                    <li>Submenús</li>
+                </ul>
+
+
+
+                <h3>Paso 1. Crear la estructura HTML</h3>
+
+                <p>
+                    Primero se crea la barra lateral utilizando un contenedor
+                    <b>&lt;aside&gt;</b>, ya que representa contenido secundario dentro
+                    de la interfaz.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;aside class="sidebar"&gt;
+
+  &lt;h2 class="logo"&gt;MiSistema&lt;/h2&gt;
+
+  &lt;ul class="menu"&gt;
+
+    &lt;li&gt;
+      &lt;a href="#"&gt;🏠 Dashboard&lt;/a&gt;
+    &lt;/li&gt;
+
+    &lt;li class="submenu"&gt;
+
+      &lt;a href="#"&gt;📦 Productos&lt;/a&gt;
+
+      &lt;ul class="sub-menu"&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Lista de productos&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Agregar producto&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+
+    &lt;/li&gt;
+
+    &lt;li&gt;
+      &lt;a href="#"&gt;👥 Usuarios&lt;/a&gt;
+    &lt;/li&gt;
+
+    &lt;li&gt;
+      &lt;a href="#"&gt;⚙ Configuración&lt;/a&gt;
+    &lt;/li&gt;
+
+  &lt;/ul&gt;
+
+&lt;/aside&gt;
+</code></pre>
+                </div>
+
+                <h3>Paso 2. Diseñar el contenedor de la Sidebar</h3>
+
+                <p>
+                    La barra lateral se coloca normalmente en el lado izquierdo
+                    de la pantalla y ocupa todo el alto de la página.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.sidebar{
+
+    width:240px;
+
+    height:100vh;
+
+    background:#111827;
+
+    color:white;
+
+    padding:20px;
+
+    font-family:Arial, sans-serif;
+
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 3. Diseñar el logo del sistema</h3>
+
+                <p>
+                    El logo o nombre del sistema aparece en la parte superior
+                    de la barra lateral.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.logo{
+
+    margin-bottom:30px;
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    color:#60a5fa;
+
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 4. Diseñar el menú principal</h3>
+
+                <p>
+                    Los enlaces del menú se organizan verticalmente.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.menu{
+
+    list-style:none;
+
+    padding:0;
+
+    margin:0;
+
+}
+
+.menu li{
+
+    margin-bottom:10px;
+
+}
+
+.menu a{
+
+    display:block;
+
+    padding:10px;
+
+    text-decoration:none;
+
+    color:#d1d5db;
+
+    border-radius:6px;
+
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 5. Efecto hover</h3>
+
+                <p>
+                    Este efecto indica al usuario que el elemento es interactivo.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.menu a:hover{
+
+    background:#1f2937;
+
+    color:white;
+
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 6. Diseñar el submenú</h3>
+
+                <p>
+                    Los submenús permiten agrupar opciones relacionadas dentro
+                    de una misma sección.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.sub-menu{
+
+    list-style:none;
+
+    padding-left:15px;
+
+    margin-top:6px;
+
+    display:none;
+
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 7. Mostrar el submenú</h3>
+
+                <p>
+                    Cuando el usuario pasa el cursor sobre la sección,
+                    se muestra el submenú.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.submenu:hover .sub-menu{
+
+    display:block;
+
+}
+</code></pre>
+                </div>
+                <h3>Sidebar moderna estilo Dashboard</h3>
+
+                <p>
+                    La <b>Sidebar</b> o barra lateral permite organizar la navegación de un sistema
+                    cuando existen muchas secciones. Este componente es muy utilizado en
+                    <b>dashboards, paneles administrativos y sistemas empresariales</b>.
+                </p>
+
+                <p>
+                    En interfaces modernas la barra lateral suele tener un diseño limpio,
+                    con iconos alineados con el texto, espacios bien definidos y efectos
+                    visuales que ayudan al usuario a identificar las opciones disponibles.
+                </p>
+
+                <p>
+                    En este ejemplo construiremos una <b>Sidebar moderna</b> utilizando
+                    <b>Flexbox</b> para organizar los elementos del menú.
+                </p>
+
+
+
+                <h3>Paso 1. Crear la estructura HTML</h3>
+
+                <p>
+                    Primero creamos la barra lateral utilizando la etiqueta
+                    <b>&lt;aside&gt;</b>, que representa contenido secundario dentro
+                    de la interfaz del sistema.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;aside class="sidebar-modern"&gt;
+
+  &lt;div class="logo"&gt;MiSistema&lt;/div&gt;
+
+  &lt;nav class="menu"&gt;
+
+    &lt;a href="#" class="menu-item active"&gt;
+      &lt;span class="icon"&gt;🏠&lt;/span&gt;
+      Dashboard
+    &lt;/a&gt;
+
+    &lt;a href="#" class="menu-item"&gt;
+      &lt;span class="icon"&gt;📦&lt;/span&gt;
+      Productos
+    &lt;/a&gt;
+
+    &lt;a href="#" class="menu-item"&gt;
+      &lt;span class="icon"&gt;👥&lt;/span&gt;
+      Usuarios
+    &lt;/a&gt;
+
+    &lt;a href="#" class="menu-item"&gt;
+      &lt;span class="icon"&gt;⚙&lt;/span&gt;
+      Configuración
+    &lt;/a&gt;
+
+  &lt;/nav&gt;
+
+&lt;/aside&gt;
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 2. Diseñar el contenedor de la Sidebar</h3>
+
+                <p>
+                    La barra lateral se coloca normalmente en el lado izquierdo de la
+                    pantalla y ocupa todo el alto del navegador. Para lograr esto
+                    utilizamos <b>height:100vh</b>.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.sidebar-modern{
+
+    width:250px;
+
+    height:100vh;
+
+    background:#0f172a;
+
+    color:white;
+
+    padding:25px;
+
+    font-family:Arial, sans-serif;
+
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 3. Diseñar el logo del sistema</h3>
+
+                <p>
+                    El nombre del sistema aparece en la parte superior de la barra lateral
+                    y se diferencia utilizando un tamaño de texto mayor.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.logo{
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    margin-bottom:30px;
+
+    color:#38bdf8;
+
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 4. Organizar el menú con Flexbox</h3>
+
+                <p>
+                    Para organizar los enlaces verticalmente utilizamos
+                    <b>Flexbox</b> con la dirección en columna.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.menu{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 5. Diseñar los enlaces del menú</h3>
+
+                <p>
+                    Cada enlace del menú tendrá un pequeño icono junto al texto.
+                    Para alinearlos correctamente utilizamos nuevamente
+                    <b>display:flex</b>.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.menu-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:12px;
+
+    text-decoration:none;
+
+    color:#cbd5f5;
+
+    border-radius:8px;
+
+    transition:0.3s;
+
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 6. Efecto hover</h3>
+
+                <p>
+                    El efecto <b>hover</b> permite mostrar al usuario que el elemento
+                    es interactivo cuando pasa el cursor sobre él.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.menu-item:hover{
+
+    background:#1e293b;
+
+    color:white;
+
+}
+</code></pre>
+                </div>
+
+
+
+                <h3>Paso 7. Indicar la opción activa</h3>
+
+                <p>
+                    Para indicar en qué sección del sistema se encuentra el usuario
+                    se utiliza una clase <b>active</b>.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.menu-item.active{
+
+    background:#2563eb;
+
+    color:white;
+
+}
+</code></pre>
+                </div>
             </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 <h2>¿Qué es JS?</h2>
                 <div class="media-container">
                     <img src="https://niaxus.com/wp-content/uploads/2025/06/vrchyzq6javascript_1705438000.png"
@@ -7186,265 +12267,255 @@ h4 {
     <div id="toast-msg"></div>
 
     <script>
-        let laserActive = false, visorActivo = false;
-        let lastScroll = 0, currentRange = null;
-        const colors = ["#00FFFF", "#FF0000", "#00FF00", "#FFFFFF", "#FF00FF", "#FFFF00", "#FF9F43", "#4834D4", "#F0932B", "#61DAFB"];
+    let laserActive = false, visorActivo = false;
+    let lastScroll = 0, currentRange = null;
+    const colors = ["#00FFFF", "#FF0000", "#00FF00", "#FFFFFF", "#FF00FF", "#FFFF00", "#FF9F43", "#4834D4", "#F0932B", "#61DAFB"];
 
-        //   RELOJ  
-        function updateTime() {
+    // --- RELOJ ---
+    function updateTime() {
+        const reloj = document.getElementById("reloj");
+        if (reloj) {
             const now = new Date();
-            document.getElementById("reloj").textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            reloj.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         }
-        setInterval(updateTime, 1000); updateTime();
+    }
+    setInterval(updateTime, 1000); 
+    updateTime();
 
-        //   INICIALIZACIÓN  
-        document.addEventListener("DOMContentLoaded", () => {
-            // const savedContent = localStorage.getItem("marcasDiplomado");
-            // if (savedContent) document.getElementById("content-main").innerHTML = savedContent;
+    // --- INICIALIZACIÓN ---
+    document.addEventListener("DOMContentLoaded", () => {
+        // const savedContent = localStorage.getItem("marcasDiplomado");
+        // if (savedContent) document.getElementById("content-main").innerHTML = savedContent;
 
-            // const savedTasks = JSON.parse(localStorage.getItem("tareasDiplomado") || "{}");
-            // document.querySelectorAll('input[type="checkbox"]').forEach(ch => {
-            //     const id = ch.dataset.id;
-            //     if (savedTasks[id]) ch.checked = true;
-            //     ch.onchange = () => {
-            //         savedTasks[id] = ch.checked;
-            //         localStorage.setItem("tareasDiplomado", JSON.stringify(savedTasks));
-            //     }
-            // });
+        // const savedTasks = JSON.parse(localStorage.getItem("tareasDiplomado") || "{}");
+        // document.querySelectorAll('input[type="checkbox"]').forEach(ch => {
+        //     const id = ch.dataset.id;
+        //     if (savedTasks[id]) ch.checked = true;
+        //     ch.onchange = () => {
+        //         savedTasks[id] = ch.checked;
+        //         localStorage.setItem("tareasDiplomado", JSON.stringify(savedTasks));
+        //     }
+        // });
 
-            initPalette();
-            reVincularEventos();
+        initPalette();
+        reVincularEventos();
+    });
+
+    // --- RESALTADOR ---
+    function initPalette() {
+        const grid = document.getElementById("p-grid");
+        if (!grid) return;
+        grid.innerHTML = ""; // Limpiar antes de generar
+        colors.forEach(col => {
+            const btn = document.createElement("div");
+            btn.style.cssText = `aspect-ratio:1; border-radius:50%; background:${col}; cursor:pointer; border:2px solid rgba(255,255,255,0.2);`;
+            btn.onclick = () => aplicarResaltado(col);
+            grid.appendChild(btn);
         });
+    }
 
-        //   RESALTADOR  
-        function initPalette() {
-            const grid = document.getElementById("p-grid");
-            colors.forEach(col => {
-                const btn = document.createElement("div");
-                btn.style.cssText = `aspect-ratio:1; border-radius:50%; background:${col}; cursor:pointer; border:2px solid rgba(255,255,255,0.2);`;
-                btn.onclick = () => aplicarResaltado(col);
-                grid.appendChild(btn);
-            });
+    function mostrarToast(mensaje) {
+        const t = document.getElementById("toast-msg");
+        if (!t) return;
+        t.textContent = mensaje;
+        t.style.display = "block";
+        setTimeout(() => t.style.display = "none", 2500);
+    }
+
+    function prepararPaleta() {
+        const sel = window.getSelection();
+        if (sel.rangeCount > 0 && !sel.isCollapsed) {
+            currentRange = sel.getRangeAt(0).cloneRange();
+            const diag = document.getElementById("palette-dialog");
+            if (diag) diag.showModal();
+        } else {
+            mostrarToast("Primero selecciona texto");
         }
+    }
 
-        function mostrarToast(mensaje) {
-            const t = document.getElementById("toast-msg");
-            t.textContent = mensaje;
-            t.style.display = "block";
-            setTimeout(() => t.style.display = "none", 2500);
-        }
-
-        function prepararPaleta() {
-            const sel = window.getSelection();
-            if (sel.rangeCount > 0 && !sel.isCollapsed) {
-                currentRange = sel.getRangeAt(0).cloneRange();
-                document.getElementById("palette-dialog").showModal();
-            } else {
-                mostrarToast("Primero selecciona texto");
-            }
-        }
-
-        function aplicarResaltado(col) {
-            if (!currentRange) return;
-            const span = document.createElement("span");
-            span.className = "highlight-span";
-            span.style.cssText = `border-bottom:3px solid ${col}; color:${col}; background:${col}15;`;
-            span.onclick = function (e) { e.stopPropagation(); this.replaceWith(...this.childNodes); guardarEstado(); };
-
-            try {
-                span.appendChild(currentRange.extractContents());
-                currentRange.insertNode(span);
-            } catch (e) { }
-
-            document.getElementById("palette-dialog").close();
-            window.getSelection().removeAllRanges();
-            guardarEstado();
-        }
-
-        function reVincularEventos() {
-            document.querySelectorAll(".highlight-span").forEach(s => {
-                s.onclick = function (e) { e.stopPropagation(); this.replaceWith(...this.childNodes); guardarEstado(); };
-            });
-        }
-
-        function guardarEstado() {
-            // localStorage.setItem("marcasDiplomado", document.getElementById("content-main").innerHTML);
-        }
-
-        //   VISOR  
-        function toggleVisor(url) {
-            const container = document.getElementById("visor-container");
-            const main = document.getElementById("content-main");
-            const iframe = document.getElementById("screen-iframe");
-
-            if (!visorActivo) {
-                visorActivo = true;
-                // Guardamos el scroll actual para no perdernos
-                lastScroll = document.getElementById("content-wrapper").scrollTop;
-
-                main.style.display = "none";
-                container.style.display = "flex";
-
-                // ASIGNAMOS LA URL AL IFRAME
-                iframe.src = url;
-
-                setTimeout(ajustarEscalaMonitor, 50);
-            } else {
-                visorActivo = false;
-                container.style.display = "none";
-                main.style.display = "block";
-                iframe.src = "about:blank";
-                document.getElementById("content-wrapper").scrollTop = lastScroll;
-            }
-            document.getElementById("visor-btn").classList.toggle("active-tool", visorActivo);
-        }
-
-        function abrirNuevaPestana() {
-            const iframe = document.getElementById("screen-iframe");
-            if (iframe.src && iframe.src !== "about:blank") {
-                window.open(iframe.src, '_blank');
-            }
-        }
-
-        function ajustarEscalaMonitor() {
-            const frame = document.getElementById("m-frame");
-            const iframe = document.getElementById("screen-iframe");
-            const container = document.getElementById("visor-container");
-            if (!visorActivo) return;
-
-            const targetW = 1280, targetH = 800;
-            const availW = container.offsetWidth - 40, availH = container.offsetHeight - 60;
-            const scale = Math.min(availW / targetW, availH / targetH);
-
-            iframe.style.transform = `scale(${scale})`;
-            frame.style.width = (targetW * scale + 20) + "px";
-            frame.style.height = (targetH * scale + 35) + "px";
-        }
-
-        //   PUNTERO LÁSER  
-        const puntero = document.createElement("div");
-        puntero.className = "punteroRojo";
-        document.body.appendChild(puntero);
-
-        function toggleLaser() {
-            laserActive = !laserActive;
-            puntero.style.display = laserActive ? "block" : "none";
-            document.getElementById("pointer-btn").classList.toggle("active-tool", laserActive);
-            if (visorActivo) document.getElementById("mouse-overlay").style.display = laserActive ? "block" : "none";
-        }
-
-        document.addEventListener("mousemove", (e) => {
-            if (!laserActive) return;
-            puntero.style.left = e.clientX + "px";
-            puntero.style.top = e.clientY + "px";
-
-            const trail = document.createElement("div");
-            trail.className = "puntoEstela";
-            trail.style.left = e.clientX + "px";
-            trail.style.top = e.clientY + "px";
-            document.body.appendChild(trail);
-            setTimeout(() => trail.remove(), 500);
-        });
-
-        //   NAVEGACIÓN  
-        function goHome() {
-            if (visorActivo) toggleVisor();
-            document.getElementById("content-wrapper").scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function openSearch() {
-            const dialog = document.getElementById("search-dialog");
-
-            // Estructuramos el diálogo con un input de búsqueda y el contenedor de resultados
-            dialog.innerHTML = `
-        <div style="display: flex; flex-direction: column; gap: 10px;">
-            <h3 style="font-size: 0.8rem; color: var(--accent); margin-bottom: 5px; text-align: center;">NAVEGAR POR TEMAS</h3>
-            <input type="text" id="search-input" placeholder="Buscar módulo o tema..." 
-                   style="background:#12141c; color:white; border:1px solid var(--border); padding:12px; border-radius:8px; outline:none; font-size:0.9rem;">
-            <ul id="results" style="list-style:none; max-height:350px; overflow-y:auto; margin-top:10px;"></ul>
-        </div>
-    `;
-
-            const input = document.getElementById("search-input");
-            const resultsList = document.getElementById("results");
-            const secciones = document.querySelectorAll("main > section");
-
-            // Función para renderizar la lista con numeración automática
-            const renderResults = (filtro = "") => {
-                resultsList.innerHTML = "";
-
-                // Inicializamos el contador de unidades
-                let contadorUnidad = 1;
-
-                secciones.forEach(section => {
-                    const h2 = section.querySelector("h2");
-                    if (!h2) return;
-
-                    const titulo = h2.textContent;
-
-                    // Si hay filtro, comprobamos si el título coincide
-                    if (filtro === "" || titulo.toLowerCase().includes(filtro.toLowerCase())) {
-                        const li = document.createElement("li");
-                        li.style.cssText = "padding:15px; cursor:pointer; border-bottom:1px solid #2d3343; text-transform:uppercase; font-size:12px; color:#fff; transition:0.2s; display:flex; align-items:center; gap:10px;";
-
-                        // USAMOS EL CONTADOR AQUÍ: Unidad 1, Unidad 2...
-                        li.innerHTML = `
-<svg class="icon-svg" style="width:16px;height:16px;stroke:var(--accent)" viewBox="0 0 24 24">
-<path d="m9 18 6-6-6-6"/>
-</svg>
-
-<span style="color:var(--accent); font-weight:bold; min-width:90px;">
-UNIDAD ${contadorUnidad}:
-</span>
-
-<span style="flex:1;">
-${titulo}
-</span>
-`;
-
-                        li.onmouseover = () => { li.style.background = "rgba(97, 218, 251, 0.1)"; li.style.color = "var(--accent)"; };
-                        li.onmouseout = () => { li.style.background = "transparent"; li.style.color = "#fff"; };
-
-                        li.onclick = () => {
-                            if (visorActivo) toggleVisor();
-                            h2.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                            dialog.close();
-                        };
-                        resultsList.appendChild(li);
-                    }
-
-                    // Incrementamos el contador para la siguiente sección, coincida o no con el filtro
-                    // (Esto mantiene el número real de la unidad según su orden en el HTML)
-                    contadorUnidad++;
-                });
-
-                if (resultsList.innerHTML === "") {
-                    resultsList.innerHTML = "<li style='padding:15px; color:gray; font-size:12px; text-align:center;'>No se encontraron coincidencias</li>";
-                }
+    function aplicarResaltado(col) {
+        if (!currentRange) return;
+        const span = document.createElement("span");
+        span.className = "highlight-span";
+        span.style.cssText = `border-bottom:3px solid ${col}; color:${col}; background:${col}15; cursor:pointer;`;
+        
+        try {
+            span.appendChild(currentRange.extractContents());
+            currentRange.insertNode(span);
+            span.onclick = function (e) { 
+                e.stopPropagation(); 
+                this.replaceWith(...this.childNodes); 
+                guardarEstado(); 
             };
+        } catch (e) { console.error("Error al resaltar:", e); }
 
-            // Escuchar el teclado para filtrar
-            input.addEventListener("input", (e) => renderResults(e.target.value));
+        const diag = document.getElementById("palette-dialog");
+        if (diag) diag.close();
+        window.getSelection().removeAllRanges();
+        guardarEstado();
+    }
 
-            // Mostrar todos los temas al abrir por primera vez
-            renderResults();
+    function reVincularEventos() {
+        document.querySelectorAll(".highlight-span").forEach(s => {
+            s.onclick = function (e) { e.stopPropagation(); this.replaceWith(...this.childNodes); guardarEstado(); };
+        });
+    }
 
-            dialog.showModal();
-            setTimeout(() => input.focus(), 50); // Focus inmediato para escribir
+    function guardarEstado() {
+        // localStorage.setItem("marcasDiplomado", document.getElementById("content-main").innerHTML);
+    }
+
+    // --- VISOR ---
+    function toggleVisor(url) {
+        const container = document.getElementById("visor-container");
+        const main = document.getElementById("content-main");
+        const iframe = document.getElementById("screen-iframe");
+        const wrapper = document.getElementById("content-wrapper");
+
+        if (!visorActivo) {
+            visorActivo = true;
+            if (wrapper) lastScroll = wrapper.scrollTop;
+
+            if (main) main.style.display = "none";
+            if (container) container.style.display = "flex";
+            if (iframe) iframe.src = url;
+
+            setTimeout(ajustarEscalaMonitor, 50);
+        } else {
+            visorActivo = false;
+            if (container) container.style.display = "none";
+            if (main) main.style.display = "block";
+            if (iframe) iframe.src = "about:blank";
+            if (wrapper) wrapper.scrollTop = lastScroll;
         }
+        const btn = document.getElementById("visor-btn");
+        if (btn) btn.classList.toggle("active-tool", visorActivo);
+    }
 
-        function copyCode(btn) {
-            const code = btn.parentElement.querySelector('code').innerText;
-            navigator.clipboard.writeText(code).then(() => {
-                const original = btn.textContent;
-                btn.textContent = "¡LISTO!";
-                setTimeout(() => btn.textContent = original, 1500);
-            });
+    function abrirNuevaPestana() {
+        const iframe = document.getElementById("screen-iframe");
+        if (iframe && iframe.src && iframe.src !== "about:blank") {
+            window.open(iframe.src, '_blank');
         }
+    }
 
-        window.onclick = (e) => { if (e.target.tagName === 'DIALOG') e.target.close(); }
-        window.onresize = () => { if (visorActivo) ajustarEscalaMonitor(); };
-    </script>
+    function ajustarEscalaMonitor() {
+        const frame = document.getElementById("m-frame");
+        const iframe = document.getElementById("screen-iframe");
+        const container = document.getElementById("visor-container");
+        if (!visorActivo || !container || !iframe || !frame) return;
+
+        const targetW = 1280, targetH = 800;
+        const availW = container.offsetWidth - 40, availH = container.offsetHeight - 60;
+        const scale = Math.min(availW / targetW, availH / targetH);
+
+        iframe.style.transform = `scale(${scale})`;
+        frame.style.width = (targetW * scale + 20) + "px";
+        frame.style.height = (targetH * scale + 35) + "px";
+    }
+
+    // --- PUNTERO LÁSER ---
+    const puntero = document.createElement("div");
+    puntero.className = "punteroRojo";
+    document.body.appendChild(puntero);
+
+    function toggleLaser() {
+        laserActive = !laserActive;
+        puntero.style.display = laserActive ? "block" : "none";
+        const btn = document.getElementById("pointer-btn");
+        if (btn) btn.classList.toggle("active-tool", laserActive);
+        
+        const overlay = document.getElementById("mouse-overlay");
+        if (visorActivo && overlay) overlay.style.display = laserActive ? "block" : "none";
+    }
+
+    document.addEventListener("mousemove", (e) => {
+        if (!laserActive) return;
+        puntero.style.left = e.clientX + "px";
+        puntero.style.top = e.clientY + "px";
+
+        const trail = document.createElement("div");
+        trail.className = "puntoEstela";
+        trail.style.left = e.clientX + "px";
+        trail.style.top = e.clientY + "px";
+        document.body.appendChild(trail);
+        setTimeout(() => trail.remove(), 500);
+    });
+
+    // --- NAVEGACIÓN OPTIMIZADA ---
+    function goHome() {
+        if (visorActivo) toggleVisor();
+        const wrapper = document.getElementById("content-wrapper");
+        if (wrapper) wrapper.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function openSearch() {
+        const dialog = document.getElementById("search-dialog");
+        const secciones = document.querySelectorAll("main > section");
+        const wrapper = document.getElementById("content-wrapper");
+
+        if (!dialog || !wrapper) return;
+
+        dialog.innerHTML = `
+            <div style="display: flex; flex-direction: column; gap: 10px; padding: 5px;">
+                <h3 style="font-size: 0.75rem; color: var(--accent); margin-bottom: 5px; text-align: center; letter-spacing: 1px;">NAVEGAR POR UNIDADES</h3>
+                <ul id="results" style="list-style:none; max-height:70vh; overflow-y:auto; margin:0; padding:0; scrollbar-width: thin;"></ul>
+            </div>
+        `;
+
+        const resultsList = document.getElementById("results");
+
+        secciones.forEach((section, index) => {
+            const h2 = section.querySelector("h2");
+            if (!h2) return;
+
+            const li = document.createElement("li");
+            li.style.cssText = "padding:15px; cursor:pointer; border-bottom:1px solid #2d3343; text-transform:uppercase; font-size:11px; color:#fff; transition:0.2s; display:flex; align-items:center; gap:12px;";
+
+            li.innerHTML = `
+                <span style="color:var(--accent); font-weight:bold; min-width:85px; font-family:monospace;">UNIDAD ${(index + 1).toString().padStart(2, '0')}:</span>
+                <span style="flex:1; opacity:0.9;">${h2.textContent.trim()}</span>
+            `;
+
+            li.onmouseover = () => { li.style.background = "rgba(97, 218, 251, 0.1)"; li.style.color = "var(--accent)"; };
+            li.onmouseout = () => { li.style.background = "transparent"; li.style.color = "#fff"; };
+
+            li.onclick = () => {
+                if (visorActivo) toggleVisor();
+                
+                // Cálculo de scroll relativo al contenedor wrapper
+                const wrapperRect = wrapper.getBoundingClientRect();
+                const h2Rect = h2.getBoundingClientRect();
+                const relativeTop = h2Rect.top - wrapperRect.top + wrapper.scrollTop;
+
+                wrapper.scrollTo({ 
+                    top: relativeTop - 20, 
+                    behavior: 'smooth' 
+                });
+                
+                dialog.close();
+            };
+            resultsList.appendChild(li);
+        });
+
+        dialog.showModal();
+    }
+
+    function copyCode(btn) {
+        const codeElement = btn.parentElement.querySelector('code');
+        if (!codeElement) return;
+        const code = codeElement.innerText;
+        navigator.clipboard.writeText(code).then(() => {
+            const original = btn.textContent;
+            btn.textContent = "¡COPIADO!";
+            setTimeout(() => btn.textContent = original, 1500);
+        });
+    }
+
+    // --- EVENTOS GLOBALES ---
+    window.onclick = (e) => { if (e.target.tagName === 'DIALOG') e.target.close(); }
+    window.onresize = () => { if (visorActivo) ajustarEscalaMonitor(); };
+</script>
 </body>
 
 </html>
