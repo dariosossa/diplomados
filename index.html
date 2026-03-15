@@ -3,11 +3,11 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>DIPLOMADO EN DESARROLLO WEB Y APLICACIONES MÓVILES</title>
     <style>
         :root {
-            --bg: #12141c;
+            --bg: #0f111a;
             --surface: #1e222d;
             --accent: #61dafb;
             --accent2: #61dafb76;
@@ -18,6 +18,7 @@
             --header-h: 60px;
         }
 
+        /* Reset y Rendimiento */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -26,24 +27,13 @@
         }
 
         body {
-            font-family: system-ui, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background-color: var(--bg);
             color: var(--text);
-            /* Cambia height: 100vh; por estas dos líneas: */
-            height: 100vh;
             height: 100dvh;
-            /* dvh es la altura real disponible en el móvil */
             display: flex;
             flex-direction: column;
             overflow: hidden;
-        }
-
-        body.visor-activo {
-            overflow: hidden !important;
-        }
-
-        h1 {
-            font-size: 1rem;
         }
 
         header#top-bar {
@@ -53,14 +43,20 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 3100;
+            z-index: 10000;
+        }
+
+        header#top-bar h1 {
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-dim);
         }
 
         #content-wrapper {
             flex: 1;
-            position: relative;
             overflow-y: auto;
             scroll-behavior: smooth;
+            background: radial-gradient(circle at 50% 0%, #1a1c2c 0%, var(--bg) 100%);
         }
 
         main#content-main {
@@ -69,50 +65,140 @@
             padding: 20px;
         }
 
-        /* --- CONTENIDO --- */
         section {
             background: var(--surface);
             border: 1px solid var(--border);
-            padding: 25px;
-            margin-bottom: 20px;
-            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            content-visibility: auto;
         }
 
-        section h2 {
-            font-size: 1.6rem;
+        h2 {
             color: var(--accent);
             text-transform: uppercase;
             margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-size: 1.6rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
         }
 
-        section h2::after {
-            content: "";
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
-
-        section h3 {
-            font-size: 1.8rem;
-            color: var(--accent2);
+        h3 {
+            color: var(--accent);
             text-transform: uppercase;
             margin-top: 30px;
             margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-size: 1.4rem;
         }
 
-        p {
-            font-size: 1.6rem;
+        p,
+        li {
+            font-size: 1.4rem;
+            line-height: 1.7;
             margin-bottom: 15px;
-            line-height: 1.8;
         }
 
-        /* --- BLOQUE DE CÓDIGO CON BOTÓN A LA IZQUIERDA --- */
+        ul,
+        ol {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+
+        b {
+            color: var(--accent);
+        }
+
+        .icon-svg {
+            width: 22px;
+            height: 22px;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+
+        /* --- VISOR DE MONITOR PROFESIONAL --- */
+        #visor-container {
+            display: none;
+            position: fixed;
+            top: var(--header-h);
+            left: 0;
+            width: 100%;
+            height: calc(100dvh - var(--header-h) - var(--nav-h));
+            background: radial-gradient(circle, #1a1c2c 0%, #050508 100%);
+            z-index: 5000;
+            padding: 15px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .monitor-frame {
+            background: #111;
+            border: 10px solid #222;
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 50px 120px rgba(0, 0, 0, 1);
+            display: flex;
+            flex-direction: column;
+            border-bottom-width: 20px;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .monitor-screen {
+            background: #000;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5);
+        }
+
+        #mouse-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+            background: transparent;
+            display: none;
+            cursor: none;
+        }
+
+        #screen-iframe {
+            width: 1280px;
+            height: 800px;
+            background: white;
+            border: none;
+            transform-origin: top left;
+            position: absolute;
+            z-index: 1;
+        }
+
+        .monitor-led {
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 3px;
+            background: #00ff00;
+            border-radius: 2px;
+            box-shadow: 0 0 8px #00ff00;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .monitor-led:hover {
+            box-shadow: 0 0 15px #00ff00;
+            transform: translateX(-50%) scale(1.2);
+        }
+
+        /* --- INTERFAZ --- */
         .code-block {
             position: relative;
             margin: 20px 0;
@@ -126,416 +212,117 @@
             position: absolute;
             top: 10px;
             left: 10px;
-            /* Posicionado a la izquierda */
             background: var(--border);
             color: var(--text);
             border: none;
             padding: 6px 12px;
             border-radius: 4px;
             font-size: 0.7rem;
-            font-weight: bold;
             cursor: pointer;
-            z-index: 10;
-            transition: background 0.2s, color 0.2s;
-        }
-
-        .copy-btn:active {
-            background: var(--accent);
-            color: var(--bg);
+            z-index: 5;
         }
 
         pre {
-            /* Padding superior para no chocar con el botón */
-            /* Padding izquierdo aumentado para que el botón no tape el código */
-            padding: 50px 20px 20px 20px;
-            font-family: "Consolas", "Monaco", monospace;
+            padding: 50px 20px 20px;
+            font-family: 'Consolas', monospace;
             overflow-x: auto;
-            font-size: 0.9rem;
             color: #cbd5e1;
-            line-height: 1.5;
+            font-size: 0.9rem;
         }
-
-        /* Alineación perfecta de listas con párrafos */
-        ul,
-        ol {
-            /* Elimina el margen por defecto y ajusta el padding */
-            margin-left: 0;
-            padding-left: 1.2rem;
-            /* Espacio justo para la viñeta o número */
-            margin-bottom: 16px;
-            list-style-position: outside;
-            /* Mantiene el texto alineado si hay varias líneas */
-        }
-
-        li {
-            font-size: 1.6rem;
-            margin-left: 16px;
-            margin-bottom: 8px;
-            color: var(--text);
-            /* Asegura que el texto del li tenga el mismo tamaño que el p */
-            line-height: 1.8;
-        }
-
-        /* Si usas párrafos, asegúrate que no tengan márgenes laterales extra */
-        p {
-            margin-left: 0;
-            padding-left: 0;
-        }
-
-
-        /* --- ESTILO ESPECÍFICO PARA CONTENEDOR MULTIMEDIA CON TEXTO --- */
 
         .media-container {
             position: relative;
-            /* Esencial para posicionar el texto absolutamente dentro */
-            margin: 20px 0;
-            border-radius: 8px;
+            margin: 40px 0;
+            border-radius: 12px;
             overflow: hidden;
-            /* Mantiene la imagen y el degradado dentro de los bordes redondeados */
             border: 1px solid var(--border);
-            background: #1a1d26;
-            /* Color de fondo mientras carga la imagen */
-            /* aspect-ratio: 16 / 9; */
-            /* Opcional: fuerza una proporción si las imágenes varían mucho */
+            background: #000;
         }
 
         .media-container img {
             width: 100%;
-            height: auto;
-            /* Mantiene la proporción original de la imagen */
+            height: 400px;
             display: block;
-            /* Elimina espacio en blanco inferior no deseado */
-            object-fit: cover;
-            /* Evita que aparezca el menú de selección de texto sobre la imagen */
-            user-select: none;
-            -webkit-user-select: none;
-            /* Safari */
-            -moz-user-select: none;
-            /* Firefox */
-            -ms-user-select: none;
-
-            /* Evita que se resalte en azul al mantener presionado en móviles */
-            -webkit-touch-callout: none;
-
-            /* Asegura que los eventos de mouse pasen a través si fuera necesario 
-       (Opcional: solo si quieres que el puntero láser ignore la imagen por completo) */
-            /* pointer-events: none; */
+            filter: brightness(0.8);
         }
 
-        /* Estilo base para el texto superpuesto */
         .texto-encima-imagen {
             position: absolute;
-            left: 0;
-            right: 0;
+            width: 100%;
             padding: 20px;
             color: white;
-            /* Color de texto fijo para contraste sobre imagen */
             font-weight: 700;
-            font-size: 1.3rem;
-            /* Ajustable según necesidad */
+            font-size: 1.6rem;
             text-align: center;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-            /* Sombra suave para mejorar legibilidad */
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
             z-index: 10;
-            /* Asegura que esté sobre la imagen */
-            /* Evita la selección del texto */
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-
-            /* Evita que el cursor cambie a la "I" de texto al pasar el mouse */
-            cursor: default;
-
-            /* Asegura que los eventos de clic pasen a través si fuera necesario */
-            /* pointer-events: none; */
         }
 
-        /* Posicionamiento específico: ARRIBA con degradado de fondo */
         .texto-arriba {
             top: 0;
-            bottom: auto;
-            /* Degradado oscuro de arriba hacia abajo para que el texto resalte */
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
-            padding-top: 25px;
-            /* Un poco más de espacio arriba */
-            padding-bottom: 40px;
-            /* Espacio para que el degradado se desvanezca */
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
         }
 
-        /* Opcional: Si tuvieras la clase .texto-abajo */
-        .texto-abajo {
-            bottom: 0;
-            top: auto;
-            /* Degradado oscuro de abajo hacia arriba */
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
-            padding-bottom: 25px;
-            padding-top: 40px;
-        }
-
-        /* Adaptación para pantallas más grandes (Escritorio) */
-        @media (min-width: 1024px) {
-            .texto-encima-imagen {
-                font-size: 2.2rem;
-                /* Texto un poco más grande en PC */
-                padding: 30px;
-            }
-
-            .texto-arriba {
-                padding-top: 35px;
-                padding-bottom: 60px;
-            }
-        }
-
-        /* --- MARCADOR --- */
-        .marker-mode-active #content-main {
-            user-select: text !important;
-            cursor: crosshair;
-        }
-
-        .highlight-span {
-            display: inline;
-            font-size: inherit;
-            line-height: inherit;
-            border-bottom: 3px solid;
-            font-weight: 700;
-            color: inherit;
-            cursor: pointer;
-        }
-
-        /* --- VISOR E IFRAME --- */
-        #visor-container {
-            display: none;
-            position: fixed;
-            top: var(--header-h);
-            left: 0;
-            width: 100%;
-            height: calc(100vh - var(--header-h) - var(--nav-h));
-            background: #000;
-            z-index: 2000;
-        }
-
-        #frame-visor {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        #mouse-overlay {
-            position: fixed;
-            top: var(--header-h);
-            left: 0;
-            width: 98%;
-            height: calc(100vh - var(--header-h) - var(--nav-h));
-            z-index: 2500;
-            background: transparent;
-            display: none;
-            pointer-events: none;
-        }
-
-        body.laser-on #mouse-overlay {
-            display: block;
-            pointer-events: auto;
-            cursor: none;
-        }
-
-        /* --- CONTENEDOR DE ACTIVIDADES (DETAILS) --- */
         .respuesta-box {
-            background-color: var(--surface);
+            background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 10px;
             margin: 20px 0;
-            transition: all 0.3s ease;
         }
 
-        .respuesta-box[open] {
-            border-color: var(--accent);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        /* --- ESTILO DEL RESUMEN (SUMMARY) --- */
         summary {
-            list-style: none;
             cursor: pointer;
-            font-weight: 700;
             color: var(--accent);
+            font-weight: bold;
             padding: 10px;
-            outline: none;
+            list-style: none;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
-        summary::before {
-            content: '▶';
-            font-size: 1.6rem;
-            transition: transform 0.3s;
-        }
-
-        .respuesta-box[open] summary::before {
-            transform: rotate(90deg);
-        }
-
-        /* --- ESTILO DE LOS ITEMS DEL CHECKLIST --- */
         .checklist-item {
             display: flex;
             align-items: center;
-            gap: 15px;
-            padding: 12px 10px;
-            margin: 5px 0;
-            border-radius: 8px;
-            transition: background 0.2s;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            margin-bottom: 8px;
             cursor: pointer;
         }
 
-        .checklist-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        /* Personalización del Checkbox */
-        .checklist-item input[type="checkbox"] {
-            appearance: none;
-            -webkit-appearance: none;
+        .checklist-item input {
             width: 20px;
             height: 20px;
-            border: 2px solid var(--accent);
-            border-radius: 4px;
-            background: transparent;
+            accent-color: var(--accent);
             cursor: pointer;
-            position: relative;
-            flex-shrink: 0;
         }
 
-        .checklist-item input[type="checkbox"]:checked {
-            background-color: var(--accent);
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            color: black;
         }
 
-        .checklist-item input[type="checkbox"]:checked::after {
-            content: '✔';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: var(--bg);
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        /* Efecto de texto tachado al marcar */
-        .checklist-item span {
-            font-size: 1.6rem;
-            color: var(--text);
-            transition: all 0.3s ease;
-            user-select: none;
-        }
-
-        .checklist-item input:checked+span {
-            text-decoration: line-through;
-            color: var(--text-dim);
-            opacity: 0.6;
-        }
-
-        /* Adaptación para títulos dentro de la actividad */
-        .respuesta-box h3 {
-            font-size: 1.6rem;
-            margin: 20px 0 10px 10px;
-            color: var(--text);
-            border-left: 3px solid var(--accent);
-            padding-left: 10px;
-        }
-
-        /* RESPONSIVE */
-        @media (min-width: 1024px) {
-            .checklist-item span {
-                font-size: 2rem;
-                /* Tamaño más grande para escritorio como pediste */
-            }
-        }
-
-        /* --- MODALES OPTIMIZADOS --- */
-        dialog {
-            position: fixed;
-            bottom: calc(var(--nav-h) + 20px);
-            /* Un poco más arriba para que se vea el fondo */
-            left: 5%;
-            right: 5%;
-            width: 90%;
-            max-height: 70vh;
-            /* Para que no tape toda la pantalla */
-            background: var(--surface);
-            border: 1px solid var(--accent);
-            border-radius: 12px;
-            padding: 25px 20px 20px 20px;
-            color: white;
-            z-index: 4500;
-            overflow-y: auto;
-        }
-
-        dialog::backdrop {
-            background: rgba(0, 0, 0, 0.8);
-        }
-
-        /* Botón de cerrar dentro de los diálogos */
-        .close-dialog-btn {
-            position: sticky;
-            top: -10px;
-            float: right;
-            background: var(--border);
-            color: var(--accent);
-            border: 1px solid var(--accent);
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 10px;
-            z-index: 100;
-        }
-
-        #results li {
-            padding: 15px;
-            /* Más grande para el dedo */
-            border-bottom: 1px solid var(--border);
-            cursor: pointer;
-            font-size: 1rem;
-            /* Mejor legibilidad */
-            text-transform: uppercase;
-            list-style: none;
-            color: var(--text-dim);
-        }
-
-        #results li {
+        table th,
+        table td {
+            border: 1px solid #2d3343;
             padding: 12px;
-            border-bottom: 1px solid var(--border);
-            cursor: pointer;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            list-style: none;
-            color: var(--text-dim);
+            text-align: left;
         }
 
-        #results li:hover {
-            color: var(--accent);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        /* --- NAVEGACIÓN REORGANIZADA --- */
         nav.bar {
             height: var(--nav-h);
             background: #1e222d;
             display: grid;
-            /* 5 columnas en PC */
             grid-template-columns: repeat(5, 1fr);
             border-top: 1px solid var(--border);
-            z-index: 4000;
-            padding-bottom: env(safe-area-inset-bottom);
+            z-index: 15000;
         }
-
-
 
         .nav-btn {
             background: none;
@@ -547,68 +334,243 @@
             justify-content: center;
             cursor: pointer;
             transition: 0.2s;
-            width: 100%;
-        }
-
-        .nav-btn.active-tool {
-            color: var(--accent);
-            background: rgba(97, 218, 251, 0.1);
         }
 
         .nav-btn span {
             font-size: 0.65rem;
-            /* Ligeramente más grande para legibilidad */
-            font-weight: bold;
-            text-transform: uppercase;
             margin-top: 4px;
+            font-weight: 600;
         }
 
-        /* --- ADAPTACIÓN MÓVIL (SÓLO 2 COLUMNAS) --- */
-        @media (max-width: 1023px) {
-            nav.bar {
-                /* En móvil ocultamos Puntero y Visor, quedan 3: Inicio, Pintar y Buscar */
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            #pointer-btn,
-            #visor-btn {
-                display: none;
-            }
+        .active-tool {
+            color: var(--accent);
+            background: rgba(97, 218, 251, 0.1);
         }
 
         /* --- LÁSER --- */
         .punteroRojo {
             position: fixed;
-            width: 24px;
-            height: 24px;
+            width: 22px;
+            height: 22px;
+            background: red;
             border-radius: 50%;
             pointer-events: none;
-            z-index: 5000;
-            box-shadow: 0 0 10px red;
+            z-index: 20000;
             display: none;
             transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px red, 0 0 40px red;
+            border: 2px solid white;
         }
 
         .puntoEstela {
             position: fixed;
-            width: 24px;
-            height: 24px;
-            background: red;
+            width: 15px;
+            height: 15px;
+            background: rgba(255, 0, 0, 0.5);
             border-radius: 50%;
             pointer-events: none;
-            z-index: 4999;
+            z-index: 19999;
             transform: translate(-50%, -50%);
-            animation: desvanecer 0.7s forwards;
+            animation: fadeOut 0.5s forwards;
         }
 
-        @keyframes desvanecer {
-            from {
-                opacity: 0.8;
-            }
-
+        @keyframes fadeOut {
             to {
                 opacity: 0;
-                transform: translate(-50%, -50%) scale(0.2);
+                transform: translate(-50%, -50%) scale(0.1);
+            }
+        }
+
+        .highlight-span {
+            border-bottom: 3px solid;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0 2px;
+        }
+
+        dialog {
+            background: var(--surface);
+            border: 2px solid var(--accent);
+            border-radius: 16px;
+            padding: 5px;
+            color: white;
+            margin: auto;
+            width: 80%;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        dialog::backdrop {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        #toast-msg {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ff4757;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            display: none;
+            z-index: 18000;
+        }
+
+        /* Botones de acción en HTML */
+        .btn-html-visor {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: 800;
+            cursor: pointer;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        .btn-html-visor:active {
+            transform: scale(0.98);
+        }
+
+        button[type="submit"] {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin-top: 5px;
+        }
+
+        /* --- OPTIMIZACIÓN PARA MÓVILES --- */
+        @media (max-width: 768px) {
+            :root {
+                --nav-h: 65px;
+                /* Reducimos un poco la barra inferior */
+                --header-h: 50px;
+            }
+
+            /* Ajuste de contenedores principales */
+            main#content-main {
+                padding: 12px;
+            }
+
+            section {
+                padding: 20px 15px;
+                margin-bottom: 15px;
+                border-radius: 8px;
+            }
+
+            header#top-bar h1 {
+                font-size: 0.5rem;
+            }
+
+
+            /* Tipografía adaptable */
+            h2 {
+                font-size: 1.3rem;
+            }
+
+            h3 {
+                font-size: 1.1rem;
+                margin-top: 20px;
+            }
+
+            p,
+            li {
+                font-size: 1rem;
+                line-height: 1.5;
+            }
+
+            /* Ajuste de botones para dedos (tappable areas) */
+            .btn-html-visor {
+                padding: 12px;
+                font-size: 0.8rem;
+            }
+
+            /* El monitor en móvil debe ocupar casi todo el ancho */
+            .monitor-frame {
+                border-width: 6px;
+                border-bottom-width: 12px;
+            }
+
+            /* Ajuste de la barra de navegación inferior */
+            .nav-btn span {
+                font-size: 0.6rem;
+                letter-spacing: 0;
+            }
+
+            .icon-svg {
+                width: 20px;
+                height: 20px;
+            }
+
+            /* Mejorar la visualización del código en pantallas pequeñas */
+            pre {
+                font-size: 0.8rem;
+                padding: 45px 15px 15px;
+            }
+
+            .media-container {
+                margin: 20px 0px;
+            }
+
+            /* Las imágenes no deben ser tan altas en móvil */
+            .media-container img {
+                height: 200px;
+            }
+
+            .texto-encima-imagen {
+                font-size: 1.1rem;
+            }
+
+            /* Diálogos más anchos en móvil para aprovechar el espacio */
+            dialog {
+                width: 95%;
+                padding: 20px;
+            }
+
+            #p-grid {
+                gap: 15px;
+                /* Más espacio entre colores para evitar errores al tocar */
+            }
+        }
+
+        /* Soporte para modo horizontal (Landscape) */
+        @media (max-height: 500px) and (orientation: landscape) {
+            nav.bar {
+                height: 50px;
+            }
+
+            :root {
+                --nav-h: 50px;
+            }
+
+            #content-main {
+                padding-bottom: 60px;
             }
         }
     </style>
@@ -621,7 +583,6 @@
     </header>
 
     <div id="content-wrapper">
-        <div id="mouse-overlay"></div>
         <main id="content-main">
             <section>
                 <h2>DESARROLLO WEB Y APLICACIONES MÓVILES</h2>
@@ -643,7 +604,7 @@
                     <img src="https://capgo.app/cross-platform-app-dev-2024.webp" alt="Code" loading="lazy" />
                     <div class="texto-encima-imagen texto-arriba">
                         El desarrollo móvil es el proceso de crear aplicaciones diseñadas para funcionar en dispositivos
-                        móviles.
+                        móviles...
                     </div>
                 </div>
             </section>
@@ -658,9 +619,7 @@
                         dispositivo.
                     </div>
                 </div>
-                <p>
-                    Se estudiarán los sistemas operativos Android, iOS, Windows y Linux.
-                </p>
+                <h3 style="text-decoration: underline; text-align: center;">SISTEMAS OPERATIVOS</h3>
                 <h3>¿Qué es Android?</h3>
                 <div class="media-container">
                     <img src="https://imgmedia.larepublica.pe/850x501/larepublica/original/2023/02/16/63ee79c49a224468ad01dda9.webp"
@@ -696,9 +655,7 @@
                         en 1991.
                     </div>
                 </div>
-                <p>
-                    Se utilizarán diferentes dispositivos, como computadoras, laptops, tabletas y teléfonos móviles.
-                </p>
+                <h3 style="text-decoration: underline; text-align: center;">DISPOSITIVOS ELECTRONICOS</h3>
                 <h3>¿Qué es una computadora?</h3>
                 <div class="media-container">
                     <img src="https://images-cdn.ubuy.co.in/65f1abea6f15032e663e11fe-dell-optiplex-7040-desktop-computer-pc.jpg"
@@ -732,118 +689,34 @@
                         personas.
                     </div>
                 </div>
-                <h3>Evolución del desarrollo web</h3>
+                <h3 style="text-decoration: underline; text-align: center;">Evolución del desarrollo web</h3>
                 <h3>¿Cómo era la Web 1.0?</h3>
                 <div class="media-container">
                     <img src="https://disenowebakus.net/imagenes/articulos/web-1.jpg" alt="Code" loading="lazy" />
                 </div>
-                <p>
-                    La Web 1.0 se caracterizaba por estar formada por páginas web estáticas, donde la información era
-                    publicada por
-                    los administradores del sitio y los usuarios solo podían leer el contenido sin interactuar con él.
-                </p>
-                <p>
-                    Las páginas estaban compuestas principalmente por texto, imágenes y enlaces, y su función principal
-                    era mostrar
-                    información, similar a una biblioteca digital.
-                </p>
                 <h3>¿Cómo era la Web 2.0?</h3>
                 <div class="media-container">
                     <img src="https://www.comstar.com.pk/assets/files/blog/web_2_0_social_marketing.png" alt="Code"
                         loading="lazy" />
                 </div>
-                <p>
-                    La Web 2.0 se caracterizó por permitir la interacción y participación activa de los usuarios en
-                    internet.
-                </p>
-                <p>
-                    A diferencia de la Web 1.0, donde los usuarios solo podían leer información, en la Web 2.0 las
-                    personas pueden
-                    crear, compartir y comentar contenido en diferentes plataformas digitales.
-                </p>
-                <p>
-                    En esta etapa surgieron servicios como redes sociales, blogs, wikis, plataformas de video y
-                    aplicaciones web
-                    interactivas, donde los usuarios se convierten también en creadores de contenido.
-                </p>
-                <p>
-                    Ejemplos claros de Web 2.0 son plataformas como Facebook, YouTube y Twitter, donde la información es
-                    generada y
-                    compartida por millones de usuarios.
-                </p>
                 <h3>¿Cómo es la actual Web 3.0?</h3>
                 <div class="media-container">
                     <img src="https://mpost.io/wp-content/uploads/4211web_3_2-1024x536.jpg" alt="Code" loading="lazy" />
                 </div>
-                <p>
-                    La Web 3.0 se caracteriza por ser una web más inteligente, conectada y personalizada, donde las
-                    aplicaciones
-                    pueden analizar grandes cantidades de información para ofrecer resultados más precisos a los
-                    usuarios.
-                </p>
-                <p>
-                    En esta etapa de internet se utilizan tecnologías como inteligencia artificial, procesamiento de
-                    datos,
-                    computación en la nube y sistemas semánticos, que permiten que las plataformas comprendan mejor la
-                    información y
-                    el comportamiento de las personas.
-                </p>
-                <h3>Evolución del desarrollo móvil</h3>
+                <h3 style="text-decoration: underline; text-align: center;">Evolución del desarrollo móvil</h3>
                 <h3>¿Cómo fue la primera etapa?</h3>
                 <div class="media-container">
                     <img src="https://i.redd.it/fxp9ewkx9hje1.jpeg" alt="Code" loading="lazy" />
                 </div>
-                <p>
-                    La primera etapa del desarrollo móvil se caracterizó por el uso de teléfonos móviles básicos que
-                    tenían
-                    funciones limitadas, principalmente llamadas telefónicas y envío de mensajes de texto (SMS).
-                </p>
-                <p>
-                    En ese periodo, los dispositivos tenían pantallas pequeñas, poca capacidad de almacenamiento y
-                    recursos de
-                    procesamiento muy reducidos, por lo que las aplicaciones eran simples y con pocas funciones.
-                </p>
                 <h3>¿Cómo fue la segunda etapa?</h3>
                 <div class="media-container">
                     <img src="https://i.redd.it/9xa8kso56eqe1.jpeg" alt="Code" loading="lazy" />
                 </div>
-                <p>
-                    La segunda etapa del desarrollo móvil se caracterizó por la aparición de los primeros teléfonos
-                    inteligentes o
-                    smartphones, que comenzaron a ofrecer más funciones además de llamadas y mensajes.
-                </p>
-                <p>
-                    En esta etapa los dispositivos incorporaron pantallas más grandes, conexión a internet, cámaras y
-                    sistemas
-                    operativos más avanzados, lo que permitió el desarrollo de aplicaciones más complejas.
-                </p>
-                <p>
-                    También surgieron las primeras tiendas de aplicaciones, donde los usuarios podían descargar
-                    diferentes programas
-                    para ampliar las funciones de sus dispositivos.
-                </p>
                 <h3>¿Cómo es la etapa actual?</h3>
                 <div class="media-container">
                     <img src="https://eldistrito.es/wp-content/uploads/2026/01/moviles-smartphones-2026-novedades-ia-1024x682.jpg"
                         alt="Code" loading="lazy" />
                 </div>
-                <p>
-                    La etapa actual del desarrollo móvil se caracteriza por el uso de teléfonos inteligentes avanzados
-                    con gran
-                    capacidad de procesamiento, conexión permanente a internet y aplicaciones cada vez más complejas.
-                </p>
-                <p>
-                    En esta etapa los dispositivos móviles permiten realizar múltiples actividades como comunicación,
-                    comercio
-                    electrónico, educación en línea, redes sociales, entretenimiento y trabajo remoto.
-                </p>
-                <p>
-                    Además, las aplicaciones móviles actuales integran tecnologías como inteligencia artificial,
-                    computación en la
-                    nube, geolocalización y servicios digitales en tiempo real, lo que permite ofrecer experiencias más
-                    rápidas y
-                    personalizadas a los usuarios.
-                </p>
                 <details class="respuesta-box">
                     <summary>Actividad 1</summary>
 
@@ -977,7 +850,7 @@
                         Es la parte de una aplicación que funciona en el servidor y que el usuario no ve.
                     </div>
                 </div>
-                <h3>Tipos de aplicaciones</h3>
+                <h3 style="text-decoration: underline; text-align: center;">Tipos de aplicaciones</h3>
                 <h3>¿Qué son las aplicaciones nativas?</h3>
                 <div class="media-container">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2d2SOz6KrdeShcKJyzZYEGXcEAyq0zNoDHg&s"
@@ -1116,7 +989,6 @@
 
                 </details>
             </section>
-
             <section>
                 <h2>Programación para el Desarrollo Web y Móvil</h2>
                 <h3>HTML, CSS y JavaScript</h3>
@@ -1134,28 +1006,7 @@
                         páginas web.
                     </div>
                 </div>
-                <p>
-                    HTML permite organizar el contenido de una página mediante etiquetas,
-                    indicando qué es cada elemento, por ejemplo:
-                </p>
-                <ul>
-                    <li>Títulos</li>
-                    <li>Párrafos</li>
-                    <li>Enlaces</li>
-                    <li>Imágenes</li>
-                    <li>Listas</li>
-                    <li>Tarjetas</li>
-                    <li>Tablas</li>
-                </ul>
                 <h3>Instalación de Visual Studio Code</h3>
-                <p>
-                    Visual Studio Code es un editor de código muy utilizado para desarrollar
-                    páginas web, aplicaciones y programas.
-                </p>
-                <p>
-                    Para comenzar primero debemos instalar Visual Studio Code
-                    en nuestro computador.
-                </p>
 
                 <p>
                     <b>Paso 1.</b> Ingresa al sitio oficial de descarga.
@@ -1163,54 +1014,75 @@
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 https://code.visualstudio.com
-</pre>
+</code></pre>
                 </div>
-
                 <p>
-                    <b>Paso 2.</b> Haz clic en el botón de descarga según tu sistema operativo.
+                    <b>Paso 2.</b> Haz clic en el botón <b>"Download for Windows"</b>.
                 </p>
 
                 <p>
-                    <b>Paso 3.</b> Ejecuta el archivo descargado para iniciar la instalación.
+                    <b>Paso 3.</b> Haz clic en el archivo descargado para iniciar la instalación.
                 </p>
 
                 <p>
-                    <b>Paso 4.</b> Durante la instalación es recomendable activar las siguientes
-                    opciones.
+                    <b>Paso 4.</b> Aceptamos el acuerdo
+                </p>
+                <p>
+                    <b>Paso 5.</b> Hacemos clic en siguiente
+                </p>
+                <p>
+                    <b>Paso 6.</b> Seleccionamos:
                 </p>
 
                 <ul>
-                    <li>Add to PATH</li>
-                    <li>Add "Open with Code"</li>
-                    <li>Add to context menu</li>
+                    <li>Registrar Code como editor de archivos admitidos</li>
+                    <li>Agregar a PATH</li>
                 </ul>
-                <br>
 
                 <p>
-                    <b>Paso 5.</b> Haz clic en <b>Install</b> y espera a que termine la instalación.
+                    <b>Paso 7.</b> Hacemos clic en siguiente
                 </p>
 
                 <p>
-                    <b>Paso 6.</b> Una vez finalizada la instalación puedes abrir Visual Studio Code
-                    y comenzar a crear tus archivos de programación.
+                    <b>Paso 8.</b> Hacemos clic en instalar
                 </p>
-                <h3>¿Qué es la estructura básica de HTML?</h3>
+
                 <p>
-                    La estructura básica de HTML es la organización inicial que debe tener toda página web para que el
-                    navegador
-                    pueda interpretarla correctamente.
+                    <b>Paso 9.</b> Desmarca la casilla para abrir el probrama
                 </p>
+
                 <p>
-                    Esta estructura define el tipo de documento, la configuración de la página y el contenido que se
-                    mostrará al
-                    usuario.
+                    <b>Paso 10.</b> Hacemos clic en Finalizar
                 </p>
-                <h3>Ejemplo de estructura básica:</h3>
+
+                <h3>¿Cómo instalar la extensión Live Server en Visual Studio Code?</h3>
+
+                <p><b>Paso 1.</b> Abre Visual Studio Code en tu computadora.</p>
+
+                <p><b>Paso 2.</b> Haz clic en el icono de <b>Extensiones</b> que se encuentra en la barra lateral
+                    izquierda.</p>
+
+                <p><b>Paso 3.</b> En el buscador escribe <b>Live Server</b>.</p>
+
+                <p><b>Paso 4.</b> Selecciona la extensión creada por <b>Ritwick Dey</b>.</p>
+
+                <p><b>Paso 5.</b> Presiona el botón <b>Install</b> o <b>Instalar</b>.</p>
+
+                <h3>¿Cómo crear index.html?</h3>
+
+                <p><b>Paso 1.</b> En Visual Studio Code haz clic en <b>Nuevo archivo</b>.</p>
+
+                <p><b>Paso 2.</b> Escribe <b>index.html</b>.</p>
+
+                <p><b>Paso 3.</b> Presiona <b>Enter</b>.</p>
+
+                <h3>¿Cuál es la estructura básica de HTML?</h3>
+
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
 
@@ -1223,31 +1095,22 @@ https://code.visualstudio.com
     &lt;/body&gt;
 
 &lt;/html&gt;
-</pre>
+</code></pre>
                 </div>
                 <p>
                     La indentación es importante porque permite que el código sea más ordenado y fácil de leer.
                 </p>
-                <h3>¿Cómo se colocan títulos del 1 al 6 en HTML?</h3>
-                <p>
-                    En HTML los títulos se crean utilizando las etiquetas h1 hasta h6.
-                </p>
-                <p>
-                    El h1 es el título más importante y el h6 es el menos importante.
-                </p>
-                <p>
-                    Ejemplo:
-                </p>
+                <h3>¿Cómo se colocan títulos en HTML?</h3>
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;h1&gt;Título principal&lt;/h1&gt;
 &lt;h2&gt;Subtítulo&lt;/h2&gt;
 &lt;h3&gt;Sección&lt;/h3&gt;
 &lt;h4&gt;Subsección&lt;/h4&gt;
 &lt;h5&gt;Título menor&lt;/h5&gt;
 &lt;h6&gt;Título más pequeño&lt;/h6&gt;
-</pre>
+</code></pre>
                 </div>
                 <p>
                     Para probar este código, debes colocarlo dentro de la etiqueta body de tu archivo HTML, ya que el
@@ -1255,61 +1118,52 @@ https://code.visualstudio.com
                     visible de la página web se escribe dentro de esta sección.
                 </p>
                 <h3>¿Cómo colocar un párrafo en HTML?</h3>
-                <p>
-                    Para colocar un párrafo en HTML se utiliza la etiqueta p, la cual permite escribir bloques de texto
-                    dentro de
-                    una página web.
-                </p>
-                <p>
-                    Ejemplo:
-                </p>
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;p&gt;Este es un párrafo de texto en una página web.&lt;/p&gt;
-</pre>
+</code></pre>
                 </div>
-                <p>
-                    Para probar este código, debes colocarlo dentro de la etiqueta body de tu archivo HTML.
-                </p>
                 <h3>¿Cómo hacer un salto de línea en HTML?</h3>
-                <p>
-                    Para hacer un salto de línea en HTML se utiliza la etiqueta br, que permite continuar el texto en la
-                    siguiente
-                    línea sin crear un nuevo párrafo.
-                </p>
-                <p>
-                    Ejemplo:
-                </p>
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;p&gt;
 Primera línea de texto.&lt;br&gt;
 Segunda línea de texto.&lt;br&gt;
 Tercera línea de texto.
 &lt;/p&gt;
-</pre>
+</code></pre>
                 </div>
                 <h3>¿Cómo crear una línea horizontal en HTML?</h3>
-                <p>
-                    Para crear una línea horizontal en HTML se utiliza la etiqueta hr, la cual permite separar secciones
-                    de
-                    contenido dentro de una página web.
-                </p>
-                <p>
-                    Ejemplo:
-                </p>
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;p&gt;Primer contenido&lt;/p&gt;
 
 &lt;hr&gt;
 
 &lt;p&gt;Segundo contenido&lt;/p&gt;
-</pre>
+</code></pre>
                 </div>
+                <h3>¿Cómo centrar contenido en HTML?</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;center&gt;
+&lt;h1&gt;Bienvenido a mi página&lt;/h1&gt;
+&lt;p&gt;Este texto está centrado.&lt;/p&gt;
+&lt;/center&gt;
+</code></pre>
+                </div>
+
+                <p>
+                    La etiqueta <b>center</b> se utilizaba en las primeras páginas web para centrar contenido.
+                    Actualmente ya no se recomienda usarla porque el centrado se realiza con <b>CSS</b>.
+                    Sin embargo, es útil conocerla para entender cómo funcionaban las páginas de la <b>Web 1.0</b>.
+                </p>
+
                 <details class="respuesta-box">
                     <summary>Actividad 3</summary>
                     <div
@@ -1513,32 +1367,33 @@ Tercera línea de texto.
 
                 </details>
                 <h3>¿Cómo colocar texto en negrita en HTML?</h3>
-                <p>
-                    Para colocar texto en negrita se utiliza la etiqueta b, la cual hace que el texto se vea más
-                    destacado.
-                </p>
-                <p>
-                    Ejemplo:
-                </p>
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;p&gt;Este texto está en &lt;b&gt;negrita&lt;/b&gt;.&lt;/p&gt;
-</pre>
+</code></pre>
                 </div>
-                <h3>¿Cómo colocar texto en cursiva en HTML?</h3>
-                <p>
-                    Para colocar texto en cursiva se utiliza la etiqueta i, la cual inclina el texto para resaltarlo.
-                </p>
-                <p>
-                    Ejemplo:
-                </p>
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
-&lt;p&gt;Este texto está en &lt;i&gt;cursiva&lt;/i&gt;.&lt;/p&gt;
-</pre>
+                    <pre><code>
+&lt;p&gt;Este texto está en &lt;strong&gt;negrita&lt;/strong&gt;.&lt;/p&gt;
+</code></pre>
                 </div>
+
+                <h3>¿Cómo colocar texto en cursiva en HTML?</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;p&gt;Este texto está en &lt;i&gt;cursiva&lt;/i&gt;.&lt;/p&gt;
+</code></pre>
+                </div>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;p&gt;Este texto está en &lt;em&gt;cursiva&lt;/em&gt;.&lt;/p&gt;
+</code></pre>
+                </div>
+
                 <details class="respuesta-box">
                     <summary>Actividad 4</summary>
                     <div
@@ -1552,10 +1407,12 @@ Tercera línea de texto.
                             style="display: block; font-size: 1.6em; font-weight: bold; margin: 0.83em 0; color: black; border: none !important;">
                             Explorando la Zona Hadal</h2>
                         <p style="display: block; margin: 1em 0; color: black; line-height: 1.6;">A pesar de que cubren
-                            más del <b>70% de la superficie terrestre</b>, conocemos menos sobre el fondo del mar que
+                            más del <b style="color: #000;">70% de la superficie terrestre</b>, conocemos menos sobre el
+                            fondo del mar que
                             sobre la superficie de la Luna. La <i>Zona Hadal</i>, que comprende las fosas más profundas
                             del océano por debajo de los 6.000 metros, representa un entorno de condiciones extremas
-                            donde la presión es <b>mil veces superior</b> a la del nivel del mar. En este reino de
+                            donde la presión es <b style="color: #000;">mil veces superior</b> a la del nivel del mar.
+                            En este reino de
                             oscuridad perpetua, la vida no depende de la fotosíntesis, sino de procesos químicos
                             fascinantes que desafían nuestra comprensión biológica tradicional.</p>
 
@@ -1564,22 +1421,26 @@ Tercera línea de texto.
                             Adaptaciones Biológicas y Quimiosíntesis</h3>
                         <p style="display: block; margin: 1em 0; color: black; line-height: 1.6;">Las criaturas que
                             habitan estas profundidades, como el <i>Pez Caracol</i> o los anfípodos gigantes, han
-                            desarrollado cuerpos <b>translúcidos y carentes de pigmentación</b>. Al no existir luz
+                            desarrollado cuerpos <b style="color: #000;">translúcidos y carentes de pigmentación</b>. Al
+                            no existir luz
                             solar, el ecosistema se sustenta gracias a las <i>fuentes hidrotermales</i>: grietas en el
                             lecho marino que expulsan minerales calientes. Aquí, las bacterias realizan la
-                            <b>quimiosíntesis</b>, convirtiendo sustancias tóxicas como el sulfuro de hidrógeno en
+                            <b style="color: #000;">quimiosíntesis</b>, convirtiendo sustancias tóxicas como el sulfuro
+                            de hidrógeno en
                             energía vital. Este proceso sugiere que la vida podría haber surgido en estas chimeneas
-                            submarinas hace <b>miles de millones de años</b>.
+                            submarinas hace <b style="color: #000;">miles de millones de años</b>.
                         </p>
 
                         <h3
                             style="display: block; font-size: 1.2em; font-weight: bold; margin: 1em 0; color: black; border: none !important; padding: 0 !important;">
                             El Impacto Humano en el Abismo</h3>
                         <p style="display: block; margin: 1em 0; color: black; line-height: 1.6;">Resulta alarmante
-                            descubrir que, incluso en la <b>Fosa de las Marianas</b> (el punto más profundo del
+                            descubrir que, incluso en la <b style="color: #000;">Fosa de las Marianas</b> (el punto más
+                            profundo del
                             planeta), se han encontrado rastros de <i>microplásticos</i> y contaminantes químicos. La
                             conservación de estos ecosistemas es crucial, no solo por su biodiversidad única, sino
-                            porque actúan como <b>reguladores térmicos</b> del planeta. Estudiar estos organismos
+                            porque actúan como <b style="color: #000;">reguladores térmicos</b> del planeta. Estudiar
+                            estos organismos
                             extremófilos podría darnos la clave para desarrollar nuevos antibióticos y entender cómo
                             podría sobrevivir la vida en océanos extraterrestres, como los de la luna <i>Europa</i> de
                             Júpiter.</p>
@@ -1599,13 +1460,16 @@ Tercera línea de texto.
                         <h2
                             style="display: block; font-size: 1.6em; font-weight: bold; margin: 0.83em 0; color: black; border: none !important;">
                             El Silencio que Cambió la Historia del Arte</h2>
-                        <p style="display: block; margin: 1em 0; color: black; line-height: 1.6;">La figura de <b>Ludwig
+                        <p style="display: block; margin: 1em 0; color: black; line-height: 1.6;">La figura de <b
+                                style="color: #000;">Ludwig
                                 van Beethoven</b> marcó la transición definitiva entre el <i>Clasicismo</i> y el
                             <i>Romanticismo</i>. A sus 26 años, el compositor empezó a notar los primeros síntomas de
-                            una pérdida auditiva que terminaría en una <b>sordera total</b>. Sin embargo, este
+                            una pérdida auditiva que terminaría en una <b style="color: #000;">sordera total</b>. Sin
+                            embargo, este
                             aislamiento acústico no detuvo su genio; al contrario, lo obligó a escuchar la música en su
                             mente con una pureza técnica inigualable. Sus últimas obras no fueron escritas para el oído
-                            humano de la época, sino para la <b>eternidad</b>, desafiando todas las reglas armónicas
+                            humano de la época, sino para la <b style="color: #000;">eternidad</b>, desafiando todas las
+                            reglas armónicas
                             establecidas hasta entonces.
                         </p>
 
@@ -1613,21 +1477,26 @@ Tercera línea de texto.
                             style="display: block; font-size: 1.2em; font-weight: bold; margin: 1em 0; color: black; border: none !important; padding: 0 !important;">
                             La Novena Sinfonía: El Himno de la Humanidad</h3>
                         <p style="display: block; margin: 1em 0; color: black; line-height: 1.6;">En 1824, Beethoven
-                            estrenó su <b>Novena Sinfonía</b>, la primera en la historia en incluir un coro y solistas
+                            estrenó su <b style="color: #000;">Novena Sinfonía</b>, la primera en la historia en incluir
+                            un coro y solistas
                             en una estructura sinfónica. El texto, basado en la <i>Oda a la Alegría</i> de Friedrich
-                            Schiller, es un llamado a la <b>hermandad universal</b>. Se dice que al terminar el estreno,
+                            Schiller, es un llamado a la <b style="color: #000;">hermandad universal</b>. Se dice que al
+                            terminar el estreno,
                             el compositor —completamente sordo— tuvo que ser girado por los músicos para que pudiera ver
-                            la <b>ovación de pie</b> del público, ya que no podía escuchar ni el estruendo de los
+                            la <b style="color: #000;">ovación de pie</b> del público, ya que no podía escuchar ni el
+                            estruendo de los
                             aplausos ni el de su propia orquesta.</p>
 
                         <h3
                             style="display: block; font-size: 1.2em; font-weight: bold; margin: 1em 0; color: black; border: none !important; padding: 0 !important;">
                             Legado en la Era de la Reproducción Digital</h3>
                         <p style="display: block; margin: 1em 0; color: black; line-height: 1.6;">Hoy en día, la
-                            estructura de la Novena sigue siendo un <b>estándar técnico</b>. Un dato curioso es que la
+                            estructura de la Novena sigue siendo un <b style="color: #000;">estándar técnico</b>. Un
+                            dato curioso es que la
                             capacidad original de los <i>Compact Discs</i> (74 minutos) fue diseñada específicamente
                             para que la sinfónica completa pudiera caber en un solo disco sin interrupciones. La música
-                            de Beethoven sigue recordándonos que el arte es una <b>victoria de la voluntad humana</b>
+                            de Beethoven sigue recordándonos que el arte es una <b style="color: #000;">victoria de la
+                                voluntad humana</b>
                             sobre la adversidad física. Su influencia se extiende desde las salas de concierto más
                             prestigiosas hasta las bandas sonoras del cine contemporáneo, manteniendo una <i>vigencia
                                 absoluta</i> en pleno siglo XXI.</p>
@@ -1654,39 +1523,39 @@ Tercera línea de texto.
                 </p>
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;ul&gt;
   &lt;li&gt;Manzana&lt;/li&gt;
   &lt;li&gt;Naranja&lt;/li&gt;
   &lt;li&gt;Banana&lt;/li&gt;
 &lt;/ul&gt;
-</pre>
+</code></pre>
                 </div>
                 <p>
                     Lista ordenada (con números):
                 </p>
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;ol&gt;
   &lt;li&gt;Primer paso&lt;/li&gt;
   &lt;li&gt;Segundo paso&lt;/li&gt;
   &lt;li&gt;Tercer paso&lt;/li&gt;
 &lt;/ol&gt;
-</pre>
+</code></pre>
                 </div>
                 <p>
                     La lista ordenada permite cambiar el estilo de numeración utilizando el atributo type.
                 </p>
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;ol type="A"&gt;
   &lt;li&gt;Primer punto&lt;/li&gt;
   &lt;li&gt;Segundo punto&lt;/li&gt;
   &lt;li&gt;Tercer punto&lt;/li&gt;
 &lt;/ol&gt;
-</pre>
+</code></pre>
                 </div>
                 <p>
                     Tipos más comunes:
@@ -1713,26 +1582,26 @@ Tercera línea de texto.
                 </p>
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;ol start="5"&gt;
   &lt;li&gt;Paso cinco&lt;/li&gt;
   &lt;li&gt;Paso seis&lt;/li&gt;
   &lt;li&gt;Paso siete&lt;/li&gt;
 &lt;/ol&gt;
-</pre>
+</code></pre>
                 </div>
                 <p>
                     Se utiliza el atributo reversed para mostrar la lista en orden descendente.
                 </p>
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;ol reversed&gt;
   &lt;li&gt;Tercer lugar&lt;/li&gt;
   &lt;li&gt;Segundo lugar&lt;/li&gt;
   &lt;li&gt;Primer lugar&lt;/li&gt;
 &lt;/ol&gt;
-</pre>
+</code></pre>
                 </div>
                 <details class="respuesta-box">
                     <summary>Actividad 5</summary>
@@ -1747,7 +1616,8 @@ Tercera línea de texto.
                             style="display: block; font-size: 1.6em; font-weight: bold; margin: 0.83em 0; color: black; border: none !important;">
                             Del Taller Artesanal a la Fábrica Moderna</h2>
                         <p style="display: block; margin: 1em 0; color: black; line-height: 1.6;">La Revolución
-                            Industrial, iniciada en <b>Gran Bretaña</b> a finales del siglo XVIII, no fue solo un cambio
+                            Industrial, iniciada en <b style="color: #000;">Gran Bretaña</b> a finales del siglo XVIII,
+                            no fue solo un cambio
                             tecnológico, sino una transformación total de la existencia humana. La invención de la
                             <i>máquina de vapor</i> por James Watt permitió mecanizar procesos que antes dependían de la
                             fuerza animal o humana. Este cambio alteró para siempre la demografía global, impulsando una
@@ -1764,12 +1634,15 @@ Tercera línea de texto.
 
                         <ul
                             style="margin: 1em 0; padding-left: 40px; line-height: 1.6; color: black !important; list-style-type: disc;">
-                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 8px;"><b>El
+                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 8px;"><b
+                                    style="color: #000;">El
                                     Carbón:</b> La fuente de energía primaria que alimentaba las calderas.</li>
-                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 8px;"><b>El
+                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 8px;"><b
+                                    style="color: #000;">El
                                     Hierro:</b> Material esencial para la construcción de maquinaria y ferrocarriles.
                             </li>
-                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 8px;"><b>La
+                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 8px;"><b
+                                    style="color: #000;">La
                                     Industria Textil:</b> El primer sector en adoptar la producción en masa.</li>
                         </ul>
 
@@ -1798,7 +1671,7 @@ Tercera línea de texto.
                         <ol type="a"
                             style="margin: 1em 0; padding-left: 40px; line-height: 1.6; color: black !important;">
                             <li style="color: black !important; opacity: 1 !important; margin-bottom: 5px;">Surgimiento
-                                del <b>proletariado urbano</b> y los sindicatos.</li>
+                                del <b style="color: #000;">proletariado urbano</b> y los sindicatos.</li>
                             <li style="color: black !important; opacity: 1 !important; margin-bottom: 5px;">Regulación
                                 de las jornadas de trabajo y prohibición del trabajo infantil.</li>
                             <li style="color: black !important; opacity: 1 !important; margin-bottom: 5px;">Crecimiento
@@ -1837,7 +1710,8 @@ Tercera línea de texto.
                             style="display: block; font-size: 1.6em; font-weight: bold; margin: 0.83em 0; color: black; border: none !important;">
                             La Red de Conexiones más Compleja del Universo</h2>
                         <p style="display: block; margin: 1em 0; color: black; line-height: 1.6;">El cerebro humano pesa
-                            apenas <b>1.4 kilogramos</b>, pero contiene aproximadamente <b>86.000 millones de
+                            apenas <b style="color: #000;">1.4 kilogramos</b>, pero contiene aproximadamente <b
+                                style="color: #000;">86.000 millones de
                                 neuronas</b>. Cada una de estas células se conecta con miles de otras a través de
                             impulsos electroquímicos, creando una red de información cuya complejidad supera a cualquier
                             supercomputadora actual. La <i>neuroplasticidad</i> es la capacidad de este órgano para
@@ -1853,14 +1727,18 @@ Tercera línea de texto.
 
                         <ol type="I"
                             style="margin: 1em 0; padding-left: 40px; line-height: 1.6; color: black !important;">
-                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 8px;"><b>Lóbulo
+                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 8px;"><b
+                                    style="color: #000;">Lóbulo
                                     Frontal:</b> Sede del razonamiento, la planificación y el control emocional.</li>
-                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 8px;"><b>Lóbulo
+                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 8px;"><b
+                                    style="color: #000;">Lóbulo
                                     Parietal:</b> Encargado de procesar información sensorial como el tacto y el dolor.
                             </li>
-                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 8px;"><b>Lóbulo
+                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 8px;"><b
+                                    style="color: #000;">Lóbulo
                                     Temporal:</b> Fundamental para la memoria y el procesamiento del lenguaje.</li>
-                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 8px;"><b>Lóbulo
+                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 8px;"><b
+                                    style="color: #000;">Lóbulo
                                     Occipital:</b> Dedicado casi exclusivamente a la interpretación de la <i>visión</i>.
                             </li>
                         </ol>
@@ -1877,7 +1755,7 @@ Tercera línea de texto.
                             <li style="color: black !important; opacity: 1 !important; margin-bottom: 5px;">Llegada del
                                 impulso eléctrico al terminal de la neurona emisora.</li>
                             <li style="color: black !important; opacity: 1 !important; margin-bottom: 5px;">Liberación
-                                de <b>neurotransmisores</b> (como la dopamina o serotonina).</li>
+                                de <b style="color: #000;">neurotransmisores</b> (como la dopamina o serotonina).</li>
                             <li style="color: black !important; opacity: 1 !important; margin-bottom: 5px;">Recepción de
                                 las moléculas por los receptores de la neurona receptora.</li>
                             <li style="color: black !important; opacity: 1 !important; margin-bottom: 5px;">Generación
@@ -1893,9 +1771,11 @@ Tercera línea de texto.
 
                         <ul
                             style="margin: 1em 0; padding-left: 40px; line-height: 1.6; color: black !important; list-style-type: disc;">
-                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 8px;"><b>Actividad
+                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 8px;"><b
+                                    style="color: #000;">Actividad
                                     Física:</b> Mejora la oxigenación y la producción de factores neurotróficos.</li>
-                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 8px;"><b>Sueño
+                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 8px;"><b
+                                    style="color: #000;">Sueño
                                     Reparador:</b> Durante el descanso, el cerebro elimina toxinas metabólicas.</li>
                             <li style="color: black !important; opacity: 1 !important; margin-bottom: 8px;">
                                 <i>Aprendizaje de Idiomas:</i> Aumenta la densidad de la materia gris y retrasa el
@@ -1916,7 +1796,7 @@ Tercera línea de texto.
                             <li style="color: black !important; opacity: 1 !important;">No existen receptores de dolor
                                 en el tejido cerebral (por eso las cirugías pueden ser despiertos).</li>
                             <li style="color: black !important; opacity: 1 !important;">La información viaja por los
-                                nervios a velocidades de hasta <b>400 km/h</b>.</li>
+                                nervios a velocidades de hasta <b style="color: #000;">400 km/h</b>.</li>
                         </ol>
 
                         <hr style="border: 0; border-top: 1px solid black; margin: 1.5em 0;">
@@ -1932,14 +1812,12 @@ Tercera línea de texto.
                     Esta etiqueta permite dirigir al usuario a otra página web, archivo o sección dentro de la misma
                     página.
                 </p>
-                <p>
-                    Ejemplo:
-                </p>
+
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;a href="https://www.google.com"&gt;Ir a Google&lt;/a&gt;
-</pre>
+</code></pre>
                 </div>
                 <details class="respuesta-box">
                     <summary>Actividad 6</summary>
@@ -1955,7 +1833,8 @@ Tercera línea de texto.
                             La Expansión hacia las Estrellas</h2>
                         <p style="display: block; margin: 1em 0; color: black; line-height: 1.6;">En este primer
                             volumen, analizamos la ambición del ser humano por trascender los límites de la atmósfera
-                            terrestre. La misión a <b>Marte</b> no es solo un logro técnico, sino la respuesta a nuestra
+                            terrestre. La misión a <b style="color: #000;">Marte</b> no es solo un logro técnico, sino
+                            la respuesta a nuestra
                             naturaleza exploradora. Para convertirnos en una especie <i>multiplanetaria</i>, debemos
                             dominar entornos donde la presión atmosférica es mínima y el oxígeno es un recurso
                             manufacturado. La logística de un viaje de esta magnitud requiere una precisión sin
@@ -1980,15 +1859,18 @@ Tercera línea de texto.
 
                         <ol type="I"
                             style="margin: 1em 0; padding-left: 40px; line-height: 1.6; color: black !important;">
-                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 10px;"><b>Atrofia
+                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 10px;"><b
+                                    style="color: #000;">Atrofia
                                     Muscular y Ósea:</b> La falta de carga gravitatoria provoca una pérdida de densidad
                                 ósea similar a la osteoporosis acelerada, lo que requiere trajes de compresión y rutinas
                                 de resistencia diarias.</li>
-                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 10px;"><b>Escudo
+                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 10px;"><b
+                                    style="color: #000;">Escudo
                                     de Radiación:</b> El espacio profundo está bombardeado por rayos cósmicos galácticos
                                 que dañan el ADN. Los hábitats deben estar enterrados o cubiertos por capas de agua para
                                 servir de escudo.</li>
-                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 10px;"><b>Sistemas
+                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 10px;"><b
+                                    style="color: #000;">Sistemas
                                     de Reciclaje Cerrado:</b> En Marte, nada se desperdicia. El sudor, la orina y la
                                 humedad ambiental deben purificarse con una eficiencia superior al 98% para mantener el
                                 suministro de agua.</li>
@@ -2025,7 +1907,8 @@ Tercera línea de texto.
                             style="display: block; font-size: 1.6em; font-weight: bold; margin: 0.83em 0; color: black;">
                             La Transformación de la Medicina</h2>
                         <p style="display: block; margin: 1em 0; color: black; line-height: 1.6;">Mientras el Tomo I
-                            explora las fronteras exteriores, este segundo volumen se adentra en el <b>espacio
+                            explora las fronteras exteriores, este segundo volumen se adentra en el <b
+                                style="color: #000;">espacio
                                 interior</b>: la biología humana potenciada por la Inteligencia Artificial. La medicina
                             del 2026 ha dejado de ser reactiva para convertirse en una disciplina puramente
                             <i>predictiva</i>. El análisis masivo de bio-datos permite hoy simular el comportamiento de
@@ -2049,16 +1932,19 @@ Tercera línea de texto.
 
                         <ol type="I"
                             style="margin: 1em 0; padding-left: 40px; line-height: 1.6; color: black !important;">
-                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 10px;"><b>Análisis
+                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 10px;"><b
+                                    style="color: #000;">Análisis
                                     Genómico Personalizado:</b> El mapeo completo del ADN de cada individuo permite
                                 diseñar dietas, ejercicios y medicamentos específicos que maximizan la eficacia y
                                 eliminan efectos secundarios.</li>
                             <li style="color: black !important; opacity: 1 !important; margin-bottom: 10px;">
-                                <b>Interfaces Cerebro-Máquina:</b> Chips neuronales de alta fidelidad permiten a
+                                <b style="color: #000;">Interfaces Cerebro-Máquina:</b> Chips neuronales de alta
+                                fidelidad permiten a
                                 personas con lesiones medulares controlar prótesis robóticas con el pensamiento,
                                 devolviendo la autonomía y el tacto digital.
                             </li>
-                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 10px;"><b>Edición
+                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 10px;"><b
+                                    style="color: #000;">Edición
                                     Genética CRISPR:</b> La capacidad de corregir errores en el código genético
                                 directamente en células adultas para curar enfermedades hereditarias que antes se
                                 consideraban crónicas.</li>
@@ -2089,10 +1975,45 @@ Tercera línea de texto.
                 </p>
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
-&lt;a href="https://www.wikipedia.org" target="_blank"&gt;Abrir Wikipedia&lt;/a&gt;
-</pre>
+                    <pre><code>
+&lt;a href="https://www.google.com" target="_blank"&gt;Abrir Google&lt;/a&gt;
+</code></pre>
                 </div>
+                <p>
+                    También es posible abrir un enlace dentro de un <b>iframe</b>. Para hacerlo,
+                    el atributo <b>target</b> debe tener el mismo nombre que el atributo <b>name</b>
+                    del iframe.
+                </p>
+
+                <p>
+                    Primero se crea el iframe y se le asigna un nombre con el atributo <b>name</b>.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;iframe name="visor"&gt;&lt;/iframe&gt;
+</code></pre>
+                </div>
+
+                <p>
+                    Luego se crea el enlace y en el atributo <b>target</b> se coloca el mismo nombre
+                    del iframe para que el contenido se cargue dentro de él.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;a href="https://www.wikipedia.org" target="visor"&gt;
+Abrir Wikipedia en el iframe
+&lt;/a&gt;
+</code></pre>
+                </div>
+
+                <p>
+                    Cuando el usuario haga clic en el enlace, la página se abrirá dentro del iframe
+                    en lugar de abrirse en una nueva pestaña.
+                </p>
                 <details class="respuesta-box">
                     <summary>Actividad 7</summary>
                     <div
@@ -2108,7 +2029,8 @@ Tercera línea de texto.
                         <p style="display: block; margin: 1em 0; color: black; line-height: 1.6;">La humanidad se
                             encuentra en un punto de inflexión crítico. La dependencia histórica del carbón y el
                             petróleo ha impulsado el desarrollo industrial, pero a un costo ambiental insostenible. La
-                            <b>descarbonización</b> de la economía no es solo un objetivo ecológico, sino una necesidad
+                            <b style="color: #000;">descarbonización</b> de la economía no es solo un objetivo
+                            ecológico, sino una necesidad
                             de seguridad global. El reto reside en desarrollar fuentes de energía que sean tanto
                             <i>limpias</i> como capaces de suministrar la enorme demanda de las megaciudades modernas de
                             manera constante y confiable.
@@ -2116,7 +2038,8 @@ Tercera línea de texto.
 
                         <p style="display: block; margin: 1em 0; color: black; line-height: 1.6;">A diferencia de las
                             energías intermitentes como la solar o la eólica, que dependen de las condiciones
-                            climáticas, la ciencia está buscando el "Santo Grial" de la energía: la <b>fusión
+                            climáticas, la ciencia está buscando el "Santo Grial" de la energía: la <b
+                                style="color: #000;">fusión
                                 nuclear</b>. Al imitar el proceso que ocurre en el corazón del Sol, podríamos obtener
                             una fuente de energía virtualmente inagotable, sin emisiones de carbono y con una generación
                             mínima de residuos en comparación con la fisión nuclear tradicional.</p>
@@ -2132,14 +2055,17 @@ Tercera línea de texto.
 
                         <ul
                             style="margin: 1em 0; padding-left: 40px; line-height: 1.6; color: black !important; list-style-type: disc;">
-                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 10px;"><b>Energía
+                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 10px;"><b
+                                    style="color: #000;">Energía
                                     Fotovoltaica de Perovskita:</b> Una nueva generación de celdas solares más baratas y
                                 eficientes que el silicio tradicional.</li>
                             <li style="color: black !important; opacity: 1 !important; margin-bottom: 10px;">
-                                <b>Hidrógeno Verde:</b> Utilizado como vector energético para descarbonizar industrias
+                                <b style="color: #000;">Hidrógeno Verde:</b> Utilizado como vector energético para
+                                descarbonizar industrias
                                 pesadas y el transporte marítimo.
                             </li>
-                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 10px;"><b>Energía
+                            <li style="color: black !important; opacity: 1 !important; margin-bottom: 10px;"><b
+                                    style="color: #000;">Energía
                                     Undimotriz:</b> Captura de la energía cinética de las olas del mar para generar
                                 electricidad constante.</li>
                         </ul>
@@ -2148,7 +2074,8 @@ Tercera línea de texto.
                             style="border: 0 solid #000; display: block; font-size: 1.2em; font-weight: bold; margin: 1em 0; color: black; padding: 0 !important;">
                             Documentación Científica sobre Fusión</h3>
                         <p style="display: block; margin: 1em 0; color: black; line-height: 1.6;">Si te interesa
-                            profundizar en los avances del reactor <b>ITER</b> o los experimentos de ignición por
+                            profundizar en los avances del reactor <b style="color: #000;">ITER</b> o los experimentos
+                            de ignición por
                             confinamiento inercial, puedes revisar los estudios más recientes en el buscador académico
                             especializado:</p>
 
@@ -2198,18 +2125,16 @@ Tercera línea de texto.
                     dentro de un
                     mismo contenedor.
                 </p>
-                <p>
-                    Ejemplo:
-                </p>
+
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;div&gt;
   &lt;h2&gt;Información del curso&lt;/h2&gt;
   &lt;p&gt;Este curso enseña desarrollo web.&lt;/p&gt;
   &lt;a href="#"&gt;Leer más&lt;/a&gt;
 &lt;/div&gt;
-</pre>
+</code></pre>
                 </div>
                 <details class="respuesta-box">
                     <summary>Actividad 8</summary>
@@ -2225,7 +2150,8 @@ Tercera línea de texto.
                                 style="display: block; font-size: 1.6em; font-weight: bold; margin: 0.83em 0; color: black;">
                                 El Despertar del Pensamiento Crítico</h2>
                             <p style="display: block; margin: 1em 0; color: black; line-height: 1.6;">El
-                                <b>Renacimiento</b> fue un movimiento cultural y social que barrió Europa entre los
+                                <b style="color: #000;">Renacimiento</b> fue un movimiento cultural y social que barrió
+                                Europa entre los
                                 siglos XIV y XVI, marcando la transición entre la Edad Media y la Modernidad. Su esencia
                                 fue el <i>humanismo</i>, una filosofía que colocaba al ser humano, sus capacidades y su
                                 razón en el centro del universo. Este periodo no solo produjo obras maestras en la
@@ -2247,15 +2173,18 @@ Tercera línea de texto.
                             <ul
                                 style="margin: 1em 0; padding-left: 40px; line-height: 1.6; color: black !important; list-style-type: disc;">
                                 <li style="color: black !important; opacity: 1 !important; margin-bottom: 10px;">
-                                    <b>Leonardo da Vinci:</b> El polímata por excelencia, cuyas libretas contenían
+                                    <b style="color: #000;">Leonardo da Vinci:</b> El polímata por excelencia, cuyas
+                                    libretas contenían
                                     diseños de máquinas voladoras siglos antes de su invención.
                                 </li>
                                 <li style="color: black !important; opacity: 1 !important; margin-bottom: 10px;">
-                                    <b>Miguel Ángel Buonarroti:</b> Quien demostró la perfección de la anatomía humana
+                                    <b style="color: #000;">Miguel Ángel Buonarroti:</b> Quien demostró la perfección de
+                                    la anatomía humana
                                     en el <i>David</i> y los frescos de la Capilla Sixtina.
                                 </li>
                                 <li style="color: black !important; opacity: 1 !important; margin-bottom: 10px;">
-                                    <b>Nicolás Copérnico:</b> Astrónomo que desafió la visión del mundo al proponer el
+                                    <b style="color: #000;">Nicolás Copérnico:</b> Astrónomo que desafió la visión del
+                                    mundo al proponer el
                                     modelo heliocéntrico del sistema solar.
                                 </li>
                             </ul>
@@ -2294,7 +2223,8 @@ Tercera línea de texto.
                             <h2
                                 style="display: block; font-size: 1.6em; font-weight: bold; margin: 0.83em 0; color: black;">
                                 El ADN como Código de Software</h2>
-                            <p style="display: block; margin: 1em 0; color: black; line-height: 1.6;">La <b>biología
+                            <p style="display: block; margin: 1em 0; color: black; line-height: 1.6;">La <b
+                                    style="color: #000;">biología
                                     sintética</b> es una disciplina que combina la ingeniería, la informática y la
                                 biología para rediseñar sistemas biológicos existentes o crear otros nuevos. A
                                 diferencia de la ingeniería genética tradicional, que suele transferir genes
@@ -2375,27 +2305,25 @@ Tercera línea de texto.
                 <p>
                     Una forma organizada de trabajar es crear una carpeta llamada img dentro de tu proyecto.
                 </p>
-                <p>
-                    Ejemplo:
-                </p>
+
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 mi-proyecto
 │
 ├── index.html
 └── img
     └── paisaje.jpg
-</pre>
+</code></pre>
                 </div>
                 <p>
                     Luego puedes mostrar la imagen en tu página HTML indicando la ruta de la carpeta.
                 </p>
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;img src="img/paisaje.jpg" alt="Paisaje de montañas"&gt;
-</pre>
+</code></pre>
                 </div>
                 <p>
                     Explicación
@@ -2424,7 +2352,8 @@ mi-proyecto
                             <h2
                                 style="display: block; font-size: 1.6em; font-weight: bold; margin: 0.83em 0; color: black;">
                                 Competencia en las Estrellas</h2>
-                            <p style="display: block; margin: 1em 0; color: black; line-height: 1.6;">La <b>Carrera
+                            <p style="display: block; margin: 1em 0; color: black; line-height: 1.6;">La <b
+                                    style="color: #000;">Carrera
                                     Espacial</b> fue un periodo de intensa rivalidad entre Estados Unidos y la Unión
                                 Soviética durante la Guerra Fría. Lo que comenzó como una demostración de poderío
                                 militar y tecnológico, terminó regalando a la humanidad el hito más grande de su
@@ -2447,15 +2376,18 @@ mi-proyecto
                             <ol type="I"
                                 style="margin: 1em 0; padding-left: 40px; line-height: 1.6; color: black !important;">
                                 <li style="color: black !important; opacity: 1 !important; margin-bottom: 10px;">
-                                    <b>Sputnik 1 (1957):</b> El primer satélite artificial en orbitar la Tierra,
+                                    <b style="color: #000;">Sputnik 1 (1957):</b> El primer satélite artificial en
+                                    orbitar la Tierra,
                                     marcando el inicio de la era espacial.
                                 </li>
                                 <li style="color: black !important; opacity: 1 !important; margin-bottom: 10px;">
-                                    <b>Vostok 1 (1961):</b> Yuri Gagarin se convierte en el primer ser humano en el
+                                    <b style="color: #000;">Vostok 1 (1961):</b> Yuri Gagarin se convierte en el primer
+                                    ser humano en el
                                     espacio y en completar una órbita.
                                 </li>
                                 <li style="color: black !important; opacity: 1 !important; margin-bottom: 10px;">
-                                    <b>Apolo 11 (1969):</b> Neil Armstrong y Buzz Aldrin realizan el primer alunizaje
+                                    <b style="color: #000;">Apolo 11 (1969):</b> Neil Armstrong y Buzz Aldrin realizan
+                                    el primer alunizaje
                                     tripulado en el Mar de la Tranquilidad.
                                 </li>
                             </ol>
@@ -2489,20 +2421,26 @@ mi-proyecto
                 </p>
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
-&lt;img src="https://images.unsplash.com/photo-1506744038136-de0b4c0b4c4b" alt="Paisaje natural"&gt;
-</pre>
+                    <pre><code>
+&lt;img src="https://dummyimage.com/300x200/000/fff&text=300x200" alt="Imagen de ejemplo"&gt;
+</code></pre>
                 </div>
-                <h3>Cambiar el tamaño de la imagen</h3>
-                <p>
-                    Puedes modificar el tamaño utilizando el atributo width.
-                </p>
+
+                <h3>¿Cómo cambiar el tamaño de una imagen en HTML?</h3>
+
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
-&lt;img src="img/paisaje.jpg" alt="Paisaje" width="300"&gt;
-</pre>
+                    <pre><code>
+&lt;img src="https://dummyimage.com/300x200/000/fff&text=Imagen" width="200" height="150" alt="Imagen de ejemplo"&gt;
+</code></pre>
                 </div>
+
+                <p>
+                    Puedes cambiar el tamaño de una imagen usando los atributos <b>width</b> (ancho) y <b>height</b>
+                    (alto).
+                    Los valores se colocan en píxeles.
+                </p>
+
                 <details class="respuesta-box">
                     <summary>Actividad 10</summary>
 
@@ -2523,7 +2461,8 @@ mi-proyecto
 
                             <p style="display: block; color: black; line-height: 1.6;">Para sobrevivir a la tenue
                                 atmósfera de Marte, los primeros colonos deberán habitar estructuras presurizadas. Estos
-                                <b>domos geodésicos</b> están diseñados para resistir tormentas de polvo globales y
+                                <b style="color: #000;">domos geodésicos</b> están diseñados para resistir tormentas de
+                                polvo globales y
                                 filtrar la radiación solar dañina mediante capas de polímeros avanzados y agua
                                 reciclada.
                             </p>
@@ -2584,7 +2523,7 @@ mi-proyecto
                 </p>
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;table&gt;
 
   &lt;tr&gt;
@@ -2598,7 +2537,7 @@ mi-proyecto
   &lt;/tr&gt;
 
 &lt;/table&gt;
-</pre>
+</code></pre>
                 </div>
                 <details class="respuesta-box">
                     <summary>Actividad 11</summary>
@@ -2619,7 +2558,8 @@ mi-proyecto
                                     Kukulcán en Chichén Itzá]</p>
                             </div>
 
-                            <p style="display: block; color: black; line-height: 1.6;">La civilización <b>Maya</b>
+                            <p style="display: block; color: black; line-height: 1.6;">La civilización <b
+                                    style="color: #000;">Maya</b>
                                 destacó por su asombrosa capacidad para observar los astros y medir el tiempo con una
                                 precisión que rivaliza con los cálculos modernos. Sus conocimientos matemáticos, que
                                 incluían el uso del <i>cero</i>, les permitieron desarrollar calendarios complejos que
@@ -2691,12 +2631,10 @@ mi-proyecto
                 <p>
                     Para los títulos utiliza la etiqueta th.
                 </p>
-                <p>
-                    Ejemplo:
-                </p>
+
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;table&gt;
 
   &lt;tr&gt;
@@ -2715,7 +2653,7 @@ mi-proyecto
   &lt;/tr&gt;
 
 &lt;/table&gt;
-</pre>
+</code></pre>
                 </div>
                 <details class="respuesta-box">
                     <summary>Actividad 12</summary>
@@ -2737,7 +2675,8 @@ mi-proyecto
                             </div>
 
                             <p style="display: block; color: black; line-height: 1.6;">La aparición del
-                                <b>ferrocarril</b> a principios del siglo XIX fue el catalizador definitivo de la
+                                <b style="color: #000;">ferrocarril</b> a principios del siglo XIX fue el catalizador
+                                definitivo de la
                                 Revolución Industrial. Al permitir el transporte masivo de materias primas y personas a
                                 velocidades nunca antes imaginadas, el tren redujo drásticamente los costos de
                                 producción y transformó las pequeñas aldeas en grandes núcleos industriales. La
@@ -2838,7 +2777,7 @@ mi-proyecto
                 </p>
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;table border="1"&gt;
 
   &lt;tr&gt;
@@ -2856,14 +2795,14 @@ mi-proyecto
   &lt;/tr&gt;
 
 &lt;/table&gt;
-</pre>
+</code></pre>
                 </div>
                 <p>
                     Ejemplo Unir celdas verticalmente
                 </p>
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;table border="1"&gt;
 
   &lt;tr&gt;
@@ -2881,112 +2820,141 @@ mi-proyecto
   &lt;/tr&gt;
 
 &lt;/table&gt;
-</pre>
+</code></pre>
                 </div>
                 <details class="respuesta-box">
                     <summary>Actividad 13</summary>
+
                     <div
-                        style="background-color: white !important; color: black !important; padding: 40px; border: 2px solid #2d3343; max-width: 95%; margin: 20px auto; font-family: 'Times New Roman', serif; text-align: left; user-select: none; -webkit-user-select: none;">
+                        style="background-color:white !important; color:black !important; padding:40px; border:2px solid #2d3343; max-width:95%; margin:20px auto; font-family:'Times New Roman', serif; text-align:left; user-select:none; -webkit-user-select:none; overflow:hidden;">
+
                         <h1
-                            style="display: block; font-size: 2.2em; font-weight: bold; margin: 0.67em 0; text-align: center; color: black;">
-                            AGUJEROS NEGROS: EL LÍMITE DE LA FÍSICA</h1>
-                        <hr style="border: 0; border-top: 2px solid black; margin: 1.5em 0;">
+                            style="display:block; font-size:2.2em; font-weight:bold; margin:0.67em 0; text-align:center; color:black;">
+                            AGUJEROS NEGROS: EL LÍMITE DE LA FÍSICA
+                        </h1>
 
-                        <div style="padding: 20px; border: 1px dashed #2d3343; margin-bottom: 20px;">
+                        <hr style="border:0; border-top:2px solid black; margin:1.5em 0;">
+
+                        <div style="padding:20px; border:1px dashed #2d3343; margin-bottom:20px;">
+
                             <h2
-                                style="display: block; font-size: 1.6em; font-weight: bold; margin-bottom: 15px; color: black;">
-                                La Singularidad y el Horizonte de Sucesos</h2>
+                                style="display:block; font-size:1.6em; font-weight:bold; margin-bottom:15px; color:black;">
+                                La Singularidad y el Horizonte de Sucesos
+                            </h2>
 
-                            <div style="text-align: center; margin: 20px 0;">
-                                <p style="font-size: 0.8em; font-style: italic; color: #666;">[Imagen del horizonte de
-                                    sucesos de un agujero negro supermasivo]</p>
+                            <div style="text-align:center; margin:20px 0;">
+                                <p style="font-size:0.8em; font-style:italic; color:#666;">
+                                    [Imagen del horizonte de sucesos de un agujero negro supermasivo]
+                                </p>
                             </div>
 
-
-
-                            <p style="display: block; color: black; line-height: 1.6;">Un <b>agujero negro</b> es una
-                                región del espacio donde la concentración de masa es tan elevada que genera un campo
-                                gravitatorio del cual nada, ni siquiera la luz, puede escapar. Según la teoría de la
-                                <i>Relatividad General</i> de Einstein, la gravedad curva el espacio-tiempo hasta un
-                                punto de densidad infinita conocido como singularidad, desafiando todas nuestras leyes
-                                físicas actuales.
+                            <p style="display:block; color:black; line-height:1.6;">
+                                Un <b style="color: #000;">agujero negro</b> es una región del espacio donde la
+                                concentración de masa es tan
+                                elevada que genera un campo gravitatorio del cual nada, ni siquiera la luz, puede
+                                escapar. Según la teoría de la <i>Relatividad General</i> de Einstein, la gravedad curva
+                                el espacio-tiempo hasta un punto de densidad infinita conocido como singularidad,
+                                desafiando nuestras leyes físicas actuales.
                             </p>
+
                         </div>
 
-                        <div style="padding: 20px; border: 1px dashed #2d3343; margin-bottom: 20px;">
+                        <div style="padding:20px; border:1px dashed #2d3343; margin-bottom:20px;">
+
                             <h2
-                                style="display: block; font-size: 1.6em; font-weight: bold; margin-bottom: 15px; color: black;">
-                                Clasificación y Estructura Anatómica</h2>
+                                style="display:block; font-size:1.6em; font-weight:bold; margin-bottom:15px; color:black;">
+                                Clasificación y Estructura Anatómica
+                            </h2>
 
-                            <p style="display: block; color: black; line-height: 1.6; margin-bottom: 15px;">La siguiente
-                                tabla muestra la relación entre los tipos de agujeros negros y sus partes fundamentales,
-                                utilizando uniones de celdas para representar propiedades compartidas:</p>
+                            <p style="display:block; color:black; line-height:1.6; margin-bottom:15px;">
+                                La siguiente tabla muestra la relación entre los tipos de agujeros negros y sus partes
+                                fundamentales:
+                            </p>
 
-                            <table style="width: 100%; border-collapse: collapse; color: black; line-height: 1.6;">
-                                <thead>
-                                    <tr>
-                                        <th style="border: 1px solid #2d3343; padding: 10px; text-align: left;">
-                                            Categoría</th>
-                                        <th style="border: 1px solid #2d3343; padding: 10px; text-align: left;">Masa
-                                            (Solares)</th>
-                                        <th style="border: 1px solid #2d3343; padding: 10px; text-align: left;">
-                                            Componentes Comunes</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td style="border: 1px solid #2d3343; padding: 10px; font-weight: bold;">
-                                            Estelares</td>
-                                        <td style="border: 1px solid #2d3343; padding: 10px;">5 a 30</td>
-                                        <td rowspan="3"
-                                            style="border: 1px solid #2d3343; padding: 10px; text-align: center; vertical-align: middle;">
-                                            Singularidad,<br>Horizonte de Sucesos<br>y Esfera de Fotones
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border: 1px solid #2d3343; padding: 10px; font-weight: bold;">
-                                            Intermedios</td>
-                                        <td style="border: 1px solid #2d3343; padding: 10px;">100 a 10,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border: 1px solid #2d3343; padding: 10px; font-weight: bold;">
-                                            Supermasivos</td>
-                                        <td style="border: 1px solid #2d3343; padding: 10px;">Millones a Billones</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border: 1px solid #2d3343; padding: 10px; font-weight: bold;">
-                                            Propiedades</td>
-                                        <td colspan="2" style="border: 1px solid #2d3343; padding: 10px;">
-                                            Definidas por la masa, la carga eléctrica y el momento angular (Teorema del
-                                            "No Pelo").
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div style="width:100%; overflow-x:auto;">
+
+                                <table
+                                    style="width:100%; border-collapse:collapse; color:black; line-height:1.4; table-layout:fixed; font-size:0.7em;">
+
+                                    <thead>
+                                        <tr>
+                                            <th style="border:1px solid #2d3343; padding:8px; text-align:left;">
+                                                Categoría</th>
+                                            <th style="border:1px solid #2d3343; padding:8px; text-align:left;">Masa
+                                                (Solares)</th>
+                                            <th style="border:1px solid #2d3343; padding:8px; text-align:left;">
+                                                Componentes Comunes</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        <tr>
+                                            <td
+                                                style="border:1px solid #2d3343; padding:8px; font-weight:bold; word-break:break-word;">
+                                                Estelares</td>
+                                            <td style="border:1px solid #2d3343; padding:8px;">5 a 30</td>
+                                            <td rowspan="3"
+                                                style="border:1px solid #2d3343; padding:8px; text-align:center; vertical-align:middle; word-break:break-word;">
+                                                Singularidad,<br>
+                                                Horizonte de Sucesos<br>
+                                                y Esfera de Fotones
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="border:1px solid #2d3343; padding:8px; font-weight:bold;">
+                                                Intermedios</td>
+                                            <td style="border:1px solid #2d3343; padding:8px;">100 a 10,000</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="border:1px solid #2d3343; padding:8px; font-weight:bold;">
+                                                Supermasivos</td>
+                                            <td style="border:1px solid #2d3343; padding:8px;">Millones a Billones</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="border:1px solid #2d3343; padding:8px; font-weight:bold;">
+                                                Propiedades</td>
+                                            <td colspan="2"
+                                                style="border:1px solid #2d3343; padding:8px; word-break:break-word;">
+                                                Definidas por la masa, la carga eléctrica y el momento angular (Teorema
+                                                del "No Pelo").
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+
                         </div>
 
-                        <h3
-                            style="border: 0 solid #000; display: block; font-size: 1.2em; font-weight: bold; margin: 1em 0; color: black; padding: 0 !important;">
-                            Efectos de la Dilatación Temporal</h3>
-                        <p style="display: block; margin: 1em 0; color: black; line-height: 1.6;">Cerca de un agujero
-                            negro, el tiempo transcurre más lentamente para un observador externo que para alguien que
-                            cae hacia él. Este fenómeno, confirmado experimentalmente, es uno de los pilares de la
-                            astrofísica moderna. Para profundizar en las primeras imágenes reales obtenidas por el
-                            <i>Event Horizon Telescope</i>, consulta:
+                        <h3 style="font-size:1.2em; font-weight:bold; margin:1em 0; color:black;">
+                            Efectos de la Dilatación Temporal
+                        </h3>
+
+                        <p style="margin:1em 0; color:black; line-height:1.6;">
+                            Cerca de un agujero negro, el tiempo transcurre más lentamente para un observador externo
+                            que para alguien que cae hacia él. Este fenómeno, confirmado experimentalmente, es uno de
+                            los pilares de la astrofísica moderna.
                         </p>
 
-                        <p style="margin: 20px 0;">
+                        <p style="margin:20px 0;">
                             <a href="https://scholar.google.com/scholar?q=black+hole+event+horizon+telescope+results"
-                                target="_blank"
-                                style="color: black !important; text-decoration: underline; font-weight: bold;">Investigar
-                                en Google Scholar</a>
+                                target="_blank" style="color:black; text-decoration:underline; font-weight:bold;">
+                                Investigar en Google Scholar
+                            </a>
                         </p>
 
-                        <hr style="border: 0; border-top: 1px solid black; margin: 1.5em 0;">
-                        <p style="display: block; text-align: center; font-size: 0.9em; color: black;">Instituto de
-                            Astrofísica Avanzada - 2026</p>
-                    </div>
+                        <hr style="border:0; border-top:1px solid black; margin:1.5em 0;">
 
+                        <p style="text-align:center; font-size:0.9em; color:black;">
+                            Instituto de Astrofísica Avanzada - 2026
+                        </p>
+
+                    </div>
                 </details>
 
 
@@ -2996,14 +2964,12 @@ mi-proyecto
                     ejecutar
                     funciones o navegar a otra página.
                 </p>
-                <p>
-                    Ejemplo:
-                </p>
+
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;button&gt;Haz clic aquí&lt;/button&gt;
-</pre>
+</code></pre>
                 </div>
                 <h3>Botón dentro de un enlace</h3>
                 <p>
@@ -3011,11 +2977,11 @@ mi-proyecto
                 </p>
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;a href="https://www.google.com"&gt;
   &lt;button&gt;Ir a Google&lt;/button&gt;
 &lt;/a&gt;
-</pre>
+</code></pre>
                 </div>
                 <h3>Botón con atributo type</h3>
                 <p>
@@ -3023,9 +2989,9 @@ mi-proyecto
                 </p>
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;button type="button"&gt;Botón normal&lt;/button&gt;
-</pre>
+</code></pre>
                 </div>
                 <p>
                     Algunos tipos comunes son:
@@ -3051,9 +3017,9 @@ mi-proyecto
                 </p>
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;input type="text"&gt;
-</pre>
+</code></pre>
                 </div>
                 <h3>Input con etiqueta</h3>
                 <p>
@@ -3062,15 +3028,13 @@ mi-proyecto
                 <p>
                     Para relacionar correctamente la etiqueta con el campo se utilizan los atributos for y id.
                 </p>
-                <p>
-                    Ejemplo:
-                </p>
+
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;label for="nombre"&gt;Nombre&lt;/label&gt;
 &lt;input type="text" id="nombre"&gt;
-</pre>
+</code></pre>
                 </div>
                 <p>
                     Explicación
@@ -3090,43 +3054,37 @@ mi-proyecto
                 <p>
                     Se utiliza cuando el usuario debe ingresar un correo electrónico.
                 </p>
-                <p>
-                    Ejemplo:
-                </p>
+
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;label for="correo"&gt;Correo electrónico&lt;/label&gt;
 &lt;input type="email" id="correo"&gt;
-</pre>
+</code></pre>
                 </div>
                 <h3>Input para contraseña</h3>
                 <p>
                     Permite ingresar una contraseña y oculta los caracteres que se escriben.
                 </p>
-                <p>
-                    Ejemplo:
-                </p>
+
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;label for="clave"&gt;Contraseña&lt;/label&gt;
 &lt;input type="password" id="clave"&gt;
-</pre>
+</code></pre>
                 </div>
                 <h3>Input para números</h3>
                 <p>
                     Se utiliza para ingresar valores numéricos.
                 </p>
-                <p>
-                    Ejemplo:
-                </p>
+
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;label for="edad"&gt;Edad&lt;/label&gt;
 &lt;input type="number" id="edad"&gt;
-</pre>
+</code></pre>
                 </div>
                 <h3>¿Cómo crear un formulario en HTML?</h3>
                 <p>
@@ -3134,12 +3092,10 @@ mi-proyecto
                     nombres, correos o
                     contraseñas.
                 </p>
-                <p>
-                    Ejemplo:
-                </p>
+
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;form&gt;
 
 &lt;label for="nombre"&gt;Nombre&lt;/label&gt;
@@ -3160,7 +3116,7 @@ mi-proyecto
 &lt;button type="submit"&gt;Enviar&lt;/button&gt;
 
 &lt;/form&gt;
-</pre>
+</code></pre>
                 </div>
                 <p>
                     Explicación
@@ -3181,222 +3137,225 @@ mi-proyecto
                 </ul>
                 <details class="respuesta-box">
                     <summary>Actividad 14</summary>
+
                     <div
-                        style="background-color: white !important; color: black !important; padding: 40px; border: 2px solid #2d3343; max-width: 95%; margin: 20px auto; font-family: 'Times New Roman', serif; text-align: left; user-select: none; -webkit-user-select: none;">
-                        <h1
-                            style="display: block; font-size: 2.2em; font-weight: bold; margin: 0.67em 0; text-align: center; color: black;">
-                            PROTOCOLO DE ACCESO: LA BÓVEDA DIGITAL</h1>
-                        <hr style="border: 0; border-top: 2px solid black; margin: 1.5em 0;">
+                        style="background-color:white !important; color:black !important; padding:40px; border:2px solid black; max-width:95%; margin:20px auto; font-family:'Times New Roman', serif; text-align:left;">
 
-                        <div style="margin-bottom: 25px;">
-                            <h2
-                                style="display: block; font-size: 1.6em; font-weight: bold; margin: 0.83em 0; color: black;">
-                                Seguridad en la Era de la Información</h2>
-                            <p style="display: block; margin: 1em 0; color: black; line-height: 1.6;">En la actualidad,
-                                la protección de la identidad digital es tan crítica como la seguridad física. El acceso
-                                a bases de datos gubernamentales o archivos históricos requiere de protocolos de
-                                autenticación estrictos. Cada usuario debe poseer credenciales únicas que son
-                                verificadas contra un servidor seguro para evitar filtraciones de información sensible.
-                            </p>
-                        </div>
+                        <h1 style="text-align:center; font-size:2em;">PROTOCOLO DE ACCESO: LA BÓVEDA DIGITAL</h1>
 
-                        <div style="padding: 20px; border: 1px dashed #2d3343; margin-bottom: 20px;">
-                            <h3
-                                style="border: 0 solid #000; display: block; font-size: 1.2em; font-weight: bold; margin: 0 0 15px 0; color: black; padding: 0 !important;">
-                                Formulario de Identificación</h3>
+                        <hr style="border:0; border-top:2px solid black; margin:20px 0;">
+
+                        <h2 style="color: #000;">Seguridad en la Era de la Información</h2>
+
+                        <p style="line-height:1.6;">
+                            En la actualidad, la protección de la identidad digital es tan crítica como la seguridad
+                            física.
+                            El acceso a bases de datos gubernamentales o archivos históricos requiere protocolos de
+                            autenticación estrictos.
+                            Cada usuario debe poseer credenciales únicas verificadas contra un servidor seguro para
+                            evitar filtraciones de información sensible.
+                        </p>
+
+                        <div style="padding:20px; border:1px dashed black; margin:20px 0;">
+
+                            <h3 style="color: #000;">Formulario de Identificación</h3>
 
                             <form action="#">
+
                                 <label>Nombre de Usuario:</label><br>
-                                <input type="text" id="nombre"><br><br>
+                                <input type="text"
+                                    style="border-radius: 0px; font-family:Arial; font-size:12px; padding:3px; border:2px inset #999; background:#ffffff;"><br><br>
 
                                 <label>Correo Electrónico:</label><br>
-                                <input type="email" id="correo"><br><br>
+                                <input type="email"
+                                    style="border-radius: 0px; font-family:Arial; font-size:12px; padding:3px; border:2px inset #999; background:#ffffff;"><br><br>
 
                                 <label>Contraseña Maestra:</label><br>
-                                <input type="password" id="clave"><br><br>
+                                <input type="password"
+                                    style="border-radius: 0px; font-family:Arial; font-size:12px; padding:3px; border:2px inset #999; background:#ffffff;"><br><br>
 
-                                <button type="submit">Enviar</button>
+                                <input type="submit" value="Enviar"
+                                    style="border-radius: 0px; font-family:Arial; font-size:12px; padding:4px 12px; background:#dcdcdc; border:2px outset #999;">
+
                             </form>
+
                         </div>
 
-                        <div style="padding: 20px; border: 1px dashed #2d3343; margin-bottom: 20px;">
-                            <h2
-                                style="display: block; font-size: 1.6em; font-weight: bold; margin-bottom: 15px; color: black;">
-                                Niveles de Encriptación Estándar</h2>
+                        <div style="padding:20px; border:1px dashed black; margin:20px 0;">
 
-                            <div style="text-align: center; margin: 20px 0;">
-                                <p style="font-size: 0.8em; font-style: italic; color: #666;">[Imagen de una llave
-                                    digital y un candado con código binario]</p>
-                            </div>
+                            <h2 style="color: #000;">Niveles de Encriptación Estándar</h2>
 
-                            <table style="width: 100%; border-collapse: collapse; color: black; line-height: 1.6;">
-                                <thead>
-                                    <tr>
-                                        <th style="border: 1px solid #2d3343; padding: 10px; text-align: left;">
-                                            Protocolo</th>
-                                        <th style="border: 1px solid #2d3343; padding: 10px; text-align: left;">
-                                            Fortaleza de Bits</th>
-                                        <th style="border: 1px solid #2d3343; padding: 10px; text-align: left;">Estado
-                                            de Seguridad</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td style="border: 1px solid #2d3343; padding: 10px; font-weight: bold;">AES
-                                            (Advanced Encryption Standard)</td>
-                                        <td style="border: 1px solid #2d3343; padding: 10px;">128 / 256 bits</td>
-                                        <td rowspan="2"
-                                            style="border: 1px solid #2d3343; padding: 10px; text-align: center; vertical-align: middle;">
-                                            Inquebrantable (Estándar Militar)</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border: 1px solid #2d3343; padding: 10px; font-weight: bold;">RSA
-                                            (Asimétrico)</td>
-                                        <td style="border: 1px solid #2d3343; padding: 10px;">2048 / 4096 bits</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border: 1px solid #2d3343; padding: 10px; font-weight: bold;">DES
-                                            (Data Encryption Standard)</td>
-                                        <td style="border: 1px solid #2d3343; padding: 10px;">56 bits</td>
-                                        <td style="border: 1px solid #2d3343; padding: 10px;">Obsoleto / Vulnerable</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border: 1px solid #2d3343; padding: 10px; font-weight: bold;">Nota
-                                            Informativa</td>
-                                        <td colspan="2" style="border: 1px solid #2d3343; padding: 10px;">La seguridad
-                                            de la contraseña depende de la mezcla de caracteres y longitud.</td>
-                                    </tr>
-                                </tbody>
+                            <p style="font-size:0.8em; text-align:center;">
+                                [Imagen de una llave digital y un candado con código binario]
+                            </p>
+
+                            <table style="width:100%; border-collapse:collapse; font-size:0.85em;">
+
+                                <tr>
+                                    <th style="border:1px solid black; padding:6px;">Protocolo</th>
+                                    <th style="border:1px solid black; padding:6px;">Fortaleza de Bits</th>
+                                    <th style="border:1px solid black; padding:6px;">Estado de Seguridad</th>
+                                </tr>
+
+                                <tr>
+                                    <td style="border:1px solid black; padding:6px;"><b style="color: #000;">AES</b> (Advanced Encryption
+                                        Standard)</td>
+                                    <td style="border:1px solid black; padding:6px;">128 / 256 bits</td>
+                                    <td rowspan="2" style="border:1px solid black; padding:6px; text-align:center;">
+                                        Inquebrantable</td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border:1px solid black; padding:6px;"><b style="color: #000;">RSA</b> (Asimétrico)</td>
+                                    <td style="border:1px solid black; padding:6px;">2048 / 4096 bits</td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border:1px solid black; padding:6px;"><b style="color: #000;">DES</b></td>
+                                    <td style="border:1px solid black; padding:6px;">56 bits</td>
+                                    <td style="border:1px solid black; padding:6px;">Obsoleto</td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border:1px solid black; padding:6px;"><b style="color: #000;">Nota</b></td>
+                                    <td colspan="2" style="border:1px solid black; padding:6px;">
+                                        La seguridad de la contraseña depende de la mezcla de caracteres y longitud.
+                                    </td>
+                                </tr>
+
                             </table>
+
                         </div>
 
-                        <p style="margin: 20px 0;">
-                            Para profundizar en la criptografía cuántica del futuro, visite:
+                        <p style="margin:20px 0;">
+                            Para profundizar en la criptografía cuántica del futuro visite:
                             <a href="https://scholar.google.com/scholar?q=quantum+cryptography+future+security+trends"
-                                target="_blank"
-                                style="color: black !important; text-decoration: underline; font-weight: bold;">Google
-                                Scholar</a>
+                                target="_blank" style="color:black; text-decoration:underline;">Google Scholar</a>
                         </p>
 
-                        <hr style="border: 0; border-top: 1px solid black; margin: 1.5em 0;">
-                        <p style="display: block; text-align: center; font-size: 0.9em; color: black;">Departamento de
-                            Seguridad Nacional - 2026</p>
+                        <hr style="border:0; border-top:1px solid black; margin:20px 0;">
+
+                        <p style="text-align:center; font-size:0.9em;">
+                            Departamento de Seguridad Nacional - 2026
+                        </p>
+
                     </div>
-                    <br><br>
+
+
+
                     <div
-                        style="background-color: white !important; color: black !important; padding: 40px; border: 2px solid #2d3343; max-width: 95%; margin: 20px auto; font-family: 'Times New Roman', serif; text-align: left; user-select: none; -webkit-user-select: none;">
-                        <h1
-                            style="display: block; font-size: 2.2em; font-weight: bold; margin: 0.67em 0; text-align: center; color: black;">
-                            REGISTRO DE CARGA: TERMINAL ESPACIAL</h1>
-                        <hr style="border: 0; border-top: 2px solid black; margin: 1.5em 0;">
+                        style="background-color:white !important; color:black !important; padding:40px; border:2px solid black; max-width:95%; margin:40px auto; font-family:'Times New Roman', serif; text-align:left;">
 
-                        <div style="margin-bottom: 25px;">
-                            <h2
-                                style="display: block; font-size: 1.6em; font-weight: bold; margin: 0.83em 0; color: black;">
-                                Gestión de Inventario en Microgravedad</h2>
-                            <p style="display: block; margin: 1em 0; color: black; line-height: 1.6;">El mantenimiento
-                                de una estación orbital depende de una logística impecable. Cada gramo de carga cuenta,
-                                y cada suministro debe estar debidamente etiquetado y registrado. Desde los sistemas de
-                                soporte vital hasta las raciones de comida liofilizada, la administración de recursos es
-                                la diferencia entre el éxito de la misión y el abandono de la base. Este formulario
-                                permite a los operarios de tierra coordinar los lanzamientos de reabastecimiento.</p>
-                        </div>
+                        <h1 style="text-align:center; font-size:2em;">REGISTRO DE CARGA: TERMINAL ESPACIAL</h1>
 
-                        <div style="padding: 20px; border: 1px dashed #2d3343; margin-bottom: 20px;">
-                            <h3
-                                style="border: 0 solid #000; display: block; font-size: 1.2em; font-weight: bold; margin: 0 0 15px 0; color: black; padding: 0 !important;">
-                                Manifiesto de Embarque</h3>
+                        <hr style="border:0; border-top:2px solid black; margin:20px 0;">
+
+                        <h2 style="color: #000;">Gestión de Inventario en Microgravedad</h2>
+
+                        <p style="line-height:1.6;">
+                            El mantenimiento de una estación orbital depende de una logística impecable.
+                            Cada gramo de carga cuenta y cada suministro debe registrarse correctamente.
+                            Este formulario permite a los operarios coordinar los lanzamientos de reabastecimiento.
+                        </p>
+
+                        <div style="padding:20px; border:1px dashed black; margin:20px 0;">
+
+                            <h3 style="color: #000;">Manifiesto de Embarque</h3>
 
                             <form action="#">
+
                                 <label>Nombre del Operador:</label><br>
-                                <input type="text" id="nombre"><br><br>
+                                <input type="text"
+                                    style="border-radius: 0px; font-family:Arial; font-size:12px; padding:3px; border:2px inset #999;"><br><br>
 
                                 <label>Código de Vuelo:</label><br>
-                                <input type="text" id="vuelo"><br><br>
+                                <input type="text"
+                                    style="border-radius: 0px; font-family:Arial; font-size:12px; padding:3px; border:2px inset #999;"><br><br>
 
                                 <label>Correo de Enlace:</label><br>
-                                <input type="email" id="correo"><br><br>
+                                <input type="email"
+                                    style="border-radius: 0px; font-family:Arial; font-size:12px; padding:3px; border:2px inset #999;"><br><br>
 
                                 <label>Contraseña de Seguridad:</label><br>
-                                <input type="password" id="clave"><br><br>
+                                <input type="password"
+                                    style="border-radius: 0px; font-family:Arial; font-size:12px; padding:3px; border:2px inset #999;"><br><br>
 
                                 <label>Módulo de Destino:</label><br>
-                                <input type="text" id="destino"><br><br>
+                                <input type="text"
+                                    style="border-radius: 0px; font-family:Arial; font-size:12px; padding:3px; border:2px inset #999;"><br><br>
 
                                 <label>Fecha de Lanzamiento:</label><br>
-                                <input type="text" id="fecha" placeholder="DD/MM/AAAA"><br><br>
+                                <input type="text" placeholder="DD/MM/AAAA"
+                                    style="border-radius: 0px; font-family:Arial; font-size:12px; padding:3px; border:2px inset #999;"><br><br>
 
                                 <label>Peso de Carga (kg):</label><br>
-                                <input type="text" id="peso"><br><br>
+                                <input type="text"
+                                    style="border-radius: 0px; font-family:Arial; font-size:12px; padding:3px; border:2px inset #999;"><br><br>
 
-                                <button type="submit">Enviar Manifiesto</button>
+                                <input type="submit" value="Enviar Manifiesto"
+                                    style="border-radius: 0px; font-family:Arial; font-size:12px; padding:4px 12px; background:#dcdcdc; border:2px outset #999;">
+
                             </form>
+
                         </div>
 
-                        <div style="padding: 20px; border: 1px dashed #2d3343; margin-bottom: 20px;">
-                            <h2
-                                style="display: block; font-size: 1.6em; font-weight: bold; margin-bottom: 15px; color: black;">
-                                Prioridades de Reabastecimiento</h2>
+                        <div style="padding:20px; border:1px dashed black; margin:20px 0;">
 
-                            <div style="text-align: center; margin: 20px 0;">
-                                <p style="font-size: 0.8em; font-style: italic; color: #666;">[Imagen del compartimento
-                                    de carga de un transbordador espacial]</p>
-                            </div>
+                            <h2 style="color: #000;">Prioridades de Reabastecimiento</h2>
 
-                            <table style="width: 100%; border-collapse: collapse; color: black; line-height: 1.6;">
-                                <thead>
-                                    <tr>
-                                        <th style="border: 1px solid #2d3343; padding: 10px; text-align: left;">
-                                            Suministro</th>
-                                        <th style="border: 1px solid #2d3343; padding: 10px; text-align: left;">Cantidad
-                                            Estándar</th>
-                                        <th style="border: 1px solid #2d3343; padding: 10px; text-align: left;">Nivel de
-                                            Prioridad</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td style="border: 1px solid #2d3343; padding: 10px; font-weight: bold;">Oxígeno
-                                            y Nitrógeno</td>
-                                        <td style="border: 1px solid #2d3343; padding: 10px;">500 Tanques</td>
-                                        <td rowspan="2"
-                                            style="border: 1px solid #2d3343; padding: 10px; text-align: center; vertical-align: middle;">
-                                            Crítica (Soporte Vital)</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border: 1px solid #2d3343; padding: 10px; font-weight: bold;">Filtros
-                                            de Agua</td>
-                                        <td style="border: 1px solid #2d3343; padding: 10px;">24 Unidades</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border: 1px solid #2d3343; padding: 10px; font-weight: bold;">
-                                            Herramientas EVA</td>
-                                        <td style="border: 1px solid #2d3343; padding: 10px;">12 Kits</td>
-                                        <td style="border: 1px solid #2d3343; padding: 10px;">Media (Mantenimiento)</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border: 1px solid #2d3343; padding: 10px; font-weight: bold;">
-                                            Observaciones</td>
-                                        <td colspan="2" style="border: 1px solid #2d3343; padding: 10px;">Las entregas
-                                            se realizan mediante naves de carga automatizadas cada 90 días terrestres.
-                                        </td>
-                                    </tr>
-                                </tbody>
+                            <p style="font-size:0.8em; text-align:center;">
+                                [Imagen del compartimento de carga de un transbordador espacial]
+                            </p>
+
+                            <table style="width:100%; border-collapse:collapse; font-size:0.85em;">
+
+                                <tr>
+                                    <th style="border:1px solid black; padding:6px;">Suministro</th>
+                                    <th style="border:1px solid black; padding:6px;">Cantidad Estándar</th>
+                                    <th style="border:1px solid black; padding:6px;">Nivel de Prioridad</th>
+                                </tr>
+
+                                <tr>
+                                    <td style="border:1px solid black; padding:6px;"><b style="color: #000;">Oxígeno y Nitrógeno</b></td>
+                                    <td style="border:1px solid black; padding:6px;">500 Tanques</td>
+                                    <td rowspan="2" style="border:1px solid black; padding:6px; text-align:center;">
+                                        Crítica</td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border:1px solid black; padding:6px;"><b style="color: #000;">Filtros de Agua</b></td>
+                                    <td style="border:1px solid black; padding:6px;">24 Unidades</td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border:1px solid black; padding:6px;"><b style="color: #000;">Herramientas EVA</b></td>
+                                    <td style="border:1px solid black; padding:6px;">12 Kits</td>
+                                    <td style="border:1px solid black; padding:6px;">Media</td>
+                                </tr>
+
+                                <tr>
+                                    <td style="border:1px solid black; padding:6px;"><b style="color: #000;">Observaciones</b></td>
+                                    <td colspan="2" style="border:1px solid black; padding:6px;">
+                                        Las entregas se realizan mediante naves automatizadas cada 90 días terrestres.
+                                    </td>
+                                </tr>
+
                             </table>
+
                         </div>
 
-                        <p style="margin: 20px 0;">
-                            Para consultar los manuales de procedimientos de la Estación Espacial Internacional (ISS),
-                            visite:
+                        <p>
+                            Para consultar los manuales de procedimientos de la Estación Espacial Internacional visite:
                             <a href="https://scholar.google.com/scholar?q=international+space+station+logistics+and+resupply+management"
-                                target="_blank"
-                                style="color: black !important; text-decoration: underline; font-weight: bold;">Google
-                                Scholar</a>
+                                target="_blank" style="color:black; text-decoration:underline;">Google Scholar</a>
                         </p>
 
-                        <hr style="border: 0; border-top: 1px solid black; margin: 1.5em 0;">
-                        <p style="display: block; text-align: center; font-size: 0.9em; color: black;">Centro de Control
-                            de Misión - Tarija 2026</p>
+                        <hr style="border:0; border-top:1px solid black; margin:20px 0;">
+
+                        <p style="text-align:center; font-size:0.9em;">
+                            Centro de Control de Misión - Tarija 2026
+                        </p>
+
                     </div>
 
                 </details>
@@ -3430,7 +3389,7 @@ mi-proyecto
                 </p>
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;form action="procesar.html" method="get"&gt;
 
 &lt;label for="nombre"&gt;Nombre&lt;/label&gt;
@@ -3446,7 +3405,7 @@ mi-proyecto
 &lt;button type="submit"&gt;Enviar&lt;/button&gt;
 
 &lt;/form&gt;
-</pre>
+</code></pre>
                 </div>
                 <details class="respuesta-box">
                     <summary>Actividad 15</summary>
@@ -3462,7 +3421,8 @@ mi-proyecto
                                 style="display: block; font-size: 1.6em; font-weight: bold; margin: 0.83em 0; color: black;">
                                 ¿Cómo funciona el envío de datos?</h2>
                             <p style="display: block; margin: 1em 0; color: black; line-height: 1.6;">El método
-                                <b>GET</b> envía la información del formulario adjuntándola directamente a la dirección
+                                <b style="color: #000;">GET</b> envía la información del formulario adjuntándola
+                                directamente a la dirección
                                 URL del navegador. Es como enviar una carta donde el contenido está escrito en el
                                 exterior del sobre. Esto permite que la página de resultados sea guardada en favoritos
                                 (bookmarks) o compartida, ya que toda la configuración de la búsqueda queda "grabada" en
@@ -3585,7 +3545,7 @@ mi-proyecto
                 </p>
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;form action="procesar.html" method="post"&gt;
 
 &lt;label for="usuario"&gt;Usuario&lt;/label&gt;
@@ -3601,7 +3561,7 @@ mi-proyecto
 &lt;button type="submit"&gt;Iniciar sesión&lt;/button&gt;
 
 &lt;/form&gt;
-</pre>
+</code></pre>
                 </div>
                 <details class="respuesta-box">
                     <summary>Actividad 16</summary>
@@ -3617,7 +3577,8 @@ mi-proyecto
                                 style="display: block; font-size: 1.6em; font-weight: bold; margin: 0.83em 0; color: black;">
                                 Privacidad y Capacidad</h2>
                             <p style="display: block; margin: 1em 0; color: black; line-height: 1.6;">A diferencia de
-                                GET, el método <b>POST</b> no altera la URL del navegador. Los datos viajan de forma
+                                GET, el método <b style="color: #000;">POST</b> no altera la URL del navegador. Los
+                                datos viajan de forma
                                 interna en el cuerpo de la petición (HTTP Body). Es como enviar una carta dentro de un
                                 sobre sellado: nadie puede ver el contenido desde afuera. Este método es obligatorio
                                 para crear cuentas, realizar pagos, subir archivos pesados o enviar contraseñas, ya que
@@ -3744,15 +3705,13 @@ mi-proyecto
                     A diferencia del input, que permite escribir en una sola línea, textarea permite escribir en varias
                     líneas.
                 </p>
-                <p>
-                    Ejemplo:
-                </p>
+
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;label for="mensaje"&gt;Mensaje&lt;/label&gt;
 &lt;textarea id="mensaje"&gt;&lt;/textarea&gt;
-</pre>
+</code></pre>
                 </div>
                 <h3>Área de texto con tamaño definido</h3>
                 <p>
@@ -3767,23 +3726,21 @@ mi-proyecto
                     </li>
                 </ul>
                 <br>
-                <p>
-                    Ejemplo:
-                </p>
+
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;label for="comentario"&gt;Comentario&lt;/label&gt;
 
 &lt;textarea id="comentario" rows="5" cols="30"&gt;&lt;/textarea&gt;
-</pre>
+</code></pre>
                 </div>
                 <p>
                     Ejemplo dentro de un formulario:
                 </p>
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;form&gt;
 
 &lt;label for="nombre"&gt;Nombre&lt;/label&gt;
@@ -3799,7 +3756,7 @@ mi-proyecto
 &lt;button type="submit"&gt;Enviar&lt;/button&gt;
 
 &lt;/form&gt;
-</pre>
+</code></pre>
                 </div>
                 <details class="respuesta-box">
                     <summary>Actividad 17</summary>
@@ -3819,7 +3776,8 @@ mi-proyecto
                                 es responsable de registrar no solo los datos numéricos de los sensores, sino también
                                 observaciones detalladas sobre el comportamiento del hielo y el estado del equipo. Para
                                 estas descripciones narrativas, donde un campo de texto simple no es suficiente,
-                                utilizamos el área de texto o <b>textarea</b>, permitiendo un registro exhaustivo de los
+                                utilizamos el área de texto o <b style="color: #000;">textarea</b>, permitiendo un
+                                registro exhaustivo de los
                                 eventos diarios.</p>
                         </div>
 
@@ -3941,12 +3899,10 @@ mi-proyecto
                     ciudad o
                     carrera.
                 </p>
-                <p>
-                    Ejemplo:
-                </p>
+
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;form&gt;
 
 &lt;label for="nombre"&gt;Nombre&lt;/label&gt;
@@ -3967,7 +3923,7 @@ mi-proyecto
 &lt;button type="submit"&gt;Enviar&lt;/button&gt;
 
 &lt;/form&gt;
-</pre>
+</code></pre>
                 </div>
                 <h3>Selección con opción inicial</h3>
                 <p>
@@ -3977,7 +3933,7 @@ mi-proyecto
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;form&gt;
 
 &lt;label for="ciudad"&gt;Ciudad&lt;/label&gt;
@@ -3993,7 +3949,7 @@ mi-proyecto
 &lt;button type="submit"&gt;Enviar&lt;/button&gt;
 
 &lt;/form&gt;
-</pre>
+</code></pre>
                 </div>
                 <details class="respuesta-box">
                     <summary>Actividad 18</summary>
@@ -4013,7 +3969,8 @@ mi-proyecto
                                 administración de la energía, el flujo del tráfico y el mantenimiento de las áreas
                                 verdes dependen de un sistema centralizado donde los supervisores reportan el estado de
                                 cada distrito. Para asegurar que la información llegue al departamento correcto sin
-                                confusiones, utilizamos el elemento <b>select</b>, una lista desplegable que obliga a
+                                confusiones, utilizamos el elemento <b style="color: #000;">select</b>, una lista
+                                desplegable que obliga a
                                 categorizar el reporte de forma inequívoca.</p>
                         </div>
 
@@ -4134,20 +4091,23 @@ mi-proyecto
                 </details>
                 <h3>¿Cómo seleccionar una opción?</h3>
                 <p>
-                    Cuando se necesita que el usuario elija <b>solo una opción entre varias</b>, se utilizan los
-                    <b>radio button</b>. Este tipo de control permite seleccionar una única alternativa dentro de un
+                    Cuando se necesita que el usuario elija <b style="color: #000;">solo una opción entre varias</b>, se
+                    utilizan los
+                    <b style="color: #000;">radio button</b>. Este tipo de control permite seleccionar una única
+                    alternativa dentro de un
                     grupo.
                 </p>
 
                 <p>
                     Para que los radio button funcionen correctamente, todos deben tener el mismo atributo
-                    <b>name</b>. De esta manera el navegador entiende que pertenecen al mismo grupo y solo
+                    <b style="color: #000;">name</b>. De esta manera el navegador entiende que pertenecen al mismo grupo
+                    y solo
                     permitirá seleccionar una opción.
                 </p>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;form&gt;
 
 &lt;p&gt;Seleccione su turno&lt;/p&gt;
@@ -4168,19 +4128,23 @@ mi-proyecto
 &lt;button type="submit"&gt;Enviar&lt;/button&gt;
 
 &lt;/form&gt;
-</pre>
+</code></pre>
                 </div>
 
                 <p>
-                    En este ejemplo se presentan tres opciones: <b>Mañana</b>, <b>Tarde</b> y <b>Noche</b>.
-                    Todas las opciones tienen el mismo atributo <b>name="turno"</b>, lo que indica que
+                    En este ejemplo se presentan tres opciones: <b style="color: #000;">Mañana</b>, <b
+                        style="color: #000;">Tarde</b> y <b style="color: #000;">Noche</b>.
+                    Todas las opciones tienen el mismo atributo <b style="color: #000;">name="turno"</b>, lo que indica
+                    que
                     pertenecen al mismo grupo. Por esta razón, el usuario solo podrá seleccionar
-                    <b>una sola opción</b>.
+                    <b style="color: #000;">una sola opción</b>.
                 </p>
 
                 <p>
-                    El atributo <b>value</b> representa el dato que se enviará cuando el formulario sea enviado.
-                    Por ejemplo, si el usuario selecciona <b>Tarde</b>, el formulario enviará el valor <b>tarde</b>.
+                    El atributo <b style="color: #000;">value</b> representa el dato que se enviará cuando el formulario
+                    sea enviado.
+                    Por ejemplo, si el usuario selecciona <b style="color: #000;">Tarde</b>, el formulario enviará el
+                    valor <b style="color: #000;">tarde</b>.
                 </p>
                 <details class="respuesta-box">
                     <summary>Actividad 19</summary>
@@ -4197,7 +4161,8 @@ mi-proyecto
                                 Determinación de Rango y Destino</h2>
                             <p style="display: block; margin: 1em 0; color: black; line-height: 1.6;">Ingresar a la
                                 Flota Estelar requiere superar una serie de pruebas psicométricas y técnicas. El sistema
-                                de selección utiliza preguntas de opción múltiple mediante <b>radio buttons</b> para
+                                de selección utiliza preguntas de opción múltiple mediante <b style="color: #000;">radio
+                                    buttons</b> para
                                 asegurar que el aspirante tome decisiones definitivas y sin ambigüedades. Cada respuesta
                                 define una rama específica de la carrera espacial, desde la ingeniería de motores de
                                 curvatura hasta la diplomacia interplanetaria.</p>
@@ -4330,7 +4295,7 @@ mi-proyecto
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;form&gt;
 
 &lt;p&gt;Seleccione los lenguajes que conoce&lt;/p&gt;
@@ -4351,7 +4316,7 @@ mi-proyecto
 &lt;button type="submit"&gt;Enviar&lt;/button&gt;
 
 &lt;/form&gt;
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -4518,7 +4483,7 @@ mi-proyecto
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;header&gt;
   &lt;h1&gt;Mi sitio web&lt;/h1&gt;
 &lt;/header&gt;
@@ -4555,7 +4520,7 @@ mi-proyecto
 &lt;footer&gt;
   &lt;p&gt;© 2026 Mi sitio web&lt;/p&gt;
 &lt;/footer&gt;
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -4613,7 +4578,7 @@ mi-proyecto
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 proyecto-web
 │
 ├── index.html
@@ -4626,7 +4591,7 @@ proyecto-web
 │
 └── img
     └── imagenes.png
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -4662,7 +4627,7 @@ proyecto-web
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;head&gt;
   &lt;meta charset="UTF-8"&gt;
   &lt;title&gt>Mi página&lt;/title&gt;
@@ -4670,7 +4635,7 @@ proyecto-web
   &lt;link rel="stylesheet" href="css/style.css"&gt;
 
 &lt;/head&gt;
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -4693,13 +4658,13 @@ proyecto-web
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-</pre>
+</code></pre>
                 </div>
                 <h3>¿Cómo se comportan los elementos en CSS?</h3>
                 <p>
@@ -4790,13 +4755,13 @@ proyecto-web
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 h1 {
   margin: 40px;
   padding: 20px;
   border: 3px solid black;
 }
-</pre>
+</code></pre>
                 </div>
                 <h3>¿Qué podemos hacer con el border?</h3>
 
@@ -4819,11 +4784,11 @@ h1 {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 h1 {
   border: 3px solid black;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -4844,11 +4809,11 @@ h1 {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 h1 {
   border: 4px dashed blue;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -4883,11 +4848,11 @@ h1 {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 h1 {
   border-bottom: 4px solid red;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -4913,12 +4878,12 @@ h1 {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 h1 {
   border: 3px solid black;
   border-radius: 10px;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -4933,14 +4898,14 @@ h1 {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 div {
   width: 150px;
   height: 150px;
   border: 3px solid blue;
   border-radius: 50%;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -4962,13 +4927,13 @@ div {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 div {
   width: 300px;
   height: 150px;
   border: 3px solid black;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5009,12 +4974,12 @@ div {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 div {
   width: 300px;
   height: 150px;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5031,11 +4996,11 @@ div {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 div {
   width: 50%;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5065,11 +5030,11 @@ div {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 p {
   font-size: 2em;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5099,11 +5064,11 @@ p {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 p {
   font-size: 1.5rem;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5132,11 +5097,11 @@ p {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 div {
   width: 50vw;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5165,11 +5130,11 @@ div {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 div {
   height: 50vh;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5186,11 +5151,11 @@ div {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 h1 {
   background-color: yellow;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5201,13 +5166,13 @@ h1 {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 div {
   width: 300px;
   height: 150px;
   background-color: lightblue;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5224,11 +5189,11 @@ div {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 h1 {
   color: red;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5239,11 +5204,11 @@ h1 {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 p {
   color: blue;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5278,7 +5243,7 @@ p {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 h1 {
   color: red;
 }
@@ -5290,7 +5255,7 @@ p {
 div {
   background-color: yellow;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5321,11 +5286,11 @@ div {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 h1 {
   color: rgb(255, 0, 0);
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5350,11 +5315,11 @@ h1 {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 h1 {
   color: #ff0000;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5394,11 +5359,11 @@ h1 {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 div {
   background-color: rgba(255, 0, 0, 0.5);
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5485,11 +5450,11 @@ div {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 h1 {
   text-align: center;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5500,11 +5465,11 @@ h1 {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 p {
   text-align: justify;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5525,11 +5490,11 @@ p {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 h1 {
   font-size: 32px;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5540,11 +5505,11 @@ h1 {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 p {
   font-size: 18px;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5570,11 +5535,11 @@ p {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 p {
   font-weight: bold;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5589,11 +5554,11 @@ p {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 h1 {
   font-weight: 700;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5615,11 +5580,11 @@ h1 {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 p {
   font-style: italic;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5649,11 +5614,11 @@ p {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 p {
   text-decoration: underline;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5673,11 +5638,11 @@ p {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 p {
   text-decoration: line-through;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5706,11 +5671,11 @@ p {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 p {
   text-transform: uppercase;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5721,11 +5686,11 @@ p {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 p {
   text-transform: capitalize;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5746,11 +5711,11 @@ p {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 p {
   font-family: Arial;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5766,11 +5731,11 @@ p {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 p {
   font-family: Arial, Helvetica, sans-serif;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5821,9 +5786,9 @@ p {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 &lt;link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"&gt;
-</pre>
+</code></pre>
                 </div>
 
                 <h4>Paso 3: Usar la fuente en CSS</h4>
@@ -5835,11 +5800,11 @@ p {
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre>
+                    <pre><code>
 body {
   font-family: 'Roboto', sans-serif;
 }
-</pre>
+</code></pre>
                 </div>
 
                 <p>
@@ -5883,268 +5848,374 @@ body {
                 </details>
             </section>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <section>
+                <h2>Formularios y Captura de Datos</h2>
+                <p>Para recolectar datos usamos la etiqueta <code>&lt;form&gt;</code>.</p>
+
+                <button class="btn-html-visor" style="background: #ff9f43; color: #000;"
+                    onclick="toggleVisor('https://www.wikipedia.org')">
+                    <svg class="icon-svg" style="stroke:#000" viewBox="0 0 24 24">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                    REPLICA ESTA PAGINAs
+                </button>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>&lt;form method="POST"&gt;
+  &lt;label&gt;Usuario:&lt;/label&gt;
+  &lt;input type="text" name="user"&gt;
+  &lt;button type="submit"&gt;Entrar&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+                </div>
+            </section>
         </main>
-        <div id="visor-container"><iframe id="frame-visor" src="http://127.0.0.1:5500/index.html"
-                style="background-color: white; border: none;"></iframe></div>
+
+        <div id="visor-container">
+            <div class="monitor-frame" id="m-frame">
+                <div class="monitor-screen">
+                    <div id="mouse-overlay"></div>
+                    <iframe id="screen-iframe" src="about:blank"></iframe>
+                </div>
+                <!-- LED del monitor para abrir link externo -->
+                <div class="monitor-led" onclick="abrirNuevaPestana()" title="Abrir en nueva pestaña"></div>
+            </div>
+        </div>
     </div>
 
     <dialog id="palette-dialog">
+        <h3 style="margin-bottom:15px; text-align:center; font-size:0.9rem">ELEGIR COLOR</h3>
         <div id="p-grid" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;"></div>
     </dialog>
 
     <dialog id="search-dialog">
-        <h3 style="font-size: 0.8rem; color: var(--accent); margin-bottom: 15px; text-align: center;">TEMAS DISPONIBLES
+        <h3 style="font-size: 0.8rem; color: var(--accent); margin-bottom: 15px; text-align: center;">TEMAS PRINCIPALES
         </h3>
-        <ul id="results"></ul>
+        <ul id="results" style="list-style:none;"></ul>
     </dialog>
 
     <nav class="bar">
-        <button class="nav-btn" onclick="goHome()"><i data-lucide="home"></i><span>Inicio</span></button>
-
-        <button id="paint-btn" class="nav-btn" onclick="forzarPaleta()"><i
-                data-lucide="palette"></i><span>Pintar</span></button>
-
-        <button id="pointer-btn" class="nav-btn" onclick="toggleLaser()"><i
-                data-lucide="mouse-pointer-2"></i><span>Puntero</span></button>
-        <button id="visor-btn" class="nav-btn" onclick="toggleVisor()"><i
-                data-lucide="monitor"></i><span>Visor</span></button>
-
-        <button class="nav-btn" onclick="openSearch()"><i data-lucide="search"></i><span
-                id="reloj">00:00</span></button>
+        <button class="nav-btn" onclick="goHome()">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+            <span>Inicio</span>
+        </button>
+        <button id="paint-btn" class="nav-btn" onclick="prepararPaleta()">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+                <path d="m12 19 7-7 3 3-7 7-3-3z" />
+                <path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
+                <path d="m2 2 5 5" />
+                <path d="m8.5 8.5 1 1" />
+            </svg>
+            <span>Pintar</span>
+        </button>
+        <button id="pointer-btn" class="nav-btn" onclick="toggleLaser()">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+                <circle cx="12" cy="12" r="3" />
+                <line x1="12" x2="12" y1="2" y2="5" />
+                <line x1="12" x2="12" y1="19" y2="22" />
+                <line x1="2" x2="5" y1="12" y2="12" />
+                <line x1="19" x2="22" y1="12" y2="12" />
+            </svg>
+            <span>Puntero</span>
+        </button>
+        <button id="visor-btn" class="nav-btn" onclick="toggleVisor('http://127.0.0.1:5501/index.html')">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+                <rect width="20" height="14" x="2" y="3" rx="2" />
+                <line x1="8" x2="16" y1="21" y2="21" />
+                <line x1="12" x2="12" y1="17" x2="12" y2="21" />
+            </svg>
+            <span>Visor</span>
+        </button>
+        <button class="nav-btn" onclick="openSearch()">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <span id="reloj">00:00</span>
+        </button>
     </nav>
-    <script src="https://unpkg.com/lucide@0.400.0"></script>
+
+    <div id="toast-msg"></div>
+
     <script>
-        // Inicializar iconos de Lucide
-        lucide.createIcons();
-
         let laserActive = false, visorActivo = false;
-        let lastScrollPos = 0;
-        let currentRange = null;
+        let lastScroll = 0, currentRange = null;
+        const colors = ["#00FFFF", "#FF0000", "#00FF00", "#FFFFFF", "#FF00FF", "#FFFF00", "#FF9F43", "#4834D4", "#F0932B", "#61DAFB"];
 
-        const colors = [
-            "#00FFFF", "#FF0000", "#00FF00", "#FFFFFF", "#FF00FF",
-            "#FFFF00", "#808080", "#4834D4", "#F0932B", "#000000"
-        ];
+        // --- RELOJ ---
+        function updateTime() {
+            const now = new Date();
+            document.getElementById("reloj").textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+        setInterval(updateTime, 1000); updateTime();
 
+        // --- INICIALIZACIÓN ---
+        document.addEventListener("DOMContentLoaded", () => {
+            // const savedContent = localStorage.getItem("marcasDiplomado");
+            // if (savedContent) document.getElementById("content-main").innerHTML = savedContent;
+
+            // const savedTasks = JSON.parse(localStorage.getItem("tareasDiplomado") || "{}");
+            // document.querySelectorAll('input[type="checkbox"]').forEach(ch => {
+            //     const id = ch.dataset.id;
+            //     if (savedTasks[id]) ch.checked = true;
+            //     ch.onchange = () => {
+            //         savedTasks[id] = ch.checked;
+            //         localStorage.setItem("tareasDiplomado", JSON.stringify(savedTasks));
+            //     }
+            // });
+
+            initPalette();
+            reVincularEventos();
+        });
+
+        // --- RESALTADOR ---
+        function initPalette() {
+            const grid = document.getElementById("p-grid");
+            colors.forEach(col => {
+                const btn = document.createElement("div");
+                btn.style.cssText = `aspect-ratio:1; border-radius:50%; background:${col}; cursor:pointer; border:2px solid rgba(255,255,255,0.2);`;
+                btn.onclick = () => aplicarResaltado(col);
+                grid.appendChild(btn);
+            });
+        }
+
+        function mostrarToast(mensaje) {
+            const t = document.getElementById("toast-msg");
+            t.textContent = mensaje;
+            t.style.display = "block";
+            setTimeout(() => t.style.display = "none", 2500);
+        }
+
+        function prepararPaleta() {
+            const sel = window.getSelection();
+            if (sel.rangeCount > 0 && !sel.isCollapsed) {
+                currentRange = sel.getRangeAt(0).cloneRange();
+                document.getElementById("palette-dialog").showModal();
+            } else {
+                mostrarToast("Primero selecciona texto");
+            }
+        }
+
+        function aplicarResaltado(col) {
+            if (!currentRange) return;
+            const span = document.createElement("span");
+            span.className = "highlight-span";
+            span.style.cssText = `border-bottom:3px solid ${col}; color:${col}; background:${col}15;`;
+            span.onclick = function (e) { e.stopPropagation(); this.replaceWith(...this.childNodes); guardarEstado(); };
+
+            try {
+                span.appendChild(currentRange.extractContents());
+                currentRange.insertNode(span);
+            } catch (e) { }
+
+            document.getElementById("palette-dialog").close();
+            window.getSelection().removeAllRanges();
+            guardarEstado();
+        }
+
+        function reVincularEventos() {
+            document.querySelectorAll(".highlight-span").forEach(s => {
+                s.onclick = function (e) { e.stopPropagation(); this.replaceWith(...this.childNodes); guardarEstado(); };
+            });
+        }
+
+        function guardarEstado() {
+            // localStorage.setItem("marcasDiplomado", document.getElementById("content-main").innerHTML);
+        }
+
+        // --- VISOR ---
+        function toggleVisor(url) {
+            const container = document.getElementById("visor-container");
+            const main = document.getElementById("content-main");
+            const iframe = document.getElementById("screen-iframe");
+
+            if (!visorActivo) {
+                visorActivo = true;
+                // Guardamos el scroll actual para no perdernos
+                lastScroll = document.getElementById("content-wrapper").scrollTop;
+
+                main.style.display = "none";
+                container.style.display = "flex";
+
+                // ASIGNAMOS LA URL AL IFRAME
+                iframe.src = url;
+
+                setTimeout(ajustarEscalaMonitor, 50);
+            } else {
+                visorActivo = false;
+                container.style.display = "none";
+                main.style.display = "block";
+                iframe.src = "about:blank";
+                document.getElementById("content-wrapper").scrollTop = lastScroll;
+            }
+            document.getElementById("visor-btn").classList.toggle("active-tool", visorActivo);
+        }
+
+        function abrirNuevaPestana() {
+            const iframe = document.getElementById("screen-iframe");
+            if (iframe.src && iframe.src !== "about:blank") {
+                window.open(iframe.src, '_blank');
+            }
+        }
+
+        function ajustarEscalaMonitor() {
+            const frame = document.getElementById("m-frame");
+            const iframe = document.getElementById("screen-iframe");
+            const container = document.getElementById("visor-container");
+            if (!visorActivo) return;
+
+            const targetW = 1280, targetH = 800;
+            const availW = container.offsetWidth - 40, availH = container.offsetHeight - 60;
+            const scale = Math.min(availW / targetW, availH / targetH);
+
+            iframe.style.transform = `scale(${scale})`;
+            frame.style.width = (targetW * scale + 20) + "px";
+            frame.style.height = (targetH * scale + 35) + "px";
+        }
+
+        // --- PUNTERO LÁSER ---
         const puntero = document.createElement("div");
         puntero.className = "punteroRojo";
         document.body.appendChild(puntero);
 
-        // --- RELOJ ---
-        function actualizarReloj() {
-            const ahora = new Date();
-            const hrs = ahora.getHours().toString().padStart(2, '0');
-            const min = ahora.getMinutes().toString().padStart(2, '0');
-            const relojEl = document.getElementById("reloj");
-            if (relojEl) relojEl.textContent = `${hrs}:${min}`;
-        }
-        setInterval(actualizarReloj, 1000);
-        actualizarReloj();
-
-        // --- LÓGICA DE PERSISTENCIA (STORAGE) ---
-        function guardarMarcas() {
-            const contenido = document.getElementById("content-main").innerHTML;
-            localStorage.setItem("marcasGuardadas", contenido);
-        }
-
-        function cargarMarcas() {
-            const marcas = localStorage.getItem("marcasGuardadas");
-            if (marcas) {
-                document.getElementById("content-main").innerHTML = marcas;
-                reVincularEventosBorrado();
-            }
-        }
-
-        // Corregido: Nombre de función sin guion intermedio
-        function reVincularEventosBorrado() {
-            document.querySelectorAll(".highlight-span").forEach(span => {
-                span.onclick = function (e) {
-                    e.stopPropagation();
-                    this.replaceWith(...this.childNodes);
-                    guardarMarcas();
-                };
-            });
-        }
-
-        // --- LÓGICA DE LA PALETA ---
-        const grid = document.getElementById("p-grid");
-        if (grid) {
-            grid.innerHTML = "";
-            colors.forEach(colorHex => {
-                const d = document.createElement("div");
-                d.style.cssText = `aspect-ratio:1; border-radius:50%; background:${colorHex}; cursor:pointer; border:2px solid rgba(255,255,255,0.2); transition: transform 0.1s;`;
-
-                d.addEventListener('click', function () {
-                    if (currentRange) {
-                        aplicarMarcado(currentRange, colorHex);
-                        guardarMarcas();
-                    }
-                    document.getElementById("palette-dialog").close();
-                    currentRange = null;
-                });
-                grid.appendChild(d);
-            });
-        }
-
-        // --- FUNCIONES DE SELECCIÓN ---
-        function forzarPaleta() {
-            const sel = window.getSelection();
-            if (sel.rangeCount > 0 && !sel.isCollapsed) {
-                const range = sel.getRangeAt(0);
-                expandirRangoAPalabarasCompletas(range);
-                currentRange = range.cloneRange();
-                document.getElementById("palette-dialog").showModal();
-            } else {
-                alert("Selecciona primero una palabra para pintar.");
-            }
-        }
-
-        function expandirRangoAPalabarasCompletas(range) {
-            while (range.startOffset > 0) {
-                range.setStart(range.startContainer, range.startOffset - 1);
-                if (range.toString().match(/^\s/)) {
-                    range.setStart(range.startContainer, range.startOffset + 1);
-                    break;
-                }
-            }
-            while (range.endOffset < (range.endContainer.length || range.endContainer.childNodes.length)) {
-                try {
-                    range.setEnd(range.endContainer, range.endOffset + 1);
-                    if (range.toString().match(/\s$/)) {
-                        range.setEnd(range.endContainer, range.endOffset - 1);
-                        break;
-                    }
-                } catch (e) { break; }
-            }
-        }
-
-        function aplicarMarcado(range, color) {
-            const span = document.createElement("span");
-            span.className = "highlight-span";
-            span.style.borderBottom = `2px solid ${color}`;
-            span.style.color = color;
-
-            span.onclick = function (e) {
-                e.stopPropagation();
-                this.replaceWith(...this.childNodes);
-                guardarMarcas();
-            };
-
-            try {
-                range.surroundContents(span);
-            } catch (e) {
-                const fragment = range.extractContents();
-                span.appendChild(fragment);
-                range.insertNode(span);
-            }
-            window.getSelection().removeAllRanges();
-        }
-
-        // --- BUSCADOR ---
-        function openSearch() {
-            const list = document.getElementById("results");
-            if (!list) return;
-            list.innerHTML = "";
-            document.querySelectorAll("section h2").forEach((h2) => {
-                // CAMBIO: Añade esta validación
-                if (h2.closest('details')) return;
-
-                const li = document.createElement("li");
-                li.textContent = h2.textContent;
-                li.onclick = () => {
-                    if (visorActivo) toggleVisor();
-                    h2.scrollIntoView({ behavior: "smooth" });
-                    document.getElementById("search-dialog").close();
-                };
-                list.appendChild(li);
-            });
-            document.getElementById("search-dialog").showModal();
-        }
-
-        // --- HERRAMIENTAS (PC) ---
-        function toggleVisor() {
-            if (window.innerWidth < 1024) return;
-            const wrapper = document.getElementById("content-wrapper");
-            const mainContent = document.getElementById("content-main");
-            const visorContainer = document.getElementById("visor-container");
-            visorActivo = !visorActivo;
-
-            if (visorActivo) {
-                lastScrollPos = wrapper.scrollTop;
-                mainContent.style.display = "none";
-                visorContainer.style.display = "block";
-                document.body.classList.add("visor-activo");
-            } else {
-                visorContainer.style.display = "none";
-                mainContent.style.display = "block";
-                document.body.classList.remove("visor-activo");
-                wrapper.scrollTop = lastScrollPos;
-                reVincularEventosBorrado();
-            }
-            const btn = document.getElementById("visor-btn");
-            if (btn) btn.classList.toggle("active-tool", visorActivo);
-        }
-
         function toggleLaser() {
-            if (window.innerWidth < 1024) return;
             laserActive = !laserActive;
             puntero.style.display = laserActive ? "block" : "none";
-            const btn = document.getElementById("pointer-btn");
-            if (btn) btn.classList.toggle("active-tool", laserActive);
-            document.body.classList.toggle("laser-on", laserActive);
+            document.getElementById("pointer-btn").classList.toggle("active-tool", laserActive);
+            if (visorActivo) document.getElementById("mouse-overlay").style.display = laserActive ? "block" : "none";
         }
 
         document.addEventListener("mousemove", (e) => {
-            if (!laserActive || window.innerWidth < 1024) return;
+            if (!laserActive) return;
             puntero.style.left = e.clientX + "px";
             puntero.style.top = e.clientY + "px";
-            const punto = document.createElement("div");
-            punto.className = "puntoEstela";
-            punto.style.left = e.clientX + "px";
-            punto.style.top = e.clientY + "px";
-            punto.style.backgroundColor = puntero.style.backgroundColor;
-            document.body.appendChild(punto);
-            setTimeout(() => punto.remove(), 600);
+
+            const trail = document.createElement("div");
+            trail.className = "puntoEstela";
+            trail.style.left = e.clientX + "px";
+            trail.style.top = e.clientY + "px";
+            document.body.appendChild(trail);
+            setTimeout(() => trail.remove(), 500);
         });
 
-        // --- INICIO Y PERSISTENCIA ---
+        // --- NAVEGACIÓN ---
         function goHome() {
             if (visorActivo) toggleVisor();
-            const wrapper = document.getElementById("content-wrapper");
-            if (wrapper) wrapper.scrollTo({ top: 0, behavior: 'smooth' });
+            document.getElementById("content-wrapper").scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        window.onclick = (e) => {
-            if (e.target.tagName === 'DIALOG') e.target.close();
+        function openSearch() {
+            const dialog = document.getElementById("search-dialog");
+
+            // Estructuramos el diálogo con un input de búsqueda y el contenedor de resultados
+            dialog.innerHTML = `
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+            <h3 style="font-size: 0.8rem; color: var(--accent); margin-bottom: 5px; text-align: center;">NAVEGAR POR TEMAS</h3>
+            <input type="text" id="search-input" placeholder="Buscar módulo o tema..." 
+                   style="background:#12141c; color:white; border:1px solid var(--border); padding:12px; border-radius:8px; outline:none; font-size:0.9rem;">
+            <ul id="results" style="list-style:none; max-height:350px; overflow-y:auto; margin-top:10px;"></ul>
+        </div>
+    `;
+
+            const input = document.getElementById("search-input");
+            const resultsList = document.getElementById("results");
+            const secciones = document.querySelectorAll("main > section");
+
+            // Función para renderizar la lista con numeración automática
+            const renderResults = (filtro = "") => {
+                resultsList.innerHTML = "";
+
+                // Inicializamos el contador de unidades
+                let contadorUnidad = 1;
+
+                secciones.forEach(section => {
+                    const h2 = section.querySelector("h2");
+                    if (!h2) return;
+
+                    const titulo = h2.textContent;
+
+                    // Si hay filtro, comprobamos si el título coincide
+                    if (filtro === "" || titulo.toLowerCase().includes(filtro.toLowerCase())) {
+                        const li = document.createElement("li");
+                        li.style.cssText = "padding:15px; cursor:pointer; border-bottom:1px solid #2d3343; text-transform:uppercase; font-size:12px; color:#fff; transition:0.2s; display:flex; align-items:center; gap:10px;";
+
+                        // USAMOS EL CONTADOR AQUÍ: Unidad 1, Unidad 2...
+                        li.innerHTML = `
+                <svg class="icon-svg" style="width:16px; height:16px; stroke:var(--accent)" viewBox="0 0 24 24">
+                    <path d="m9 18 6-6-6-6"/>
+                </svg> 
+                <span style="color:var(--accent); font-weight:bold; width: 100px">UNIDAD ${contadorUnidad}:</span> ${titulo}
+            `;
+
+                        li.onmouseover = () => { li.style.background = "rgba(97, 218, 251, 0.1)"; li.style.color = "var(--accent)"; };
+                        li.onmouseout = () => { li.style.background = "transparent"; li.style.color = "#fff"; };
+
+                        li.onclick = () => {
+                            if (visorActivo) toggleVisor();
+                            h2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            dialog.close();
+                        };
+                        resultsList.appendChild(li);
+                    }
+
+                    // Incrementamos el contador para la siguiente sección, coincida o no con el filtro
+                    // (Esto mantiene el número real de la unidad según su orden en el HTML)
+                    contadorUnidad++;
+                });
+
+                if (resultsList.innerHTML === "") {
+                    resultsList.innerHTML = "<li style='padding:15px; color:gray; font-size:12px; text-align:center;'>No se encontraron coincidencias</li>";
+                }
+            };
+
+            // Escuchar el teclado para filtrar
+            input.addEventListener("input", (e) => renderResults(e.target.value));
+
+            // Mostrar todos los temas al abrir por primera vez
+            renderResults();
+
+            dialog.showModal();
+            setTimeout(() => input.focus(), 50); // Focus inmediato para escribir
         }
 
         function copyCode(btn) {
-            const pre = btn.parentElement.querySelector('pre');
-            if (!pre) return;
-            navigator.clipboard.writeText(pre.innerText).then(() => {
-                const oldText = btn.innerText;
-                btn.innerText = "¡COPIADO!";
-                setTimeout(() => { btn.innerText = oldText; }, 1500);
+            const code = btn.parentElement.querySelector('code').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                const original = btn.textContent;
+                btn.textContent = "¡LISTO!";
+                setTimeout(() => btn.textContent = original, 1500);
             });
         }
 
-        document.addEventListener("DOMContentLoaded", () => {
-            cargarMarcas();
-            const savedScroll = localStorage.getItem("liveServerScrollPos");
-            const wrapper = document.getElementById("content-wrapper");
-            if (savedScroll && wrapper) {
-                setTimeout(() => { wrapper.scrollTop = savedScroll; }, 100);
-            }
-        });
-
-        const wrapperScroll = document.getElementById("content-wrapper");
-        if (wrapperScroll) {
-            wrapperScroll.addEventListener("scroll", () => {
-                localStorage.setItem("liveServerScrollPos", wrapperScroll.scrollTop);
-            });
-        }
+        window.onclick = (e) => { if (e.target.tagName === 'DIALOG') e.target.close(); }
+        window.onresize = () => { if (visorActivo) ajustarEscalaMonitor(); };
     </script>
-
 </body>
 
 </html>
