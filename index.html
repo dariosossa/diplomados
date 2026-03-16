@@ -11347,24 +11347,6 @@ document.getElementById(target).classList.add("active");
 </code></pre>
                 </div>
 
-
-
-                <h3>Resultado</h3>
-
-                <p>
-                    La navegación ahora tiene tres niveles:
-                </p>
-
-                <p>
-                    Nivel 1 → menú principal
-                    Nivel 2 → subcategorías desplegables
-                    Nivel 3 → opciones específicas
-                </p>
-
-                <p>
-                    Este tipo de navegación es muy utilizado en <b>paneles administrativos,
-                        tiendas en línea, sistemas empresariales y plataformas educativas</b>.
-                </p>
                 <h3>Navbar moderna tipo aplicación (App Navbar)</h3>
 
                 <p>
@@ -11615,27 +11597,6 @@ document.getElementById(target).classList.add("active");
 }
 </code></pre>
                 </div>
-
-
-
-                <h3>Resultado</h3>
-
-                <p>
-                    Se obtiene una <b>Navbar moderna estilo aplicación</b> con:
-                </p>
-
-                <ul>
-                    <li>Logo del sistema</li>
-                    <li>Menú principal</li>
-                    <li>Buscador</li>
-                    <li>Iconos de acciones</li>
-                    <li>Perfil de usuario</li>
-                </ul>
-
-                <p>
-                    Este tipo de navegación es muy común en <b>paneles administrativos,
-                        sistemas empresariales, dashboards y plataformas SaaS modernas</b>.
-                </p>
 
                 <h3>Sidebar (Barra lateral)</h3>
 
@@ -12100,6 +12061,2355 @@ document.getElementById(target).classList.add("active");
 </code></pre>
                 </div>
             </section>
+            <section>
+                <h2>¿Qué es Tailwind CSS?</h2>
+                <div class="media-container">
+                    <img src="https://i.ytimg.com/vi/2NuGuBpP5fo/maxresdefault.jpg" alt="Code" loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        Tailwind CSS es un <b>framework de CSS</b> que permite diseñar interfaces web utilizando
+                        <b>clases utilitarias</b> directamente en las etiquetas HTML.
+                    </div>
+                </div>
+
+                <h3>¿Qué necesitamos para usar Tailwind CSS?</h3>
+
+                <p>
+                    Para poder utilizar <b>Tailwind CSS</b> en una página web es necesario
+                    cargar la biblioteca dentro del documento HTML.
+                </p>
+
+                <p>
+                    Para hacerlo solo debemos agregar un script dentro de la etiqueta
+                    <b>&lt;head&gt;</b> del archivo <b>index.html</b>.
+                </p>
+
+                <h3>Conectar Tailwind en el documento</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Mi página&lt;/title&gt;
+
+  &lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
+
+&lt;/head&gt;
+</code></pre>
+
+                </div>
+                <h3>¿Tailwind también utiliza el modelo de caja?</h3>
+
+                <p>
+                    Sí. Tailwind también utiliza el <b>modelo de caja (Box Model)</b>, porque
+                    Tailwind no reemplaza a CSS. En realidad es un framework que utiliza
+                    las mismas reglas de CSS que el navegador ya conoce.
+                </p>
+
+                <p>
+                    Esto significa que todos los elementos de una página siguen comportándose
+                    como cajas rectangulares formadas por cuatro partes: <b>margin</b>,
+                    <b>border</b>, <b>padding</b> y <b>content</b>.
+                </p>
+                <h3>¿Cómo se coloca margin en Tailwind?</h3>
+
+                <p>
+                    En Tailwind el <b>margin</b> no se escribe dentro de un archivo CSS.
+                    En lugar de eso, se aplica directamente en la etiqueta HTML utilizando
+                    clases utilitarias.
+                </p>
+
+                <p>
+                    Las clases que controlan el margen comienzan con la letra
+                    <b>m</b>, que representa la propiedad <b>margin</b>.
+                </p>
+
+
+
+                <h3>Margin en todos los lados</h3>
+
+                <p>
+                    Si queremos agregar margen alrededor de todo el elemento,
+                    utilizamos la clase <b>m</b> seguida de un número.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="m-4"&gt;
+  Contenido
+&lt;/div&gt;
+</code></pre>
+
+                </div>
+
+                <p>
+                    La clase <b>m-4</b> agrega margen en los cuatro lados del elemento.
+                </p>
+                <h3>Significado de los números:</h3>
+                <p><b>1</b> → 0.25rem</p>
+                <p><b>2</b> → 0.5rem</p>
+                <p><b>4</b> → 1rem</p>
+                <p><b>8</b> → 2rem</p>
+
+
+
+                <h3>Margin en un solo lado</h3>
+
+                <p>
+                    También es posible agregar margen en un lado específico utilizando
+                    letras que representan la dirección.
+                </p>
+
+                <p>
+                    <b>mt</b> → margin-top (arriba)
+                </p>
+
+                <p>
+                    <b>mb</b> → margin-bottom (abajo)
+                </p>
+
+                <p>
+                    <b>ml</b> → margin-left (izquierda)
+                </p>
+
+                <p>
+                    <b>mr</b> → margin-right (derecha)
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="mt-6"&gt;
+  Margen superior
+&lt;/div&gt;
+</code></pre>
+
+                </div>
+
+                <h3>Margin horizontal y vertical</h3>
+
+                <p>
+                    Tailwind también permite agregar margen horizontal o vertical
+                    utilizando dos abreviaciones especiales.
+                </p>
+
+                <p>
+                    <b>mx</b> → margen izquierda y derecha
+                </p>
+
+                <p>
+                    <b>my</b> → margen arriba y abajo
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="mx-8"&gt;
+  Margen horizontal
+&lt;/div&gt;
+</code></pre>
+
+                </div>
+
+                <p>
+                    De esta forma Tailwind permite controlar los márgenes utilizando
+                    clases simples directamente en el HTML.
+                </p>
+                <h3>¿Cómo se coloca padding en Tailwind?</h3>
+
+                <p>
+                    Si queremos agregar espacio interno alrededor de todo el contenido
+                    de un elemento, utilizamos la clase <b>p</b> seguida de un número.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="p-4"&gt;
+  Contenido
+&lt;/div&gt;
+</code></pre>
+
+                </div>
+
+                <p>
+                    La clase <b>p-4</b> agrega espacio interno en los cuatro lados
+                    del elemento.
+                </p>
+
+
+
+                <h3>Padding en un solo lado</h3>
+
+                <p>
+                    También es posible agregar padding en un lado específico
+                    utilizando abreviaciones.
+                </p>
+
+                <p>
+                    <b>pt</b> → padding-top (arriba)
+                </p>
+
+                <p>
+                    <b>pb</b> → padding-bottom (abajo)
+                </p>
+
+                <p>
+                    <b>pl</b> → padding-left (izquierda)
+                </p>
+
+                <p>
+                    <b>pr</b> → padding-right (derecha)
+                </p>
+
+
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="pt-6"&gt;
+  Espacio interno arriba
+&lt;/div&gt;
+</code></pre>
+
+                </div>
+
+
+
+                <h3>Padding horizontal y vertical</h3>
+
+                <p>
+                    Tailwind también permite aplicar padding horizontal o vertical
+                    utilizando dos abreviaciones.
+                </p>
+
+                <p>
+                    <b>px</b> → padding izquierda y derecha
+                </p>
+
+                <p>
+                    <b>py</b> → padding arriba y abajo
+                </p>
+
+
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="px-8"&gt;
+  Padding horizontal
+&lt;/div&gt;
+</code></pre>
+
+                </div>
+
+                <p>
+                    De esta manera Tailwind permite controlar el espacio interno
+                    de los elementos directamente desde el HTML.
+                </p>
+
+                <h3>¿Cómo se coloca un borde en Tailwind?</h3>
+
+                <p>
+                    Si queremos agregar un borde simple alrededor de un elemento,
+                    utilizamos la clase <b>border</b>.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="border"&gt;
+  Contenido
+&lt;/div&gt;
+</code></pre>
+
+                </div>
+
+                <p>
+                    La clase <b>border</b> agrega un borde delgado alrededor del elemento.
+                </p>
+
+
+
+                <h3>Tamaño del borde</h3>
+
+                <p>
+                    Tailwind permite modificar el grosor del borde utilizando números
+                    después de la palabra <b>border</b>.
+                </p>
+
+                <p>
+                    <b>border</b> → borde delgado
+                </p>
+
+                <p>
+                    <b>border-2</b> → borde mediano
+                </p>
+
+                <p>
+                    <b>border-4</b> → borde más grueso
+                </p>
+
+                <p>
+                    <b>border-8</b> → borde muy grueso
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="border-4"&gt;
+  Borde grueso
+&lt;/div&gt;
+</code></pre>
+
+                </div>
+
+
+
+                <h3>Color del borde en Tailwind</h3>
+
+                <p>
+                    En Tailwind el color del borde se define utilizando clases que comienzan
+                    con <b>border-</b> seguidas del nombre del color y un número.
+                </p>
+
+                <p>
+                    Por ejemplo, la clase <b>border-blue-500</b> aplica un borde de color azul.
+                    El número que aparece después del color representa la <b>intensidad del color</b>.
+                </p>
+
+                <p>
+                    Tailwind utiliza una escala de colores que normalmente va desde
+                    <b>50 hasta 950</b>. Los números más pequeños representan colores
+                    más claros, mientras que los números más grandes representan
+                    colores más oscuros.
+                </p>
+
+
+
+                <h3>Ejemplo de escala de colores</h3>
+
+                <p>
+                    <b>border-blue-100</b> → azul muy claro
+                </p>
+
+                <p>
+                    <b>border-blue-300</b> → azul claro
+                </p>
+
+                <p>
+                    <b>border-blue-500</b> → azul medio
+                </p>
+
+                <p>
+                    <b>border-blue-700</b> → azul oscuro
+                </p>
+
+                <p>
+                    <b>border-blue-900</b> → azul muy oscuro
+                </p>
+
+                <p>
+                    Estos son algunos de los colores más utilizados en Tailwind.
+                </p>
+
+                <p><b>slate</b> → gris azulado</p>
+                <p><b>gray</b> → gris</p>
+                <p><b>zinc</b> → gris metálico</p>
+                <p><b>neutral</b> → gris neutro</p>
+                <p><b>stone</b> → gris piedra</p>
+
+                <p><b>red</b> → rojo</p>
+                <p><b>orange</b> → naranja</p>
+                <p><b>amber</b> → ámbar</p>
+                <p><b>yellow</b> → amarillo</p>
+
+                <p><b>lime</b> → verde lima</p>
+                <p><b>green</b> → verde</p>
+                <p><b>emerald</b> → verde esmeralda</p>
+
+                <p><b>teal</b> → verde azulado</p>
+                <p><b>cyan</b> → cian</p>
+                <p><b>sky</b> → azul cielo</p>
+
+                <p><b>blue</b> → azul</p>
+                <p><b>indigo</b> → índigo</p>
+                <p><b>violet</b> → violeta</p>
+                <p><b>purple</b> → púrpura</p>
+                <p><b>fuchsia</b> → fucsia</p>
+
+                <p><b>pink</b> → rosado</p>
+                <p><b>rose</b> → rojo rosado</p>
+
+
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="border-2 border-blue-300"&gt;
+  Borde azul claro
+&lt;/div&gt;
+
+&lt;div class="border-2 border-blue-700"&gt;
+  Borde azul oscuro
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+
+
+                <h3>¿Se puede usar color hexadecimal?</h3>
+
+                <p>
+                    Sí. También es posible utilizar colores personalizados utilizando
+                    valores <b>hexadecimales</b>.
+                </p>
+
+                <p>
+                    Para hacerlo se utiliza la sintaxis con corchetes.
+                </p>
+
+
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="border-2 border-[#ff5733]"&gt;
+  Borde con color hexadecimal
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+                <h3>Estilo del borde</h3>
+
+                <p>
+                    Tailwind también permite cambiar el estilo del borde utilizando
+                    clases especiales.
+                </p>
+
+                <p>
+                    <b>border-solid</b> → borde sólido
+                </p>
+
+                <p>
+                    <b>border-dashed</b> → borde punteado
+                </p>
+
+                <p>
+                    <b>border-dotted</b> → borde con puntos
+                </p>
+
+                <p>
+                    <b>border-double</b> → borde doble
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="border-2 border-red-500 border-dashed"&gt;
+  Borde punteado rojo
+&lt;/div&gt;
+</code></pre>
+
+                </div>
+
+                <h3>¿Es posible colocar borde en un solo lado en Tailwind?</h3>
+
+                <p>
+                    Sí. En Tailwind también es posible aplicar un borde únicamente en un lado
+                    específico del elemento.
+                </p>
+
+                <h3>Borde superior</h3>
+
+                <p>
+                    Para aplicar un borde en la parte superior se utiliza la clase <b>border-t</b>.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="border-t border-blue-500"&gt;
+  Borde superior
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+
+
+                <h3>Borde inferior</h3>
+
+                <p>
+                    Para colocar un borde en la parte inferior se utiliza la clase <b>border-b</b>.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="border-b border-red-500"&gt;
+  Borde inferior
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+
+
+                <h3>Borde izquierdo</h3>
+
+                <p>
+                    El borde del lado izquierdo se aplica utilizando la clase <b>border-l</b>.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="border-l border-green-500"&gt;
+  Borde izquierdo
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+
+
+                <h3>Borde derecho</h3>
+
+                <p>
+                    Para colocar un borde en el lado derecho se utiliza la clase <b>border-r</b>.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="border-r border-purple-500"&gt;
+  Borde derecho
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+
+
+                <h3>Controlar el grosor del borde en un solo lado</h3>
+
+                <p>
+                    También es posible modificar el grosor del borde combinando la dirección
+                    con el tamaño.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="border-l-4 border-blue-600"&gt;
+  Borde izquierdo grueso
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+                <p>
+                    En este ejemplo se aplica un borde únicamente en el lado izquierdo
+                    con un grosor mayor y color azul.
+                </p>
+                <h3>¿Cómo redondear las esquinas en Tailwind?</h3>
+
+                <p>
+                    En Tailwind es posible redondear las esquinas de un elemento utilizando
+                    clases que comienzan con la palabra <b>rounded</b>.
+                </p>
+
+                <h3>Redondear todas las esquinas</h3>
+
+                <p>
+                    Para redondear todas las esquinas de un elemento se utiliza la clase
+                    <b>rounded</b>.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="border rounded"&gt;
+  Caja con esquinas redondeadas
+&lt;/div&gt;
+</code></pre>
+
+                </div>
+
+                <h3>Niveles de redondeo</h3>
+
+                <p>
+                    Tailwind permite controlar el nivel de redondeo utilizando diferentes
+                    clases.
+                </p>
+
+                <p><b>rounded-sm</b> → redondeo pequeño</p>
+                <p><b>rounded</b> → redondeo normal</p>
+                <p><b>rounded-md</b> → redondeo medio</p>
+                <p><b>rounded-lg</b> → redondeo grande</p>
+                <p><b>rounded-xl</b> → redondeo muy grande</p>
+                <p><b>rounded-2xl</b> → redondeo extra grande</p>
+                <p><b>rounded-full</b> → borde completamente circular</p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="border rounded-lg"&gt;
+  Caja con redondeo grande
+&lt;/div&gt;
+</code></pre>
+
+                </div>
+
+                <h3>Redondear solo una esquina</h3>
+
+                <p>
+                    También es posible redondear una esquina específica utilizando
+                    abreviaciones que indican la posición.
+                </p>
+
+                <p><b>rounded-t</b> → esquinas superiores</p>
+                <p><b>rounded-b</b> → esquinas inferiores</p>
+                <p><b>rounded-l</b> → lado izquierdo</p>
+                <p><b>rounded-r</b> → lado derecho</p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="border rounded-t-lg"&gt;
+  Solo esquinas superiores redondeadas
+&lt;/div&gt;
+</code></pre>
+
+                </div>
+
+                <h3>Redondear esquinas individuales</h3>
+
+                <p>
+                    Si se desea controlar una esquina específica también se puede hacer
+                    utilizando clases más detalladas.
+                </p>
+
+                <p><b>rounded-tl</b> → esquina superior izquierda</p>
+                <p><b>rounded-tr</b> → esquina superior derecha</p>
+                <p><b>rounded-bl</b> → esquina inferior izquierda</p>
+                <p><b>rounded-br</b> → esquina inferior derecha</p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="border rounded-tr-lg"&gt;
+  Solo esquina superior derecha redondeada
+&lt;/div&gt;
+</code></pre>
+
+                </div>
+                <h3>¿Cómo cambiar el tamaño de un elemento en Tailwind?</h3>
+
+                <p>
+                    En Tailwind el tamaño de un elemento se puede modificar utilizando
+                    clases que controlan el <b>ancho (width)</b> y el <b>alto (height)</b>..
+                </p>
+
+                <h3>Cambiar el ancho de un elemento</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="w-64 border"&gt;
+  Caja con ancho definido
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+                <h3>Cambiar el alto de un elemento</h3>
+
+                <p>
+                    El alto se controla utilizando clases que comienzan con <b>h</b>.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="h-32 border"&gt;
+  Caja con altura definida
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+                <h3>Usar porcentaje en Tailwind</h3>
+
+                <p>
+                    Tailwind también permite utilizar porcentajes para que el elemento
+                    ocupe una parte del contenedor.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="w-1/2 border"&gt;
+  Ocupa la mitad del contenedor
+&lt;/div&gt;
+</code></pre>
+                </div>
+                <h3>¿Cómo cambiar el color del texto en Tailwind?</h3>
+
+                <p>
+                    En Tailwind el color del texto se modifica utilizando clases que
+                    comienzan con <b>text-</b>. Después del nombre se indica el color
+                    y el nivel de intensidad.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;p class="text-blue-500"&gt;
+  Texto en color azul
+&lt;/p&gt;
+</code></pre>
+                </div>
+
+                <h3>¿Cómo cambiar el color de fondo?</h3>
+
+                <p>
+                    Para cambiar el color de fondo se utilizan clases que comienzan
+                    con <b>bg-</b> (background).
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="bg-blue-500"&gt;
+  Fondo azul
+&lt;/div&gt;
+</code></pre>
+                </div>
+                <h3>¿Cómo colocar una imagen de fondo en Tailwind?</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="bg-[url('img/fondo.jpg')] h-64"&gt;
+  Contenido
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+                <h3>Ajustar la imagen al contenedor</h3>
+
+                <p>
+                    Para que la imagen cubra completamente el espacio del elemento
+                    se puede utilizar la clase <b>bg-cover</b>.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="bg-[url('img/fondo.jpg')] bg-cover h-64"&gt;
+  Contenido
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+                <h3>Centrar la imagen de fondo</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="bg-[url('img/fondo.jpg')] bg-cover bg-center h-64"&gt;
+  Contenido
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+                <h3>Evitar que la imagen se repita</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="bg-[url('img/fondo.jpg')] bg-cover bg-center bg-no-repeat h-64"&gt;
+  Contenido
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+                <h3>¿Cómo cambiar el tamaño del texto en Tailwind?</h3>
+
+                <p>
+                    En Tailwind el tamaño del texto se modifica utilizando clases que
+                    comienzan con <b>text-</b>. Después del guion se indica el tamaño
+                    del texto que queremos aplicar.
+                </p>
+
+                <h3>Tamaños de texto más utilizados</h3>
+
+                <p><b>text-xs</b> → texto muy pequeño</p>
+                <p><b>text-sm</b> → texto pequeño</p>
+                <p><b>text-base</b> → tamaño normal</p>
+                <p><b>text-lg</b> → texto grande</p>
+                <p><b>text-xl</b> → texto más grande</p>
+                <p><b>text-2xl</b> → título mediano</p>
+                <p><b>text-3xl</b> → título grande</p>
+                <p><b>text-4xl</b> → título muy grande</p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;p class="text-sm"&gt;
+  Texto pequeño
+&lt;/p&gt;
+
+&lt;p class="text-lg"&gt;
+  Texto grande
+&lt;/p&gt;
+
+&lt;h1 class="text-3xl"&gt;
+  Título principal
+&lt;/h1&gt;
+</code></pre>
+                </div>
+
+                <h3>Uso de tamaños personalizados</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;p class="text-[40px]"&gt;
+  Texto personalizado
+&lt;/p&gt;
+</code></pre>
+                </div>
+
+                <h3>¿Cómo cambiar el tipo de letra en Tailwind?</h3>
+
+                <p>
+                    En Tailwind el tipo de letra se controla utilizando clases que comienzan
+                    con <b>font-</b>. Estas clases permiten cambiar la familia tipográfica
+                    del texto directamente desde la etiqueta HTML.
+                </p>
+
+                <h3>Tipos de letra disponibles en Tailwind</h3>
+
+                <p><b>font-sans</b> → fuente moderna sin serif</p>
+                <p><b>font-serif</b> → fuente clásica con serif</p>
+                <p><b>font-mono</b> → fuente monoespaciada utilizada en código</p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;p class="font-sans"&gt;
+  Texto con fuente moderna
+&lt;/p&gt;
+
+&lt;p class="font-serif"&gt;
+  Texto con fuente clásica
+&lt;/p&gt;
+
+&lt;p class="font-mono"&gt;
+  Texto con fuente de código
+&lt;/p&gt;
+</code></pre>
+                </div>
+
+                <h3>¿Cómo usar Google Fonts en Tailwind?</h3>
+
+                <p>
+                    El proceso para usar una fuente de Google Fonts en Tailwind tiene
+                    tres pasos sencillos:
+                </p>
+
+                <h3>Paso 1. Elegir una fuente en Google Fonts</h3>
+
+                <p>
+                    Primero debes ingresar al sitio:
+                </p>
+
+                <p>
+                    <b>https://fonts.google.com</b>
+                </p>
+
+                <p>
+                    Ahí encontrarás cientos de tipografías que puedes utilizar
+                    gratuitamente en tus proyectos.
+                </p>
+
+                <p>
+                    Por ejemplo, una de las fuentes más utilizadas en diseño web es
+                    <b>Poppins</b>.
+                </p>
+
+                <h3>Paso 2. Importar la fuente en el documento HTML</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;head&gt;
+
+&lt;link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"&gt;
+
+&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
+
+&lt;/head&gt;
+</code></pre>
+                </div>
+
+                <h3>Paso 3. Aplicar la fuente al texto</h3>
+
+                <p>
+                    Después de importar la fuente podemos aplicarla utilizando
+                    <b>font-family</b>.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;style&gt;
+
+.font-poppins{
+font-family: 'Poppins', sans-serif;
+}
+
+&lt;/style&gt;
+</code></pre>
+                </div>
+
+                <h3>Ejemplo utilizando la fuente</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;p class="font-poppins text-lg"&gt;
+Este texto utiliza la fuente Poppins desde Google Fonts.
+&lt;/p&gt;
+</code></pre>
+                </div>
+
+                <h3>¿Cómo poner texto en negrita en Tailwind?</h3>
+
+                <p>
+                    En Tailwind el grosor de la letra se controla utilizando clases que
+                    comienzan con <b>font-</b>. Estas clases permiten aumentar o disminuir
+                    el peso visual del texto.
+                </p>
+
+                <h3>Niveles de grosor disponibles en Tailwind</h3>
+
+                <p><b>font-light</b> → letra muy delgada</p>
+                <p><b>font-normal</b> → grosor normal</p>
+                <p><b>font-medium</b> → grosor medio</p>
+                <p><b>font-semibold</b> → un poco más gruesa</p>
+                <p><b>font-bold</b> → letra en negrita</p>
+                <p><b>font-extrabold</b> → letra muy gruesa</p>
+
+
+                <h3>Ejemplo usando diferentes grosores</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+<p class="font-light">
+Texto con letra delgada
+</p>
+
+<p class="font-normal">
+Texto con grosor normal
+</p>
+
+<p class="font-semibold">
+Texto con grosor semi negrita
+</p>
+
+<p class="font-bold">
+Texto en negrita
+</p>
+
+<p class="font-extrabold">
+Texto muy grueso
+</p>
+</code></pre>
+                </div>
+
+                <h3>¿Cómo alinear texto en Tailwind?</h3>
+
+                <p>
+                    En Tailwind la alineación del texto se controla utilizando clases que
+                    comienzan con <b>text-</b>. Estas clases permiten indicar si el texto
+                    debe alinearse a la izquierda, al centro, a la derecha o justificado.
+                </p>
+
+                <h3>Tipos de alineación disponibles en Tailwind</h3>
+
+                <p><b>text-left</b> → alinea el texto a la izquierda</p>
+                <p><b>text-center</b> → centra el texto</p>
+                <p><b>text-right</b> → alinea el texto a la derecha</p>
+                <p><b>text-justify</b> → justifica el texto</p>
+
+
+                <h3>Ejemplo usando diferentes alineaciones</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+<p class="text-left">
+Texto alineado a la izquierda
+</p>
+
+<p class="text-center">
+Texto centrado
+</p>
+
+<p class="text-right">
+Texto alineado a la derecha
+</p>
+
+<p class="text-justify">
+Este texto está justificado para que ocupe todo el ancho del
+contenedor y los bordes del párrafo queden alineados.
+</p>
+</code></pre>
+                </div>
+                <h3>¿Cómo cambiar el comportamiento de display en Tailwind?</h3>
+
+                <p>
+                    En HTML cada etiqueta tiene un comportamiento por defecto definido por la
+                    propiedad <b>display</b>. Algunos elementos ocupan toda la línea y otros
+                    solo ocupan el espacio de su contenido.
+                </p>
+
+                <p>
+                    Por ejemplo:
+                </p>
+
+                <p><b>Elementos block</b> → ocupan toda la línea (div, p, h1, section)</p>
+                <p><b>Elementos inline</b> → solo ocupan el espacio del contenido (span, a, b)</p>
+
+                <p>
+                    Con <b>Tailwind</b> podemos cambiar ese comportamiento usando clases que
+                    representan directamente la propiedad <b>display</b>.
+                </p>
+
+                <h3>Clases display disponibles en Tailwind</h3>
+
+                <p><b>block</b> → convierte el elemento en bloque</p>
+                <p><b>inline</b> → convierte el elemento en elemento en línea</p>
+                <p><b>inline-block</b> → elemento en línea pero permite ancho y alto</p>
+
+                <h3>1. Convertir un elemento inline en block</h3>
+
+                <p>
+                    La etiqueta <b>span</b> normalmente es inline, pero podemos convertirla
+                    en bloque usando la clase <b>block</b>.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;span class="block bg-blue-200"&gt;
+Ahora este span se comporta como bloque
+&lt;/span&gt;
+</code></pre>
+                </div>
+
+                <p>
+                    Ahora el <b>span</b> ocupará toda la línea, como si fuera un div.
+                </p>
+
+                <h3>2. Convertir un elemento block en inline</h3>
+
+                <p>
+                    Un <b>div</b> normalmente ocupa toda la línea. Con Tailwind podemos
+                    hacer que se comporte como un elemento en línea.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="inline bg-green-200"&gt;Caja 1&lt;/div&gt;
+&lt;div class="inline bg-green-300"&gt;Caja 2&lt;/div&gt;
+&lt;div class="inline bg-green-400"&gt;Caja 3&lt;/div&gt;
+</code></pre>
+                </div>
+
+                <p>
+                    Como ahora son <b>inline</b>, los elementos aparecerán uno al lado del otro.
+                </p>
+
+                <h3>3. Usar inline-block</h3>
+
+                <p>
+                    <b>inline-block</b> permite que el elemento se comporte como inline
+                    (aparecer en la misma línea), pero permite controlar su tamaño.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="inline-block w-32 h-16 bg-purple-300"&gt;
+Caja A
+&lt;/div&gt;
+
+&lt;div class="inline-block w-32 h-16 bg-purple-400"&gt;
+Caja B
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+                <p>
+                    Ambas cajas estarán en la misma línea y tendrán tamaño definido.
+                </p>
+
+                <h3>Uso de Flexbox en Tailwind</h3>
+
+                <p>
+                    En Tailwind podemos utilizar <b>Flexbox</b> para organizar elementos dentro
+                    de un contenedor de forma flexible.
+                </p>
+
+                <p>
+                    Para activar Flexbox se utiliza la clase:
+                </p>
+
+                <p><b>flex</b> → convierte el contenedor en un contenedor flexible.</p>
+
+                <h3>¿Qué hace justify-content?</h3>
+
+                <p>
+                    La propiedad <b>justify-content</b> controla la forma en que los elementos
+                    se distribuyen en el eje horizontal dentro de un contenedor flexible.
+                </p>
+
+                <p>
+                    En Tailwind esta propiedad se controla con clases que comienzan con
+                    <b>justify-</b>.
+                </p>
+
+                <h3>Clases justify-content en Tailwind</h3>
+
+                <p><b>justify-start</b> → alinea los elementos al inicio</p>
+                <p><b>justify-center</b> → centra los elementos</p>
+                <p><b>justify-end</b> → alinea los elementos al final</p>
+                <p><b>justify-between</b> → deja espacio entre los elementos</p>
+                <p><b>justify-around</b> → deja espacio alrededor de los elementos</p>
+                <p><b>justify-evenly</b> → distribuye el espacio de forma uniforme</p>
+
+
+                <h3>Ejemplo básico usando Flexbox</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="flex justify-center bg-gray-200 p-4"&gt;
+
+  &lt;div class="bg-blue-400 p-3"&gt;Caja 1&lt;/div&gt;
+  &lt;div class="bg-blue-500 p-3"&gt;Caja 2&lt;/div&gt;
+  &lt;div class="bg-blue-600 p-3"&gt;Caja 3&lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+                <p>
+                    Cuando usamos <b>Flexbox</b>, por defecto los elementos se organizan
+                    en una fila horizontal. Sin embargo, podemos cambiar la dirección
+                    de los elementos utilizando la propiedad <b>flex-direction</b>.
+                </p>
+
+                <p>
+                    En Tailwind esta propiedad se controla utilizando clases que
+                    comienzan con <b>flex-</b>.
+                </p>
+
+                <h3>Clases de dirección en Tailwind</h3>
+
+                <p><b>flex-row</b> → coloca los elementos en una fila (horizontal)</p>
+                <p><b>flex-col</b> → coloca los elementos en una columna (vertical)</p>
+                <p><b>flex-row-reverse</b> → fila pero en orden inverso</p>
+                <p><b>flex-col-reverse</b> → columna pero en orden inverso</p>
+
+                <h3>Ejemplo usando flex-row</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="flex flex-row gap-3 bg-gray-200 p-4"&gt;
+
+  &lt;div class="bg-blue-400 p-3"&gt;Caja 1&lt;/div&gt;
+  &lt;div class="bg-blue-500 p-3"&gt;Caja 2&lt;/div&gt;
+  &lt;div class="bg-blue-600 p-3"&gt;Caja 3&lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+                <h3>Ejemplo usando flex-col</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="flex flex-col gap-3 bg-gray-200 p-4"&gt;
+
+  &lt;div class="bg-green-400 p-3"&gt;Elemento 1&lt;/div&gt;
+  &lt;div class="bg-green-500 p-3"&gt;Elemento 2&lt;/div&gt;
+  &lt;div class="bg-green-600 p-3"&gt;Elemento 3&lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+                <h3>Propiedad align-items en Tailwind</h3>
+
+                <p>
+                    La propiedad <b>align-items</b> controla la alineación de los elementos
+                    en el eje vertical dentro del contenedor flexible.
+                </p>
+
+                <p>
+                    En Tailwind esta propiedad se controla con clases que comienzan
+                    con <b>items-</b>.
+                </p>
+
+                <h3>Clases align-items en Tailwind</h3>
+
+                <p><b>items-start</b> → alinea los elementos arriba</p>
+                <p><b>items-center</b> → centra verticalmente</p>
+                <p><b>items-end</b> → alinea abajo</p>
+                <p><b>items-stretch</b> → estira los elementos</p>
+
+                <h3>Ejemplo usando align-items</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="flex items-center h-40 bg-gray-200 p-4"&gt;
+
+  &lt;div class="bg-purple-400 p-3"&gt;Caja A&lt;/div&gt;
+  &lt;div class="bg-purple-500 p-3"&gt;Caja B&lt;/div&gt;
+  &lt;div class="bg-purple-600 p-3"&gt;Caja C&lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+                <h3>Propiedad flex-wrap en Tailwind</h3>
+
+                <p>
+                    Cuando utilizamos <b>Flexbox</b>, los elementos normalmente intentan
+                    mantenerse en una sola línea. Sin embargo, cuando el contenedor es
+                    pequeño o existen muchos elementos, estos pueden desbordarse.
+                </p>
+
+                <p>
+                    Para evitar esto se utiliza la propiedad <b>flex-wrap</b>, que permite
+                    que los elementos bajen a una nueva línea cuando ya no hay espacio.
+                </p>
+
+                <h3>Clases flex-wrap en Tailwind</h3>
+
+                <p><b>flex-nowrap</b> → todos los elementos permanecen en una sola línea</p>
+                <p><b>flex-wrap</b> → los elementos pueden bajar a la siguiente línea</p>
+                <p><b>flex-wrap-reverse</b> → los elementos bajan pero en orden inverso</p>
+
+                <h3>Ejemplo usando flex-wrap</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="flex flex-wrap bg-gray-200 p-4"&gt;
+
+  &lt;div class="bg-blue-400 p-3"&gt;Caja 1&lt;/div&gt;
+  &lt;div class="bg-blue-500 p-3"&gt;Caja 2&lt;/div&gt;
+  &lt;div class="bg-blue-600 p-3"&gt;Caja 3&lt;/div&gt;
+  &lt;div class="bg-blue-700 p-3"&gt;Caja 4&lt;/div&gt;
+  &lt;div class="bg-blue-800 p-3"&gt;Caja 5&lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+                <h3>Propiedad gap en Tailwind</h3>
+
+                <p>
+                    La propiedad <b>gap</b> permite crear espacio entre los elementos
+                    dentro de un contenedor flexible o grid sin necesidad de usar
+                    margin en cada elemento.
+                </p>
+
+                <h3>Ejemplo usando gap</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="flex gap-4 bg-gray-200 p-4"&gt;
+
+  &lt;div class="bg-green-400 p-3"&gt;Elemento 1&lt;/div&gt;
+  &lt;div class="bg-green-500 p-3"&gt;Elemento 2&lt;/div&gt;
+  &lt;div class="bg-green-600 p-3"&gt;Elemento 3&lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+                <h3>Propiedad flex-1 en Tailwind</h3>
+
+                <p>
+                    La clase <b>flex-1</b> permite que un elemento ocupe todo el espacio
+                    disponible dentro del contenedor flexible.
+                </p>
+
+                <p>
+                    Esto es muy útil cuando queremos que un elemento crezca para llenar
+                    el espacio restante.
+                </p>
+
+
+
+                <h3>Ejemplo usando flex-1</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="flex bg-gray-200 p-4"&gt;
+
+  &lt;div class="bg-red-400 p-3"&gt;Caja fija&lt;/div&gt;
+
+  &lt;div class="flex-1 bg-red-600 p-3"&gt;
+    Esta caja ocupa el espacio restante
+  &lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+                <h3>Crear una Card en Tailwind</h3>
+
+                <p>
+                    Una <b>Card</b> es un componente muy utilizado en el diseño de interfaces
+                    modernas. Sirve para mostrar información agrupada dentro de una caja
+                    visualmente organizada.
+                </p>
+
+                <p>
+                    Las cards se utilizan comúnmente para mostrar:
+                </p>
+
+                <p>• Productos</p>
+                <p>• Servicios</p>
+                <p>• Artículos de blog</p>
+                <p>• Información de usuarios</p>
+
+
+
+                <h3>Estructura básica de una Card</h3>
+
+                <p>
+                    Una card normalmente contiene:
+                </p>
+
+                <p>• Imagen</p>
+                <p>• Título</p>
+                <p>• Descripción</p>
+                <p>• Botones de acción</p>
+
+
+
+                <h3>Ejemplo de Card con Tailwind</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="max-w-sm bg-white rounded-lg shadow-md overflow-hidden"&gt;
+
+  &lt;img 
+    src="https://images.unsplash.com/photo-1504674900247-0877df9cc836"
+    alt="Producto"
+    class="w-full h-48 object-cover"
+  &gt;
+
+  &lt;div class="p-5"&gt;
+
+    &lt;h3 class="text-xl font-bold mb-2"&gt;
+      Curso de Desarrollo Web
+    &lt;/h3&gt;
+
+    &lt;p class="text-gray-600 mb-4"&gt;
+      Aprende HTML, CSS y Tailwind desde cero con ejemplos prácticos
+      y proyectos reales.
+    &lt;/p&gt;
+
+    &lt;div class="flex gap-3"&gt;
+
+      &lt;button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"&gt;
+        Ver más
+      &lt;/button&gt;
+
+      &lt;button class="border border-gray-400 px-4 py-2 rounded hover:bg-gray-100"&gt;
+        Comprar
+      &lt;/button&gt;
+
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre>
+                </div>
+                <h3>Ejemplo de Card con imagen lateral</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="max-w-xl bg-white shadow-lg rounded-lg overflow-hidden flex"&gt;
+
+  &lt;img 
+    src="https://images.unsplash.com/photo-1498050108023-c5249f4df085"
+    alt="Curso programación"
+    class="w-40 object-cover"
+  &gt;
+
+  &lt;div class="p-4 flex flex-col justify-between"&gt;
+
+    &lt;div&gt;
+      &lt;h3 class="text-lg font-bold"&gt;
+        Curso de Programación
+      &lt;/h3&gt;
+
+      &lt;p class="text-gray-600 mt-2"&gt;
+        Aprende programación desde cero con proyectos prácticos
+        y ejemplos reales paso a paso.
+      &lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;button class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"&gt;
+      Inscribirme
+    &lt;/button&gt;
+
+  &lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre>
+                </div>
+                <h3>Formulario</h3>
+
+                <p>
+                    Los <b>formularios</b> permiten que los usuarios envíen información al sistema.
+                    Se utilizan en registros, edición de datos y procesos administrativos
+                    como los que se encuentran en sistemas <b>CRUD</b>.
+                </p>
+
+                <p>
+                    Un buen formulario debe ser claro, ordenado y tener botones que indiquen
+                    las acciones que el usuario puede realizar.
+                </p>
+
+                <h3>Estructura del formulario</h3>
+
+                <p>
+                    Este formulario tendrá:
+                </p>
+
+                <p>• Campo para nombre</p>
+                <p>• Campo para correo</p>
+                <p>• Campo para contraseña</p>
+                <p>• Botón Guardar</p>
+                <p>• Botón Cancelar</p>
+
+                <h3>Ejemplo de formulario en Tailwind</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;form class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md space-y-4"&gt;
+
+  &lt;h3 class="text-xl font-bold"&gt;Registro de Usuario&lt;/h3&gt;
+
+  &lt;div&gt;
+    &lt;label class="block text-sm font-medium"&gt;Nombre&lt;/label&gt;
+    &lt;input 
+      type="text" 
+      class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      placeholder="Ingrese su nombre"
+    &gt;
+  &lt;/div&gt;
+
+  &lt;div&gt;
+    &lt;label class="block text-sm font-medium"&gt;Correo electrónico&lt;/label&gt;
+    &lt;input 
+      type="email" 
+      class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      placeholder="correo@email.com"
+    &gt;
+  &lt;/div&gt;
+
+  &lt;div&gt;
+    &lt;label class="block text-sm font-medium"&gt;Contraseña&lt;/label&gt;
+    &lt;input 
+      type="password" 
+      class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+    &gt;
+  &lt;/div&gt;
+
+  &lt;div class="flex gap-3 justify-end pt-3"&gt;
+
+    &lt;button 
+      type="submit"
+      class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 active:scale-95"
+    &gt;
+      Guardar
+    &lt;/button&gt;
+
+    &lt;button 
+      type="reset"
+      class="border border-gray-400 px-4 py-2 rounded hover:bg-gray-100 active:scale-95"
+    &gt;
+      Cancelar
+    &lt;/button&gt;
+
+  &lt;/div&gt;
+
+&lt;/form&gt;
+</code></pre>
+                </div>
+                <h3>Ejemplo de formulario con diseño moderno</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden flex"&gt;
+
+  &lt;div class="bg-blue-600 text-white p-6 w-1/3 flex flex-col justify-center"&gt;
+    &lt;h3 class="text-xl font-bold mb-3"&gt;Registro&lt;/h3&gt;
+
+    &lt;p class="text-sm"&gt;
+      Complete el formulario para registrar un nuevo usuario
+      dentro del sistema.
+    &lt;/p&gt;
+  &lt;/div&gt;
+
+
+  &lt;form class="p-6 w-2/3 space-y-4"&gt;
+
+    &lt;div&gt;
+      &lt;label class="block text-sm font-medium"&gt;Nombre&lt;/label&gt;
+      &lt;input 
+        type="text"
+        class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
+        placeholder="Ingrese su nombre"
+      &gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+      &lt;label class="block text-sm font-medium"&gt;Correo&lt;/label&gt;
+      &lt;input 
+        type="email"
+        class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
+        placeholder="correo@email.com"
+      &gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+      &lt;label class="block text-sm font-medium"&gt;Contraseña&lt;/label&gt;
+      &lt;input 
+        type="password"
+        class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
+      &gt;
+    &lt;/div&gt;
+
+
+    &lt;div class="flex gap-3 justify-end pt-2"&gt;
+
+      &lt;button 
+        type="submit"
+        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      &gt;
+        Guardar
+      &lt;/button&gt;
+
+      &lt;button 
+        type="reset"
+        class="border border-gray-400 px-4 py-2 rounded hover:bg-gray-100"
+      &gt;
+        Cancelar
+      &lt;/button&gt;
+
+    &lt;/div&gt;
+
+  &lt;/form&gt;
+
+&lt;/div&gt;
+</code></pre>
+                </div>
+                <h3>Ejemplo de formulario con imagen</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;form class="max-w-md mx-auto bg-white rounded-lg shadow-lg overflow-hidden"&gt;
+
+  &lt;img 
+    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"
+    alt="Formulario"
+    class="w-full h-40 object-cover"
+  &gt;
+
+  &lt;div class="p-6 space-y-4"&gt;
+
+    &lt;h3 class="text-xl font-bold"&gt;
+      Registro de Usuario
+    &lt;/h3&gt;
+
+    &lt;div&gt;
+      &lt;label class="block text-sm font-medium"&gt;Nombre&lt;/label&gt;
+      &lt;input
+        type="text"
+        class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
+        placeholder="Ingrese su nombre"
+      &gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+      &lt;label class="block text-sm font-medium"&gt;Correo electrónico&lt;/label&gt;
+      &lt;input
+        type="email"
+        class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
+        placeholder="correo@email.com"
+      &gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+      &lt;label class="block text-sm font-medium"&gt;Contraseña&lt;/label&gt;
+      &lt;input
+        type="password"
+        class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
+      &gt;
+    &lt;/div&gt;
+
+    &lt;div class="flex justify-end gap-3 pt-3"&gt;
+
+      &lt;button
+        type="submit"
+        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      &gt;
+        Guardar
+      &lt;/button&gt;
+
+      &lt;button
+        type="reset"
+        class="border border-gray-400 px-4 py-2 rounded hover:bg-gray-100"
+      &gt;
+        Cancelar
+      &lt;/button&gt;
+
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+
+&lt;/form&gt;
+</code></pre>
+                </div>
+                <h3>Diseño de tabla CRUD en Tailwind</h3>
+
+                <p>
+                    En los sistemas administrativos es común utilizar una <b>tabla CRUD</b>
+                    para mostrar información almacenada en una base de datos.
+                    CRUD significa:
+                </p>
+
+                <p>• <b>Create</b> → crear registros</p>
+                <p>• <b>Read</b> → visualizar registros</p>
+                <p>• <b>Update</b> → editar registros</p>
+                <p>• <b>Delete</b> → eliminar registros</p>
+
+                <p>
+                    Las tablas permiten visualizar varios registros de forma organizada.
+                </p>
+
+
+
+                <h3>Estructura de una tabla CRUD</h3>
+
+                <p>
+                    Una tabla CRUD normalmente tiene:
+                </p>
+
+                <p>• encabezado de columnas</p>
+                <p>• filas con registros</p>
+                <p>• botones de editar</p>
+                <p>• botones de eliminar</p>
+
+
+
+                <h3>Ejemplo de tabla CRUD con Tailwind</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden"&gt;
+
+  &lt;div class="p-4 border-b flex justify-between items-center"&gt;
+    &lt;h3 class="text-lg font-bold"&gt;Lista de Usuarios&lt;/h3&gt;
+
+    &lt;button class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"&gt;
+      Nuevo
+    &lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;table class="w-full text-left"&gt;
+
+    &lt;thead class="bg-gray-100"&gt;
+      &lt;tr&gt;
+        &lt;th class="p-3"&gt;ID&lt;/th&gt;
+        &lt;th class="p-3"&gt;Nombre&lt;/th&gt;
+        &lt;th class="p-3"&gt;Correo&lt;/th&gt;
+        &lt;th class="p-3"&gt;Acciones&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+
+    &lt;tbody&gt;
+
+      &lt;tr class="border-t hover:bg-gray-50"&gt;
+        &lt;td class="p-3"&gt;1&lt;/td&gt;
+        &lt;td class="p-3"&gt;Juan Pérez&lt;/td&gt;
+        &lt;td class="p-3"&gt;juan@email.com&lt;/td&gt;
+
+        &lt;td class="p-3 flex gap-2"&gt;
+          &lt;button class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600"&gt;
+            Editar
+          &lt;/button&gt;
+
+          &lt;button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"&gt;
+            Eliminar
+          &lt;/button&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+
+      &lt;tr class="border-t hover:bg-gray-50"&gt;
+        &lt;td class="p-3"&gt;2&lt;/td&gt;
+        &lt;td class="p-3"&gt;María López&lt;/td&gt;
+        &lt;td class="p-3"&gt;maria@email.com&lt;/td&gt;
+
+        &lt;td class="p-3 flex gap-2"&gt;
+          &lt;button class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600"&gt;
+            Editar
+          &lt;/button&gt;
+
+          &lt;button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"&gt;
+            Eliminar
+          &lt;/button&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+
+    &lt;/tbody&gt;
+
+  &lt;/table&gt;
+
+&lt;/div&gt;
+</code></pre>
+                </div>
+                <h3>Tabla CRUD adaptable para celular</h3>
+
+                <p>
+                    En dispositivos móviles las tablas tradicionales no funcionan bien,
+                    porque muchas columnas ocupan demasiado espacio.
+                    Por esta razón en interfaces modernas se utiliza un diseño
+                    <b>responsive</b>.
+                </p>
+
+                <p>
+                    Una técnica común consiste en:
+                </p>
+
+                <p>• ocultar el encabezado de la tabla</p>
+                <p>• mostrar cada registro como una tarjeta</p>
+                <p>• mantener los botones de acción</p>
+
+
+
+                <h3>Ejemplo de tabla CRUD optimizada para celular</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="max-w-md mx-auto space-y-4"&gt;
+
+  &lt;div class="bg-white shadow-md rounded-lg p-4"&gt;
+
+    &lt;p class="text-sm text-gray-500"&gt;ID&lt;/p&gt;
+    &lt;p class="font-semibold"&gt;1&lt;/p&gt;
+
+    &lt;p class="text-sm text-gray-500 mt-2"&gt;Nombre&lt;/p&gt;
+    &lt;p&gt;Juan Pérez&lt;/p&gt;
+
+    &lt;p class="text-sm text-gray-500 mt-2"&gt;Correo&lt;/p&gt;
+    &lt;p&gt;juan@email.com&lt;/p&gt;
+
+    &lt;div class="flex gap-2 mt-4"&gt;
+
+      &lt;button class="flex-1 bg-yellow-500 text-white py-2 rounded hover:bg-yellow-600"&gt;
+        Editar
+      &lt;/button&gt;
+
+      &lt;button class="flex-1 bg-red-500 text-white py-2 rounded hover:bg-red-600"&gt;
+        Eliminar
+      &lt;/button&gt;
+
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+
+
+
+  &lt;div class="bg-white shadow-md rounded-lg p-4"&gt;
+
+    &lt;p class="text-sm text-gray-500"&gt;ID&lt;/p&gt;
+    &lt;p class="font-semibold"&gt;2&lt;/p&gt;
+
+    &lt;p class="text-sm text-gray-500 mt-2"&gt;Nombre&lt;/p&gt;
+    &lt;p&gt;María López&lt;/p&gt;
+
+    &lt;p class="text-sm text-gray-500 mt-2"&gt;Correo&lt;/p&gt;
+    &lt;p&gt;maria@email.com&lt;/p&gt;
+
+    &lt;div class="flex gap-2 mt-4"&gt;
+
+      &lt;button class="flex-1 bg-yellow-500 text-white py-2 rounded hover:bg-yellow-600"&gt;
+        Editar
+      &lt;/button&gt;
+
+      &lt;button class="flex-1 bg-red-500 text-white py-2 rounded hover:bg-red-600"&gt;
+        Eliminar
+      &lt;/button&gt;
+
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre>
+                </div>
+                <h3>Tabs (Pestañas) en interfaces modernas</h3>
+
+                <p>
+                    Las <b>Tabs</b> o pestañas permiten dividir el contenido en diferentes
+                    secciones dentro de una misma página sin necesidad de cambiar de
+                    pantalla.
+                </p>
+
+                <p>
+                    Son muy utilizadas en:
+                </p>
+
+                <p>• paneles administrativos</p>
+                <p>• perfiles de usuario</p>
+                <p>• páginas de configuración</p>
+                <p>• dashboards</p>
+
+
+
+                <h3>Estructura de las Tabs</h3>
+
+                <p>
+                    Una interfaz con pestañas normalmente tiene:
+                </p>
+
+                <p>• barra de navegación de pestañas</p>
+                <p>• contenido asociado a cada pestaña</p>
+
+
+
+                <h3>Ejemplo de Tabs con Tailwind</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="max-w-xl mx-auto"&gt;
+
+  &lt;div class="flex border-b"&gt;
+    &lt;button onclick="openTab('info')" 
+      class="px-4 py-2 border-b-2 border-blue-600 font-semibold"&gt;
+      Información
+    &lt;/button&gt;
+
+    &lt;button onclick="openTab('detalles')" 
+      class="px-4 py-2 text-gray-600"&gt;
+      Detalles
+    &lt;/button&gt;
+
+    &lt;button onclick="openTab('comentarios')" 
+      class="px-4 py-2 text-gray-600"&gt;
+      Comentarios
+    &lt;/button&gt;
+  &lt;/div&gt;
+
+
+
+  &lt;div id="info" class="p-4"&gt;
+    &lt;p&gt;Contenido de la pestaña Información&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div id="detalles" class="p-4 hidden"&gt;
+    &lt;p&gt;Contenido de la pestaña Detalles&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div id="comentarios" class="p-4 hidden"&gt;
+    &lt;p&gt;Contenido de la pestaña Comentarios&lt;/p&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+
+
+
+&lt;script&gt;
+
+function openTab(tabId){
+
+  document.getElementById("info").classList.add("hidden");
+  document.getElementById("detalles").classList.add("hidden");
+  document.getElementById("comentarios").classList.add("hidden");
+
+  document.getElementById(tabId).classList.remove("hidden");
+
+}
+
+&lt;/script&gt;
+</code></pre>
+                </div>
+                <h3>Navbar (Barra de navegación)</h3>
+
+                <p>
+                    La <b>Navbar</b> es uno de los componentes más importantes en un sitio web.
+                    Permite al usuario navegar entre las diferentes secciones del sistema
+                    o de la página.
+                </p>
+
+                <p>
+                    Normalmente una Navbar contiene:
+                </p>
+
+                <p>• logo o nombre del sitio</p>
+                <p>• enlaces de navegación</p>
+                <p>• botones de acceso</p>
+
+
+
+                <h3>Estructura de una Navbar</h3>
+
+                <p>
+                    Para crear una barra de navegación moderna utilizaremos:
+                </p>
+
+                <p>• Flexbox para organizar los elementos</p>
+                <p>• espacio entre elementos</p>
+                <p>• colores de fondo</p>
+
+
+
+                <h3>Ejemplo de Navbar con Tailwind</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;nav class="bg-gray-900 text-white"&gt;
+
+  &lt;div class="max-w-6xl mx-auto flex justify-between items-center p-4"&gt;
+
+    &lt;div class="text-lg font-bold"&gt;
+      MiSitio
+    &lt;/div&gt;
+
+    &lt;div class="flex gap-6"&gt;
+      &lt;a href="#" class="hover:text-blue-400"&gt;Inicio&lt;/a&gt;
+      &lt;a href="#" class="hover:text-blue-400"&gt;Servicios&lt;/a&gt;
+      &lt;a href="#" class="hover:text-blue-400"&gt;Productos&lt;/a&gt;
+      &lt;a href="#" class="hover:text-blue-400"&gt;Contacto&lt;/a&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+      &lt;button class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700"&gt;
+        Iniciar sesión
+      &lt;/button&gt;
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+
+&lt;/nav&gt;
+</code></pre>
+                </div>
+                <h3>Ejemplo de Navbar con tres niveles</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;nav class="bg-gray-900 text-white"&gt;
+
+  &lt;div class="max-w-6xl mx-auto flex items-center justify-between p-4"&gt;
+
+    &lt;div class="font-bold text-lg"&gt;
+      MiSistema
+    &lt;/div&gt;
+
+    &lt;ul class="flex gap-6"&gt;
+
+      &lt;li&gt;
+        &lt;a href="#" class="hover:text-blue-400"&gt;Inicio&lt;/a&gt;
+      &lt;/li&gt;
+
+
+      &lt;li class="relative group"&gt;
+
+        &lt;a href="#" class="hover:text-blue-400"&gt;
+          Servicios
+        &lt;/a&gt;
+
+        &lt;ul class="absolute hidden group-hover:block bg-white text-black mt-2 rounded shadow-lg"&gt;
+
+          &lt;li class="px-4 py-2 hover:bg-gray-100"&gt;
+            Diseño Web
+          &lt;/li&gt;
+
+          &lt;li class="relative group px-4 py-2 hover:bg-gray-100"&gt;
+
+            Marketing
+
+            &lt;ul class="absolute hidden group-hover:block left-full top-0 bg-white rounded shadow-lg"&gt;
+
+              &lt;li class="px-4 py-2 hover:bg-gray-100"&gt;
+                SEO
+              &lt;/li&gt;
+
+              &lt;li class="px-4 py-2 hover:bg-gray-100"&gt;
+                Publicidad
+              &lt;/li&gt;
+
+            &lt;/ul&gt;
+
+          &lt;/li&gt;
+
+        &lt;/ul&gt;
+
+      &lt;/li&gt;
+
+
+
+      &lt;li&gt;
+        &lt;a href="#" class="hover:text-blue-400"&gt;Contacto&lt;/a&gt;
+      &lt;/li&gt;
+
+    &lt;/ul&gt;
+
+  &lt;/div&gt;
+
+&lt;/nav&gt;
+</code></pre>
+                </div>
+                <h3>Ejemplo de navegación para aplicación</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;nav class="bg-white border-b shadow-sm"&gt;
+
+  &lt;div class="max-w-7xl mx-auto flex items-center justify-between p-4"&gt;
+
+    &lt;div class="text-lg font-bold text-gray-800"&gt;
+      Panel Admin
+    &lt;/div&gt;
+
+
+    &lt;div class="flex items-center gap-6"&gt;
+
+      &lt;a href="#" class="text-gray-600 hover:text-blue-600"&gt;
+        Dashboard
+      &lt;/a&gt;
+
+      &lt;a href="#" class="text-gray-600 hover:text-blue-600"&gt;
+        Usuarios
+      &lt;/a&gt;
+
+      &lt;a href="#" class="text-gray-600 hover:text-blue-600"&gt;
+        Reportes
+      &lt;/a&gt;
+
+    &lt;/div&gt;
+
+
+    &lt;div class="flex items-center gap-3"&gt;
+
+      &lt;span class="text-sm text-gray-600"&gt;
+        Admin
+      &lt;/span&gt;
+
+      &lt;img
+        src="https://i.pravatar.cc/40"
+        class="w-8 h-8 rounded-full"
+      &gt;
+
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+
+&lt;/nav&gt;
+</code></pre>
+                </div>
+                <h3>Sidebar (Barra lateral)</h3>
+
+                <p>
+                    La <b>Sidebar</b> es un menú lateral utilizado en aplicaciones web
+                    para organizar la navegación cuando existen muchas secciones
+                    dentro del sistema.
+                </p>
+
+                <p>
+                    Es muy común en:
+                </p>
+
+                <p>• dashboards</p>
+                <p>• paneles administrativos</p>
+                <p>• sistemas empresariales</p>
+                <p>• aplicaciones web</p>
+
+
+
+                <h3>Estructura de una Sidebar</h3>
+
+                <p>
+                    Una barra lateral normalmente contiene:
+                </p>
+
+                <p>• logo o nombre del sistema</p>
+                <p>• enlaces de navegación</p>
+                <p>• iconos o secciones del sistema</p>
+
+
+
+                <h3>Ejemplo de Sidebar con Tailwind</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="flex min-h-screen"&gt;
+
+  &lt;aside class="w-64 bg-gray-900 text-white p-5"&gt;
+
+    &lt;h3 class="text-xl font-bold mb-6"&gt;
+      Mi Sistema
+    &lt;/h3&gt;
+
+    &lt;nav class="flex flex-col gap-3"&gt;
+
+      &lt;a href="#" class="p-2 rounded hover:bg-gray-700"&gt;
+        Dashboard
+      &lt;/a&gt;
+
+      &lt;a href="#" class="p-2 rounded hover:bg-gray-700"&gt;
+        Usuarios
+      &lt;/a&gt;
+
+      &lt;a href="#" class="p-2 rounded hover:bg-gray-700"&gt;
+        Productos
+      &lt;/a&gt;
+
+      &lt;a href="#" class="p-2 rounded hover:bg-gray-700"&gt;
+        Reportes
+      &lt;/a&gt;
+
+      &lt;a href="#" class="p-2 rounded hover:bg-gray-700"&gt;
+        Configuración
+      &lt;/a&gt;
+
+    &lt;/nav&gt;
+
+  &lt;/aside&gt;
+
+
+
+  &lt;main class="flex-1 p-6 bg-gray-100"&gt;
+
+    &lt;h1 class="text-2xl font-bold"&gt;
+      Panel de Control
+    &lt;/h1&gt;
+
+    &lt;p class="mt-3 text-gray-600"&gt;
+      Aquí se mostrará el contenido principal de la aplicación.
+    &lt;/p&gt;
+
+  &lt;/main&gt;
+
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+                <h3>Ejemplo de Sidebar estilo Dashboard</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+
+                    <pre><code>
+&lt;div class="flex min-h-screen bg-gray-100"&gt;
+
+  &lt;aside class="w-64 bg-slate-900 text-gray-200 flex flex-col"&gt;
+
+    &lt;div class="p-5 border-b border-slate-700"&gt;
+      &lt;h2 class="text-xl font-bold"&gt;Dashboard&lt;/h2&gt;
+    &lt;/div&gt;
+
+
+    &lt;nav class="flex-1 p-4 space-y-2"&gt;
+
+      &lt;a href="#" class="block p-3 rounded hover:bg-slate-700"&gt;
+        📊 Panel
+      &lt;/a&gt;
+
+      &lt;a href="#" class="block p-3 rounded hover:bg-slate-700"&gt;
+        👥 Usuarios
+      &lt;/a&gt;
+
+      &lt;a href="#" class="block p-3 rounded hover:bg-slate-700"&gt;
+        📦 Productos
+      &lt;/a&gt;
+
+      &lt;a href="#" class="block p-3 rounded hover:bg-slate-700"&gt;
+        📈 Reportes
+      &lt;/a&gt;
+
+      &lt;a href="#" class="block p-3 rounded hover:bg-slate-700"&gt;
+        ⚙️ Configuración
+      &lt;/a&gt;
+
+    &lt;/nav&gt;
+
+
+    &lt;div class="p-4 border-t border-slate-700"&gt;
+      &lt;p class="text-sm"&gt;Usuario: Admin&lt;/p&gt;
+    &lt;/div&gt;
+
+  &lt;/aside&gt;
+
+
+
+  &lt;main class="flex-1 p-6"&gt;
+
+    &lt;h1 class="text-2xl font-bold"&gt;
+      Panel principal
+    &lt;/h1&gt;
+
+    &lt;p class="mt-3 text-gray-600"&gt;
+      Aquí se mostrará la información principal del sistema.
+    &lt;/p&gt;
+
+  &lt;/main&gt;
+
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </section>
 
 
 
@@ -12267,255 +14577,255 @@ document.getElementById(target).classList.add("active");
     <div id="toast-msg"></div>
 
     <script>
-    let laserActive = false, visorActivo = false;
-    let lastScroll = 0, currentRange = null;
-    const colors = ["#00FFFF", "#FF0000", "#00FF00", "#FFFFFF", "#FF00FF", "#FFFF00", "#FF9F43", "#4834D4", "#F0932B", "#61DAFB"];
+        let laserActive = false, visorActivo = false;
+        let lastScroll = 0, currentRange = null;
+        const colors = ["#00FFFF", "#FF0000", "#00FF00", "#FFFFFF", "#FF00FF", "#FFFF00", "#FF9F43", "#4834D4", "#F0932B", "#61DAFB"];
 
-    // --- RELOJ ---
-    function updateTime() {
-        const reloj = document.getElementById("reloj");
-        if (reloj) {
-            const now = new Date();
-            reloj.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        // --- RELOJ ---
+        function updateTime() {
+            const reloj = document.getElementById("reloj");
+            if (reloj) {
+                const now = new Date();
+                reloj.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            }
         }
-    }
-    setInterval(updateTime, 1000); 
-    updateTime();
+        setInterval(updateTime, 1000);
+        updateTime();
 
-    // --- INICIALIZACIÓN ---
-    document.addEventListener("DOMContentLoaded", () => {
-        // const savedContent = localStorage.getItem("marcasDiplomado");
-        // if (savedContent) document.getElementById("content-main").innerHTML = savedContent;
+        // --- INICIALIZACIÓN ---
+        document.addEventListener("DOMContentLoaded", () => {
+            // const savedContent = localStorage.getItem("marcasDiplomado");
+            // if (savedContent) document.getElementById("content-main").innerHTML = savedContent;
 
-        // const savedTasks = JSON.parse(localStorage.getItem("tareasDiplomado") || "{}");
-        // document.querySelectorAll('input[type="checkbox"]').forEach(ch => {
-        //     const id = ch.dataset.id;
-        //     if (savedTasks[id]) ch.checked = true;
-        //     ch.onchange = () => {
-        //         savedTasks[id] = ch.checked;
-        //         localStorage.setItem("tareasDiplomado", JSON.stringify(savedTasks));
-        //     }
-        // });
+            // const savedTasks = JSON.parse(localStorage.getItem("tareasDiplomado") || "{}");
+            // document.querySelectorAll('input[type="checkbox"]').forEach(ch => {
+            //     const id = ch.dataset.id;
+            //     if (savedTasks[id]) ch.checked = true;
+            //     ch.onchange = () => {
+            //         savedTasks[id] = ch.checked;
+            //         localStorage.setItem("tareasDiplomado", JSON.stringify(savedTasks));
+            //     }
+            // });
 
-        initPalette();
-        reVincularEventos();
-    });
-
-    // --- RESALTADOR ---
-    function initPalette() {
-        const grid = document.getElementById("p-grid");
-        if (!grid) return;
-        grid.innerHTML = ""; // Limpiar antes de generar
-        colors.forEach(col => {
-            const btn = document.createElement("div");
-            btn.style.cssText = `aspect-ratio:1; border-radius:50%; background:${col}; cursor:pointer; border:2px solid rgba(255,255,255,0.2);`;
-            btn.onclick = () => aplicarResaltado(col);
-            grid.appendChild(btn);
+            initPalette();
+            reVincularEventos();
         });
-    }
 
-    function mostrarToast(mensaje) {
-        const t = document.getElementById("toast-msg");
-        if (!t) return;
-        t.textContent = mensaje;
-        t.style.display = "block";
-        setTimeout(() => t.style.display = "none", 2500);
-    }
+        // --- RESALTADOR ---
+        function initPalette() {
+            const grid = document.getElementById("p-grid");
+            if (!grid) return;
+            grid.innerHTML = ""; // Limpiar antes de generar
+            colors.forEach(col => {
+                const btn = document.createElement("div");
+                btn.style.cssText = `aspect-ratio:1; border-radius:50%; background:${col}; cursor:pointer; border:2px solid rgba(255,255,255,0.2);`;
+                btn.onclick = () => aplicarResaltado(col);
+                grid.appendChild(btn);
+            });
+        }
 
-    function prepararPaleta() {
-        const sel = window.getSelection();
-        if (sel.rangeCount > 0 && !sel.isCollapsed) {
-            currentRange = sel.getRangeAt(0).cloneRange();
+        function mostrarToast(mensaje) {
+            const t = document.getElementById("toast-msg");
+            if (!t) return;
+            t.textContent = mensaje;
+            t.style.display = "block";
+            setTimeout(() => t.style.display = "none", 2500);
+        }
+
+        function prepararPaleta() {
+            const sel = window.getSelection();
+            if (sel.rangeCount > 0 && !sel.isCollapsed) {
+                currentRange = sel.getRangeAt(0).cloneRange();
+                const diag = document.getElementById("palette-dialog");
+                if (diag) diag.showModal();
+            } else {
+                mostrarToast("Primero selecciona texto");
+            }
+        }
+
+        function aplicarResaltado(col) {
+            if (!currentRange) return;
+            const span = document.createElement("span");
+            span.className = "highlight-span";
+            span.style.cssText = `border-bottom:3px solid ${col}; color:${col}; background:${col}15; cursor:pointer;`;
+
+            try {
+                span.appendChild(currentRange.extractContents());
+                currentRange.insertNode(span);
+                span.onclick = function (e) {
+                    e.stopPropagation();
+                    this.replaceWith(...this.childNodes);
+                    guardarEstado();
+                };
+            } catch (e) { console.error("Error al resaltar:", e); }
+
             const diag = document.getElementById("palette-dialog");
-            if (diag) diag.showModal();
-        } else {
-            mostrarToast("Primero selecciona texto");
+            if (diag) diag.close();
+            window.getSelection().removeAllRanges();
+            guardarEstado();
         }
-    }
 
-    function aplicarResaltado(col) {
-        if (!currentRange) return;
-        const span = document.createElement("span");
-        span.className = "highlight-span";
-        span.style.cssText = `border-bottom:3px solid ${col}; color:${col}; background:${col}15; cursor:pointer;`;
-        
-        try {
-            span.appendChild(currentRange.extractContents());
-            currentRange.insertNode(span);
-            span.onclick = function (e) { 
-                e.stopPropagation(); 
-                this.replaceWith(...this.childNodes); 
-                guardarEstado(); 
-            };
-        } catch (e) { console.error("Error al resaltar:", e); }
+        function reVincularEventos() {
+            document.querySelectorAll(".highlight-span").forEach(s => {
+                s.onclick = function (e) { e.stopPropagation(); this.replaceWith(...this.childNodes); guardarEstado(); };
+            });
+        }
 
-        const diag = document.getElementById("palette-dialog");
-        if (diag) diag.close();
-        window.getSelection().removeAllRanges();
-        guardarEstado();
-    }
+        function guardarEstado() {
+            // localStorage.setItem("marcasDiplomado", document.getElementById("content-main").innerHTML);
+        }
 
-    function reVincularEventos() {
-        document.querySelectorAll(".highlight-span").forEach(s => {
-            s.onclick = function (e) { e.stopPropagation(); this.replaceWith(...this.childNodes); guardarEstado(); };
+        // --- VISOR ---
+        function toggleVisor(url) {
+            const container = document.getElementById("visor-container");
+            const main = document.getElementById("content-main");
+            const iframe = document.getElementById("screen-iframe");
+            const wrapper = document.getElementById("content-wrapper");
+
+            if (!visorActivo) {
+                visorActivo = true;
+                if (wrapper) lastScroll = wrapper.scrollTop;
+
+                if (main) main.style.display = "none";
+                if (container) container.style.display = "flex";
+                if (iframe) iframe.src = url;
+
+                setTimeout(ajustarEscalaMonitor, 50);
+            } else {
+                visorActivo = false;
+                if (container) container.style.display = "none";
+                if (main) main.style.display = "block";
+                if (iframe) iframe.src = "about:blank";
+                if (wrapper) wrapper.scrollTop = lastScroll;
+            }
+            const btn = document.getElementById("visor-btn");
+            if (btn) btn.classList.toggle("active-tool", visorActivo);
+        }
+
+        function abrirNuevaPestana() {
+            const iframe = document.getElementById("screen-iframe");
+            if (iframe && iframe.src && iframe.src !== "about:blank") {
+                window.open(iframe.src, '_blank');
+            }
+        }
+
+        function ajustarEscalaMonitor() {
+            const frame = document.getElementById("m-frame");
+            const iframe = document.getElementById("screen-iframe");
+            const container = document.getElementById("visor-container");
+            if (!visorActivo || !container || !iframe || !frame) return;
+
+            const targetW = 1280, targetH = 800;
+            const availW = container.offsetWidth - 40, availH = container.offsetHeight - 60;
+            const scale = Math.min(availW / targetW, availH / targetH);
+
+            iframe.style.transform = `scale(${scale})`;
+            frame.style.width = (targetW * scale + 20) + "px";
+            frame.style.height = (targetH * scale + 35) + "px";
+        }
+
+        // --- PUNTERO LÁSER ---
+        const puntero = document.createElement("div");
+        puntero.className = "punteroRojo";
+        document.body.appendChild(puntero);
+
+        function toggleLaser() {
+            laserActive = !laserActive;
+            puntero.style.display = laserActive ? "block" : "none";
+            const btn = document.getElementById("pointer-btn");
+            if (btn) btn.classList.toggle("active-tool", laserActive);
+
+            const overlay = document.getElementById("mouse-overlay");
+            if (visorActivo && overlay) overlay.style.display = laserActive ? "block" : "none";
+        }
+
+        document.addEventListener("mousemove", (e) => {
+            if (!laserActive) return;
+            puntero.style.left = e.clientX + "px";
+            puntero.style.top = e.clientY + "px";
+
+            const trail = document.createElement("div");
+            trail.className = "puntoEstela";
+            trail.style.left = e.clientX + "px";
+            trail.style.top = e.clientY + "px";
+            document.body.appendChild(trail);
+            setTimeout(() => trail.remove(), 500);
         });
-    }
 
-    function guardarEstado() {
-        // localStorage.setItem("marcasDiplomado", document.getElementById("content-main").innerHTML);
-    }
-
-    // --- VISOR ---
-    function toggleVisor(url) {
-        const container = document.getElementById("visor-container");
-        const main = document.getElementById("content-main");
-        const iframe = document.getElementById("screen-iframe");
-        const wrapper = document.getElementById("content-wrapper");
-
-        if (!visorActivo) {
-            visorActivo = true;
-            if (wrapper) lastScroll = wrapper.scrollTop;
-
-            if (main) main.style.display = "none";
-            if (container) container.style.display = "flex";
-            if (iframe) iframe.src = url;
-
-            setTimeout(ajustarEscalaMonitor, 50);
-        } else {
-            visorActivo = false;
-            if (container) container.style.display = "none";
-            if (main) main.style.display = "block";
-            if (iframe) iframe.src = "about:blank";
-            if (wrapper) wrapper.scrollTop = lastScroll;
+        // --- NAVEGACIÓN OPTIMIZADA ---
+        function goHome() {
+            if (visorActivo) toggleVisor();
+            const wrapper = document.getElementById("content-wrapper");
+            if (wrapper) wrapper.scrollTo({ top: 0, behavior: 'smooth' });
         }
-        const btn = document.getElementById("visor-btn");
-        if (btn) btn.classList.toggle("active-tool", visorActivo);
-    }
 
-    function abrirNuevaPestana() {
-        const iframe = document.getElementById("screen-iframe");
-        if (iframe && iframe.src && iframe.src !== "about:blank") {
-            window.open(iframe.src, '_blank');
-        }
-    }
+        function openSearch() {
+            const dialog = document.getElementById("search-dialog");
+            const secciones = document.querySelectorAll("main > section");
+            const wrapper = document.getElementById("content-wrapper");
 
-    function ajustarEscalaMonitor() {
-        const frame = document.getElementById("m-frame");
-        const iframe = document.getElementById("screen-iframe");
-        const container = document.getElementById("visor-container");
-        if (!visorActivo || !container || !iframe || !frame) return;
+            if (!dialog || !wrapper) return;
 
-        const targetW = 1280, targetH = 800;
-        const availW = container.offsetWidth - 40, availH = container.offsetHeight - 60;
-        const scale = Math.min(availW / targetW, availH / targetH);
-
-        iframe.style.transform = `scale(${scale})`;
-        frame.style.width = (targetW * scale + 20) + "px";
-        frame.style.height = (targetH * scale + 35) + "px";
-    }
-
-    // --- PUNTERO LÁSER ---
-    const puntero = document.createElement("div");
-    puntero.className = "punteroRojo";
-    document.body.appendChild(puntero);
-
-    function toggleLaser() {
-        laserActive = !laserActive;
-        puntero.style.display = laserActive ? "block" : "none";
-        const btn = document.getElementById("pointer-btn");
-        if (btn) btn.classList.toggle("active-tool", laserActive);
-        
-        const overlay = document.getElementById("mouse-overlay");
-        if (visorActivo && overlay) overlay.style.display = laserActive ? "block" : "none";
-    }
-
-    document.addEventListener("mousemove", (e) => {
-        if (!laserActive) return;
-        puntero.style.left = e.clientX + "px";
-        puntero.style.top = e.clientY + "px";
-
-        const trail = document.createElement("div");
-        trail.className = "puntoEstela";
-        trail.style.left = e.clientX + "px";
-        trail.style.top = e.clientY + "px";
-        document.body.appendChild(trail);
-        setTimeout(() => trail.remove(), 500);
-    });
-
-    // --- NAVEGACIÓN OPTIMIZADA ---
-    function goHome() {
-        if (visorActivo) toggleVisor();
-        const wrapper = document.getElementById("content-wrapper");
-        if (wrapper) wrapper.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function openSearch() {
-        const dialog = document.getElementById("search-dialog");
-        const secciones = document.querySelectorAll("main > section");
-        const wrapper = document.getElementById("content-wrapper");
-
-        if (!dialog || !wrapper) return;
-
-        dialog.innerHTML = `
+            dialog.innerHTML = `
             <div style="display: flex; flex-direction: column; gap: 10px; padding: 5px;">
                 <h3 style="font-size: 0.75rem; color: var(--accent); margin-bottom: 5px; text-align: center; letter-spacing: 1px;">NAVEGAR POR UNIDADES</h3>
                 <ul id="results" style="list-style:none; max-height:70vh; overflow-y:auto; margin:0; padding:0; scrollbar-width: thin;"></ul>
             </div>
         `;
 
-        const resultsList = document.getElementById("results");
+            const resultsList = document.getElementById("results");
 
-        secciones.forEach((section, index) => {
-            const h2 = section.querySelector("h2");
-            if (!h2) return;
+            secciones.forEach((section, index) => {
+                const h2 = section.querySelector("h2");
+                if (!h2) return;
 
-            const li = document.createElement("li");
-            li.style.cssText = "padding:15px; cursor:pointer; border-bottom:1px solid #2d3343; text-transform:uppercase; font-size:11px; color:#fff; transition:0.2s; display:flex; align-items:center; gap:12px;";
+                const li = document.createElement("li");
+                li.style.cssText = "padding:15px; cursor:pointer; border-bottom:1px solid #2d3343; text-transform:uppercase; font-size:11px; color:#fff; transition:0.2s; display:flex; align-items:center; gap:12px;";
 
-            li.innerHTML = `
+                li.innerHTML = `
                 <span style="color:var(--accent); font-weight:bold; min-width:85px; font-family:monospace;">UNIDAD ${(index + 1).toString().padStart(2, '0')}:</span>
                 <span style="flex:1; opacity:0.9;">${h2.textContent.trim()}</span>
             `;
 
-            li.onmouseover = () => { li.style.background = "rgba(97, 218, 251, 0.1)"; li.style.color = "var(--accent)"; };
-            li.onmouseout = () => { li.style.background = "transparent"; li.style.color = "#fff"; };
+                li.onmouseover = () => { li.style.background = "rgba(97, 218, 251, 0.1)"; li.style.color = "var(--accent)"; };
+                li.onmouseout = () => { li.style.background = "transparent"; li.style.color = "#fff"; };
 
-            li.onclick = () => {
-                if (visorActivo) toggleVisor();
-                
-                // Cálculo de scroll relativo al contenedor wrapper
-                const wrapperRect = wrapper.getBoundingClientRect();
-                const h2Rect = h2.getBoundingClientRect();
-                const relativeTop = h2Rect.top - wrapperRect.top + wrapper.scrollTop;
+                li.onclick = () => {
+                    if (visorActivo) toggleVisor();
 
-                wrapper.scrollTo({ 
-                    top: relativeTop - 20, 
-                    behavior: 'smooth' 
-                });
-                
-                dialog.close();
-            };
-            resultsList.appendChild(li);
-        });
+                    // Cálculo de scroll relativo al contenedor wrapper
+                    const wrapperRect = wrapper.getBoundingClientRect();
+                    const h2Rect = h2.getBoundingClientRect();
+                    const relativeTop = h2Rect.top - wrapperRect.top + wrapper.scrollTop;
 
-        dialog.showModal();
-    }
+                    wrapper.scrollTo({
+                        top: relativeTop - 20,
+                        behavior: 'smooth'
+                    });
 
-    function copyCode(btn) {
-        const codeElement = btn.parentElement.querySelector('code');
-        if (!codeElement) return;
-        const code = codeElement.innerText;
-        navigator.clipboard.writeText(code).then(() => {
-            const original = btn.textContent;
-            btn.textContent = "¡COPIADO!";
-            setTimeout(() => btn.textContent = original, 1500);
-        });
-    }
+                    dialog.close();
+                };
+                resultsList.appendChild(li);
+            });
 
-    // --- EVENTOS GLOBALES ---
-    window.onclick = (e) => { if (e.target.tagName === 'DIALOG') e.target.close(); }
-    window.onresize = () => { if (visorActivo) ajustarEscalaMonitor(); };
-</script>
+            dialog.showModal();
+        }
+
+        function copyCode(btn) {
+            const codeElement = btn.parentElement.querySelector('code');
+            if (!codeElement) return;
+            const code = codeElement.innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                const original = btn.textContent;
+                btn.textContent = "¡COPIADO!";
+                setTimeout(() => btn.textContent = original, 1500);
+            });
+        }
+
+        // --- EVENTOS GLOBALES ---
+        window.onclick = (e) => { if (e.target.tagName === 'DIALOG') e.target.close(); }
+        window.onresize = () => { if (visorActivo) ajustarEscalaMonitor(); };
+    </script>
 </body>
 
 </html>
