@@ -14358,63 +14358,1294 @@ function openTab(tabId){
 &lt;/div&gt;
 </code></pre>
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </section>
 
 
 
 
 
+            <section>
+            <h3>¿Qué es JavaScript?</h3>
+            <p>Es el lenguaje de programación que permite crear contenido dinámico e interactivo en las páginas web.
+                Mientras que el HTML estructura y el CSS da estilo, JS controla el comportamiento.</p>
+        </section>
+
+        <section>
+            <h3>Conexión con HTML</h3>
+            <p>Para que el navegador ejecute tu código, debes vincularlo usando la etiqueta script, preferiblemente
+                antes de cerrar el body.</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>&lt;!-- Vinculación de archivo externo --&gt;
+&lt;script src="app.js"&gt;&lt;/script&gt;</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Variables y Constantes</h3>
+            <p>Son espacios de memoria donde guardamos datos. Las variables pueden cambiar su valor, mientras que las
+                constantes permanecen fijas.</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>let usuario = "Carlos"; // Variable
+const ID = 5502;       // Constante</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Let vs Const</h3>
+            <p>Usa "let" cuando sepas que el valor necesita ser reasignado más tarde. Usa "const" por defecto para que
+                tu código sea más seguro y predecible.</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>let vidas = 3;
+vidas = 2; // Permitido
+
+const tipo = "Humano";
+tipo = "Robot"; // Error: No se puede reasignar</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Tipos de Datos Primitivos</h3>
+            <p>Son los valores más básicos del lenguaje.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>// 1. String (Cadenas de texto)
+let nombre = "Ana"; 
+
+// 2. Number (Enteros y decimales)
+let edad = 25;
+let precio = 19.99;
+
+// 3. Boolean (Lógica)
+let esMayor = true; // o false
+
+// 4. Undefined (Valor no asignado)
+let test; // Su valor es undefined
+
+// 5. Null (Ausencia intencional de valor)
+let vacio = null;</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Operador typeof</h3>
+            <p>Si alguna vez tienes dudas sobre qué tipo de dato es una variable, puedes usar typeof para descubrirlo.
+            </p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>console.log(typeof "Hola"); // "string"
+console.log(typeof 42);     // "number"
+console.log(typeof true);   // "boolean"</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Operadores Aritméticos</h3>
+            <p>Permiten realizar cálculos matemáticos con datos de tipo Number <br>. El símbolo <b>=</b> asigna el
+                resultado a una variable.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>let a = 10;
+let b = 5;
+
+let suma = a + b;          // 15
+let resta = a - b;         // 5
+let multiplicacion = a * b; // 50
+let division = a / b;       // 2</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>El caso especial del "+"</h3>
+            <p>¡Cuidado! Si usas el signo <b>+</b> con un <b>String</b>, JavaScript no sumará, sino que "pegará"
+                (concatenará) los textos.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>let texto = "Hola " + "Mundo"; // "Hola Mundo"
+let mixto = "Edad: " + 25;     // "Edad: 25" (Lo vuelve texto)</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Módulo y Exponente</h3>
+            <p>Existen operadores para obtener el residuo de una división o elevar un número a una potencia.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>// Módulo (Residuo de la división)
+let residuo = 10 % 3;   // 1 (Porque 3x3=9, sobra 1)
+
+// Exponente (Potencia)
+let potencia = 2 ** 3;  // 8 (2 al cubo)</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Orden de Operaciones</h3>
+            <p>JavaScript resuelve las operaciones en un orden específico. Si quieres que una suma se realice
+                <b>antes</b> que una multiplicación, debes usar paréntesis.
+            </p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>// Sin paréntesis (Multiplica primero)
+let resultado1 = 5 + 2 * 10;   // 25
+
+// Con paréntesis (Suma primero)
+let resultado2 = (5 + 2) * 10; // 70</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Cálculos Complejos</h3>
+            <p>Puedes anidar paréntesis dentro de otros para organizar fórmulas matemáticas más difíciles. Siempre se
+                resuelve de adentro hacia afuera.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>// Promedio de tres notas
+let nota1 = 8;
+let nota2 = 9;
+let nota3 = 10;
+
+let promedio = (nota1 + nota2 + nota3) / 3; // 9</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Legibilidad</h3>
+            <p>A veces, aunque el orden matemático sea correcto, usamos paréntesis para que el código sea más fácil de
+                leer para otros humanos.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>// Es lo mismo, pero el segundo es más claro
+let operacion = 100 + (50 / 2); </code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Unión de Textos (Concatenación)</h3>
+            <p>La operación más simple es pegar dos cadenas de texto. Se usa el signo <b>+</b>.
+                Si unes un texto con un número, JavaScript convertirá todo a texto.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>let saludo = "Hola" + " " + "Mundo"; // "Hola Mundo"
+let puntos = "Score: " + 10;          // "Score: 10"</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Contar Caracteres (Length)</h3>
+            <p>Para saber qué tan largo es un texto (incluyendo espacios), usamos la propiedad <b>length</b>.
+                Es fundamental para validar contraseñas o formularios.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>let clave = "123456";
+console.log(clave.length); // 6
+
+let espacio = " "; 
+console.log(espacio.length); // 1</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Acceso por Índice</h3>
+            <p>Cada letra tiene una posición. <b>¡Importante!</b> En programación empezamos a contar desde <b>0</b>.
+                La primera letra es el índice 0, la segunda el 1, y así sucesivamente.</p>
+
+
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>let fruta = "Piña";
+
+console.log(fruta[0]); // "P"
+console.log(fruta[1]); // "i"</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Cambiar Formato (Métodos)</h3>
+            <p>Podemos transformar el texto a mayúsculas, minúsculas o limpiar espacios accidentales en los extremos.
+            </p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>let txt = "  Hola  ";
+
+console.log(txt.toUpperCase()); // "  HOLA  "
+console.log(txt.toLowerCase()); // "  hola  "
+console.log(txt.trim());        // "Hola" (Quita espacios)</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Template Literals (Backticks)</h3>
+            <p>Es la forma profesional de mezclar texto y variables. Usamos comillas invertidas <b>`</b>
+                y metemos las variables dentro de <b>${ }</b>. Es más limpio que usar el signo +.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>let nombre = "Ana";
+let edad = 20;
+
+// "Ana tiene 20 años"
+let frase = `${nombre} tiene ${edad} años.`;</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Búsqueda y Verificación</h3>
+            <p>Operaciones complejas para saber si un texto contiene ciertas palabras o si empieza de una forma
+                específica.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>let correo = "contacto@google.com";
+
+console.log(correo.includes("@"));     // true (Contiene arroba)
+console.log(correo.startsWith("con")); // true (Empieza con "con")
+console.log(correo.endsWith(".es"));   // false (No termina en .es)</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Comparar Valores</h3>
+            <p>Los operadores de comparación analizan dos valores y nos devuelven <b>true</b> (verdadero) o
+                <b>false</b> (falso). Son la base de la lógica.
+            </p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>let a = 10;
+let b = 5;
+
+console.log(a > b);  // true  (Mayor que)
+console.log(a < b);  // false (Menor que)
+console.log(a >= 10); // true  (Mayor o igual)
+console.log(b <= 3);  // false (Menor o igual)</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Igualdad Estricta (===)</h3>
+            <p>En JS existen dos formas de comparar igualdad. La recomendada es la <b>estricta</b> (<b>===</b>),
+                que compara el valor y también el tipo de dato.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>// Igualdad débil (Evitarla)
+console.log(5 == "5");  // true (JS ignora el tipo)
+
+// Igualdad estricta (Usar siempre)
+console.log(5 === "5"); // false (Porque uno es número y otro texto)
+
+// Diferente de (Desigualdad)
+console.log(10 !== 5);  // true</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Operador AND (&&)</h3>
+            <p>Devuelve <b>true</b> solo si <b>todas</b> las condiciones se cumplen. Si una sola es falsa, el
+                resultado será <b>false</b>.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>let usuario = "admin";
+let clave = 1234;
+
+// ¿El nombre es admin Y la clave es 1234?
+console.log(usuario === "admin" && clave === 1234); 
+// Resultado en consola: true
+
+console.log(usuario === "admin" && clave === 0000); 
+// Resultado en consola: false</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Operador OR (||)</h3>
+            <p>Devuelve <b>true</b> si <b>al menos una</b> de las condiciones es verdadera. Es ideal para opciones
+                alternativas.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>let tieneEfectivo = false;
+let tieneTarjeta = true;
+
+// ¿Puede pagar con alguno de los dos?
+console.log(tieneEfectivo || tieneTarjeta); 
+// Resultado en consola: true
+
+console.log(false || false); 
+// Resultado en consola: false</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Operador NOT (!)</h3>
+            <p>Invierte el estado lógico. Es como decir "No" o "Lo opuesto a...".</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>let encendido = true;
+
+console.log(!encendido); 
+// Resultado en consola: false
+
+let esAdulto = false;
+console.log(!esAdulto); 
+// Resultado en consola: true (No es adulto)</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Condicional If / Else</h3>
+            <p>Permite ejecutar un bloque de código <b>si</b> se cumple una condición, y otro bloque <b>si no</b> se
+                cumple.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>let edad = 18;
+
+if (edad >= 18) {
+    console.log("Eres mayor de edad. ¡Bienvenido!");
+} else {
+    console.log("Eres menor de edad. Acceso restringido.");
+}</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Else If (Múltiples opciones)</h3>
+            <p>Cuando tienes más de dos caminos posibles, usas <b>else if</b> para evaluar nuevas condiciones en
+                orden.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>let hora = 14;
+
+if (hora < 12) {
+    console.log("Buenos días");
+} else if (hora < 20) {
+    console.log("Buenas tardes");
+} else {
+    console.log("Buenas noches");
+}</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Operador Ternario</h3>
+            <p>Es una forma abreviada de escribir un <b>if / else</b> en una sola línea. Muy útil para
+                asignaciones rápidas.</p>
+            <p>Estructura: <b>condición ? true : false</b></p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>let puntos = 90;
+
+// Si puntos >= 90, es "Nivel Pro", si no, es "Nivel Novato"
+let rango = puntos >= 90 ? "Nivel Pro" : "Nivel Novato";
+
+console.log(rango); // "Nivel Pro"</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Bucle For</h3>
+            <p>Se usa cuando sabes exactamente cuántas veces quieres repetir una acción. Se compone de: <b>inicio;
+                    condición; incremento</b>.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>// Contar del 1 al 5
+for (let i = 1; i <= 5; i++) {
+    console.log("Vuelta número: " + i);
+}</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Bucle While</h3>
+            <p>Ejecuta el código <b>mientras</b> la condición sea verdadera. ¡Cuidado! Si la condición nunca cambia a
+                falsa, el bucle será infinito.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>let bateria = 3;
+
+while (bateria > 0) {
+    console.log("App funcionando... Batería: " + bateria + "%");
+    bateria--; // Restamos para que eventualmente termine
+}
+console.log("Teléfono apagado");</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Bucle Do While</h3>
+            <p>La diferencia clave es que este bucle <b>se ejecuta siempre al menos una vez</b>, y después revisa si
+                debe continuar.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>let intentos = 0;
+
+do {
+    console.log("Intentando conectar...");
+    intentos++;
+} while (intentos < 1); 
+// Aunque la condición sea falsa pronto, entró una vez.</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Anatomía de una Función</h3>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>function cocinar(ingrediente) {
+    let plato = "Sopa de " + ingrediente;
+    return plato;
+}</code></pre>
+            </div>
+
+            <ul>
+                <li>Palabra reservada <b>function</b>: Indica al navegador que estamos definiendo una
+                    función.</li>
+                <li>Nombre (<b>cocinar</b>): Es el identificador que usaremos para ejecutar la función más
+                    tarde. Se recomienda usar verbos.</li>
+                <li>Paréntesis <b>()</b>: Aquí dentro van los datos que la función necesita para trabajar
+                    (llamados parámetros). Si no necesita nada, se dejan vacíos.</li>
+                <li>Llaves <b>{}</b>: Delimitan el "cuerpo" de la función. Todo lo que esté adentro es el
+                    código que se ejecutará.</li>
+                <li>Palabra reservada <b>return</b>: Es la salida. Especifica qué valor debe devolver la
+                    función al terminar.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Parámetros y Argumentos</h3>
+            <p>Aunque parecen lo mismo, tienen una diferencia clave de concepto:</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>// El 'parámetro' es el nombre en la definición (la variable vacía)
+function saludar(nombre) { 
+    return "Hola " + nombre;
+}
+
+// El 'argumento' es el valor real que enviamos al llamarla
+saludar("Andrea"); // "Andrea" es el argumento</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>La Llamada (Ejecución)</h3>
+            <p>Definir una función no la ejecuta. Para que el código dentro de las llaves funcione, debes "llamar" a la
+                función usando su nombre seguido de paréntesis.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>function aviso() {
+    console.log("¡Cuidado!");
+}
+
+aviso(); // Aquí es donde realmente se ejecuta el console.log</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Funciones de Flecha (Arrow Functions)</h3>
+            <p>Es una forma moderna y simplificada de escribir funciones. Se eliminan las palabras <b>function</b> y
+                <b>return</b> (en ciertos casos) para usar el símbolo de la flecha <b>=></b>.
+            </p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>// Función clásica
+function triple(n) {
+    return n * 3;
+}
+
+// Función flecha (Equivalente)
+const tripleFlecha = (n) => n * 3;</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Elementos de la Función Flecha</h3>
+            <p>Al ser una versión resumida, sus componentes cambian ligeramente para ser más directos:</p>
+
+            <ul>
+                <li>Constante (<b>const</b>): A diferencia de las clásicas, las funciones flecha suelen
+                    guardarse en una variable o constante.</li>
+                <li>Paréntesis <b>()</b>: Siguen guardando los parámetros.</li>
+                <li>La Flecha <b>=></b>: Conecta los parámetros con el cuerpo de la función. Es el símbolo
+                    que le da nombre.</li>
+                <li><b>Retorno Implícito:</b> Si la función tiene una sola línea, no necesita llaves <b>{}</b> ni
+                    la palabra <b>return</b>. JavaScript entiende que debe devolver ese resultado automáticamente.
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Diferencias de Sintaxis</h3>
+            <p>Dependiendo de la complejidad, la función flecha puede verse de distintas formas:</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>// 1. Sin parámetros (usa paréntesis vacíos)
+const saludo = () => "Hola mundo";
+
+// 2. Un solo parámetro (sin paréntesis)
+const cuadrado = (x) => x * x;
+
+// 3. Múltiples parámetros (con paréntesis)
+const suma = (a, b) => a + b;
+
+// 4. Con varias líneas de código (necesita llaves y return)
+const login = (usuario) => {
+    console.log("Iniciando sesión...");
+    return "Bienvenido " + usuario;
+};</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>¿Qué es un Arreglo (Array)?</h3>
+            <p>Es una estructura de datos que permite almacenar varios valores en una sola variable. Cada elemento tiene
+                una posición llamada <b>índice</b>, que siempre comienza en <b>0</b>.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>let frutas = ["Manzana", "Pera", "Banana"];
+// Índice:       0          1         2</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>1. Recorrer un Arreglo (Bucle For)</h3>
+            <p>Para leer todos los elementos de un arreglo, usamos un bucle <b>for</b>. La propiedad <b>.length</b> nos
+                dice cuántos elementos tiene el arreglo para saber cuándo detenerse.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>let colores = ["Rojo", "Verde", "Azul"];
+
+for (let i = 0; i < colores.length; i++) {
+    console.log("Color: " + colores[i]);
+}</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>2. Adicionar Elementos (.push)</h3>
+            <p>Para agregar un nuevo elemento al <b>final</b> del arreglo, utilizamos el método <b>.push()</b>.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>let alumnos = ["Juan", "Maria"];
+alumnos.push("Pedro"); // Agrega al final
+
+console.log(alumnos); // ["Juan", "Maria", "Pedro"]</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>3. Editar Elementos</h3>
+            <p>Para modificar un valor, simplemente accedemos a su <b>índice</b> y le asignamos un nuevo dato, igual que
+                con una variable normal.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>let compras = ["Pan", "Leche", "Huevos"];
+
+// Queremos cambiar "Leche" (índice 1) por "Yogur"
+compras[1] = "Yogur";
+
+console.log(compras); // ["Pan", "Yogur", "Huevos"]</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>4. Eliminar Elementos (.splice)</h3>
+            <p>El método <b>.splice()</b> permite eliminar elementos en cualquier posición. Recibe dos números: el
+                <b>índice inicial</b> y <b>cuántos</b> elementos quieres borrar.
+            </p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>let juegos = ["Mario", "Zelda", "Metroid", "Sonic"];
+
+// Eliminar "Zelda" (está en el índice 1)
+juegos.splice(1, 1); 
+
+console.log(juegos); // ["Mario", "Metroid", "Sonic"]</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>¿Qué es un Objeto?</h3>
+            <p>A diferencia de un arreglo que es una lista, un objeto es una colección de <b>propiedades</b>. Cada
+                propiedad tiene una <b>clave</b> (nombre) y un <b>valor</b>. Se usan para representar entidades del
+                mundo real.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>const usuario = {
+    nombre: "Dario",
+    edad: 30,
+    profesion: "Ingeniero",
+    esPremium: true
+};</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Acceso a Propiedades</h3>
+            <p>Para leer el valor de una propiedad, usamos la <b>notación de punto</b> (la más común) o la <b>notación
+                    de corchetes</b> (necesaria si la clave tiene espacios).</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>console.log(usuario.nombre);    // "Dario"
+console.log(usuario["edad"]);    // 30</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Modificar y Agregar</h3>
+            <p>Los objetos son flexibles. Puedes cambiar un valor existente o crear una propiedad nueva simplemente
+                asignándole un valor.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>// Modificar
+usuario.edad = 31;
+
+// Agregar nueva propiedad
+usuario.pais = "Bolivia";
+
+console.log(usuario.pais); // "Bolivia"</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Métodos (Funciones)</h3>
+            <p>Un objeto también puede realizar acciones. Cuando una propiedad es una función, se le llama
+                <b>método</b>.
+            </p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>const perro = {
+    nombre: "Firulais",
+    ladrar: function() {
+        return "¡Guau guau!";
+    },
+    saludar() {
+        return `Hola, soy ${this.nombre}`;
+    }
+};
+
+console.log(perro.saludar()); // "Hola, soy Firulais"</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Objetos Anidados</h3>
+            <p>Un objeto puede contener otros objetos o arreglos dentro, permitiendo estructuras de datos más complejas.
+            </p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>const curso = {
+    titulo: "JavaScript",
+    autor: {
+        nombre: "Dario",
+        web: "aprende365"
+    },
+    temas: ["Variables", "Funciones", "Objetos"]
+};
+
+console.log(curso.autor.web); // "aprende365"</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>¿Qué es el DOM?</h3>
+            <p>DOM significa <b>Document Object Model</b> (Modelo de Objetos del Documento). Es una estructura en forma
+                de árbol que representa tu HTML. JavaScript usa el DOM para leer, cambiar o borrar elementos de la
+                página en tiempo real.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>// El DOM convierte tu HTML en un "Objeto" que JS entiende.
+console.log(document); // Muestra todo el HTML de la página</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Seleccionar Elementos</h3>
+            <p>Antes de cambiar algo, debemos "atrapar" el elemento. Las formas más comunes son por su <b>ID</b> o
+                usando selectores de tipo <b>CSS</b>.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>// Por ID (el más rápido)
+const titulo = document.getElementById("mi-titulo");
+
+// Por selector de CSS (muy versátil)
+const boton = document.querySelector(".btn-principal");
+const parrafos = document.querySelectorAll("p"); // Atrapa TODOS los p</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Modificar Contenido y Estilo</h3>
+            <p>Una vez seleccionado, podemos cambiar su texto, su HTML interno o incluso sus estilos de CSS directamente
+                desde JavaScript.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>const caja = document.querySelector("#mensaje");
+
+// Cambiar el texto
+caja.textContent = "¡Hola desde el DOM!";
+
+// Cambiar el HTML (permite etiquetas)
+caja.innerHTML = "&lt;b&gt;Texto en negrita&lt;/b&gt;";
+
+// Cambiar CSS
+caja.style.backgroundColor = "blue";
+caja.style.color = "white";</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h3>Eventos (Interactividad)</h3>
+            <p>Los eventos son acciones que ocurren en la página (clics, teclas presionadas, mover el ratón). Usamos
+                <b>addEventListener</b> para "escuchar" cuando el usuario hace algo.
+            </p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>const btn = document.querySelector("#mi-boton");
+
+// Escuchar el clic
+btn.addEventListener("click", () => {
+    alert("¡Hiciste clic en el botón!");
+    document.body.style.backgroundColor = "yellow";
+});</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Reto: Controlador de Flechas</h3>
+            <p>Podemos usar un <b>switch</b> o varios <b>if</b> para detectar qué flecha de dirección presionó el
+                usuario. ¡Esto es la base para mover personajes en un juego!</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <pre><code>document.addEventListener("keydown", (event) => {
+    
+    // Evaluamos qué tecla se presionó
+    switch (event.key) {
+        case "ArrowUp":
+            console.log("↑ Vas hacia ARRIBA");
+            document.body.style.backgroundColor = "#D4EDDA"; // Verde claro
+            break;
+        case "ArrowDown":
+            console.log("↓ Vas hacia ABAJO");
+            document.body.style.backgroundColor = "#F8D7DA"; // Rojo claro
+            break;
+        case "ArrowLeft":
+            console.log("← Vas hacia la IZQUIERDA");
+            document.body.style.backgroundColor = "#FFF3CD"; // Amarillo claro
+            break;
+        case "ArrowRight":
+            console.log("→ Vas hacia la DERECHA");
+            document.body.style.backgroundColor = "#CCE5FF"; // Azul claro
+            break;
+    }
+});</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Formulario de Login Moderno</h3>
+            <p>Crearemos un formulario que valide si los campos están vacíos o si la contraseña es muy corta antes de
+                "enviar" los datos.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR HTML</button>
+                <pre><code>&lt;div class="login-card"&gt;
+    &lt;h2&gt;Iniciar Sesión&lt;/h2&gt;
+    &lt;form id="loginForm"&gt;
+        &lt;div class="input-group"&gt;
+            &lt;label&gt;Usuario&lt;/label&gt;
+            &lt;input type="text" id="usuario" placeholder="Ej: dariocursos"&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="input-group"&gt;
+            &lt;label&gt;Contraseña&lt;/label&gt;
+            &lt;input type="password" id="password" placeholder="••••••••"&gt;
+        &lt;/div&gt;
+
+        &lt;p id="mensajeError" style="color: red; display: none;"&gt;&lt;/p&gt;
+        
+        &lt;button type="submit" class="btn-enviar"&gt;Ingresar&lt;/button&gt;
+    &lt;/form&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Diseño con CSS</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR CSS</button>
+                <pre><code>.login-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    max-width: 350px;
+    margin: auto;
+    font-family: sans-serif;
+}
+
+.input-group { margin-bottom: 1.5rem; }
+
+.input-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box; /* Importante para el ancho */
+}
+
+.btn-enviar {
+    width: 100%;
+    padding: 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-enviar:hover { background: #0056b3; }</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Lógica de Validación</h3>
+            <p>Usamos <code>event.preventDefault()</code> para evitar que la página se recargue y poder validar los
+                datos primero.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR JS</button>
+                <pre><code>const formulario = document.querySelector("#loginForm");
+const errorTxt = document.querySelector("#mensajeError");
+
+formulario.addEventListener("submit", (event) => {
+    event.preventDefault(); // Detiene el envío automático
+
+    const user = document.querySelector("#usuario").value;
+    const pass = document.querySelector("#password").value;
+
+    // Validación simple
+    if (user === "" || pass === "") {
+        errorTxt.textContent = "⚠️ Todos los campos son obligatorios";
+        errorTxt.style.display = "block";
+    } else if (pass.length < 6) {
+        errorTxt.textContent = "⚠️ La contraseña debe tener al menos 6 caracteres";
+        errorTxt.style.display = "block";
+    } else {
+        errorTxt.style.color = "green";
+        errorTxt.textContent = "✅ ¡Acceso concedido! Redirigiendo...";
+        errorTxt.style.display = "block";
+        
+        // Simular redirección
+        setTimeout(() => {
+            alert("Bienvenido " + user);
+        }, 1000);
+    }
+});</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Registro de Perfil de Usuario</h3>
+            <p>Utilizamos etiquetas <b>label</b> para accesibilidad y diferentes tipos de <b>input</b> para capturar
+                datos específicos.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR HTML</button>
+                <pre><code>&lt;div class="form-container"&gt;
+    &lt;h2&gt;Crear Cuenta&lt;/h2&gt;
+    &lt;form id="userForm"&gt;
+        &lt;div class="row"&gt;
+            &lt;input type="text" id="nombre" placeholder="Nombre" required&gt;
+            &lt;input type="text" id="apellido" placeholder="Apellido" required&gt;
+        &lt;/div&gt;
+
+        &lt;input type="email" id="email" placeholder="correo@ejemplo.com" required&gt;
+
+        &lt;div class="input-group"&gt;
+            &lt;label&gt;Fecha de Nacimiento:&lt;/label&gt;
+            &lt;input type="date" id="fecha"&gt;
+        &lt;/div&gt;
+
+        &lt;div class="input-group"&gt;
+            &lt;label&gt;País:&lt;/label&gt;
+            &lt;select id="pais"&gt;
+                &lt;option value="Bolivia"&gt;Bolivia&lt;/option&gt;
+                &lt;option value="Argentina"&gt;Argentina&lt;/option&gt;
+                &lt;option value="Chile"&gt;Chile&lt;/option&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+
+        &lt;div class="gender-box"&gt;
+            &lt;span&gt;Género:&lt;/span&gt;
+            &lt;label&gt;&lt;input type="radio" name="gen" value="M" checked&gt; M&lt;/label&gt;
+            &lt;label&gt;&lt;input type="radio" name="gen" value="F"&gt; F&lt;/label&gt;
+        &lt;/div&gt;
+
+        &lt;button type="submit" class="btn-save"&gt;Registrar Usuario&lt;/button&gt;
+    &lt;/form&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Estilos del Formulario</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR CSS</button>
+                <pre><code>.form-container {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    max-width: 450px;
+    margin: 20px auto;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.row { display: flex; gap: 10px; margin-bottom: 15px; }
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.gender-box { margin-bottom: 20px; }
+
+.btn-save {
+    width: 100%;
+    padding: 12px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-save:hover { background: #218838; }</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Lógica de Captura de Datos</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR JS</button>
+                <pre><code>const userForm = document.querySelector("#userForm");
+
+userForm.addEventListener("submit", (e) => {
+    e.preventDefault(); // Evita que la página se recargue
+
+    // Creamos un objeto con toda la información
+    const datosUsuario = {
+        nombre: document.querySelector("#nombre").value,
+        apellido: document.querySelector("#apellido").value,
+        email: document.querySelector("#email").value,
+        nacimiento: document.querySelector("#fecha").value,
+        pais: document.querySelector("#pais").value,
+        genero: document.querySelector('input[name="gen"]:checked').value,
+        fechaRegistro: new Date().toLocaleString()
+    };
+
+    console.log("Objeto de usuario creado:");
+    console.table(datosUsuario); // Muestra los datos en una tabla en consola
+    
+    alert("¡Usuario " + datosUsuario.nombre + " registrado con éxito!");
+});</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Sistema de Gestión de Usuarios (CRUD)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR HTML</button>
+                <pre><code>&lt;div class="crud-container"&gt;
+    &lt;!-- Barra de Herramientas --&gt;
+    &lt;div class="toolbar"&gt;
+        &lt;input type="text" id="buscador" placeholder="Buscar usuario..."&gt;
+        &lt;button id="btnAdicionar" class="btn-add"&gt;+ Adicionar Usuario&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Tabla de Datos --&gt;
+    &lt;table id="tablaUsuarios"&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;ID&lt;/th&gt;
+                &lt;th&gt;Nombre&lt;/th&gt;
+                &lt;th&gt;Email&lt;/th&gt;
+                &lt;th&gt;Acciones&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody id="tbodyUsuarios"&gt;
+            &lt;!-- Los datos se cargarán aquí con JS --&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+
+    &lt;!-- Paginador --&gt;
+    &lt;div class="pagination"&gt;
+        &lt;button id="btnAnterior"&gt;Anterior&lt;/button&gt;
+        &lt;span id="infoPagina"&gt;Página 1 de 1&lt;/span&gt;
+        &lt;button id="btnSiguiente"&gt;Siguiente&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Diseño del Panel Administrativo</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR CSS</button>
+                <pre><code>.crud-container {
+    font-family: Arial, sans-serif;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.toolbar { display: flex; justify-content: space-between; margin-bottom: 20px; }
+
+#buscador { padding: 10px; width: 60%; border: 1px solid #ddd; border-radius: 5px; }
+
+.btn-add { background: #007bff; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; }
+
+table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+
+th, td { padding: 12px; border-bottom: 1px solid #eee; text-align: left; }
+
+th { background-color: #f8f9fa; }
+
+.btn-delete { background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; }
+
+.pagination { display: flex; justify-content: center; align-items: center; gap: 15px; }
+
+.pagination button { padding: 5px 15px; cursor: pointer; }</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Lógica Funcional con JavaScript</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR JS</button>
+                <pre><code>// 1. Datos iniciales (Simulando una base de datos)
+let usuarios = [
+    { id: 1, nombre: "Ruben Dario", email: "dario@ejemplo.com" },
+    { id: 2, nombre: "Ana Lopez", email: "ana@ejemplo.com" },
+    { id: 3, nombre: "Carlos Perez", email: "carlos@ejemplo.com" },
+    { id: 4, nombre: "Maria Garcia", email: "maria@ejemplo.com" }
+];
+
+let paginaActual = 1;
+const filasPorPagina = 2;
+
+// 2. Función para renderizar la tabla
+function renderizarTabla(lista) {
+    const tbody = document.querySelector("#tbodyUsuarios");
+    tbody.innerHTML = "";
+
+    // Lógica de paginación
+    let inicio = (paginaActual - 1) * filasPorPagina;
+    let fin = inicio + filasPorPagina;
+    let paginados = lista.slice(inicio, fin);
+
+    paginados.forEach(u => {
+        tbody.innerHTML += `
+            &lt;tr&gt;
+                &lt;td&gt;${u.id}&lt;/td&gt;
+                &lt;td&gt;${u.nombre}&lt;/td&gt;
+                &lt;td&gt;${u.email}&lt;/td&gt;
+                &lt;td&gt;&lt;button class="btn-delete" onclick="eliminarUsuario(${u.id})"&gt;Eliminar&lt;/button&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+        `;
+    });
+    
+    document.querySelector("#infoPagina").textContent = `Página ${paginaActual}`;
+}
+
+// 3. Eliminar con confirmación
+function eliminarUsuario(id) {
+    if (confirm("¿Estás seguro de eliminar este usuario?")) {
+        usuarios = usuarios.filter(u => u.id !== id);
+        renderizarTabla(usuarios);
+    }
+}
+
+// 4. Buscador en tiempo real
+document.querySelector("#buscador").addEventListener("input", (e) => {
+    const termino = e.target.value.toLowerCase();
+    const filtrados = usuarios.filter(u => 
+        u.nombre.toLowerCase().includes(termino) || 
+        u.email.toLowerCase().includes(termino)
+    );
+    paginaActual = 1; // Reiniciar a la primera página al buscar
+    renderizarTabla(filtrados);
+});
+
+// 5. Adicionar Usuario (Ejemplo rápido)
+document.querySelector("#btnAdicionar").addEventListener("click", () => {
+    const nombre = prompt("Nombre del usuario:");
+    if (nombre) {
+        usuarios.push({ id: Date.now(), nombre: nombre, email: "nuevo@ejemplo.com" });
+        renderizarTabla(usuarios);
+    }
+});
+
+// Inicializar
+renderizarTabla(usuarios);</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>CRUD Móvil (Diseño de Tarjetas)</h3>
+            <p>En pantallas pequeñas, es mejor mostrar cada registro como una tarjeta independiente para mejorar la
+                lectura.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR HTML</button>
+                <pre><code>&lt;div class="mobile-crud-container"&gt;
+    &lt;header class="header-app"&gt;
+        &lt;h2&gt;Mis Usuarios&lt;/h2&gt;
+        &lt;button id="btnAdd" class="btn-circular"&gt;+&lt;/button&gt;
+    &lt;/header&gt;
+
+    &lt;div class="search-bar"&gt;
+        &lt;input type="text" id="buscador" placeholder="Buscar por nombre..."&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Aquí se cargarán las tarjetas --&gt;
+    &lt;div id="listaUsuarios" class="cards-grid"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Estilos Responsivos</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR CSS</button>
+                <pre><code>.mobile-crud-container {
+    max-width: 400px;
+    margin: auto;
+    background: #f4f7f6;
+    min-height: 100vh;
+    padding-bottom: 80px;
+}
+
+.header-app {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: #fff;
+}
+
+.btn-circular {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: none;
+    background: #007bff;
+    color: white;
+    font-size: 24px;
+    box-shadow: 0 4px 10px rgba(0,123,255,0.3);
+}
+
+.cards-grid { padding: 15px; }
+
+.user-card {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.user-info h4 { margin: 0; color: #333; }
+.user-info p { margin: 5px 0 0; color: #777; font-size: 14px; }
+
+.btn-delete-mini {
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+}</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Lógica de Gestión Móvil</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR JS</button>
+                <pre><code>let usuarios = [
+    { id: 1, nombre: "Dario Sossa", cargo: "Ingeniero" },
+    { id: 2, nombre: "Ana Maria", cargo: "Diseñadora" }
+];
+
+function mostrarUsuarios() {
+    const contenedor = document.querySelector("#listaUsuarios");
+    contenedor.innerHTML = "";
+
+    usuarios.forEach(user => {
+        contenedor.innerHTML += `
+            &lt;div class="user-card"&gt;
+                &lt;div class="user-info"&gt;
+                    &lt;h4&gt;${user.nombre}&lt;/h4&gt;
+                    &lt;p&gt;${user.cargo}&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;button class="btn-delete-mini" onclick="eliminar(${user.id})"&gt;Borrar&lt;/button&gt;
+            &lt;/div&gt;
+        `;
+    });
+}
+
+function eliminar(id) {
+    if(confirm("¿Eliminar este perfil?")) {
+        usuarios = usuarios.filter(u => u.id !== id);
+        mostrarUsuarios();
+    }
+}
+
+// Evento para añadir rápido
+document.querySelector("#btnAdd").addEventListener("click", () => {
+    const nombre = prompt("Nombre:");
+    if(nombre) {
+        usuarios.push({ id: Date.now(), nombre: nombre, cargo: "Nuevo Usuario" });
+        mostrarUsuarios();
+    }
+});
+
+// Inicializar app
+mostrarUsuarios();</code></pre>
+            </div>
+        </section>
 
 
 
@@ -14424,6 +15655,311 @@ function openTab(tabId){
 
 
 
+
+
+
+
+        <section>
+            <h3>Navegación de Triple Nivel</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR HTML</button>
+                <pre><code>&lt;nav class="navbar"&gt;
+    &lt;ul class="menu-principal"&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Inicio&lt;/a&gt;&lt;/li&gt;
+        
+        &lt;li class="has-submenu"&gt;
+            &lt;a href="#"&gt;Cursos ▼&lt;/a&gt;
+            &lt;!-- SEGUNDO NIVEL --&gt;
+            &lt;ul class="submenu"&gt;
+                &lt;li&gt;&lt;a href="#"&gt;Diseño Web&lt;/a&gt;&lt;/li&gt;
+                &lt;li class="has-submenu"&gt;
+                    &lt;a href="#"&gt;Programación ▶&lt;/a&gt;
+                    &lt;!-- TERCER NIVEL --&gt;
+                    &lt;ul class="sub-submenu"&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;JavaScript&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;Python&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;PHP&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/li&gt;
+                &lt;li&gt;&lt;a href="#"&gt;Marketing&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/li&gt;
+        
+        &lt;li&gt;&lt;a href="#"&gt;Contacto&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Estilos de Cascada (CSS)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR CSS</button>
+                <pre><code>/* Estilos Base */
+.navbar ul { list-style: none; padding: 0; margin: 0; background: #333; }
+.navbar a { color: white; text-decoration: none; padding: 15px 20px; display: block; }
+.navbar a:hover { background: #444; }
+
+/* Menú Horizontal */
+.menu-principal { display: flex; }
+.menu-principal > li { position: relative; }
+
+/* Ocultar Submenús por defecto */
+.submenu, .sub-submenu {
+    display: none;
+    position: absolute;
+    width: 200px;
+    top: 100%; /* Aparece justo abajo */
+    left: 0;
+}
+
+/* Tercer nivel: aparece a la derecha */
+.sub-submenu {
+    top: 0;
+    left: 100%; 
+}
+
+/* Mostrar al hacer Hover */
+li:hover > .submenu { display: block; }
+.submenu li:hover > .sub-submenu { display: block; }</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Control de Menú con JavaScript</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR JS</button>
+                <pre><code>// Seleccionamos todos los elementos que tienen submenú
+const itemsConSubmenu = document.querySelectorAll(".has-submenu");
+
+itemsConSubmenu.forEach(item => {
+    item.addEventListener("click", function(e) {
+        // Evitamos que el enlace nos lleve a otra página si tiene hijos
+        // Solo si el ancho de pantalla es menor a 768px (Móvil)
+        if (window.innerWidth < 768) {
+            e.stopPropagation(); // Evita que el evento suba al padre
+            
+            // Buscamos el submenú directo de este item
+            const submenu = this.querySelector("ul");
+            
+            if (submenu) {
+                // Alternamos una clase para mostrar/ocultar
+                submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+            }
+        }
+    });
+});</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Navegación Inferior Estilo TikTok</h3>
+            <p>Este menú se mantiene fijo en la parte de abajo de la pantalla, ideal para aplicaciones móviles.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR HTML</button>
+                <pre><code>&lt;nav class="mobile-nav"&gt;
+    &lt;a href="#" class="nav-item active" onclick="activar(this)"&gt;
+        &lt;span class="icon"&gt;🏠&lt;/span&gt;
+        &lt;span class="text"&gt;Inicio&lt;/span&gt;
+    &lt;/a&gt;
+    &lt;a href="#" class="nav-item" onclick="activar(this)"&gt;
+        &lt;span class="icon"&gt;🔍&lt;/span&gt;
+        &lt;span class="text"&gt;Amigos&lt;/span&gt;
+    &lt;/a&gt;
+    &lt;a href="#" class="nav-item add-btn"&gt;
+        &lt;span class="icon"&gt;+&lt;/span&gt;
+    &lt;/a&gt;
+    &lt;a href="#" class="nav-item" onclick="activar(this)"&gt;
+        &lt;span class="icon"&gt;💬&lt;/span&gt;
+        &lt;span class="text"&gt;Bandeja&lt;/span&gt;
+    &lt;/a&gt;
+    &lt;a href="#" class="nav-item" onclick="activar(this)"&gt;
+        &lt;span class="icon"&gt;👤&lt;/span&gt;
+        &lt;span class="text"&gt;Perfil&lt;/span&gt;
+    &lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Estilos CSS Mobile-First</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR CSS</button>
+                <pre><code>.mobile-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #000;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid #333;
+    z-index: 1000;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: #888;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 10px;
+    transition: 0.3s;
+}
+
+.nav-item.active { color: #fff; }
+
+.icon { font-size: 20px; margin-bottom: 2px; }
+
+/* Botón central estilo TikTok */
+.add-btn {
+    background: linear-gradient(to right, #2af5ff 20%, #ff0050 80%);
+    width: 45px;
+    height: 30px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000 !important;
+    font-size: 24px;
+    font-weight: bold;
+}</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Lógica de Interacción</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR JS</button>
+                <pre><code>function activar(elemento) {
+    // 1. Quitar la clase 'active' de todos los items
+    const items = document.querySelectorAll('.nav-item');
+    items.forEach(item => item.classList.remove('active'));
+
+    // 2. Agregar la clase 'active' al elemento clickeado
+    elemento.classList.add('active');
+}</code></pre>
+            </div>
+        </section>
+
+
+
+
+
+        <section>
+            <h3>Slider de Imágenes Dinámico</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR HTML</button>
+                <pre><code>&lt;div class="slider-container"&gt;
+    &lt;div class="slider-frame"&gt;
+        &lt;img id="slider-img" src="" alt="Imagen del slider"&gt;
+        &lt;p id="slider-caption"&gt;&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Controles --&gt;
+    &lt;button class="btn-prev" onclick="cambiarSlide(-1)"&gt;❮&lt;/button&gt;
+    &lt;button class="btn-next" onclick="cambiarSlide(1)"&gt;❯&lt;/button&gt;
+
+    &lt;!-- Indicadores (Puntos) --&gt;
+    &lt;div class="dots-container" id="dots"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Estilos del Slider</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR CSS</button>
+                <pre><code>.slider-container {
+    position: relative;
+    max-width: 600px;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.slider-frame img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.5s ease-in-out;
+}
+
+#slider-caption {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.6);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+}
+
+.btn-prev, .btn-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.7);
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.btn-prev { left: 10px; }
+.btn-next { right: 10px; }
+
+.dots-container { text-align: center; margin-top: 10px; }
+.dot { height: 12px; width: 12px; margin: 0 5px; background-color: #bbb; border-radius: 50%; display: inline-block; }
+.active { background-color: #333; }</code></pre>
+            </div>
+        </section>
+        <section>
+            <h3>Lógica del Slider</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">COPIAR JS</button>
+                <pre><code>// 1. Arreglo de objetos con los datos de las imágenes
+const slides = [
+    { url: "https://picsum.photos/id/10/600/350", texto: "Montañas Nevadas" },
+    { url: "https://picsum.photos/id/20/600/350", texto: "Escritorio de Trabajo" },
+    { url: "https://picsum.photos/id/30/600/350", texto: "Taza de Café" }
+];
+
+let indiceActual = 0;
+
+// 2. Función para actualizar la imagen en el DOM
+function mostrarSlide(index) {
+    const img = document.querySelector("#slider-img");
+    const caption = document.querySelector("#slider-caption");
+
+    // Validar límites (efecto infinito)
+    if (index >= slides.length) indiceActual = 0;
+    else if (index < 0) indiceActual = slides.length - 1;
+    else indiceActual = index;
+
+    // Cambiar contenido
+    img.src = slides[indiceActual].url;
+    caption.textContent = slides[indiceActual].texto;
+}
+
+// 3. Función para los botones
+function cambiarSlide(direccion) {
+    mostrarSlide(indiceActual + direccion);
+}
+
+// 4. Autoplay (Opcional)
+setInterval(() => {
+    cambiarSlide(1);
+}, 5000); // Cambia cada 5 segundos
+
+// Inicializar
+mostrarSlide(indiceActual);</code></pre>
+            </div>
+        </section>
+
+
+
+            
 
 
 
