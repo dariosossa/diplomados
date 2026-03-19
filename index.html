@@ -16296,56 +16296,76 @@ mostrarSlide(indiceActual);</code></pre>
         }
 
         function openSearch() {
-            const dialog = document.getElementById("search-dialog");
-            const secciones = document.querySelectorAll("main > section");
-            const wrapper = document.getElementById("content-wrapper");
+    const dialog = document.getElementById("search-dialog");
+    const secciones = document.querySelectorAll("main > section");
+    const wrapper = document.getElementById("content-wrapper");
 
-            if (!dialog || !wrapper) return;
+    if (!dialog || !wrapper) return;
 
-            dialog.innerHTML = `
-            <div style="display: flex; flex-direction: column; gap: 10px; padding: 5px;">
-                <h3 style="font-size: 0.75rem; color: var(--accent); margin-bottom: 5px; text-align: center; letter-spacing: 1px;">NAVEGAR POR UNIDADES</h3>
-                <ul id="results" style="list-style:none; max-height:70vh; overflow-y:auto; margin:0; padding:0; scrollbar-width: thin;"></ul>
-            </div>
-        `;
+    dialog.innerHTML = `
+        <div style="display: flex; flex-direction: column; gap: 10px; padding: 5px;">
+            <h3 style="font-size: 0.75rem; color: var(--accent); margin-bottom: 5px; text-align: center; letter-spacing: 1px;">NAVEGAR POR UNIDADES</h3>
+            <ul id="results" style="list-style:none; max-height:70vh; overflow-y:auto; margin:0; padding:0; scrollbar-width: thin;"></ul>
+        </div>
+    `;
 
-            const resultsList = document.getElementById("results");
+    const resultsList = document.getElementById("results");
 
-            secciones.forEach((section, index) => {
-                const h2 = section.querySelector("h2");
-                if (!h2) return;
+    secciones.forEach((section, index) => {
+        const h2 = section.querySelector("h2");
+        if (!h2) return;
 
-                const li = document.createElement("li");
-                li.style.cssText = "padding:15px; cursor:pointer; border-bottom:1px solid #2d3343; text-transform:uppercase; font-size:11px; color:#fff; transition:0.2s; display:flex; align-items:center; gap:12px;";
+        // 1. CREAR EL ID PARA EL TÍTULO (Precisión absoluta)
+        const idTitulo = `titulo-${index + 1}`;
+        h2.id = idTitulo; 
 
-                li.innerHTML = `
+        const li = document.createElement("li");
+        li.style.borderBottom = "1px solid #2d3343";
+
+        // 2. USAR ETIQUETA <a> PARA LA NAVEGACIÓN
+        // Nota: El estilo se aplica al <a> para que todo el área sea clickeable
+        li.innerHTML = `
+            <a href="#${idTitulo}" style="
+                display: flex; 
+                align-items: center; 
+                gap: 12px; 
+                padding: 15px; 
+                text-decoration: none; 
+                color: #fff; 
+                text-transform: uppercase; 
+                font-size: 11px; 
+                transition: 0.2s;
+                width: 100%;
+                box-sizing: border-box;
+            ">
                 <span style="color:var(--accent); font-weight:bold; min-width:85px; font-family:monospace;">UNIDAD ${(index + 1).toString().padStart(2, '0')}:</span>
                 <span style="flex:1; opacity:0.9;">${h2.textContent.trim()}</span>
-            `;
+            </a>
+        `;
 
-                li.onmouseover = () => { li.style.background = "rgba(97, 218, 251, 0.1)"; li.style.color = "var(--accent)"; };
-                li.onmouseout = () => { li.style.background = "transparent"; li.style.color = "#fff"; };
+        const link = li.querySelector("a");
 
-                li.onclick = () => {
-                    if (visorActivo) toggleVisor();
+        // Efectos Visuales
+        link.onmouseover = () => { link.style.background = "rgba(97, 218, 251, 0.1)"; link.style.color = "var(--accent)"; };
+        link.onmouseout = () => { link.style.background = "transparent"; link.style.color = "#fff"; };
 
-                    // Cálculo de scroll relativo al contenedor wrapper
-                    const wrapperRect = wrapper.getBoundingClientRect();
-                    const h2Rect = h2.getBoundingClientRect();
-                    const relativeTop = h2Rect.top - wrapperRect.top + wrapper.scrollTop;
+        // 3. ACCIÓN AL HACER CLICK
+        link.onclick = (e) => {
+            // Cerramos el visor si está abierto
+            if (typeof visorActivo !== 'undefined' && visorActivo) toggleVisor();
+            
+            // Cerramos el diálogo
+            dialog.close();
 
-                    wrapper.scrollTo({
-                        top: relativeTop - 20,
-                        behavior: 'smooth'
-                    });
+            // Opcional: Si quieres que el scroll sea suave a pesar de usar <a>
+            // El navegador lo hará automáticamente si tienes "scroll-behavior: smooth" en CSS
+        };
 
-                    dialog.close();
-                };
-                resultsList.appendChild(li);
-            });
+        resultsList.appendChild(li);
+    });
 
-            dialog.showModal();
-        }
+    dialog.showModal();
+}
 
         function copyCode(btn) {
             const codeElement = btn.parentElement.querySelector('code');
