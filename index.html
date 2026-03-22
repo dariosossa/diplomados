@@ -95,6 +95,8 @@
 
             text-underline-offset: 6px;
             /* separa la línea del texto */
+            line-height: 1.8;
+            /* aumenta el espacio entre líneas */
         }
 
         h4 {
@@ -4454,12 +4456,13 @@ proyecto-web
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-html {
-    transform: scale(0.5); /* Reduce el tamaño visual al 50% */
-    transform-origin: top left; /* Evita que el contenido se desplace al centro */
-    width: 200%; /* Compensa el escalado */
+@media (max-width: 1000px) {
+  html {
+    transform: scale(0.5);
+    transform-origin: top left;
+    width: 200%;
     height: 200%;
-    overflow-x: hidden; /* Evita scroll horizontal */
+  }
 }
 </code></pre>
                 </div>
@@ -4481,9 +4484,9 @@ html {
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
 h1 {
-  margin: 40px;
-  border: 3px solid black;
-  padding: 20px;
+  margin: 40px; /* espacio externo */
+  padding: 20px; /* espacio interno */
+  border: 3px solid black; /* borde visible */
 }
 </code></pre>
                 </div>
@@ -4565,55 +4568,81 @@ h1 {
 
                 <h3>Ejemplos visuales</h3>
 
-                <p>
-                    Cada caja muestra un color y dentro aparece la forma en que se puede escribir ese color en CSS.
-                </p>
+                <div style="margin-top:20px;background-color: white;">
 
-                <div style="display:flex; gap:20px; flex-wrap:wrap; margin-top:20px;">
+                    <div style="display:inline-block; width:45%; vertical-align:top;">
 
-                    <div
-                        style="width:140px; height:100px; background:red; border:4px solid red; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold;">
-                        red
+                        <div
+                            style="width:100%; height:100px; margin:10px; padding:20px; border:4px solid red; color: #000; font-weight:bold;">
+                            red
+                        </div>
+
+                        <div
+                            style="width:100%; height:100px; margin:10px; padding:20px; border:4px solid #0000ff; color: #000; font-weight:bold;">
+                            #0000ff
+                        </div>
+
                     </div>
 
-                    <div
-                        style="width:140px; height:100px; background:rgb(0,255,0); border:4px solid rgb(0,255,0); display:flex; align-items:center; justify-content:center; color:black; font-weight:bold;">
-                        rgb(0,255,0)
-                    </div>
+                    <div style="display:inline-block; width:45%; vertical-align:top;">
 
-                    <div
-                        style="width:140px; height:100px; background:#0000ff; border:4px solid #0000ff; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold;">
-                        #0000ff
-                    </div>
+                        <div
+                            style="width:100%; height:100px; margin:10px; padding:20px; border:4px solid rgb(0,255,0); color: #000; font-weight:bold;">
+                            rgb(0,255,0)
+                        </div>
 
-                    <div
-                        style="width:140px; height:100px; background:rgba(255,0,0,0.5); border:4px solid rgba(255,0,0,0.5); display:flex; align-items:center; justify-content:center; color:black; font-weight:bold;">
-                        rgba(255,0,0,0.5)
+                        <div
+                            style="width:100%; height:100px; margin:10px; padding:20px; border:4px solid rgba(255,0,0,0.5); color: #000; font-weight:bold;">
+                            rgba(255,0,0,0.5)
+                        </div>
+
                     </div>
 
                 </div>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;div&gt;
 
-                <p>
-                    Esto significa que al crear un borde podemos escribir el color de cualquiera de estas formas.
-                </p>
+  &lt;div class="caja red"&gt;red&lt;/div&gt;
+
+  &lt;div class="caja rgb"&gt;rgb(0,255,0)&lt;/div&gt;
+
+  &lt;div class="caja hex"&gt;#0000ff&lt;/div&gt;
+
+  &lt;div class="caja rgba"&gt;rgba(255,0,0,0.5)&lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre>
+                </div>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-h1{
-    border:3px solid red;
+.caja {
+  width: 140px;
+  height: 100px;
+  margin: 10px;
+
+  border: 4px solid black;
+  padding: 20px;
 }
 
-h2{
-    border:3px solid rgb(0,255,0);
+/* Ejemplos de colores */
+.red {
+  border-color: red;
 }
 
-h3{
-    border:3px solid #0000ff;
+.rgb {
+  border-color: rgb(0,255,0);
 }
 
-h4{
-    border:3px solid rgba(255,0,0,0.5);
+.hex {
+  border-color: #0000ff;
+}
+
+.rgba {
+  border-color: rgba(255,0,0,0.5);
 }
 </code></pre>
                 </div>
@@ -5199,8 +5228,20 @@ h1 {
                 </div>
 
                 <p>
+                    ⚠️ El contenedor padre debe tener un tamaño definido y ser más grande que el hijo,
+                    para que el porcentaje funcione correctamente.
+                </p>
+
+                <p>
                     <b>vw (viewport width):</b> representa el ancho de la pantalla.
                 </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;div class="caja"&gt;Contenido&lt;/div&gt;
+</code></pre>
+                </div>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
@@ -5216,6 +5257,13 @@ h1 {
                 <p>
                     <b>vh (viewport height):</b> representa la altura de la pantalla.
                 </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;div class="caja"&gt;Contenido&lt;/div&gt;
+</code></pre>
+                </div>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
@@ -5301,46 +5349,38 @@ h1 {
                     </div>
                 </details>
 
-                <h3>¿Cómo cambiar el color de la letra en CSS?</h3>
-
-                <p>
-                    Al igual que en los bordes, el color puede escribirse de varias formas:
-                </p>
-
-                <ul>
-                    <li>Nombre del color</li>
-                    <li>Código hexadecimal</li>
-                    <li>Formato RGB</li>
-                    <li>Formato RGBA</li>
-                </ul>
-
-                <h3>Ejemplo usando diferentes formas de color</h3>
+                <h3>¿Cómo cambiar el color de la letra?</h3>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-h1 {
-  color: red;
-}
-
-h2 {
-  color: rgb(0,255,0);
-}
-
-h3 {
-  color: #0000ff;
-}
-
-h4 {
-  color: rgba(255,0,0,0.5);
-}
+&lt;p class="rojo"&gt;Texto rojo&lt;/p&gt;
+&lt;p class="verde"&gt;Texto verde&lt;/p&gt;
+&lt;p class="azul"&gt;Texto azul&lt;/p&gt;
+&lt;p class="transparente"&gt;Texto transparente&lt;/p&gt;
 </code></pre>
                 </div>
 
-                <p>
-                    En este ejemplo cada título tendrá un color diferente utilizando
-                    distintas formas de escribir el color en CSS.
-                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.rojo {
+  color: red; /* nombre */
+}
+
+.verde {
+  color: rgb(0,255,0); /* rgb */
+}
+
+.azul {
+  color: #0000ff; /* hexadecimal */
+}
+
+.transparente {
+  color: rgba(255,0,0,0.5); /* rgba */
+}
+</code></pre>
+                </div>
 
                 <details class="respuesta-box">
                     <summary>Actividad 30</summary>
@@ -5463,133 +5503,40 @@ influye en la forma en que percibimos una marca.
 
                 <h3>¿Cómo cambiar el color de fondo en CSS?</h3>
 
-                <p>
-                    En CSS podemos cambiar el color de fondo de un elemento utilizando la propiedad
-                    <b>background-color</b>.
-                </p>
-
-                <p>
-                    Esta propiedad permite modificar el color del fondo de títulos, párrafos,
-                    divisiones u otros elementos de la página.
-                </p>
-
-                <p>
-                    Para aplicar el estilo es recomendable seleccionar los elementos usando
-                    <b>id</b> o <b>class</b>.
-                </p>
-
-
-                <h3>Ejemplo usando <b>id</b></h3>
-
-                <p>
-                    Primero creamos el elemento en <b>HTML</b>.
-                </p>
-
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-&lt;div id="caja"&gt;
-  Contenido de la caja
-&lt;/div&gt;
+&lt;div class="rojo"&gt;Fondo rojo&lt;/div&gt;
+&lt;div class="verde"&gt;Fondo verde&lt;/div&gt;
+&lt;div class="azul"&gt;Fondo azul&lt;/div&gt;
+&lt;div class="transparente"&gt;Fondo transparente&lt;/div&gt;
 </code></pre>
                 </div>
 
-                <p>
-                    Luego aplicamos el color de fondo en <b>CSS</b>.
-                </p>
-
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-#caja {
-  background-color: lightblue;
-}
-</code></pre>
-                </div>
-
-                <p>
-                    En este ejemplo el elemento tendrá un fondo de color azul claro.
-                </p>
-
-
-                <h3>Ejemplo usando <b>class</b></h3>
-
-                <p>
-                    Si queremos aplicar el mismo estilo a varios elementos podemos utilizar
-                    <b>class</b>.
-                </p>
-
-                <p>
-                    Primero creamos los elementos en <b>HTML</b>.
-                </p>
-
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-&lt;div class="tarjeta"&gt;
-  Caja 1
-&lt;/div&gt;
-
-&lt;div class="tarjeta"&gt;
-  Caja 2
-&lt;/div&gt;
-</code></pre>
-                </div>
-
-                <p>
-                    Luego aplicamos el estilo en <b>CSS</b>.
-                </p>
-
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-.tarjeta {
-  background-color: lightgreen;
-}
-</code></pre>
-                </div>
-
-                <p>
-                    Esto aplicará el mismo color de fondo a todos los elementos que tengan
-                    la clase <b>tarjeta</b>.
-                </p>
-
-
-                <h3>Cómo generar contraste entre fondo y texto</h3>
-
-                <p>
-                    Cuando se utiliza un color de fondo es importante elegir un color de texto
-                    que tenga buen contraste. Esto permite que el contenido sea fácil de leer.
-                </p>
-
-                <p>
-                    Para cambiar el color del texto se utiliza la propiedad <b>color</b>.
-                </p>
-
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-.caja {
-  background-color: black;
+.rojo {
+  background: red;
   color: white;
 }
+
+.verde {
+  background: rgb(0,255,0);
+  color: black;
+}
+
+.azul {
+  background: #0000ff;
+  color: white;
+}
+
+.transparente {
+  background: rgba(255,0,0,0.5);
+  color: black;
+}
 </code></pre>
                 </div>
-
-                <p>
-                    En este ejemplo el fondo es negro y el texto blanco, lo que genera un
-                    contraste fuerte y mejora la lectura.
-                </p>
-
-                <p>
-                    Si el fondo es oscuro se recomienda usar texto claro.
-                    Si el fondo es claro se recomienda usar texto oscuro.
-                </p>
-
-                <ul>
-                    <li>Fondo oscuro → texto claro</li>
-                    <li>Fondo claro → texto oscuro</li>
-                </ul>
 
                 <details class="respuesta-box">
                     <summary>Actividad 31</summary>
@@ -5704,103 +5651,54 @@ influye en la forma en que percibimos una marca.
                     </div>
                 </details>
 
-                <h3>¿Cómo colocar una imagen como fondo en CSS?</h3>
-
-                <p>
-                    En CSS podemos colocar una imagen como fondo de un elemento utilizando
-                    la propiedad <b>background-image</b>.
-                </p>
-
-                <p>
-                    Esta propiedad permite mostrar una imagen detrás del contenido de un
-                    elemento como un <b>div</b>, un título o una sección.
-                </p>
-
-                <h3>Ejemplo usando class</h3>
-
-                <p>
-                    Primero creamos el elemento en <b>HTML</b>.
-                </p>
+                <h3>¿Cómo colocar una imagen de fondo?</h3>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-&lt;div class="banner"&gt;
-  Contenido del banner
-&lt;/div&gt;
+&lt;div class="fondo"&gt;Texto sobre imagen&lt;/div&gt;
 </code></pre>
                 </div>
 
-                <p>
-                    Luego agregamos la imagen de fondo en <b>CSS</b>.
-                </p>
-
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-.banner {
-  background-image: url("img/fondo.jpg");
+.fondo {
+  width: 300px; /* ancho del elemento */
+  height: 200px; /* alto del elemento */
+  color: white; /* color del texto */
+  padding: 20px; /* espacio interno */
+  border: 3px solid black; /* borde */
+
+  background-image: url("https://picsum.photos/300/200"); /* imagen de fondo */
+  background-size: cover; /* cubre todo el espacio */
+  background-position: center; /* centra la imagen */
+  background-repeat: no-repeat; /* evita que se repita */
 }
 </code></pre>
                 </div>
 
-                <p>
-                    La función <b>url()</b> indica la ubicación de la imagen dentro del proyecto.
-                </p>
-
-                <p>
-                    En este ejemplo la imagen se encuentra dentro de la carpeta <b>img</b>.
-                </p>
-
-
-
-                <h3>Configuración para que la imagen se vea mejor</h3>
-
-                <p>
-                    Cuando colocamos una imagen de fondo, es recomendable ajustar algunas
-                    propiedades para mejorar su apariencia.
-                </p>
-
-                <p>
-                    Las más utilizadas son:
-                </p>
-
-                <ul>
-                    <li><b>background-size</b> → controla el tamaño de la imagen</li>
-                    <li><b>background-position</b> → controla la posición de la imagen</li>
-                    <li><b>background-repeat</b> → controla si la imagen se repite</li>
-                </ul>
-
-
-
-                <h3>Ejemplo completo</h3>
+                <h3>Uso de object-fit (para imágenes)</h3>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-.banner {
-  background-image: url("img/fondo.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
+&lt;img src="https://picsum.photos/300/200" class="img"&gt;
 </code></pre>
                 </div>
 
-                <p>
-                    En este ejemplo:
-                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.img {
+  width: 300px; /* ancho de la imagen */
+  height: 200px; /* alto de la imagen */
+  border: 3px solid black; /* borde */
 
-                <ul>
-                    <li><b>background-size: cover</b> → la imagen cubre todo el elemento</li>
-                    <li><b>background-position: center</b> → la imagen se centra</li>
-                    <li><b>background-repeat: no-repeat</b> → evita que la imagen se repita</li>
-                </ul>
-
-                <p>
-                    Esta configuración se utiliza con frecuencia en diseño web moderno para
-                    crear <b>secciones con imágenes de fondo limpias y bien ajustadas</b>.
-                </p>
+  object-fit: cover; /* llena el espacio sin deformar */
+}
+</code></pre>
+                </div>
 
                 <details class="respuesta-box">
                     <summary>Actividad 32</summary>
@@ -5903,100 +5801,33 @@ influye en la forma en que percibimos una marca.
                 <h3>¿Cómo cambiar el tamaño del texto?</h3>
 
                 <p>
-                    Para modificar el tamaño de la letra utilizamos la propiedad <b>font-size</b>.
-                </p>
-
-                <p>
-                    Esta propiedad permite aumentar o disminuir el tamaño del texto de un
-                    elemento como un título o un párrafo.
+                    Por defecto, el tamaño del texto en los navegadores suele ser de <b>16px</b>, por eso muchas
+                    unidades relativas se basan en ese valor.
                 </p>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-.texto {
-  font-size: 20px;
+&lt;p class="px"&gt;Texto en px&lt;/p&gt;
+&lt;p class="em"&gt;Texto en em&lt;/p&gt;
+&lt;p class="rem"&gt;Texto en rem&lt;/p&gt;
+</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.px {
+  font-size: 20px; /* tamaño fijo */
 }
-</code></pre>
-                </div>
 
-                <p>
-                    En este ejemplo el texto tendrá un tamaño de <b>20 píxeles</b>.
-                </p>
-
-                <ul>
-                    <li><b>em</b> → tamaño relativo al texto</li>
-                    <li><b>rem</b> → tamaño relativo al elemento raíz</li>
-                </ul>
-                <h4>Unidad em</h4>
-
-                <p>
-                    La unidad <b>em</b> se calcula tomando como referencia el tamaño de letra
-                    del elemento padre.
-                </p>
-
-                <p>
-                    En muchos navegadores el tamaño base suele ser <b>16px</b>.
-                </p>
-
-                <ul>
-                    <li>1em = 16px</li>
-                    <li>2em = 32px</li>
-                    <li>0.5em = 8px</li>
-                </ul>
-
-                <p>
-                    Esta unidad se utiliza principalmente para <b>controlar el tamaño del texto</b>.
-                </p>
-
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-.texto {
-  font-size: 2em;
+.em {
+  font-size: 1.5em; /* relativo al elemento padre */
 }
-</code></pre>
-                </div>
 
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-&lt;p class="texto"&gt;Texto de ejemplo&lt;/p&gt;
-</code></pre>
-                </div>
-
-
-                <h4>Unidad rem</h4>
-
-                <p>
-                    La unidad <b>rem</b> significa <b>root em</b>. El cálculo se basa en el tamaño
-                    del elemento raíz <b>html</b>.
-                </p>
-
-                <ul>
-                    <li>1rem = 16px</li>
-                    <li>2rem = 32px</li>
-                    <li>0.5rem = 8px</li>
-                </ul>
-
-                <p>
-                    Al igual que <b>em</b>, esta unidad se usa con mayor frecuencia para
-                    <b>definir tamaños de texto</b>.
-                </p>
-
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-.texto {
-  font-size: 1.5rem;
+.rem {
+  font-size: 1.5rem; /* relativo al html */
 }
-</code></pre>
-                </div>
-
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-&lt;p class="texto"&gt;Texto de ejemplo&lt;/p&gt;
 </code></pre>
                 </div>
 
@@ -6120,69 +5951,47 @@ influye en la forma en que percibimos una marca.
 
                 <h3>¿Cómo cambiar el tipo de letra?</h3>
 
-                <p>
-                    Para cambiar el tipo de letra utilizamos la propiedad <b>font-family</b>.
-                </p>
+                <h3>Fuente del dispositivo</h3>
 
-                <p>
-                    Esta propiedad permite elegir la fuente que utilizará el texto.
-                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;p class="texto"&gt;Hola mundo&lt;/p&gt;
+</code></pre>
+                </div>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
 .texto {
-  font-family: Arial;
+  font-family: Arial, sans-serif;
 }
 </code></pre>
                 </div>
 
-                <p>
-                    En este caso el texto utilizará la fuente <b>Arial</b>.
-                </p>
-
-
-
-                <h3>¿Es posible usar nuevas fuentes en una página web?</h3>
-
-                <p>
-                    Sí. En diseño web es muy común utilizar fuentes externas como las que ofrece
-                    <b>Google Fonts</b>.
-                </p>
-
-                <p>
-                    Google Fonts es una biblioteca gratuita de tipografías que pueden
-                    utilizarse fácilmente en una página web.
-                </p>
-
-                <p>
-                    Primero debemos copiar el enlace de la fuente y colocarlo dentro de la
-                    etiqueta <b>head</b> del documento HTML.
-                </p>
+                <h3>Google Fonts</h3>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-&lt;link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"&gt;
+&lt;head&gt;
+  &lt;link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;p class="texto-google"&gt;Hola mundo&lt;/p&gt;
+&lt;/body&gt;
 </code></pre>
                 </div>
 
-                <p>
-                    Luego utilizamos la fuente en nuestro archivo CSS.
-                </p>
-
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-.texto {
+.texto-google {
   font-family: 'Roboto', sans-serif;
 }
 </code></pre>
                 </div>
-
-                <p>
-                    De esta manera el texto utilizará la fuente <b>Roboto</b>.
-                </p>
 
                 <details class="respuesta-box">
                     <summary>Actividad 34</summary>
@@ -6317,84 +6126,55 @@ influye en la forma en que percibimos una marca.
                     </div>
                 </details>
 
-                <h3>¿Cómo poner el texto en negrita?</h3>
-
-                <p>
-                    Para cambiar el grosor de la letra utilizamos la propiedad <b>font-weight</b>.
-                </p>
-
-                <p>
-                    Esta propiedad permite hacer el texto más grueso o más delgado.
-                </p>
+                <h3>¿Cómo poner parte del texto en negrita?</h3>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-.texto {
+&lt;div&gt;
+  Texto normal &lt;span class="negrita"&gt;texto en negrita&lt;/span&gt;
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.negrita {
   font-weight: bold;
 }
 </code></pre>
                 </div>
 
-                <p>
-                    El valor <b>bold</b> hace que el texto se vea en <b>negrita</b>.
-                </p>
-
 
 
                 <h3>¿Cómo alinear el texto?</h3>
 
-                <p>
-                    Para cambiar la alineación del texto utilizamos la propiedad
-                    <b>text-align</b>.
-                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;div class="izquierda"&gt;Texto a la izquierda&lt;/div&gt;
+&lt;div class="centro"&gt;Texto centrado&lt;/div&gt;
+&lt;div class="derecha"&gt;Texto a la derecha&lt;/div&gt;
+</code></pre>
+                </div>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-.texto {
+.izquierda {
+  text-align: left;
+}
+
+.centro {
   text-align: center;
 }
-</code></pre>
-                </div>
 
-                <p>
-                    Algunos valores comunes son:
-                </p>
-
-                <ul>
-                    <li><b>left</b> → alinear a la izquierda</li>
-                    <li><b>center</b> → centrar el texto</li>
-                    <li><b>right</b> → alinear a la derecha</li>
-                </ul>
-
-
-
-                <h3>¿Cómo cambiar el espacio entre líneas?</h3>
-
-                <p>
-                    Para modificar el espacio entre líneas utilizamos la propiedad
-                    <b>line-height</b>.
-                </p>
-
-                <p>
-                    Esta propiedad permite aumentar o reducir la distancia entre cada línea
-                    de texto.
-                </p>
-
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-.texto {
-  line-height: 1.8;
+.derecha {
+  text-align: right;
 }
 </code></pre>
                 </div>
-
-                <p>
-                    Un valor mayor genera más espacio entre líneas, lo que puede mejorar
-                    la lectura del texto en párrafos largos.
-                </p>
 
                 <details class="respuesta-box">
                     <summary>Actividad 35</summary>
@@ -6547,165 +6327,66 @@ influye en la forma en que percibimos una marca.
 
                 <h3>¿Qué es la propiedad display en CSS?</h3>
 
-                <p>
-                    La propiedad <b>display</b> controla la forma en que un elemento se comporta
-                    dentro de la página. Es decir, define <b>cómo se muestra y cómo ocupa el espacio</b>.
-                </p>
-
-                <p>
-                    Dependiendo del valor que utilicemos, el elemento puede ocupar toda la línea,
-                    compartir espacio con otros elementos o incluso desaparecer visualmente.
-                </p>
-
-                <p>
-                    Algunos de los valores más utilizados son:
-                </p>
-
-                <ul>
-                    <li><b>display: block</b></li>
-                    <li><b>display: inline</b></li>
-                    <li><b>display: inline-block</b></li>
-                    <li><b>display: none</b></li>
-                </ul>
-
-
-
-                <h3>¿Qué significa display: block?</h3>
-
-                <p>
-                    Cuando un elemento tiene <b>display: block</b>, ocupa <b>todo el ancho disponible</b>
-                    de la página y provoca un salto de línea antes y después del elemento.
-                </p>
-
-                <p>
-                    Esto significa que ningún otro elemento puede colocarse en la misma línea.
-                </p>
-
-                <p>
-                    Algunos elementos HTML ya son <b>block</b> por defecto, como:
-                </p>
-
-                <ul>
-                    <li><b>div</b></li>
-                    <li><b>p</b></li>
-                    <li><b>h1, h2, h3...</b></li>
-                </ul>
-
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-.elemento {
-  display: block;
-}
+&lt;span class="bloque"&gt;Soy span pero actúo como bloque&lt;/span&gt;
+
+&lt;div class="inline"&gt;Soy div pero actúo como inline&lt;/div&gt;
+
+&lt;span class="inline-bloque"&gt;Soy span inline-block&lt;/span&gt;
 </code></pre>
                 </div>
 
-                <p>
-                    Esto hace que el elemento se comporte como una caja que ocupa toda la línea.
-                </p>
-
-
-
-                <h3>¿Qué significa display: inline?</h3>
-
-                <p>
-                    Cuando utilizamos <b>display: inline</b>, el elemento solo ocupa el espacio
-                    necesario para su contenido.
-                </p>
-
-                <p>
-                    Esto permite que varios elementos se coloquen <b>uno al lado del otro</b>
-                    en la misma línea.
-                </p>
-
-                <p>
-                    Algunos elementos HTML que ya son <b>inline</b> por defecto son:
-                </p>
-
-                <ul>
-                    <li><b>span</b></li>
-                    <li><b>a</b></li>
-                    <li><b>strong</b></li>
-                </ul>
-
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-.elemento {
-  display: inline;
+.bloque {
+  display: block; /* span ahora ocupa todo el ancho */
+  border: 2px solid black;
+  margin: 10px;
 }
-</code></pre>
-                </div>
 
-                <p>
-                    Un detalle importante es que los elementos <b>inline</b> no respetan bien
-                    las propiedades de <b>width</b> y <b>height</b>.
-                </p>
+.inline {
+  display: inline; /* div ahora solo ocupa su contenido */
+  border: 2px solid red;
+}
 
-
-
-                <h3>¿Qué significa display: inline-block?</h3>
-
-                <p>
-                    El valor <b>inline-block</b> combina características de <b>inline</b> y <b>block</b>.
-                </p>
-
-                <p>
-                    Esto significa que:
-                </p>
-
-                <ul>
-                    <li>El elemento puede colocarse <b>al lado de otros elementos</b>.</li>
-                    <li>Pero también permite usar <b>width</b>, <b>height</b>, <b>padding</b> y <b>margin</b>.</li>
-                </ul>
-
-                <p>
-                    Este comportamiento es muy útil cuando queremos crear elementos
-                    alineados horizontalmente, como botones o tarjetas.
-                </p>
-
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-.elemento {
-  display: inline-block;
+.inline-bloque {
+  display: inline-block; /* permite tamaño pero en línea */
   width: 150px;
-  height: 80px;
+  border: 2px solid blue;
+  margin: 10px;
 }
 </code></pre>
                 </div>
-
-
-
-                <h3>¿Qué significa display: none?</h3>
-
-                <p>
-                    Cuando utilizamos <b>display: none</b>, el elemento <b>desaparece completamente</b>
-                    de la página.
-                </p>
-
-                <p>
-                    El navegador actúa como si ese elemento no existiera.
-                </p>
-
-                <p>
-                    Esto es diferente de simplemente ocultarlo visualmente, porque el
-                    espacio que ocupaba también desaparece.
-                </p>
+                <h3>¿Cómo desaparecer o mostrar un elemento?</h3>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-.elemento {
-  display: none;
-}
+&lt;div class="oculto"&gt;No me ves&lt;/div&gt;
+&lt;div class="invisible"&gt;Ocupo espacio pero no me ves&lt;/div&gt;
+&lt;div class="visible"&gt;Sí me ves&lt;/div&gt;
 </code></pre>
                 </div>
 
-                <p>
-                    Este valor se utiliza mucho en programación web para ocultar o mostrar
-                    elementos dinámicamente con JavaScript.
-                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.oculto {
+  display: none; /* desaparece completamente y no ocupa espacio */
+}
+
+.invisible {
+  visibility: hidden; /* no se ve pero sigue ocupando espacio */
+}
+
+.visible {
+  display: block; /* se muestra normalmente */
+}
+</code></pre>
+                </div>
 
                 <details class="respuesta-box">
                     <summary>Actividad 36</summary>
@@ -6812,219 +6493,239 @@ influye en la forma en que percibimos una marca.
 
                     </div>
                 </details>
+
                 <h3>¿Cómo cambiar el icono del ratón?</h3>
-                <p>
-                    La propiedad <b>cursor</b> permite definir qué tipo de puntero se mostrará cuando el usuario pase el
-                    ratón sobre un elemento. Esto es fundamental para indicar que un elemento es clicleable.
-                </p>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-.boton {
-    cursor: pointer;
-}
-</code>
-</pre>
+&lt;div class="caja pointer"&gt;pointer&lt;/div&gt;
+&lt;div class="caja cross"&gt;crosshair&lt;/div&gt;
+&lt;div class="caja text"&gt;text&lt;/div&gt;
+&lt;div class="caja no"&gt;not-allowed&lt;/div&gt;
+</code></pre>
                 </div>
-
-                <p>
-                    El valor <b>pointer</b> transforma la flecha en una "manito", mientras que <b>not-allowed</b>
-                    muestra un símbolo de prohibido.
-                </p>
-
-                <h3>¿Cómo mover, rotar o cambiar el tamaño?</h3>
-                <p>
-                    La propiedad <b>transform</b> permite aplicar modificaciones visuales como rotaciones, cambios
-                    de escala o traslaciones sin afectar el espacio que ocupa el elemento.
-                </p>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
 .caja {
-    transform: scale(1.2); /* Agranda el elemento al 120% /
-    transform: rotate(45deg); / Rota 45 grados */
+  width: 200px; /* ancho */
+  height: 100px; /* alto */
+  border: 2px solid black;
+  margin: 10px;
+  padding: 10px;
 }
-</code>
-</pre>
-                </div>
 
-                <h3>¿Cómo añadir profundidad con sombras?</h3>
+.pointer {
+  cursor: pointer; /* mano */
+}
 
-                <p>
-                    La propiedad <b>box-shadow</b> permite crear una sombra alrededor de un elemento,
-                    lo que hace que deje de verse plano y parezca que está elevado, como una tarjeta
-                    o un objeto en 3D dentro de la pantalla.
-                </p>
+.cross {
+  cursor: crosshair; /* cruz */
+}
 
-                <p>
-                    Esto se usa mucho en diseños modernos para mejorar la apariencia visual,
-                    ya que ayuda a separar elementos, destacar contenido y dar una sensación
-                    más profesional.
-                </p>
+.text {
+  cursor: text; /* texto */
+}
 
-                <p>
-                    La sombra se construye con varios valores que indican hacia dónde se mueve,
-                    qué tan difusa es y qué color tiene.
-                </p>
-
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-.tarjeta {
-    /* horizontal | vertical | desenfoque | color */
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+.no {
+  cursor: not-allowed; /* prohibido */
 }
 </code></pre>
                 </div>
 
-                <p>
-                    En este ejemplo, la sombra se mueve 5 píxeles hacia la derecha (horizontal)
-                    y 5 píxeles hacia abajo (vertical). Luego, tiene un desenfoque de 15 píxeles,
-                    lo que hace que la sombra se vea suave y no tan marcada.
-                </p>
-
-                <p>
-                    El color usa <b>rgba</b>, donde los primeros tres valores representan el color
-                    (negro en este caso) y el último valor indica la transparencia. Un valor de 0.3
-                    significa que la sombra es ligera y no muy intensa.
-                </p>
-
-                <p>
-                    Mientras más grande sea el valor del desenfoque, más suave será la sombra.
-                    Si reduces ese valor, la sombra se verá más fuerte y definida.
-                </p>
-
-                <p>
-                    También puedes usar sombras más sutiles para diseños modernos, por ejemplo:
-                </p>
+                <h3>¿Cómo añadir sombras?</h3>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+&lt;div class="caja"&gt;Caja con sombra&lt;/div&gt;
+&lt;p class="texto"&gt;Texto con sombra&lt;/p&gt;
 </code></pre>
                 </div>
 
-                <p>
-                    En este caso la sombra no se mueve a los lados, solo hacia abajo, lo que da
-                    un efecto más limpio y elegante.
-                </p>
-
-                <p>
-                    Incluso puedes crear una sombra interna usando la palabra <b>inset</b>,
-                    lo que hace que el elemento parezca hundido:
-                </p>
-
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+.caja {
+  width: 200px;
+  height: 100px;
+  border: 2px solid black;
+  margin: 20px;
+  padding: 20px;
+
+  /* box-shadow: horizontal | vertical | desenfoque | color */
+  box-shadow: 5px 5px 15px gray;
+  /* 5px derecha, 5px abajo, 15px difuminado */
+}
+
+.texto {
+  /* text-shadow: horizontal | vertical | desenfoque | color */
+  text-shadow: 2px 2px 5px gray;
+  /* 2px derecha, 2px abajo, 5px difuminado */
+}
 </code></pre>
-                </div>
-
-                <p>
-                    Este tipo de efectos se usa mucho en inputs o botones para dar sensación
-                    de profundidad hacia adentro.
-                </p>
-
-                <h3>¿Cómo controlar el espacio entre líneas?</h3>
-                <p>
-                    Para modificar la separación vertical entre los renglones de un texto utilizamos <b>line-height</b>.
-                    Un valor entre 1.5 y 1.8 mejora mucho la lectura.
-                </p>
-
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-p {
-    line-height: 1.8;
-}
-</code>
-</pre>
-                </div>
-
-                <h3>¿Cómo ajustar imágenes sin deformarlas?</h3>
-                <p>
-                    La propiedad <b>object-fit</b> define cómo una imagen debe ajustarse a su contenedor cuando este
-                    tiene un tamaño fijo.
-                </p>
-
-
-
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover; /* La imagen llena el espacio sin estirarse */
-}
-</code>
-</pre>
                 </div>
 
                 <h3>¿Cómo evitar que el contenido se salga?</h3>
-                <p>
-                    Cuando el contenido es más grande que su contenedor, usamos <b>overflow</b> para decidir si lo
-                    cortamos o añadimos barras de desplazamiento.
-                </p>
-
-                <ul>
-                    <li><b>hidden</b> → corta lo que sobresale.</li>
-                    <li><b>scroll</b> → añade barras siempre.</li>
-                    <li><b>auto</b> → añade barras solo si es necesario.</li>
-                </ul>
-
-                <h3>¿Cómo limitar el ancho máximo?</h3>
-                <p>
-                    La propiedad <b>max-width</b> establece un límite de crecimiento. Es esencial para que los sitios
-                    web se vean bien en celulares y computadoras.
-                </p>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-.contenedor {
-    width: 100%;
-    max-width: 1200px;
-}
-</code>
-</pre>
+&lt;div class="padre"&gt;
+  &lt;div class="hijo"&gt;Elemento hijo grande&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="caja"&gt;
+  Este texto es muy largo y puede desbordarse del contenedor si no se controla.
+&lt;/div&gt;
+</code></pre>
                 </div>
 
-                <h3>¿Cómo limpiar el estilo de listas y enlaces?</h3>
-                <p>
-                    Para que nuestro diseño sea profesional, a veces necesitamos quitar los estilos que el navegador
-                    trae por defecto.
-                </p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.padre {
+  width: 200px;
+  height: 100px;
+  border: 2px solid black;
 
-                <ul>
-                    <li><b>list-style: none;</b> → quita los puntos de las listas (ul).</li>
-                    <li><b>text-decoration: none;</b> → quita el subrayado de los enlaces (a).</li>
-                </ul>
+  overflow: auto; /* mejor práctica: muestra scroll si el hijo es más grande */
+}
 
-                <h3>¿Cómo crear animaciones suaves?</h3>
-                <p>
-                    La propiedad <b>transition</b> permite que los cambios (de color, tamaño o posición) ocurran de
-                    forma fluida en un tiempo determinado.
-                </p>
+.hijo {
+  width: 300px;
+  height: 150px;
+  background: red;
+}
+
+.caja {
+  width: 200px;
+  height: 100px;
+  border: 2px solid black;
+
+  overflow: auto; /* muestra scroll si el texto se desborda */
+}
+</code></pre>
+                </div>
+
+                <h3>¿Cómo crear animaciones?</h3>
+
+                <!-- EJEMPLO: mover un elemento (cada línea explicada) -->
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-.boton {
-    background-color: blue;
-    transition: all 0.3s ease;
+&lt;div class="caja"&gt;&lt;/div&gt; <!-- elemento a animar -->
+</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.caja {
+  width: 100px; /* ancho */
+  height: 100px; /* alto */
+  background: red; /* color */
+
+  animation-name: moverCaja; /* nombre de la animación */
+  animation-duration: 2s; /* dura 2 segundos */
+  animation-iteration-count: infinite; /* se repite siempre */
+  animation-delay: 1s; /* espera 1 segundo antes de iniciar */
+  animation-direction: alternate; /* va y vuelve */
+  animation-timing-function: ease-in-out; /* cambia la velocidad */
+  animation-fill-mode: forwards; /* se queda en la última posición */
 }
 
-.boton:hover {
-    background-color: red;
-    transform: scale(1.1);
+/* definición de la animación */
+@keyframes moverCaja {
+  0% {
+    transform: translateX(0); /* inicia en su posición */
+  }
+  100% {
+    transform: translateX(200px); /* se mueve a la derecha */
+  }
 }
-</code>
-</pre>
+</code></pre>
+                </div>
+
+                <!-- EJEMPLO: cambiar color -->
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;div class="caja-color"&gt;&lt;/div&gt;
+</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.caja-color {
+  width: 100px; /* ancho */
+  height: 100px; /* alto */
+
+  animation-name: cambiarColor; /* nombre distinto */
+  animation-duration: 3s; /* duración */
+  animation-iteration-count: infinite; /* repetir */
+}
+
+/* cambia colores */
+@keyframes cambiarColor {
+  0% { background: red; } /* inicio */
+  50% { background: yellow; } /* mitad */
+  100% { background: blue; } /* final */
+}
+</code></pre>
+                </div>
+                <h3>¿Cómo usar @media para todas las dimensiones?</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;div class="caja"&gt;Cambia de color según el dispositivo&lt;/div&gt;
+</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+/* CELULAR PEQUEÑO */
+@media (max-width: 399px) {
+  .caja {
+    background: red; /* hasta 399px */
+  }
+}
+
+/* CELULAR GRANDE */
+@media (min-width: 400px) and (max-width: 599px) {
+  .caja {
+    background: orange; /* de 400px a 599px */
+  }
+}
+
+/* TABLET */
+@media (min-width: 600px) and (max-width: 899px) {
+  .caja {
+    background: blue; /* de 600px a 899px */
+  }
+}
+
+/* LAPTOP */
+@media (min-width: 900px) and (max-width: 1199px) {
+  .caja {
+    background: green; /* de 900px a 1199px */
+  }
+}
+
+/* PC GRANDE */
+@media (min-width: 1200px) {
+  .caja {
+    background: purple; /* desde 1200px en adelante */
+  }
+}
+</code></pre>
                 </div>
 
                 <details class="respuesta-box">
@@ -7044,6 +6745,8 @@ img {
                             mouse sobre la
                             tarjeta.</p>
                     </div>
+
+
                 </details>
 
 
