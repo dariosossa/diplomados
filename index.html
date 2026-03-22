@@ -93,7 +93,8 @@
             font-size: 1.2rem;
             text-decoration: underline;
 
-            text-underline-offset: 6px; /* separa la línea del texto */
+            text-underline-offset: 6px;
+            /* separa la línea del texto */
         }
 
         h4 {
@@ -1511,7 +1512,7 @@
                 <div class="media-container">
                     <img src="https://niaxus.com/wp-content/uploads/2025/06/etiquetas-html.jpg" alt="Code"
                         loading="lazy" />
-                    <div class="texto-encima-imagen texto-abajo">
+                    <div class="texto-encima-imagen texto-arriba">
                         Es el lenguaje estándar que se utiliza para crear y estructurar
                         páginas web.
                     </div>
@@ -4299,26 +4300,29 @@ mi-proyecto
                 <div class="media-container">
                     <img src="https://1000logos.net/wp-content/uploads/2020/09/CSS-Logo-2011.png" alt="Code"
                         loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        CSS significa Cascading Style Sheets (Hojas de Estilo en Cascada), es un lenguaje que se utiliza
+                        para dar diseño y apariencia a una página web.
+                    </div>
                 </div>
-                <h3>Estructura del proyecto</h3>
+                <h3>Estructura:</h3>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
 proyecto-web
 │
-├── index.html
-│
 ├── css
 │   └── style.css
-│
+├── img
+│   └── imagenes.png
 ├── js
 │   └── script.js
-│
-└── img
-    └── imagenes.png
+└── index.html
+
 </code></pre>
                 </div>
+                <h4>Explicación:</h4>
 
                 <p>
                     El archivo <b>index.html</b> es la página principal del sitio web.
@@ -4342,15 +4346,6 @@ proyecto-web
 
                 <h3>Cómo conectar el CSS con HTML</h3>
 
-                <p>
-                    Luego debes conectar el archivo CSS dentro del archivo
-                    <b>index.html</b>.
-                </p>
-
-                <p>
-                    Esto se hace dentro de la etiqueta <b>head</b>.
-                </p>
-
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
@@ -4364,23 +4359,7 @@ proyecto-web
 </code></pre>
                 </div>
 
-                <p>
-                    Observa que la ruta es <b>css/style.css</b> porque el archivo
-                    se encuentra dentro de la carpeta <b>css</b>.
-                </p>
                 <h3>¿Cómo limpiar el CSS?</h3>
-
-                <p>
-                    Si queremos diseñar una página web desde cero, es recomendable
-                    <b>eliminar o reiniciar estos estilos</b>. A esto se le conoce como
-                    <b>CSS Reset</b>. De esta forma todos los navegadores comienzan con
-                    los mismos estilos básicos.
-                </p>
-
-                <p>
-                    Una forma sencilla de hacerlo es reiniciando los márgenes y
-                    espaciados de todos los elementos utilizando el selector universal.
-                </p>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
@@ -4394,18 +4373,10 @@ proyecto-web
                 </div>
                 <h3>¿Cómo se comportan los elementos en CSS?</h3>
                 <p>
-                    Los elementos de una página web se comportan como cajas.
+                    Los elementos de una página web se comportan como cajas. Este comportamiento se conoce como Modelo
+                    de Caja (Box Model).
                 </p>
-                <p>
-                    Cada elemento HTML ocupa un espacio rectangular dentro de la página y ese espacio puede
-                    modificarse
-                    utilizando propiedades como margin, border y padding. Este comportamiento se conoce como Modelo
-                    de
-                    Caja (Box Model).
-                </p>
-                <p>
-                    Según este modelo, cada elemento está formado por cuatro partes:
-                </p>
+
                 <div
                     style="font-family: system-ui, sans-serif; width: 100%; max-width: 550px; padding: 20px; border: 2px dashed #475569; border-radius: 12px; background: #1a1d26; margin: 20px auto; color: white;">
 
@@ -4477,62 +4448,68 @@ proyecto-web
                     utilizaremos el
                     <b>inspector de elementos</b> del navegador.
                 </p>
-                <h3>¿Cómo modificar las propiedades?</h3>
+
+                <h3 style="color: yellow;">Usa el siguiente código si trabajas con la mitad de la pantalla</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+html {
+    transform: scale(0.5); /* Reduce el tamaño visual al 50% */
+    transform-origin: top left; /* Evita que el contenido se desplace al centro */
+    width: 200%; /* Compensa el escalado */
+    height: 200%;
+    overflow-x: hidden; /* Evita scroll horizontal */
+}
+</code></pre>
+                </div>
+
                 <p>
-                    Podemos modificar las propiedades del modelo de caja utilizando CSS.
+                    Este ajuste simula una pantalla completa dentro de un espacio reducido,
+                    permitiéndote ver mejor tu diseño mientras trabajas.
                 </p>
+                <h3>¿Cómo cambiar el espacio interno y externo de un elemento?</h3>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;h1&gt;Título de ejemplo&lt;/h1&gt;
+</code></pre>
+                </div>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
 h1 {
   margin: 40px;
-  padding: 20px;
   border: 3px solid black;
+  padding: 20px;
 }
 </code></pre>
                 </div>
-                <h3>¿Qué podemos hacer con el border?</h3>
+                <h3>¿Cómo usar border-width, border-style y border-color?</h3>
 
-                <p>
-                    La propiedad <b>border</b> permite crear un borde alrededor de un elemento.
-                    Este borde se dibuja entre el <b>padding</b> y el <b>margin</b>.
-                </p>
-
-                <p>
-                    Con <b>border</b> podemos modificar principalmente tres aspectos:
-                </p>
-
-                <ul>
-                    <li><b>border-width</b> → grosor del borde</li>
-                    <li><b>border-style</b> → tipo de línea</li>
-                    <li><b>border-color</b> → color del borde</li>
-                </ul>
-
-
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;h1&gt;Título de ejemplo&lt;/h1&gt;
+</code></pre>
+                </div>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
 h1 {
-  border: 3px solid black;
+  border-width: 3px;
+  border-style: solid;
+  border-color: black;
+
+  margin: 40px;
+  padding: 20px;
 }
 </code></pre>
                 </div>
-
-                <p>
-                    En este ejemplo:
-                </p>
-
-                <ul>
-                    <li><b>3px</b> → grosor del borde</li>
-                    <li><b>solid</b> → línea continua</li>
-                    <li><b>black</b> → color negro</li>
-                </ul>
-
-                <p>
-                    Algunos tipos de borde son:
-                </p>
+                <h3>Tipos de borde son:</h3>
 
                 <ul>
                     <li><b>solid</b> → línea continua</li>
@@ -4573,11 +4550,10 @@ h1 {
 
                 </details>
 
-                <h3>¿Qué colores se pueden usar en el borde?</h3>
+                <h3>Colores</h3>
 
                 <p>
-                    En CSS el color del borde puede definirse de diferentes maneras.
-                    Las más utilizadas son:
+                    Para el color se puede utilizar:
                 </p>
 
                 <ul>
@@ -4625,19 +4601,19 @@ h1 {
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
 h1{
-border:3px solid red;
+    border:3px solid red;
 }
 
 h2{
-border:3px solid rgb(0,255,0);
+    border:3px solid rgb(0,255,0);
 }
 
 h3{
-border:3px solid #0000ff;
+    border:3px solid #0000ff;
 }
 
 h4{
-border:3px solid rgba(255,0,0,0.5);
+    border:3px solid rgba(255,0,0,0.5);
 }
 </code></pre>
                 </div>
@@ -4736,24 +4712,27 @@ border:3px solid rgba(255,0,0,0.5);
                     <li><b>border-left</b> → borde izquierdo</li>
                 </ul>
 
-
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;h1&gt;Ejemplo de bordes&lt;/h1&gt;
+</code></pre>
+                </div>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
 h1 {
-  border-bottom: 4px solid red;
+  border-top: 3px solid red;      /* solo arriba */
+  border-right: 3px solid blue;   /* solo derecha */
+  border-bottom: 3px solid green; /* solo abajo */
+  border-left: 3px solid black;   /* solo izquierda */
+
+  margin: 40px;
+  padding: 20px;
 }
 </code></pre>
                 </div>
-
-                <p>
-                    En este ejemplo el borde solo aparece en la parte inferior del título.
-                </p>
-
-                <p>
-                    Esto es muy utilizado para crear separadores o líneas decorativas debajo de los títulos.
-                </p>
 
                 <details class="respuesta-box">
                     <summary>Actividad 25</summary>
@@ -4835,30 +4814,51 @@ h1 {
                 <h3>¿Cómo redondear las esquinas de un borde?</h3>
 
                 <p>
-                    CSS permite redondear las esquinas de un elemento utilizando la propiedad <b>border-radius</b>.
+                    Primero, si quieres que <b>todas las esquinas tengan el mismo redondeo</b>,
+                    puedes usar una sola propiedad:
                 </p>
 
-                <p>
-                    Esta propiedad se usa mucho en diseño web moderno para crear botones, tarjetas y contenedores
-                    con
-                    esquinas suaves.
-                </p>
-
-
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;h1&gt;Título con bordes redondeados&lt;/h1&gt;
+</code></pre>
+                </div>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
 h1 {
   border: 3px solid black;
-  border-radius: 10px;
+
+  padding: 20px;
+  margin: 40px;
+
+  border-radius: 15px; /* todas las esquinas iguales */
 }
 </code></pre>
                 </div>
 
                 <p>
-                    En este ejemplo el borde del título tendrá esquinas redondeadas.
+                    Ahora, si quieres <b>redondear cada esquina de forma diferente</b>, puedes hacerlo así:
                 </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+h1 {
+  border: 3px solid black;
+
+  padding: 20px;
+  margin: 40px;
+
+  border-top-left-radius: 10px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 40px;
+}
+</code></pre>
+                </div>
 
                 <details class="respuesta-box">
                     <summary>Actividad 26</summary>
@@ -4927,89 +4927,55 @@ h1 {
                     </div>
                 </details>
 
-                <h3>¿Qué es id y class en HTML?</h3>
+                <h3>¿Cómo usar id en CSS?</h3>
 
                 <p>
-                    En HTML podemos identificar elementos para aplicar estilos específicos utilizando
-                    los atributos <b>id</b> y <b>class</b>.
-                </p>
-
-                <p>
-                    Estos atributos permiten que CSS seleccione ciertos elementos y les aplique estilos.
-                </p>
-
-                <h3>Uso de id</h3>
-
-                <p>
-                    El atributo <b>id</b> se utiliza para identificar un elemento único dentro de la página.
-                    No debe repetirse.
+                    Un <b>id</b> sirve para identificar un elemento único. En CSS se usa el símbolo <b>#</b>.
                 </p>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-&lt;h1 id="titulo-principal"&gt;
-    Título principal
-&lt;/h1&gt;
+&lt;h1 id="titulo"&gt;Hola mundo&lt;/h1&gt;
 </code></pre>
                 </div>
 
-                <p>
-                    En CSS el <b>id</b> se selecciona utilizando el símbolo <b>#</b>.
-                </p>
-
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-#titulo-principal {
-  border: 4px solid red;
+#titulo {
+  border: 3px solid black;
+  padding: 20px;
+  margin: 40px;
 }
 </code></pre>
                 </div>
 
-                <p>
-                    Esto aplicará el estilo únicamente al elemento que tenga ese <b>id</b>.
-                </p>
-
-
-
-                <h3>Uso de class</h3>
+                <h3>¿Cómo usar class en CSS?</h3>
 
                 <p>
-                    El atributo <b>class</b> se utiliza cuando queremos aplicar el mismo estilo a varios elementos.
+                    Una <b>class</b> sirve para aplicar estilos a <b>varios elementos</b>.
+                    En CSS se usa el símbolo <b>.</b>
                 </p>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-&lt;h2 class="titulo"&gt;
-    Primer título
-&lt;/h2&gt;
-
-&lt;h3 class="titulo"&gt;
-    Segundo título
-&lt;/h3&gt;
+&lt;h1 class="caja"&gt;Título 1&lt;/h1&gt;
+&lt;p class="caja"&gt;Texto 1&lt;/p&gt;
 </code></pre>
                 </div>
 
-                <p>
-                    En CSS la <b>class</b> se selecciona utilizando un punto <b>.</b>
-                </p>
-
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-.titulo {
-  border: 3px solid blue;
+.caja {
+  border: 3px solid black;
+  padding: 20px;
+  margin: 40px;
 }
 </code></pre>
                 </div>
-
-                <p>
-                    Esto aplicará el mismo estilo a todos los elementos que tengan esa <b>class</b>.
-                </p>
-
-
 
                 <h3>Diferencia entre id y class</h3>
 
@@ -5075,97 +5041,33 @@ h1 {
                     </div>
                 </details>
 
-
                 <h3>¿Cómo cambiar el tamaño de un elemento en CSS?</h3>
 
                 <p>
-                    CSS permite modificar el tamaño de los elementos utilizando las propiedades
-                    <b>width</b> y <b>height</b>.
-                </p>
-
-                <ul>
-                    <li><b>width</b> → ancho del elemento</li>
-                    <li><b>height</b> → alto del elemento</li>
-                </ul>
-
-                <p>
-                    En lugar de aplicar el estilo directamente a la etiqueta <b>div</b>, es una buena práctica
-                    utilizar <b>id</b> o <b>class</b> para seleccionar los elementos.
-                </p>
-
-                <h3>Ejemplo usando <b>id</b></h3>
-
-                <p>
-                    Primero creamos el elemento en <b>HTML</b>.
+                    Puedes cambiar el tamaño de un elemento usando las propiedades <b>width</b> (ancho) y <b>height</b>
+                    (alto).
                 </p>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-&lt;div id="caja"&gt;
-    Contenido de la caja
-&lt;/div&gt;
+&lt;div class="caja"&gt;Contenido&lt;/div&gt;
 </code></pre>
                 </div>
 
-                <p>
-                    Luego aplicamos los estilos en <b>CSS</b>.
-                </p>
-
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-#caja {
+.caja {
   width: 300px;
   height: 150px;
+
   border: 3px solid black;
+  padding: 20px;
+  margin: 40px;
 }
 </code></pre>
                 </div>
-
-                <p>
-                    En este ejemplo el elemento tendrá un ancho de <b>300 píxeles</b>
-                    y una altura de <b>150 píxeles</b>.
-                </p>
-
-
-                <h3>Ejemplo usando <b>class</b></h3>
-
-                <p>
-                    Primero creamos los elementos en <b>HTML</b>.
-                </p>
-
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-&lt;div class="contenedor"&gt;
-    Caja 1
-&lt;/div&gt;
-
-&lt;div class="contenedor"&gt;
-    Caja 2
-&lt;/div&gt;
-</code></pre>
-                </div>
-
-                <p>
-                    Luego aplicamos el estilo en <b>CSS</b>.
-                </p>
-
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-.contenedor {
-  width: 300px;
-  height: 150px;
-  border: 3px solid black;
-}
-</code></pre>
-                </div>
-
-                <p>
-                    Esto permite reutilizar el mismo estilo en varios elementos de la página.
-                </p>
 
                 <details class="respuesta-box">
                     <summary>Actividad 28</summary>
@@ -5260,79 +5162,72 @@ h1 {
                     </div>
                 </details>
 
-                <h3>¿Qué otras unidades se pueden usar?</h3>
+                <h3>¿Cómo usar %, vw y vh para cambiar el tamaño?</h3>
 
                 <p>
-                    Ademas de <b>px</b>, se puede utilizar <b>%</b>, <b>vw</b> y <b>vh</b>.
+                    Además de usar píxeles, también puedes usar unidades relativas como <b>%</b>, <b>vw</b> y <b>vh</b>.
+                    Estas permiten que el tamaño se adapte mejor a la pantalla.
                 </p>
-
-                <h4>Unidad %</h4>
 
                 <p>
-                    La unidad <b>%</b> indica un porcentaje respecto al tamaño del contenedor.
+                    <b>% (porcentaje):</b> toma como referencia el tamaño del contenedor padre.
                 </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;div class="contenedor"&gt;
+  &lt;div class="caja"&gt;Contenido&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+                </div>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
 .contenedor {
-  width: 50%;
+  width: 400px;
+  border: 3px solid black;
+}
+
+.caja {
+  width: 50%; /* ocupa la mitad del contenedor */
+  height: 100px;
+  border: 3px solid black;
 }
 </code></pre>
                 </div>
 
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-&lt;div class="contenedor"&gt;&lt;/div&gt;
-</code></pre>
-                </div>
-
-
-                <h4>Unidad vw</h4>
-
                 <p>
-                    La unidad <b>vw</b> representa un porcentaje del ancho de la pantalla.
+                    <b>vw (viewport width):</b> representa el ancho de la pantalla.
                 </p>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-.contenedor {
-  width: 50vw;
+.caja {
+  width: 50vw; /* ocupa el 50% del ancho de la pantalla */
+  height: 100px;
+  border: 3px solid black;
 }
 </code></pre>
                 </div>
 
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-&lt;div class="contenedor"&gt;&lt;/div&gt;
-</code></pre>
-                </div>
-
-
-                <h4>Unidad vh</h4>
-
                 <p>
-                    La unidad <b>vh</b> representa un porcentaje de la altura de la pantalla.
+                    <b>vh (viewport height):</b> representa la altura de la pantalla.
                 </p>
 
                 <div class="code-block">
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-.contenedor {
-  height: 50vh;
+.caja {
+  width: 200px;
+  height: 50vh; /* ocupa el 50% del alto de la pantalla */
+  border: 3px solid black;
 }
 </code></pre>
                 </div>
 
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-&lt;div class="contenedor"&gt;&lt;/div&gt;
-</code></pre>
-                </div>
                 <details class="respuesta-box">
                     <summary>Actividad 29</summary>
 
@@ -7136,13 +7031,17 @@ img {
                     <summary>Actividad 37</summary>
                     <div style="padding:20px; border:1px dashed #2d3343; background-color:white; color:black;">
                         <h3 style="color:black;">Práctica: Mi primera tarjeta interactiva</h3>
-                        <p style="color:black;">1. Crea un archivo <b style="color:black;">index.html</b> y añade un <b style="color:black;">div</b> con clase
+                        <p style="color:black;">1. Crea un archivo <b style="color:black;">index.html</b> y añade un <b
+                                style="color:black;">div</b> con clase
                             "card".</p>
                         <p style="color:black;">2. Dentro de la tarjeta coloca una imagen y un botón.</p>
-                        <p style="color:black;">3. En <b style="color:black;">styles.css</b> aplica <b style="color:black;">box-shadow</b> a la tarjeta.</p>
-                        <p style="color:black;">4. Haz que el botón use <b style="color:black;">cursor: pointer</b> y cambie de color
+                        <p style="color:black;">3. En <b style="color:black;">styles.css</b> aplica <b
+                                style="color:black;">box-shadow</b> a la tarjeta.</p>
+                        <p style="color:black;">4. Haz que el botón use <b style="color:black;">cursor: pointer</b> y
+                            cambie de color
                             suavemente con <b style="color:black;">transition</b>.</p>
-                        <p style="color:black;">5. Usa <b style="color:black;">transform: scale(1.1)</b> cuando pases el mouse sobre la
+                        <p style="color:black;">5. Usa <b style="color:black;">transform: scale(1.1)</b> cuando pases el
+                            mouse sobre la
                             tarjeta.</p>
                     </div>
                 </details>
