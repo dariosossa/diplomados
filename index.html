@@ -91,6 +91,9 @@
             margin-top: 30px;
             margin-bottom: 20px;
             font-size: 1.2rem;
+            text-decoration: underline;
+
+            text-underline-offset: 6px; /* separa la línea del texto */
         }
 
         h4 {
@@ -5140,7 +5143,7 @@ h1 {
 &lt;/div&gt;
 
 &lt;div class="contenedor"&gt;
-    aja 2
+    Caja 2
 &lt;/div&gt;
 </code></pre>
                 </div>
@@ -6924,130 +6927,225 @@ influye en la forma en que percibimos una marca.
                     <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
 .boton {
-cursor: pointer;
+    cursor: pointer;
 }
+</code>
+</pre>
+                </div>
 
-            <p>
-                El valor <b>pointer</b> transforma la flecha en una "manito", mientras que <b>not-allowed</b> muestra un símbolo de prohibido.
-            </p>
+                <p>
+                    El valor <b>pointer</b> transforma la flecha en una "manito", mientras que <b>not-allowed</b>
+                    muestra un símbolo de prohibido.
+                </p>
 
-            <h3>¿Cómo mover, rotar o cambiar el tamaño?</h3>
-            <p>
-                La propiedad <b>transform</b> permite aplicar modificaciones visuales como rotaciones, cambios de escala o traslaciones sin afectar el espacio que ocupa el elemento.
-            </p>
+                <h3>¿Cómo mover, rotar o cambiar el tamaño?</h3>
+                <p>
+                    La propiedad <b>transform</b> permite aplicar modificaciones visuales como rotaciones, cambios
+                    de escala o traslaciones sin afectar el espacio que ocupa el elemento.
+                </p>
 
-            <div class="code-block">
-                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                <pre><code>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
 .caja {
-transform: scale(1.2); /* Agranda el elemento al 120% /
-transform: rotate(45deg); / Rota 45 grados */
+    transform: scale(1.2); /* Agranda el elemento al 120% /
+    transform: rotate(45deg); / Rota 45 grados */
 }
+</code>
+</pre>
+                </div>
 
-            <h3>¿Cómo añadir profundidad con sombras?</h3>
-            <p>
-                La propiedad <b>box-shadow</b> permite crear una sombra alrededor del marco de un elemento, dándole un efecto de elevación o profundidad (3D).
-            </p>
+                <h3>¿Cómo añadir profundidad con sombras?</h3>
 
-            <div class="code-block">
-                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                <pre><code>
+                <p>
+                    La propiedad <b>box-shadow</b> permite crear una sombra alrededor de un elemento,
+                    lo que hace que deje de verse plano y parezca que está elevado, como una tarjeta
+                    o un objeto en 3D dentro de la pantalla.
+                </p>
+
+                <p>
+                    Esto se usa mucho en diseños modernos para mejorar la apariencia visual,
+                    ya que ayuda a separar elementos, destacar contenido y dar una sensación
+                    más profesional.
+                </p>
+
+                <p>
+                    La sombra se construye con varios valores que indican hacia dónde se mueve,
+                    qué tan difusa es y qué color tiene.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
 .tarjeta {
-/* horizontal | vertical | desenfoque | color */
-box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    /* horizontal | vertical | desenfoque | color */
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
 }
+</code></pre>
+                </div>
 
-            <h3>¿Cómo controlar el espacio entre líneas?</h3>
-            <p>
-                Para modificar la separación vertical entre los renglones de un texto utilizamos <b>line-height</b>. Un valor entre 1.5 y 1.8 mejora mucho la lectura.
-            </p>
+                <p>
+                    En este ejemplo, la sombra se mueve 5 píxeles hacia la derecha (horizontal)
+                    y 5 píxeles hacia abajo (vertical). Luego, tiene un desenfoque de 15 píxeles,
+                    lo que hace que la sombra se vea suave y no tan marcada.
+                </p>
 
-            <div class="code-block">
-                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                <pre><code>
+                <p>
+                    El color usa <b>rgba</b>, donde los primeros tres valores representan el color
+                    (negro en este caso) y el último valor indica la transparencia. Un valor de 0.3
+                    significa que la sombra es ligera y no muy intensa.
+                </p>
+
+                <p>
+                    Mientras más grande sea el valor del desenfoque, más suave será la sombra.
+                    Si reduces ese valor, la sombra se verá más fuerte y definida.
+                </p>
+
+                <p>
+                    También puedes usar sombras más sutiles para diseños modernos, por ejemplo:
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+</code></pre>
+                </div>
+
+                <p>
+                    En este caso la sombra no se mueve a los lados, solo hacia abajo, lo que da
+                    un efecto más limpio y elegante.
+                </p>
+
+                <p>
+                    Incluso puedes crear una sombra interna usando la palabra <b>inset</b>,
+                    lo que hace que el elemento parezca hundido:
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+</code></pre>
+                </div>
+
+                <p>
+                    Este tipo de efectos se usa mucho en inputs o botones para dar sensación
+                    de profundidad hacia adentro.
+                </p>
+
+                <h3>¿Cómo controlar el espacio entre líneas?</h3>
+                <p>
+                    Para modificar la separación vertical entre los renglones de un texto utilizamos <b>line-height</b>.
+                    Un valor entre 1.5 y 1.8 mejora mucho la lectura.
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
 p {
-line-height: 1.8;
+    line-height: 1.8;
 }
+</code>
+</pre>
+                </div>
 
-            <h3>¿Cómo ajustar imágenes sin deformarlas?</h3>
-            <p>
-                La propiedad <b>object-fit</b> define cómo una imagen debe ajustarse a su contenedor cuando este tiene un tamaño fijo.
-            </p>
-            
-            
+                <h3>¿Cómo ajustar imágenes sin deformarlas?</h3>
+                <p>
+                    La propiedad <b>object-fit</b> define cómo una imagen debe ajustarse a su contenedor cuando este
+                    tiene un tamaño fijo.
+                </p>
 
-            <div class="code-block">
-                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                <pre><code>
+
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
 img {
-width: 100%;
-height: 200px;
-object-fit: cover; /* La imagen llena el espacio sin estirarse */
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* La imagen llena el espacio sin estirarse */
 }
+</code>
+</pre>
+                </div>
 
-            <h3>¿Cómo evitar que el contenido se salga?</h3>
-            <p>
-                Cuando el contenido es más grande que su contenedor, usamos <b>overflow</b> para decidir si lo cortamos o añadimos barras de desplazamiento.
-            </p>
+                <h3>¿Cómo evitar que el contenido se salga?</h3>
+                <p>
+                    Cuando el contenido es más grande que su contenedor, usamos <b>overflow</b> para decidir si lo
+                    cortamos o añadimos barras de desplazamiento.
+                </p>
 
-            <ul>
-                <li><b>hidden</b> → corta lo que sobresale.</li>
-                <li><b>scroll</b> → añade barras siempre.</li>
-                <li><b>auto</b> → añade barras solo si es necesario.</li>
-            </ul>
+                <ul>
+                    <li><b>hidden</b> → corta lo que sobresale.</li>
+                    <li><b>scroll</b> → añade barras siempre.</li>
+                    <li><b>auto</b> → añade barras solo si es necesario.</li>
+                </ul>
 
-            <h3>¿Cómo limitar el ancho máximo?</h3>
-            <p>
-                La propiedad <b>max-width</b> establece un límite de crecimiento. Es esencial para que los sitios web se vean bien en celulares y computadoras.
-            </p>
+                <h3>¿Cómo limitar el ancho máximo?</h3>
+                <p>
+                    La propiedad <b>max-width</b> establece un límite de crecimiento. Es esencial para que los sitios
+                    web se vean bien en celulares y computadoras.
+                </p>
 
-            <div class="code-block">
-                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                <pre><code>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
 .contenedor {
-width: 100%;
-max-width: 1200px;
+    width: 100%;
+    max-width: 1200px;
 }
+</code>
+</pre>
+                </div>
 
-            <h3>¿Cómo limpiar el estilo de listas y enlaces?</h3>
-            <p>
-                Para que nuestro diseño sea profesional, a veces necesitamos quitar los estilos que el navegador trae por defecto.
-            </p>
+                <h3>¿Cómo limpiar el estilo de listas y enlaces?</h3>
+                <p>
+                    Para que nuestro diseño sea profesional, a veces necesitamos quitar los estilos que el navegador
+                    trae por defecto.
+                </p>
 
-            <ul>
-                <li><b>list-style: none;</b> → quita los puntos de las listas (ul).</li>
-                <li><b>text-decoration: none;</b> → quita el subrayado de los enlaces (a).</li>
-            </ul>
+                <ul>
+                    <li><b>list-style: none;</b> → quita los puntos de las listas (ul).</li>
+                    <li><b>text-decoration: none;</b> → quita el subrayado de los enlaces (a).</li>
+                </ul>
 
-            <h3>¿Cómo crear animaciones suaves?</h3>
-            <p>
-                La propiedad <b>transition</b> permite que los cambios (de color, tamaño o posición) ocurran de forma fluida en un tiempo determinado.
-            </p>
+                <h3>¿Cómo crear animaciones suaves?</h3>
+                <p>
+                    La propiedad <b>transition</b> permite que los cambios (de color, tamaño o posición) ocurran de
+                    forma fluida en un tiempo determinado.
+                </p>
 
-            <div class="code-block">
-                <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                <pre><code>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
 .boton {
-background-color: blue;
-transition: all 0.3s ease;
+    background-color: blue;
+    transition: all 0.3s ease;
 }
 
 .boton:hover {
-background-color: red;
-transform: scale(1.1);
+    background-color: red;
+    transform: scale(1.1);
 }
-
-            <details class="respuesta-box">
-                <summary>Actividad 37</summary>
-                <div style="padding:20px; border:1px dashed #2d3343; background-color:white; color:black;">
-                    <h3 style="color:black;">Práctica: Mi primera tarjeta interactiva</h3>
-                    <p style="color:black;">1. Crea un archivo <b>index.html</b> y añade un <b>div</b> con clase "card".</p>
-                    <p style="color:black;">2. Dentro de la tarjeta coloca una imagen y un botón.</p>
-                    <p style="color:black;">3. En <b>styles.css</b> aplica <b>box-shadow</b> a la tarjeta.</p>
-                    <p style="color:black;">4. Haz que el botón use <b>cursor: pointer</b> y cambie de color suavemente con <b>transition</b>.</p>
-                    <p style="color:black;">5. Usa <b>transform: scale(1.1)</b> cuando pases el mouse sobre la tarjeta.</p>
+</code>
+</pre>
                 </div>
-            </details>
+
+                <details class="respuesta-box">
+                    <summary>Actividad 37</summary>
+                    <div style="padding:20px; border:1px dashed #2d3343; background-color:white; color:black;">
+                        <h3 style="color:black;">Práctica: Mi primera tarjeta interactiva</h3>
+                        <p style="color:black;">1. Crea un archivo <b style="color:black;">index.html</b> y añade un <b style="color:black;">div</b> con clase
+                            "card".</p>
+                        <p style="color:black;">2. Dentro de la tarjeta coloca una imagen y un botón.</p>
+                        <p style="color:black;">3. En <b style="color:black;">styles.css</b> aplica <b style="color:black;">box-shadow</b> a la tarjeta.</p>
+                        <p style="color:black;">4. Haz que el botón use <b style="color:black;">cursor: pointer</b> y cambie de color
+                            suavemente con <b style="color:black;">transition</b>.</p>
+                        <p style="color:black;">5. Usa <b style="color:black;">transform: scale(1.1)</b> cuando pases el mouse sobre la
+                            tarjeta.</p>
+                    </div>
+                </details>
 
 
                 <h3>¿Qué es Flexbox en CSS?</h3>
@@ -7733,7 +7831,7 @@ transform: scale(1.1);
                     <b>row-gap</b> controla el espacio entre filas y
                     <b>column-gap</b> controla el espacio entre columnas.
                 </p>
-            
+
                 <h3>Diseño de un botón en interfaces modernas</h3>
 
                 <p>
