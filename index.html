@@ -4599,50 +4599,40 @@ h1 {
                     </div>
 
                 </div>
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <div>
+                    <button onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-&lt;div&gt;
+&lt;h1&gt;red&lt;/h1&gt;
 
-  &lt;div class="caja red"&gt;red&lt;/div&gt;
+&lt;h2&gt;rgb(0,255,0)&lt;/h2&gt;
 
-  &lt;div class="caja rgb"&gt;rgb(0,255,0)&lt;/div&gt;
+&lt;h3&gt;#0000ff&lt;/h3&gt;
 
-  &lt;div class="caja hex"&gt;#0000ff&lt;/div&gt;
-
-  &lt;div class="caja rgba"&gt;rgba(255,0,0,0.5)&lt;/div&gt;
-
-&lt;/div&gt;
+&lt;h4&gt;rgba(255,0,0,0.5)&lt;/h4&gt;
 </code></pre>
                 </div>
 
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                <div>
+                    <button onclick="copyCode(this)">COPIAR</button>
                     <pre><code>
-.caja {
-  width: 140px;
-  height: 100px;
-  margin: 10px;
-
-  border: 4px solid black;
-  padding: 20px;
+h1 {
+  border: 4px solid red; /* usa el color "red" */
+  padding: 10px;
 }
 
-/* Ejemplos de colores */
-.red {
-  border-color: red;
+h2 {
+  border: 4px solid rgb(0,255,0); /* usa el valor rgb */
+  padding: 10px;
 }
 
-.rgb {
-  border-color: rgb(0,255,0);
+h3 {
+  border: 4px solid #0000ff; /* usa el valor hexadecimal */
+  padding: 10px;
 }
 
-.hex {
-  border-color: #0000ff;
-}
-
-.rgba {
-  border-color: rgba(255,0,0,0.5);
+h4 {
+  border: 4px solid rgba(255,0,0,0.5); /* usa rgba con transparencia */
+  padding: 10px;
 }
 </code></pre>
                 </div>
@@ -6781,21 +6771,7 @@ influye en la forma en que percibimos una marca.
                 </p>
 
                 <p>
-                    Por defecto, cuando usamos <b>display: flex</b>, los elementos
-                    se colocan uno al lado del otro en forma horizontal.
-                </p>
-
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-.contenedor {
-  display: flex;
-}
-</code></pre>
-                </div>
-
-                <p>
-                    HTML donde se aplicaría este estilo:
+                    Primero veamos el HTML que vamos a usar:
                 </p>
 
                 <div class="code-block">
@@ -6810,21 +6786,7 @@ influye en la forma en que percibimos una marca.
                 </div>
 
                 <p>
-                    En este caso las tres cajas aparecerán alineadas en una misma fila.
-                </p>
-
-
-
-                <h3>¿Cómo distribuir el espacio entre los elementos?</h3>
-
-                <p>
-                    Para controlar cómo se distribuyen los elementos dentro del contenedor
-                    se utiliza la propiedad <b>justify-content</b>.
-                </p>
-
-                <p>
-                    Esta propiedad controla la alineación de los elementos en el
-                    <b>eje horizontal</b>.
+                    Ahora aplicamos <b>display: flex</b> al contenedor:
                 </p>
 
                 <div class="code-block">
@@ -6832,25 +6794,107 @@ influye en la forma en que percibimos una marca.
                     <pre><code>
 .contenedor {
   display: flex;
-  justify-content: center;
+
+  width: 100%;
+  height: 150px;
+
+  border: 2px dashed #999;
 }
 </code></pre>
                 </div>
 
                 <p>
-                    Esto centrará los elementos horizontalmente dentro del contenedor.
+                    Esto hace que las cajas se coloquen en una misma fila.
                 </p>
 
                 <p>
-                    Algunos valores comunes de <b>justify-content</b> son:
+                    Mejoramos el diseño de las cajas:
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.contenedor div {
+  padding: 20px;
+  min-width: 100px;
+
+  text-align: center;
+  font-weight: bold;
+
+  border: 2px solid #333;
+  border-radius: 8px;
+
+  background-color: #f5f5f5;
+  color: #333;
+
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+
+  margin: 10px;
+}
+</code></pre>
+                </div>
+
+
+                <h3>¿Cómo distribuir el espacio entre los elementos?</h3>
+
+                <p>
+                    Para controlar la posición de las cajas dentro del contenedor usamos la propiedad
+                    <b>justify-content</b>.
+                </p>
+
+                <p>
+                    Esta propiedad trabaja en el <b>eje horizontal</b> (de izquierda a derecha).
+                </p>
+
+                <p>
+                    Partimos del mismo HTML:
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;div class="contenedor"&gt;
+  &lt;div&gt;Caja 1&lt;/div&gt;
+  &lt;div&gt;Caja 2&lt;/div&gt;
+  &lt;div&gt;Caja 3&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+                <p>
+                    Usamos el mismo CSS anterior y añadimos <b>justify-content</b>:
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+.contenedor {
+  display: flex;
+
+  width: 100%;
+  height: 150px;
+
+  border: 2px dashed #999;
+
+  justify-content: center; /* centra horizontalmente */
+}
+</code></pre>
+                </div>
+
+                <p>
+                    Esto hace que las cajas se coloquen en el centro del contenedor.
+                </p>
+
+                <p>
+                    Puedes cambiar el valor para ver diferentes resultados:
                 </p>
 
                 <ul>
-                    <li><b>flex-start</b> → elementos alineados al inicio</li>
-                    <li><b>center</b> → elementos centrados</li>
-                    <li><b>flex-end</b> → elementos alineados al final</li>
-                    <li><b>space-between</b> → espacio entre los elementos</li>
-                    <li><b>space-around</b> → espacio alrededor de los elementos</li>
+                    <li><b>flex-start</b> → las cajas van al inicio</li>
+                    <li><b>center</b> → las cajas se centran</li>
+                    <li><b>flex-end</b> → las cajas van al final</li>
+                    <li><b>space-between</b> → espacio entre las cajas</li>
+                    <li><b>space-around</b> → espacio alrededor de las cajas</li>
                 </ul>
                 <details class="respuesta-box">
                     <summary>Actividad 38</summary>
@@ -6860,135 +6904,64 @@ influye en la forma en que percibimos una marca.
                         <h3 style="color:black;">Práctica básica de Flexbox</h3>
 
                         <p style="color:black;">
-                            En esta actividad practicarás cómo organizar elementos dentro de un contenedor
-                            utilizando <b style="color:black;">Flexbox</b>. El objetivo es que observes cómo
-                            los elementos pueden alinearse fácilmente en una misma fila y cómo se puede
-                            distribuir el espacio entre ellos.
+                            Usa <b style="color:black;">Flexbox</b> para organizar tres cajas dentro de un contenedor.
                         </p>
-
-                        <h3 style="color:black;">Paso 1. Cree la estructura HTML</h3>
 
                         <p style="color:black;">
-                            Cree un archivo <b style="color:black;">index.html</b> y agregue el siguiente contenido:
+                            Observa cómo deben quedar las cajas:
                         </p>
 
-                        <div class="code-block">
-                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                            <pre><code>
-&lt;div class="contenedor"&gt;
-
-    &lt;div class="caja"&gt;Caja 1&lt;/div&gt;
-
-    &lt;div class="caja"&gt;Caja 2&lt;/div&gt;
-
-    &lt;div class="caja"&gt;Caja 3&lt;/div&gt;
-
-&lt;/div&gt;
-</code></pre>
+                        <div
+                            style="display:flex; justify-content:center; gap:15px; border:2px dashed #999; height:150px;">
+                            <div style="padding:20px; border:2px solid #333; border-radius:8px;">Caja 1</div>
+                            <div style="padding:20px; border:2px solid #333; border-radius:8px;">Caja 2</div>
+                            <div style="padding:20px; border:2px solid #333; border-radius:8px;">Caja 3</div>
                         </div>
 
-                        <p style="color:black;">
-                            Cada elemento representa una pequeña caja dentro del contenedor principal.
+                        <p style="color:black; margin-top:15px;">
+                            Replica este diseño usando Flexbox.
                         </p>
 
-                        <h3 style="color:black;">Paso 2. Cree el archivo CSS</h3>
+                        <h3 style="color:black;">Reto</h3>
 
-                        <p style="color:black;">
-                            Cree un archivo llamado <b style="color:black;">styles.css</b>.
-                        </p>
-
-                        <p style="color:black;">
-                            Primero agregue algunos estilos básicos para que las cajas sean visibles:
-                        </p>
-
-                        <div class="code-block">
-                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                            <pre><code>
-.contenedor {
-  border: 2px solid black;
-  padding: 20px;
-}
-
-.caja {
-  background-color: #4CAF50;
-  color: white;
-  padding: 20px;
-  margin: 10px;
-}
-</code></pre>
-                        </div>
-
-                        <h3 style="color:black;">Paso 3. Convierta el contenedor en Flexbox</h3>
-
-                        <p style="color:black;">
-                            Ahora convierte el contenedor en un contenedor flexible utilizando la propiedad
-                            <b style="color:black;">display: flex</b>.
-                        </p>
-
-                        <div class="code-block">
-                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                            <pre><code>
-.contenedor {
-  display: flex;
-}
-</code></pre>
-                        </div>
-
-                        <p style="color:black;">
-                            Observa cómo las cajas ahora aparecen una al lado de la otra.
-                        </p>
-
-                        <h3 style="color:black;">Paso 4. Experimente con la distribución</h3>
-
-                        <p style="color:black;">
-                            Ahora modifica la propiedad <b style="color:black;">justify-content</b>
-                            para observar cómo cambia la distribución del espacio entre las cajas.
-                        </p>
-
-                        <p style="color:black;">
-                            Prueba los siguientes valores uno por uno:
-                        </p>
-
-                        <ul>
-                            <li><b style="color:black;">justify-content: flex-start;</b></li>
-                            <li><b style="color:black;">justify-content: center;</b></li>
-                            <li><b style="color:black;">justify-content: flex-end;</b></li>
-                            <li><b style="color:black;">justify-content: space-between;</b></li>
-                            <li><b style="color:black;">justify-content: space-around;</b></li>
-                        </ul>
-
-                        <h3 style="color:black;">Observa el resultado</h3>
-
-                        <p style="color:black;">
-                            Después de probar los diferentes valores responde mentalmente:
-                        </p>
-
-                        <ul>
-                            <li>¿Qué valor centra las cajas?</li>
-                            <li>¿Qué valor coloca espacio entre las cajas?</li>
-                            <li>¿Qué valor coloca todas las cajas al final del contenedor?</li>
+                        <ul style="color:black;">
+                            <li>Cambia la posición de las cajas</li>
                         </ul>
 
                         <p style="color:black;">
-                            El objetivo de esta actividad es comprender cómo <b style="color:black;">Flexbox</b>
-                            permite controlar la alineación y distribución de elementos dentro de una página web.
+                            Toma una captura de tu resultado y súbelo a la plataforma.
                         </p>
 
                     </div>
                 </details>
-
-
-
                 <h3>¿Cómo alinear los elementos verticalmente?</h3>
 
                 <p>
-                    Para controlar la alineación vertical utilizamos la propiedad
-                    <b>align-items</b>.
+                    Para trabajar mejor la alineación vertical, cambiamos la dirección del flex
+                    usando <b>flex-direction</b>.
                 </p>
 
                 <p>
-                    Esta propiedad organiza los elementos en el
-                    <b>eje vertical</b>.
+                    Al usar <b>flex-direction: column</b>, los elementos se organizan de arriba hacia abajo.
+                </p>
+
+                <p>
+                    Partimos del mismo HTML:
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;div class="contenedor"&gt;
+  &lt;div&gt;Caja 1&lt;/div&gt;
+  &lt;div&gt;Caja 2&lt;/div&gt;
+  &lt;div&gt;Caja 3&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+                <p>
+                    Ahora usamos <b>flex-direction</b>:
                 </p>
 
                 <div class="code-block">
@@ -6996,211 +6969,96 @@ influye en la forma en que percibimos una marca.
                     <pre><code>
 .contenedor {
   display: flex;
-  align-items: center;
+
+  flex-direction: column; /* cambia a vertical */
+
+  width: 100%;
+  height: 100vh;
+
+  border: 2px dashed #999;
+
+  align-items: center; /* centra horizontalmente */
+}
+
+/* estilo de las cajas */
+.contenedor div {
+  padding: 20px;
+  min-width: 120px;
+
+  text-align: center;
+  font-weight: bold;
+
+  border: 2px solid #333;
+  border-radius: 10px;
+
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  color: white;
+
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contenedor div:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 18px rgba(0,0,0,0.3);
 }
 </code></pre>
                 </div>
 
                 <p>
-                    Esto centrará los elementos verticalmente dentro del contenedor.
+                    Ahora las cajas están en columna (de arriba hacia abajo).
                 </p>
 
                 <p>
-                    Valores comunes de <b>align-items</b>:
+                    Puedes moverlas verticalmente cambiando su posición dentro del contenedor.
                 </p>
 
                 <ul>
                     <li><b>flex-start</b> → arriba</li>
                     <li><b>center</b> → centro</li>
                     <li><b>flex-end</b> → abajo</li>
-                    <li><b>stretch</b> → los elementos se estiran</li>
                 </ul>
 
-
-
-                <h3>¿Cómo cambiar la dirección de los elementos?</h3>
-
-                <p>
-                    Por defecto, Flexbox organiza los elementos en forma horizontal.
-                </p>
-
-                <p>
-                    Si queremos cambiar la dirección utilizamos la propiedad
-                    <b>flex-direction</b>.
-                </p>
-
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-.contenedor {
-  display: flex;
-  flex-direction: column;
-}
-</code></pre>
-                </div>
-
-                <p>
-                    Esto hará que los elementos se organicen en forma vertical.
-                </p>
-
-                <p>
-                    Valores comunes de <b>flex-direction</b>:
-                </p>
-
-                <ul>
-                    <li><b>row</b> → fila (horizontal)</li>
-                    <li><b>column</b> → columna (vertical)</li>
-                    <li><b>row-reverse</b> → fila invertida</li>
-                    <li><b>column-reverse</b> → columna invertida</li>
-                </ul>
-
-
-
-                <h3>Ejemplo completo</h3>
-
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-.contenedor {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-}
-</code></pre>
-                </div>
-
-                <p>
-                    En este ejemplo:
-                </p>
-
-                <ul>
-                    <li>Los elementos se organizan en una fila.</li>
-                    <li>Se centran horizontalmente.</li>
-                    <li>Se centran verticalmente.</li>
-                </ul>
                 <details class="respuesta-box">
                     <summary>Actividad 39</summary>
 
                     <div style="padding:20px; border:1px dashed #2d3343; background-color:white; color:black;">
 
-                        <h3 style="color:black;">Práctica de alineación con Flexbox</h3>
+                        <h3 style="color:black;">Alineación vertical con Flexbox</h3>
 
                         <p style="color:black;">
-                            En esta actividad practicarás cómo se alinean los elementos dentro de un contenedor
-                            utilizando las propiedades <b style="color:black;">align-items</b> y
-                            <b style="color:black;">flex-direction</b>.
+                            Usa <b style="color:black;">Flexbox</b> con <b style="color:black;">flex-direction:
+                                column</b>
+                            para organizar las cajas de arriba hacia abajo dentro del contenedor.
                         </p>
 
                         <p style="color:black;">
-                            El objetivo es observar cómo cambian las posiciones de los elementos cuando se
-                            modifica la dirección y la alineación dentro de un contenedor flexible.
+                            Observa cómo deben quedar las cajas:
                         </p>
 
-                        <h3 style="color:black;">Paso 1. Cree la estructura HTML</h3>
-
-                        <p style="color:black;">
-                            Cree un archivo <b style="color:black;">index.html</b> y agregue el siguiente contenido:
-                        </p>
-
-                        <div class="code-block">
-                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                            <pre><code>
-&lt;div class="contenedor"&gt;
-
-  &lt;div class="caja"&gt;Caja 1&lt;/div&gt;
-  &lt;div class="caja"&gt;Caja 2&lt;/div&gt;
-  &lt;div class="caja"&gt;Caja 3&lt;/div&gt;
-
-&lt;/div&gt;
-</code></pre>
+                        <div
+                            style="display:flex; flex-direction:column; align-items:center; gap:15px; border:2px dashed #999; height:100vh;">
+                            <div style="padding:20px; border:2px solid #333; border-radius:8px;">Caja 1</div>
+                            <div style="padding:20px; border:2px solid #333; border-radius:8px;">Caja 2</div>
+                            <div style="padding:20px; border:2px solid #333; border-radius:8px;">Caja 3</div>
                         </div>
 
-                        <h3 style="color:black;">Paso 2. Cree el archivo CSS</h3>
-
-                        <p style="color:black;">
-                            Cree un archivo llamado <b style="color:black;">styles.css</b> y agregue los siguientes
-                            estilos:
+                        <p style="color:black; margin-top:15px;">
+                            Replica este diseño usando Flexbox.
                         </p>
 
-                        <div class="code-block">
-                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                            <pre><code>
-.contenedor{
-  border:2px solid black;
-  height:300px;
-}
+                        <h3 style="color:black;">Reto</h3>
 
-.caja{
-  background-color:#2196F3;
-  color:white;
-  padding:20px;
-  margin:10px;
-}
-</code></pre>
-                        </div>
-
-                        <h3 style="color:black;">Paso 3. Convierta el contenedor en Flexbox</h3>
-
-                        <p style="color:black;">
-                            Ahora convierte el contenedor en un contenedor flexible agregando:
-                        </p>
-
-                        <div class="code-block">
-                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                            <pre><code>
-.contenedor{
-  display:flex;
-}
-</code></pre>
-                        </div>
-
-                        <p style="color:black;">
-                            Observa cómo las cajas aparecen alineadas una al lado de la otra.
-                        </p>
-
-                        <h3 style="color:black;">Paso 4. Experimente con la alineación vertical</h3>
-
-                        <p style="color:black;">
-                            Ahora prueba diferentes valores de <b style="color:black;">align-items</b>.
-                        </p>
-
-                        <ul>
-                            <li><b style="color:black;">align-items: flex-start;</b></li>
-                            <li><b style="color:black;">align-items: center;</b></li>
-                            <li><b style="color:black;">align-items: flex-end;</b></li>
-                            <li><b style="color:black;">align-items: stretch;</b></li>
+                        <ul style="color:black;">
+                            <li>Coloca las cajas arriba</li>
+                            <li>Luego céntralas verticalmente</li>
+                            <li>Después llévalas abajo</li>
+                            <li>Mantén las cajas centradas horizontalmente</li>
                         </ul>
 
                         <p style="color:black;">
-                            Observa cómo cambian las posiciones verticales de las cajas dentro del contenedor.
-                        </p>
-
-                        <h3 style="color:black;">Paso 5. Cambie la dirección de los elementos</h3>
-
-                        <p style="color:black;">
-                            Ahora agrega la propiedad <b style="color:black;">flex-direction</b> y prueba los
-                            siguientes valores:
-                        </p>
-
-                        <ul>
-                            <li><b style="color:black;">flex-direction: row;</b></li>
-                            <li><b style="color:black;">flex-direction: column;</b></li>
-                            <li><b style="color:black;">flex-direction: row-reverse;</b></li>
-                            <li><b style="color:black;">flex-direction: column-reverse;</b></li>
-                        </ul>
-
-                        <h3 style="color:black;">Observa el resultado</h3>
-
-                        <ul>
-                            <li>¿Qué valor coloca las cajas en forma vertical?</li>
-                            <li>¿Qué valor invierte el orden de los elementos?</li>
-                            <li>¿Qué valor centra las cajas verticalmente?</li>
-                        </ul>
-
-                        <p style="color:black;">
-                            El objetivo de esta actividad es comprender cómo Flexbox permite controlar
-                            la posición y organización de los elementos dentro de una página web.
+                            Toma una captura de tu resultado y súbelo a la plataforma.
                         </p>
 
                     </div>
@@ -7209,23 +7067,34 @@ influye en la forma en que percibimos una marca.
                 <h3>¿Qué hace flex-wrap?</h3>
 
                 <p>
-                    Por defecto, cuando usamos <b>display: flex</b>, todos los elementos intentan
-                    colocarse en una sola fila dentro del contenedor.
+                    La propiedad <b>flex-wrap</b> permite que los elementos bajen a una nueva línea
+                    cuando no hay suficiente espacio en el contenedor.
                 </p>
 
                 <p>
-                    Si el contenedor no tiene suficiente espacio, los elementos pueden
-                    desbordarse o comprimirse demasiado.
+                    Por defecto, los elementos intentan mantenerse en una sola fila, aunque se
+                    reduzca su tamaño.
                 </p>
 
                 <p>
-                    Para controlar este comportamiento se utiliza la propiedad
-                    <b>flex-wrap</b>.
+                    Partimos del mismo HTML:
                 </p>
 
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;div class="contenedor"&gt;
+  &lt;div&gt;Caja 1&lt;/div&gt;
+  &lt;div&gt;Caja 2&lt;/div&gt;
+  &lt;div&gt;Caja 3&lt;/div&gt;
+  &lt;div&gt;Caja 4&lt;/div&gt;
+  &lt;div&gt;Caja 5&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+                </div>
+
                 <p>
-                    Esta propiedad permite que los elementos pasen a la siguiente línea
-                    cuando ya no hay espacio disponible.
+                    Usamos <b>flex-wrap</b> en el contenedor:
                 </p>
 
                 <div class="code-block">
@@ -7233,148 +7102,101 @@ influye en la forma en que percibimos una marca.
                     <pre><code>
 .contenedor {
   display: flex;
-  flex-wrap: wrap;
+
+  width: 300px; /* espacio limitado */
+
+  border: 2px dashed #999;
+
+  flex-wrap: wrap; /* permite saltos de línea */
+}
+
+/* estilo de las cajas */
+.contenedor div {
+  padding: 20px;
+  min-width: 100px;
+  margin: 5px;
+
+  text-align: center;
+  font-weight: bold;
+
+  border: 2px solid #333;
+  border-radius: 8px;
+
+  background-color: #f5f5f5;
 }
 </code></pre>
                 </div>
 
                 <p>
-                    En este caso, si el contenedor es pequeño, los elementos se acomodarán
-                    automáticamente en varias filas.
+                    Ahora, cuando no hay espacio suficiente, las cajas bajan a la siguiente línea.
                 </p>
 
                 <p>
-                    Algunos valores comunes de <b>flex-wrap</b> son:
+                    Puedes cambiar el valor:
                 </p>
 
                 <ul>
-                    <li><b>nowrap</b> → los elementos permanecen en una sola fila</li>
-                    <li><b>wrap</b> → los elementos pasan a la siguiente línea</li>
-                    <li><b>wrap-reverse</b> → los elementos pasan a la siguiente línea pero en orden invertido</li>
+                    <li><b>nowrap</b> → todo en una sola fila (por defecto)</li>
+                    <li><b>wrap</b> → las cajas bajan a otra línea</li>
+                    <li><b>wrap-reverse</b> → bajan pero en orden inverso</li>
                 </ul>
+
                 <details class="respuesta-box">
                     <summary>Actividad 40</summary>
 
                     <div style="padding:20px; border:1px dashed #2d3343; background-color:white; color:black;">
 
-                        <h3 style="color:black;">Práctica de organización automática con flex-wrap</h3>
+                        <h3 style="color:black;">Uso de flex-wrap</h3>
 
                         <p style="color:black;">
-                            En esta actividad observarás qué ocurre cuando un contenedor tiene
-                            muchos elementos dentro y el espacio disponible no es suficiente.
+                            Usa <b style="color:black;">Flexbox</b> y la propiedad <b style="color:black;">flex-wrap</b>
+                            para organizar varias cajas dentro de un contenedor.
                         </p>
 
                         <p style="color:black;">
-                            El objetivo es comprender cómo la propiedad <b style="color:black;">flex-wrap</b>
-                            permite que los elementos pasen automáticamente a la siguiente línea
-                            cuando el contenedor ya no tiene espacio.
+                            Observa las siguientes formas y replica cada una:
                         </p>
 
-                        <h3 style="color:black;">Paso 1. Cree la estructura HTML</h3>
+                        <h3 style="color:black;">Forma 1: Todo en una sola fila</h3>
 
-                        <p style="color:black;">
-                            Cree un archivo <b style="color:black;">index.html</b> y agregue la siguiente
-                            estructura:
-                        </p>
-
-                        <div class="code-block">
-                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                            <pre><code>
-&lt;div class="contenedor"&gt;
-
-  &lt;div class="caja"&gt;1&lt;/div&gt;
-  &lt;div class="caja"&gt;2&lt;/div&gt;
-  &lt;div class="caja"&gt;3&lt;/div&gt;
-  &lt;div class="caja"&gt;4&lt;/div&gt;
-  &lt;div class="caja"&gt;5&lt;/div&gt;
-  &lt;div class="caja"&gt;6&lt;/div&gt;
-  &lt;div class="caja"&gt;7&lt;/div&gt;
-  &lt;div class="caja"&gt;8&lt;/div&gt;
-
-&lt;/div&gt;
-</code></pre>
+                        <div
+                            style="display:flex; flex-wrap:nowrap; width:300px; border:2px dashed #999; gap:10px; padding:10px;">
+                            <div style="padding:20px; min-width:100px; border:2px solid #333;">Caja 1</div>
+                            <div style="padding:20px; min-width:100px; border:2px solid #333;">Caja 2</div>
+                            <div style="padding:20px; min-width:100px; border:2px solid #333;">Caja 3</div>
+                            <div style="padding:20px; min-width:100px; border:2px solid #333;">Caja 4</div>
                         </div>
 
-                        <p style="color:black;">
-                            Cada caja representa un elemento dentro del contenedor flexible.
-                        </p>
+                        <h3 style="color:black;">Forma 2: Las cajas bajan a otra línea</h3>
 
-                        <h3 style="color:black;">Paso 2. Cree el archivo CSS</h3>
-
-                        <p style="color:black;">
-                            Cree un archivo llamado <b style="color:black;">styles.css</b> y agregue los
-                            siguientes estilos:
-                        </p>
-
-                        <div class="code-block">
-                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                            <pre><code>
-.contenedor{
-  display:flex;
-  border:2px solid black;
-  width:400px;
-}
-
-.caja{
-  background-color:#FF5722;
-  color:white;
-  padding:20px;
-  margin:5px;
-  width:80px;
-  text-align:center;
-}
-</code></pre>
+                        <div
+                            style="display:flex; flex-wrap:wrap; width:300px; border:2px dashed #999; gap:10px; padding:10px;">
+                            <div style="padding:20px; min-width:100px; border:2px solid #333;">Caja 1</div>
+                            <div style="padding:20px; min-width:100px; border:2px solid #333;">Caja 2</div>
+                            <div style="padding:20px; min-width:100px; border:2px solid #333;">Caja 3</div>
+                            <div style="padding:20px; min-width:100px; border:2px solid #333;">Caja 4</div>
                         </div>
 
-                        <p style="color:black;">
-                            Observa que todas las cajas intentarán colocarse en una sola fila.
-                        </p>
+                        <h3 style="color:black;">Forma 3: Orden inverso al bajar</h3>
 
-                        <h3 style="color:black;">Paso 3. Active flex-wrap</h3>
-
-                        <p style="color:black;">
-                            Ahora agrega la propiedad <b style="color:black;">flex-wrap</b> al contenedor.
-                        </p>
-
-                        <div class="code-block">
-                            <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                            <pre><code>
-.contenedor{
-  display:flex;
-  flex-wrap:wrap;
-}
-</code></pre>
+                        <div
+                            style="display:flex; flex-wrap:wrap-reverse; width:300px; border:2px dashed #999; gap:10px; padding:10px;">
+                            <div style="padding:20px; min-width:100px; border:2px solid #333;">Caja 1</div>
+                            <div style="padding:20px; min-width:100px; border:2px solid #333;">Caja 2</div>
+                            <div style="padding:20px; min-width:100px; border:2px solid #333;">Caja 3</div>
+                            <div style="padding:20px; min-width:100px; border:2px solid #333;">Caja 4</div>
                         </div>
 
-                        <p style="color:black;">
-                            Observa cómo las cajas comienzan a acomodarse en varias filas
-                            cuando el contenedor ya no tiene espacio suficiente.
-                        </p>
+                        <h3 style="color:black;">Reto</h3>
 
-                        <h3 style="color:black;">Paso 4. Experimente con los valores</h3>
-
-                        <p style="color:black;">
-                            Ahora prueba los siguientes valores uno por uno:
-                        </p>
-
-                        <ul>
-                            <li><b style="color:black;">flex-wrap: nowrap;</b></li>
-                            <li><b style="color:black;">flex-wrap: wrap;</b></li>
-                            <li><b style="color:black;">flex-wrap: wrap-reverse;</b></li>
-                        </ul>
-
-                        <h3 style="color:black;">Observa el resultado</h3>
-
-                        <ul>
-                            <li>¿Qué ocurre cuando utilizas <b style="color:black;">nowrap</b>?</li>
-                            <li>¿Qué ocurre cuando utilizas <b style="color:black;">wrap</b>?</li>
-                            <li>¿Qué diferencia observas con <b style="color:black;">wrap-reverse</b>?</li>
+                        <ul style="color:black;">
+                            <li>Replica cada una de las formas</li>
+                            <li>Reduce el ancho del contenedor y observa los cambios</li>
+                            <li>Identifica cuándo las cajas bajan de línea</li>
                         </ul>
 
                         <p style="color:black;">
-                            El objetivo de esta actividad es comprender cómo <b style="color:black;">flex-wrap</b>
-                            permite que los elementos se organicen automáticamente cuando el espacio
-                            dentro del contenedor es limitado.
+                            Toma una captura de cada resultado y súbelo a la plataforma.
                         </p>
 
                     </div>
@@ -7385,17 +7207,30 @@ influye en la forma en que percibimos una marca.
                 <h3>¿Cómo crear espacio entre los elementos?</h3>
 
                 <p>
-                    Cuando trabajamos con varios elementos dentro de un contenedor flexible,
-                    muchas veces necesitamos dejar espacio entre ellos.
+                    Para crear espacio entre las cajas usamos la propiedad <b>gap</b>.
                 </p>
 
                 <p>
-                    Para esto se utiliza la propiedad <b>gap</b>.
+                    Esta propiedad permite separar los elementos dentro del contenedor sin usar márgenes.
                 </p>
 
                 <p>
-                    Esta propiedad permite crear espacio entre los elementos sin necesidad
-                    de utilizar márgenes en cada uno de ellos.
+                    Partimos del mismo HTML:
+                </p>
+
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    <pre><code>
+&lt;div class="contenedor"&gt;
+  &lt;div&gt;Caja 1&lt;/div&gt;
+  &lt;div&gt;Caja 2&lt;/div&gt;
+  &lt;div&gt;Caja 3&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+                </div>
+
+                <p>
+                    Usamos <b>gap</b> en el contenedor:
                 </p>
 
                 <div class="code-block">
@@ -7403,36 +7238,44 @@ influye en la forma en que percibimos una marca.
                     <pre><code>
 .contenedor {
   display: flex;
-  gap: 20px;
+
+  width: 100%;
+  height: 150px;
+
+  border: 2px dashed #999;
+
+  gap: 15px; /* espacio entre las cajas */
+}
+
+/* estilo de las cajas */
+.contenedor div {
+  padding: 20px;
+  min-width: 100px;
+
+  text-align: center;
+  font-weight: bold;
+
+  border: 2px solid #333;
+  border-radius: 8px;
+
+  background-color: #f5f5f5;
 }
 </code></pre>
                 </div>
 
                 <p>
-                    En este ejemplo se generará un espacio de <b>20 píxeles</b> entre
-                    cada elemento del contenedor.
+                    Esto crea espacio uniforme entre cada caja.
                 </p>
 
                 <p>
-                    También es posible controlar los espacios de forma más específica
-                    utilizando las propiedades <b>row-gap</b> y <b>column-gap</b>.
+                    Puedes cambiar el valor para ver diferentes resultados:
                 </p>
 
-                <div class="code-block">
-                    <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
-                    <pre><code>
-.contenedor {
-  display: flex;
-  row-gap: 20px;
-  column-gap: 10px;
-}
-</code></pre>
-                </div>
-
-                <p>
-                    <b>row-gap</b> controla el espacio entre filas y
-                    <b>column-gap</b> controla el espacio entre columnas.
-                </p>
+                <ul>
+                    <li><b>gap: 5px</b> → poco espacio</li>
+                    <li><b>gap: 20px</b> → espacio mediano</li>
+                    <li><b>gap: 50px</b> → mucho espacio</li>
+                </ul>
 
                 <h3>Diseño de un botón en interfaces modernas</h3>
 
