@@ -1,0 +1,1273 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>MÓDULO JAVASCRIPT - CURSO EXTENSIVO PASO A PASO</title>
+    <style>
+        :root {
+            --bg: #0f111a;
+            --surface: #1e222d;
+            --accent: #facc15; /* Amarillo JavaScript */
+            --modern-accent: #38bdf8; /* Azul Moderno */
+            --text: #e2e8f0;
+            --text-dim: #94a3b8;
+            --border: #2d3343;
+            --nav-h: 75px;
+            --header-h: 60px;
+        }
+
+        /* Reset y Rendimiento de la Interfaz */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        header#top-bar {
+            height: var(--header-h);
+            background: #12141c;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            font-size: 0.7rem;
+            text-align: center;
+            padding: 0 10px;
+        }
+
+        header#top-bar h1 {
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-dim);
+        }
+
+        #content-wrapper {
+            flex: 1;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            background: radial-gradient(circle at 50% 0%, #1a1c2c 0%, var(--bg) 100%);
+        }
+
+        main#content-main {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+
+        section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 30px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: white;
+            text-transform: uppercase;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            border-left: 4px solid var(--accent);
+            padding-left: 10px;
+            line-height: 1.4;
+        }
+
+        p, li {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            color: #cbd5e1;
+        }
+
+        ul, ol { margin-left: 25px; margin-bottom: 20px; }
+        b, strong { color: var(--accent); font-weight: 600; }
+        .modern-text { color: var(--modern-accent); font-weight: bold; }
+        .inline-code { background: #0f111a; padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border); font-family: monospace; color: #f87171; font-size: 0.95em;}
+
+        .icon-svg {
+            width: 22px; height: 22px;
+            stroke: currentColor; stroke-width: 2;
+            stroke-linecap: round; stroke-linejoin: round; fill: none;
+        }
+
+        /* VISOR DE MONITOR PROFESIONAL */
+        #visor-container {
+            display: none; position: fixed; top: var(--header-h); left: 0;
+            width: 100%; height: calc(100dvh - var(--header-h) - var(--nav-h));
+            background: radial-gradient(circle, #1a1c2c 0%, #050508 100%);
+            z-index: 5000; padding: 15px; flex-direction: column;
+            align-items: center; justify-content: center;
+        }
+        .monitor-frame {
+            background: #111; border: 10px solid #222; border-radius: 12px;
+            position: relative; box-shadow: 0 50px 120px rgba(0, 0, 0, 1);
+            display: flex; flex-direction: column; border-bottom-width: 20px;
+            max-width: 100%; max-height: 100%;
+        }
+        .monitor-screen {
+            background: #000; width: 100%; height: 100%; overflow: hidden;
+            position: relative; box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5);
+        }
+        #mouse-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 100; background: transparent; display: none; cursor: none;
+        }
+        #screen-iframe {
+            width: 1280px; height: 800px; background: white; border: none;
+            transform-origin: top left; position: absolute; z-index: 1;
+        }
+        .monitor-led {
+            position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%);
+            width: 6px; height: 3px; background: #00ff00; border-radius: 2px;
+            box-shadow: 0 0 8px #00ff00; cursor: pointer; transition: 0.3s;
+        }
+        .monitor-led:hover { box-shadow: 0 0 15px #00ff00; transform: translateX(-50%) scale(1.2); }
+
+        /* INTERFAZ CÓDIGO */
+        .code-block {
+            position: relative; margin: 10px 0 25px 0; background: #0d0f14;
+            border-radius: 8px; border: 1px solid var(--border); overflow: hidden;
+        }
+        .code-header {
+            background: #1a1c2c; padding: 8px 15px; font-family: monospace;
+            font-size: 0.85rem; color: #94a3b8; border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .copy-btn {
+            background: var(--accent); color: #000; border: none; padding: 4px 10px;
+            border-radius: 4px; font-size: 0.7rem; font-weight: bold; cursor: pointer; transition: 0.2s;
+        }
+        .copy-btn:hover { background: #fff; color: #000; }
+        pre {
+            padding: 20px; font-family: 'Consolas', monospace; overflow-x: auto;
+            color: #cbd5e1; font-size: 0.95rem; line-height: 1.5; margin: 0;
+        }
+        .modern-comment { color: var(--modern-accent); font-style: italic; display: block; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dashed #2d3343;}
+        .comentario-js { color: #6b7280; font-style: italic; }
+
+        .media-container {
+            position: relative; margin: 40px 0; border-radius: 12px;
+            overflow: hidden; border: 1px solid var(--border); background: #000;
+        }
+        .media-container img {
+            width: 100%; height: 250px; display: block; filter: brightness(0.8); object-fit: cover;
+        }
+        .texto-encima-imagen {
+            position: absolute; width: 100%; padding: 20px; color: white;
+            font-weight: 700; font-size: 1.6rem; text-align: center;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8); z-index: 10;
+        }
+        .texto-arriba { top: 0; background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent); }
+
+        .respuesta-box {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 10px; margin: 20px 0;
+        }
+        summary {
+            cursor: pointer; color: var(--accent); font-weight: bold; padding: 10px;
+            list-style: none; display: flex; align-items: center; gap: 8px;
+        }
+
+        /* CLASE ESTRICTA PARA ACTIVIDADES */
+        .actividad-caja {
+            padding: 25px; border: 2px dashed #2d3343; background-color: #ffffff !important;
+            border-radius: 8px; margin-top: 10px; box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+        .actividad-caja, .actividad-caja h3, .actividad-caja p, .actividad-caja li, 
+        .actividad-caja span, .actividad-caja b, .actividad-caja strong {
+            color: #000000 !important;
+        }
+        .actividad-caja a { color: #2563eb !important; font-weight: bold; }
+
+        nav.bar {
+            height: var(--nav-h); background: #1e222d; display: flex;
+            justify-content: space-between; border-top: 1px solid var(--border); z-index: 15000;
+        }
+        .nav-btn {
+            flex: 1; background: none; border: none; color: var(--text-dim); display: flex;
+            flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s;
+        }
+        .nav-btn span { font-size: 0.65rem; margin-top: 4px; font-weight: 600; }
+        .active-tool { color: var(--accent); background: rgba(250, 204, 21, 0.1); }
+
+        .punteroRojo {
+            position: fixed; width: 22px; height: 22px; background: red; border-radius: 50%;
+            pointer-events: none; z-index: 20000; display: none; transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px red, 0 0 40px red; border: 2px solid white;
+        }
+        .puntoEstela {
+            position: fixed; width: 15px; height: 15px; background: rgba(255, 0, 0, 0.5);
+            border-radius: 50%; pointer-events: none; z-index: 19999;
+            transform: translate(-50%, -50%); animation: fadeOut 0.5s forwards;
+        }
+        @keyframes fadeOut { to { opacity: 0; transform: translate(-50%, -50%) scale(0.1); } }
+        .highlight-span { border-bottom: 3px solid; font-weight: bold; cursor: pointer; padding: 0 2px; }
+
+        dialog {
+            background: var(--surface); border: 2px solid var(--accent); border-radius: 16px;
+            padding: 5px; color: white; margin: auto; width: 90%; max-width: 600px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+        dialog::backdrop { background: rgba(0, 0, 0, 0.8); }
+        #toast-msg {
+            position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
+            background: #ff4757; color: white; padding: 12px 25px; border-radius: 30px;
+            font-weight: bold; display: none; z-index: 18000;
+        }
+
+        @media (max-width: 768px) {
+            :root { --nav-h: 65px; --header-h: 50px; }
+            main#content-main { padding: 12px; padding-bottom: 80px; }
+            section { padding: 20px 15px; margin-bottom: 15px; border-radius: 8px; }
+            h2 { font-size: 1.4rem; }
+            h3 { font-size: 1.2rem; margin-top: 20px; }
+            p, li { font-size: 1.1rem; line-height: 1.6; }
+            pre { font-size: 0.85rem; padding: 20px 15px 15px; }
+            .monitor-frame { border-width: 6px; border-bottom-width: 12px; }
+            .nav-btn span { font-size: 0.6rem; letter-spacing: 0; }
+            dialog { width: 95%; padding: 20px; }
+        }
+    </style>
+</head>
+
+<body oncontextmenu="return false;">
+
+    <header id="top-bar">
+        <h1>MÓDULO JAVASCRIPT <span style="color:white">•</span> CURSO EXTENSIVO PASO A PASO</h1>
+    </header>
+
+    <div id="content-wrapper">
+        <main id="content-main">
+            
+            <!-- ==============================================
+                 SECCIÓN 1: PREPARANDO EL ENTORNO
+                 ============================================== -->
+            <section id="js-entorno">
+                <h2>I. Preparando tu Entorno de Trabajo</h2>
+                <div class="media-container">
+                    <img src="https://images.unsplash.com/photo-1627398240449-04f5e110fac9?q=80&w=1200&auto=format&fit=crop" alt="Code JS" loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        El lienzo en blanco: HTML y JavaScript unidos.
+                    </div>
+                </div>
+
+                <p>
+                    Todo proyecto web profesional separa su estructura visual (HTML/CSS) de su cerebro lógico (JavaScript). Para empezar, necesitas crear dos archivos en la misma carpeta de tu computadora.
+                </p>
+
+                <h3 id="js-archivos">1. Creando index.html y script.js</h3>
+                <p>Crea un archivo llamado <code>index.html</code>. En él, pondremos la estructura básica y, justo antes de cerrar la etiqueta <code>&lt;/body&gt;</code>, llamaremos a nuestro archivo de lógica.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>index.html (El cascarón)</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Mi Primera App en JS&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Bienvenido al Curso de JavaScript&lt;/h1&gt;
+    &lt;p&gt;Abre la consola de tu navegador para ver la magia.&lt;/p&gt;
+    
+    &lt;!-- VINCULACIÓN CRÍTICA: Llamamos al archivo externo --&gt;
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+
+                <p>Ahora, crea un archivo llamado <code>script.js</code> en esa misma carpeta. Aquí es donde escribiremos todo nuestro código a partir de ahora.</p>
+
+                <details class="respuesta-box" open>
+                    <summary><svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>Actividad 1: Tu primer "Hola Mundo"</summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Hablando con la Consola</h3>
+                        <p>1. En tu nuevo archivo <code>script.js</code>, escribe exactamente esto:</p>
+                        <code class="inline-code">console.log("¡Hola Mundo! El archivo JS está conectado.");</code>
+                        <p>2. Abre tu archivo <code>index.html</code> haciendo doble clic (se abrirá en Chrome o tu navegador por defecto).</p>
+                        <p>3. Haz clic derecho en cualquier parte blanca de la página > <b>Inspeccionar</b>.</p>
+                        <p>4. Ve a la pestaña <b>Consola (Console)</b>. Deberías ver tu mensaje impreso ahí. ¡La consola será tu mejor amiga para detectar errores!</p>
+                    </div>
+                </details>
+            </section>
+
+            <!-- ==============================================
+                 SECCIÓN 2: VARIABLES Y CONDICIONALES
+                 ============================================== -->
+            <section id="js-variables">
+                <h2>II. Memoria y Lógica: Variables y Condicionales</h2>
+                <p>Para que una aplicación funcione, necesita "recordar" datos y tomar "decisiones" basadas en esos datos.</p>
+
+                <h3 id="js-let-const">2. Variables: Las cajas de memoria</h3>
+                <p>Usamos <code>const</code> para cajas selladas (valores que no cambiarán, como tu fecha de nacimiento). Usamos <code>let</code> para cajas abiertas (valores que cambiarán, como la edad o el saldo).</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>script.js (Variables)</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code><span class="comentario-js">// TIPOS DE DATOS BÁSICOS</span>
+
+<span class="comentario-js">// 1. String (Texto, siempre entre comillas)</span>
+const nombreUsuario = "Juan Pérez"; 
+
+<span class="comentario-js">// 2. Number (Números para matemáticas, sin comillas)</span>
+let edad = 17; 
+
+<span class="comentario-js">// 3. Boolean (Verdadero o Falso)</span>
+let tieneSuscripcion = true;
+
+console.log("Usuario:", nombreUsuario);
+console.log("Edad inicial:", edad);
+
+<span class="comentario-js">// JS permite reasignar variables creadas con 'let'</span>
+edad = 18; 
+console.log("Edad actualizada:", edad);</code></pre>
+                </div>
+
+                <h3 id="js-if">3. Condicionales (If / Else)</h3>
+                <p>Las computadoras no piensan, solo siguen reglas. El bloque <code>if</code> (Si pasa esto) y <code>else</code> (Sino, haz esto otro) es la base de la inteligencia artificial y de cualquier sistema.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>script.js (Tomando Decisiones)</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>let saldo = 50;
+let costoProducto = 100;
+
+<span class="comentario-js">// Preguntamos: ¿Es el saldo mayor o igual al costo?</span>
+if (saldo &gt;= costoProducto) {
+    console.log("¡Compra exitosa! Tienes dinero suficiente.");
+    saldo = saldo - costoProducto; // Restamos el dinero
+} else {
+    console.log("Fondos insuficientes. Te faltan $" + (costoProducto - saldo));
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary><svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>Actividad 2: El Portero del Club</summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Lógica Condicional</h3>
+                        <p>Imagina que estás programando el sistema de entrada de un club nocturno.</p>
+                        <p>En tu archivo <code>script.js</code>, crea una variable <code>let edadCliente = 16;</code>.</p>
+                        <p>Escribe un bloque <code>if / else</code> que imprima en consola "Puedes entrar" si la edad es 18 o mayor, y que imprima "Vuelve a tu casa" si es menor. Cambia el número de la variable y recarga la página para probar ambos resultados.</p>
+                    </div>
+                </details>
+            </section>
+
+            <!-- ==============================================
+                 SECCIÓN 3: ESTRUCTURAS COMPLEJAS
+                 ============================================== -->
+            <section id="js-estructuras">
+                <h2>III. Agrupando Datos: Objetos y Arrays</h2>
+                <p>Las variables simples guardan un solo dato. Pero en una tienda real, un producto tiene nombre, precio, stock y categoría. Para agrupar todo eso usamos <b>Objetos</b> y <b>Arreglos</b>.</p>
+
+                <h3 id="js-objetos">4. Objetos (Fichas de Identidad)</h3>
+                <p>Un objeto se crea con llaves <code>{ }</code>. Sirve para describir las propiedades de una sola cosa.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>script.js (Objetos)</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>const celular = {
+    marca: "Apple",
+    modelo: "iPhone 15",
+    precio: 999,
+    enStock: true
+};
+
+<span class="comentario-js">// Para acceder a una característica específica, usamos el punto (.)</span>
+console.log( "El celular es marca:", celular.marca );
+console.log( "Su precio es de $", celular.precio );</code></pre>
+                </div>
+
+                <h3 id="js-arrays">5. Arreglos (Listas de Elementos)</h3>
+                <p>Un Arreglo (Array) se crea con corchetes <code>[ ]</code>. Es una lista ordenada. Lo más poderoso de JavaScript es combinar ambas cosas: <b>Un Arreglo que contiene muchos Objetos</b>. ¡Así es como se ven exactamente las Bases de Datos!</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>script.js (Array de Objetos)</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code><span class="comentario-js">// Una lista [ ] que adentro tiene múltiples objetos { }</span>
+const inventario = [
+    { id: 1, nombre: "Laptop HP", precio: 1200 },
+    { id: 2, nombre: "Mouse Gamer", precio: 45 },
+    { id: 3, nombre: "Teclado Mecánico", precio: 80 }
+];
+
+<span class="comentario-js">// ¡OJO! Los arreglos en programación empiezan a contar desde el CERO (0)</span>
+<span class="comentario-js">// El Mouse Gamer es el elemento número 1.</span>
+console.log( "El segundo producto es:", inventario[1].nombre ); 
+console.log( "El precio del tercer producto es:", inventario[2].precio );</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary><svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>Actividad 3: Creando una Base de Datos</summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Estructurando Información</h3>
+                        <p>En tu <code>script.js</code>, crea un arreglo llamado <code>empleados</code>.</p>
+                        <p>Dentro de él, coloca tres objetos. Cada objeto debe tener <code>nombre</code>, <code>puesto</code> y <code>sueldo</code>.</p>
+                        <p>Finalmente, imprime en consola el <i>sueldo</i> del <i>primer</i> empleado.</p>
+                    </div>
+                </details>
+            </section>
+
+            <!-- ==============================================
+                 SECCIÓN 4: FUNCIONES Y BUCLES
+                 ============================================== -->
+            <section id="js-funciones">
+                <h2>IV. Funciones y Procesamiento de Datos</h2>
+                <p>Ya tenemos nuestra base de datos. Ahora necesitamos procesarla. ¿Qué pasa si quiero mostrar el nombre de todos los productos? No puedo escribir <code>console.log</code> 100 veces. Necesito un <b>bucle</b>.</p>
+
+                <h3 id="js-bucle">6. El Bucle "forEach" (Por cada uno)</h3>
+                <p>El método <code>.forEach()</code> viaja a través del arreglo, toma un elemento a la vez, y ejecuta el código que le digamos.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>script.js (Recorriendo Arreglos)</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>const listaTareas = ["Lavar ropa", "Estudiar JS", "Hacer compras"];
+
+<span class="comentario-js">// Le decimos al arreglo: "Por cada (forEach) tarea que tengas adentro, haz esto:"</span>
+<span class="comentario-js">// Usamos la sintaxis de 'Función Flecha' () =&gt; {}</span>
+listaTareas.forEach( (tareaActual) =&gt; {
+    console.log("Tengo pendiente:", tareaActual);
+});</code></pre>
+                </div>
+
+                <h3 id="js-filter">7. Buscando Datos con .filter()</h3>
+                <p>Para hacer buscadores no destruimos el arreglo original. Usamos <code>.filter()</code>. Este método revisa el arreglo, y si la condición es verdadera (true), guarda ese elemento en un <b>arreglo nuevo</b>.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>script.js (Filtrando Información)</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>const tienda = [
+    { nombre: "TV Samsung", precio: 500, categoria: "Electrónica" },
+    { nombre: "Silla de Oficina", precio: 80, categoria: "Muebles" },
+    { nombre: "Laptop Dell", precio: 900, categoria: "Electrónica" }
+];
+
+<span class="comentario-js">// Queremos SOLO los productos de electrónica</span>
+const productosElectronicos = tienda.filter( (prod) =&gt; {
+    return prod.categoria === "Electrónica"; // Si es igual, lo guarda. Si no, lo descarta.
+});
+
+console.log("Filtro aplicado:", productosElectronicos);</code></pre>
+                </div>
+            </section>
+
+            <!-- ==============================================
+                 SECCIÓN 5: EL DOM (CONECTANDO JS CON HTML)
+                 ============================================== -->
+            <section id="js-dom">
+                <h2>V. El DOM: El Puente hacia el HTML</h2>
+                <p>
+                    Hasta ahora, JavaScript solo ha hablado en secreto con la Consola. ¡Queremos que interactúe con el usuario en la pantalla real! Para eso usamos el <b>DOM (Document Object Model)</b>.
+                </p>
+                <p>El DOM es una herramienta interna del navegador que convierte todo tu archivo HTML en "nodos" manipulables. JavaScript usa 3 pasos para controlar la página: <b>1) Atrapar, 2) Escuchar, 3) Modificar.</b></p>
+
+                <h3 id="dom-basico">8. Eventos y Modificación en vivo</h3>
+
+                <div class="code-block">
+                    <div class="code-header"><span>HTML & script.js (Interactividad Básica)</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>&lt;!-- EN TU INDEX.HTML --&gt;
+&lt;h1 id="titulo-app"&gt;Sistema Desconectado&lt;/h1&gt;
+&lt;button id="btn-conectar"&gt;Conectar Ahora&lt;/button&gt;
+
+&lt;!-- EN TU SCRIPT.JS --&gt;
+<span class="comentario-js">// PASO 1: ATRAPAR (Buscamos los elementos por su ID usando el '#')</span>
+const titulo = document.querySelector("#titulo-app");
+const boton = document.querySelector("#btn-conectar");
+
+<span class="comentario-js">// PASO 2: ESCUCHAR (Añadimos un EventListener esperando un 'click')</span>
+boton.addEventListener("click", () =&gt; {
+    
+    <span class="comentario-js">// PASO 3: MODIFICAR EL DOM</span>
+    titulo.textContent = "¡Sistema Conectado Exitosamente!"; // Cambia el texto
+    titulo.style.color = "green"; // Cambia el color CSS
+    
+    <span class="comentario-js">// ¡También podemos ocultar el botón una vez clickeado!</span>
+    boton.style.display = "none"; 
+});</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary><svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>Actividad 4: Tu Botón de Modo Oscuro</summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica de Modificación Visual</h3>
+                        <p>1. Crea un botón en tu HTML con el id <code>#btn-tema</code>.</p>
+                        <p>2. En tu archivo <code>script.js</code>, atrapa ese botón usando <code>querySelector</code>.</p>
+                        <p>3. Atrapa también a todo el cuerpo de la página: <code>const cuerpo = document.body;</code>.</p>
+                        <p>4. Agrégale un <code>addEventListener</code> de 'click' al botón. Adentro, escribe: <code>cuerpo.style.backgroundColor = "black";</code> y <code>cuerpo.style.color = "white";</code></p>
+                        <p>Ve a tu navegador y pruébalo. ¡Acabas de hacer un modo oscuro real!</p>
+                    </div>
+                </details>
+            </section>
+
+            <!-- ==============================================
+                 SECCIÓN 6: PINTANDO DATOS (CREANDO HTML)
+                 ============================================== -->
+            <section id="js-crear-html">
+                <h2>VI. Inyectando HTML desde JavaScript</h2>
+                <p>En el mundo real, los desarrolladores no escriben 100 etiquetas <code>&lt;li&gt;</code> a mano en el HTML para mostrar 100 productos. El servidor nos envía el Arreglo de datos, y nosotros usamos el bucle <code>forEach</code> para <b>fabricar y pintar las etiquetas automáticamente</b>.</p>
+
+                <h3 id="js-innerhtml">9. El poder de innerHTML y los Template Literals</h3>
+                <p>Para esto usaremos <code>innerHTML</code> (que inyecta código HTML dentro de un contenedor) y unas comillas especiales llamadas <b>Template Literals</b> (<code>` `</code>), que nos permiten meter variables dentro de texto fácilmente usando <code>${ }</code>.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>HTML & JS (Fabricación de Interfaz)</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>&lt;!-- EN TU HTML (Dejamos una caja vacía esperando los datos) --&gt;
+&lt;h2&gt;Nuestros Productos:&lt;/h2&gt;
+&lt;ul id="caja-productos"&gt;&lt;/ul&gt;
+
+&lt;!-- EN TU SCRIPT.JS --&gt;
+const catalogo = [
+    { id: 1, nombre: "Zapatillas Deportivas", precio: 55 },
+    { id: 2, nombre: "Camiseta de Algodón", precio: 20 },
+    { id: 3, nombre: "Gorra Urbana", precio: 15 }
+];
+
+<span class="comentario-js">// Atrapamos la caja <ul> vacía</span>
+const cajaUl = document.querySelector("#caja-productos");
+
+<span class="comentario-js">// Recorremos el arreglo de productos</span>
+catalogo.forEach((producto) =&gt; {
+    
+    <span class="comentario-js">// += significa "Súmale esto al final de lo que ya tenías"</span>
+    <span class="comentario-js">// Las comillas invertidas ` ` nos permiten armar HTML multilinea</span>
+    cajaUl.innerHTML += `
+        &lt;li style="margin-bottom: 10px; border-bottom: 1px solid gray;"&gt;
+            &lt;b&gt;Producto:&lt;/b&gt; ${producto.nombre} &lt;br&gt;
+            &lt;i&gt;Cuesta:&lt;/i&gt; $${producto.precio}
+        &lt;/li&gt;
+    `;
+    
+});</code></pre>
+                </div>
+                
+                <details class="respuesta-box">
+                    <summary><svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>Actividad 5: Renderiza tu propio arreglo</summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica de Renderizado</h3>
+                        <p>Toma el arreglo de "empleados" que creaste en la Actividad 3. Ahora, crea un <code>&lt;div id="lista-empleados"&gt;&lt;/div&gt;</code> en tu HTML.</p>
+                        <p>Usa un <code>forEach</code> en tu JS para recorrer a los empleados, y utiliza <code>innerHTML +=</code> para inyectar párrafos <code>&lt;p&gt;</code> que digan "Nombre trabaja como Puesto y gana $Sueldo".</p>
+                    </div>
+                </details>
+            </section>
+
+            <!-- ==============================================
+                 SECCIÓN 7: ARQUITECTURA MODERNA (ESTADOS)
+                 ============================================== -->
+            <section id="js-estado">
+                <h2>VII. Arquitectura de "Estado"</h2>
+                <p>
+                    <span class="modern-text">🧠 Cambio de mentalidad crítico:</span> A medida que añadimos botones para "Borrar" o un "Buscador", si empezamos a borrar y añadir pedazos de HTML sueltos, nuestro código será un desastre inmanejable.
+                </p>
+                <p>
+                    La programación moderna dicta una regla inquebrantable: <b>Separar los Datos de la Vista</b>. 
+                    <br>1. Tendremos un <b>ESTADO</b> (Una gran variable que guarda todos los arreglos y textos de búsqueda).
+                    <br>2. Tendremos <b>UNA SOLA FUNCIÓN (Render)</b> que lee ese Estado, limpia toda la pantalla y la pinta de nuevo de golpe.
+                    <br>3. Cuando el usuario hace clic en "Borrar", nosotros <b>NO borramos el HTML</b>. Nosotros borramos el dato del Arreglo (El Estado), y luego mandamos a llamar a la función Render para que repinte todo.
+                </p>
+            </section>
+
+            <!-- ==============================================
+                 SECCIÓN 8: COMPONENTES REALES (MENÚS Y CRUD)
+                 ============================================== -->
+            <section id="comp-ui">
+                <h2>VIII. Construyendo Componentes Reales</h2>
+                <p>Vamos a unir el DOM, los Eventos y esta nueva forma de pensar para construir elementos avanzados.</p>
+
+                <!-- MENÚS -->
+                <h3 id="comp-menus">10. Menús de Navegación Desplegables (Toggle)</h3>
+                <p>Un menú oculto en realidad siempre está ahí en el HTML, solo tiene una clase de CSS que lo esconde (ej. <code>display: none</code> u <code>.oculto</code>). La función <code>classList.toggle()</code> hace la magia de poner o quitar esa clase con un solo clic.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>HTML & JS (Acordeón Sidebar)</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>&lt;!-- TU HTML --&gt;
+&lt;ul&gt;
+    &lt;li&gt;
+        &lt;button class="btn-acordeon"&gt;Opciones de Sistema ▾&lt;/button&gt;
+        &lt;!-- Esta caja tiene 'oculto' (display: none) en el archivo CSS --&gt;
+        &lt;ul class="sub-menu oculto"&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Mi Perfil&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Configuración&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- TU SCRIPT.JS --&gt;
+// Atrapamos todos los botones que abren menús
+const botonesAcordeon = document.querySelectorAll('.btn-acordeon');
+
+botonesAcordeon.forEach(boton =&gt; {
+    boton.addEventListener('click', function() {
+        
+        // 'this' es una palabra especial que significa "El botón específico que acabas de clickear"
+        // nextElementSibling atrapa la etiqueta que está inmediatamente debajo en el HTML (el &lt;ul&gt; sub-menu)
+        const sublista = this.nextElementSibling;
+        
+        // toggle: Si tiene la clase 'oculto', se la quita. Si no, se la pone.
+        sublista.classList.toggle('oculto');
+        
+        // Detalle UX: Cambiar la flechita
+        if (sublista.classList.contains('oculto')) {
+            this.innerHTML = this.innerHTML.replace('▴', '▾');
+        } else {
+            this.innerHTML = this.innerHTML.replace('▾', '▴');
+        }
+    });
+});</code></pre>
+                </div>
+
+                <!-- EL CRUD FINAL -->
+                <h3 id="comp-crud">11. El Componente Maestro: La Tabla CRUD</h3>
+                <p>Aquí es donde graduarás tus habilidades. Usaremos el <b>Objeto de Estado</b>, la inyección con <code>innerHTML</code> y el método <code>.filter()</code> para el buscador y para borrar. Si entiendes este bloque, estás listo para el desarrollo web avanzado.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>HTML (El Cascarón de la Tabla)</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>&lt;div style="margin-bottom: 15px;"&gt;
+    &lt;input type="text" id="buscador" placeholder="Buscar empleado..."&gt;
+&lt;/div&gt;
+
+&lt;table border="1" width="100%"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;ID&lt;/th&gt;&lt;th&gt;Nombre&lt;/th&gt;&lt;th&gt;Acción&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;!-- La magia de JS inyectará las filas iteradas aquí --&gt;
+    &lt;tbody id="cuerpo-tabla"&gt;&lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header"><span>script.js (Motor de Estado y Renderizado)</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>// 1. EL ESTADO (La única fuente de la verdad de toda la app)
+let estado = {
+    empleados: [
+        { id: 1, nombre: "Ana López" },
+        { id: 2, nombre: "Carlos Ruiz" },
+        { id: 3, nombre: "Beatriz Moreno" }
+    ],
+    textoBuscado: "" // Guardará lo que escribamos en el input
+};
+
+const cuerpoTabla = document.getElementById('cuerpo-tabla');
+const inputBuscador = document.getElementById('buscador');
+
+// 2. FUNCIÓN DE RENDERIZADO (Se encarga de leer el estado y pintar todo)
+function renderizarTabla() {
+    
+    // A. Filtramos el arreglo. Crea una copia temporal para mostrar
+    const datosAVisualizar = estado.empleados.filter( item =&gt; 
+        item.nombre.toLowerCase().includes(estado.textoBuscado)
+    );
+
+    // B. Limpiamos la tabla vieja borrando todo su HTML interno
+    cuerpoTabla.innerHTML = ''; 
+    
+    // C. Pintamos la nueva información
+    datosAVisualizar.forEach(item =&gt; {
+        cuerpoTabla.innerHTML += `
+            &lt;tr&gt;
+                &lt;td&gt;${item.id}&lt;/td&gt;
+                &lt;td&gt;${item.nombre}&lt;/td&gt;
+                &lt;!-- OJO: Le incrustamos el ID directamente en el botón para saber cuál borrar --&gt;
+                &lt;td&gt;&lt;button onclick="eliminarRegistro(${item.id})"&gt;Borrar&lt;/button&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+        `;
+    });
+}
+
+// 3. EVENTO DE BÚSQUEDA
+inputBuscador.addEventListener('input', (evento) =&gt; {
+    // Al escribir, actualizamos la variable del estado
+    estado.textoBuscado = evento.target.value.toLowerCase();
+    // Y mandamos a repintar (La función se encarga de todo el trabajo pesado)
+    renderizarTabla(); 
+});
+
+// 4. FUNCIÓN DE ELIMINACIÓN
+// Tiene 'window.' para que el botón HTML la encuentre sin problemas
+window.eliminarRegistro = (idClick) =&gt; {
+    // Confirmación de seguridad
+    if (confirm("¿Seguro que deseas borrar este registro?")) {
+        
+        // Reemplazamos el arreglo original por uno nuevo que NO contenga el ID clickeado
+        estado.empleados = estado.empleados.filter(item =&gt; item.id !== idClick);
+        
+        // Repintamos la tabla con el arreglo ya modificado
+        renderizarTabla(); 
+    }
+};
+
+// 5. ARRANQUE DEL SISTEMA
+// Llamamos a la función una vez al principio para que pinte la pantalla por primera vez
+renderizarTabla();</code></pre>
+                </div>
+
+            </section>
+
+            <!-- ==============================================
+                 SECCIÓN 9: APIS Y FETCH
+                 ============================================== -->
+            <section id="js-api">
+                <h2>IX. Conectando con el Mundo Real: APIs y Fetch</h2>
+                <div class="media-container">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop" alt="Servers APIs" loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        Comunicación con bases de datos remotas.
+                    </div>
+                </div>
+
+                <p>Hasta ahora, todos nuestros datos (el arreglo de empleados) estaban guardados en la memoria de nuestro navegador. Si recargas la página, cualquier cambio se pierde. En el mundo real, los datos viven en un servidor (Backend/Base de Datos).</p>
+                <p>Para comunicarnos con el servidor, usamos una <b>API</b> (Application Programming Interface). JavaScript se comunica con las APIs usando una función llamada <code>fetch</code> y los verbos HTTP (GET para leer, POST para guardar, DELETE para borrar).</p>
+
+                <h3 id="js-asincronismo">12. Asincronismo: Promesas y async/await</h3>
+                <p>Ir a buscar datos a un servidor en internet toma tiempo (milisegundos o segundos). JavaScript es impaciente y no le gusta esperar. Si le decimos que busque datos, pasará a la siguiente línea de código inmediatamente, arruinando nuestra tabla porque los datos aún no llegaron.</p>
+                <p>Para obligar a JS a esperar, usamos dos palabras mágicas: <code>async</code> (para avisar que la función toma tiempo) y <code>await</code> (para decirle "detente aquí y espera la respuesta").</p>
+
+                <h3 id="js-fetch-crud">13. CRUD Real con una API Pública</h3>
+                <p>Vamos a reescribir nuestra Tabla CRUD usando <a href="https://jsonplaceholder.typicode.com/" target="_blank" style="color:var(--accent);">JSONPlaceholder</a>, una API pública gratuita perfecta para pruebas. <i>(Nota: JSONPlaceholder simula los POST y DELETE para no dañar su servidor público, te responderá que fue un éxito, pero no guardará el cambio real en su base de datos).</i></p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>HTML (Tabla con indicador de carga)</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>&lt;!-- Agregamos un indicador visual mientras JS espera al servidor --&gt;
+&lt;h3 id="mensaje-cargando" style="color: #38bdf8;"&gt;Conectando al servidor... Espere.&lt;/h3&gt;
+
+&lt;table border="1" width="100%"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;ID&lt;/th&gt;&lt;th&gt;Nombre (Desde la API)&lt;/th&gt;&lt;th&gt;Acción&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody id="cuerpo-tabla-api"&gt;&lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header"><span>script.js (Fetch API + Estado)</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>// 1. EL ESTADO AHORA EMPIEZA VACÍO
+let estadoAPI = {
+    usuarios: [],     // Esperando datos del servidor
+    cargando: true    // Controla el mensaje de "Espere..."
+};
+
+const URL_API = 'https://jsonplaceholder.typicode.com/users';
+const tablaAPI = document.getElementById('cuerpo-tabla-api');
+const msjCarga = document.getElementById('mensaje-cargando');
+
+// ==========================================
+// FUNCIÓN RENDER (La misma de siempre)
+// ==========================================
+function renderizarTablaAPI() {
+    // Si está cargando, mostramos el mensaje y salimos
+    if (estadoAPI.cargando) {
+        msjCarga.style.display = 'block';
+        tablaAPI.innerHTML = '';
+        return;
+    }
+
+    // Si ya cargó, ocultamos el mensaje y pintamos
+    msjCarga.style.display = 'none';
+    tablaAPI.innerHTML = ''; 
+
+    estadoAPI.usuarios.forEach(user =&gt; {
+        tablaAPI.innerHTML += `
+            &lt;tr&gt;
+                &lt;td&gt;${user.id}&lt;/td&gt;
+                &lt;td&gt;${user.name}&lt;/td&gt;
+                &lt;td&gt;&lt;button onclick="borrarUsuarioAPI(${user.id})"&gt;Eliminar en Servidor&lt;/button&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+        `;
+    });
+}
+
+// ==========================================
+// READ (GET) - OBTENER DATOS DE LA API
+// ==========================================
+// Usamos 'async' para poder usar 'await' adentro
+async function obtenerUsuarios() {
+    estadoAPI.cargando = true;
+    renderizarTablaAPI(); // Mostramos el loader
+
+    try {
+        // 1. AWAIT: "JS, espera a que el servidor responda"
+        const respuesta = await fetch(URL_API);
+        
+        // 2. AWAIT: "JS, espera a convertir esa respuesta en un Arreglo utilizable (JSON)"
+        const datosReales = await respuesta.json();
+        
+        // 3. Guardamos los datos reales en nuestro ESTADO
+        estadoAPI.usuarios = datosReales;
+        
+    } catch (error) {
+        console.error("Hubo un error contactando a la API:", error);
+    }
+
+    // 4. Apagamos el loader y pintamos los datos
+    estadoAPI.cargando = false;
+    renderizarTablaAPI();
+}
+
+// ==========================================
+// DELETE - BORRAR DATOS EN LA API
+// ==========================================
+window.borrarUsuarioAPI = async (idBorrar) =&gt; {
+    if (confirm("¿Borrar definitivamente de la Base de Datos?")) {
+        
+        try {
+            // Mandamos la orden al servidor (Method: 'DELETE')
+            // Le pasamos el ID al final de la URL: /users/5
+            await fetch(`${URL_API}/${idBorrar}`, {
+                method: 'DELETE',
+            });
+            
+            // Si el servidor no dio error, actualizamos nuestro estado local
+            estadoAPI.usuarios = estadoAPI.usuarios.filter(user =&gt; user.id !== idBorrar);
+            
+            // Repintamos
+            renderizarTablaAPI();
+            alert("Usuario eliminado en el servidor.");
+
+        } catch (error) {
+            alert("Error al borrar en el servidor.");
+        }
+    }
+};
+
+// ==========================================
+// INICIO DE LA APP
+// ==========================================
+obtenerUsuarios();</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary><svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>Actividad 6: Analizando una API</summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Cómo se ve una Base de Datos Real</h3>
+                        <p>Abre una nueva pestaña en tu navegador y visita el enlace directo a la API que usamos: <br><a href="https://jsonplaceholder.typicode.com/users" target="_blank" class="inline-code" style="color:var(--accent);">https://jsonplaceholder.typicode.com/users</a></p>
+                        <p>Lo que ves ahí es formato <b>JSON (JavaScript Object Notation)</b>. Es literalmente un Arreglo lleno de Objetos <code>[ { ... }, { ... } ]</code>. Cuando usas <code>fetch()</code>, tu código descarga ese texto de internet y lo convierte de vuelta a variables JavaScript para que puedas pintarlo en tu tabla.</p>
+                    </div>
+                </details>
+            </section>
+
+            <!-- ==============================================
+                 SECCIÓN FINAL: PROYECTO
+                 ============================================== -->
+            <section id="proyecto-final">
+                <details class="respuesta-box" open>
+                    <summary><svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>PROYECTO FINAL: El Examen de Arquitectura</summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0; color:var(--accent) !important; font-size: 1.5rem;">Desafío Maestro: Dashboard de Administración</h3>
+                        <p>Tu misión final es armar un panel de control funcional uniendo todo lo aprendido. No hay sorpresas: usarás <b>exactamente los mismos códigos</b> que vimos en el módulo, pero combinados en un solo proyecto.</p>
+                        
+                        <p>Crea dos archivos: <code>admin.html</code> y <code>admin.js</code>. Sigue estos pasos exactos:</p>
+
+                        <div style="margin-left: 15px; margin-top: 20px;">
+                            <h4 style="color: #1e293b; font-size: 1.2rem; margin-bottom: 10px;">PASO 1: La Maquetación (El Cascarón HTML)</h4>
+                            <ul style="color: #334155;">
+                                <li>Crea un diseño de pantalla dividida usando Flexbox: Una <b>Sidebar a la izquierda</b> y un <b>Área Principal a la derecha</b>.</li>
+                                <li>En la <b>Sidebar</b>, pega el código del <i>"Menú Vertical (Acordeón)"</i> de la Sección IV.</li>
+                                <li>En el <b>Área Principal</b>, pega el cascarón de la <i>"Tabla CRUD"</i> (Buscador, Tabla vacía con un <code>&lt;tbody id="cuerpo-tabla"&gt;</code>) de la Sección VI.</li>
+                            </ul>
+
+                            <h4 style="color: #1e293b; font-size: 1.2rem; margin-bottom: 10px; margin-top: 20px;">PASO 2: El Cerebro (El Estado Global)</h4>
+                            <ul style="color: #334155;">
+                                <li>Abre tu <code>admin.js</code>. Crea la variable <code>let estado = { ... }</code>.</li>
+                                <li>Puedes usar un arreglo inventado de productos locales (Sección VI) o <b>conectarte a la API pública</b> usando Fetch (Sección IX) para llenar el arreglo dinámicamente. <i>¡Tú eliges el nivel de dificultad!</i></li>
+                                <li>Asegúrate de tener la variable <code>textoBuscado: ""</code> en tu estado.</li>
+                            </ul>
+
+                            <h4 style="color: #1e293b; font-size: 1.2rem; margin-bottom: 10px; margin-top: 20px;">PASO 3: El Renderizado (Pintando la Pantalla)</h4>
+                            <ul style="color: #334155;">
+                                <li>Crea la función <code>function renderizarTabla() { ... }</code>.</li>
+                                <li>Adentro, usa <code>estado.productos.filter(...)</code> para crear la copia filtrada.</li>
+                                <li>Limpia el <code>innerHTML</code> de tu tabla y usa un <code>forEach</code> con <i>Template Literals</i> (<code>` `</code>) para inyectar cada fila de tus productos.</li>
+                                <li>¡No olvides llamar a <code>renderizarTabla()</code> al final de tu archivo (o después de tu <code>fetch</code>) para que arranque el sistema!</li>
+                            </ul>
+
+                            <h4 style="color: #1e293b; font-size: 1.2rem; margin-bottom: 10px; margin-top: 20px;">PASO 4: Los Eventos (Interactividad)</h4>
+                            <ul style="color: #334155;">
+                                <li><b>El Buscador:</b> Atrapa el input. Agrégale un evento <code>'input'</code> que actualice <code>estado.textoBuscado</code> y llame a <code>renderizarTabla()</code>.</li>
+                                <li><b>Eliminar:</b> En el botón "Borrar" de tu HTML inyectado, asegúrate de pasar el ID (<code>onclick="eliminarRegistro(${prod.id})"</code>). Luego crea la función en JS que haga el <code>confirm()</code>, use <code>.filter()</code> para sacar el producto del estado, y repinte la tabla.</li>
+                                <li><b>El Menú:</b> Pega la lógica de <code>querySelectorAll('.btn-acordeon')</code> y <code>classList.toggle('oculto')</code> para que tu sidebar funcione.</li>
+                            </ul>
+
+                            <h4 style="color: #ea580c; font-size: 1.2rem; margin-bottom: 10px; margin-top: 20px;">🔥 PASO 5: EL RETO FINAL (Crear Nuevos Registros)</h4>
+                            <ul style="color: #334155;">
+                                <li>Arriba de tu tabla en el HTML, crea dos <code>&lt;input&gt;</code> (uno para Nombre y otro para Precio) y un botón <b>"Guardar Producto"</b>.</li>
+                                <li>En JS, escucha el <code>'click'</code> de ese botón.</li>
+                                <li>Lee el <code>.value</code> de los dos inputs. Crea un objeto nuevo: <code>const nuevoProd = { id: 99, nombre: valor1, precio: valor2 }</code>.</li>
+                                <li>Mételo a tu base de datos con: <code>estado.productos.push(nuevoProd);</code> (Si usaste Fetch, puedes simularlo con un POST a la API o solo meterlo al arreglo local).</li>
+                                <li>Llama a <code>renderizarTabla()</code>. ¡Verás aparecer tu producto por arte de magia!</li>
+                            </ul>
+                        </div>
+                        
+                        <p style="color:#10b981 !important; font-weight:800; font-size:1.15rem; margin-top:30px; border-top: 2px dashed #e2e8f0; padding-top: 20px;"><span class="modern-text">💡 La Recompensa de la Arquitectura:</span> Si logras hacer este panel, notarás que <b>tú solo modificas las variables de tu estado, y la función Render hace el trabajo pesado de actualizar la pantalla</b>. ¡Estás usando exactamente los mismos patrones lógicos de los frameworks empresariales modernos! Estás listo para el siguiente nivel.</p>
+                    </div>
+                </details>
+            </section>
+
+        </main>
+
+        <!-- VISOR INTERNO -->
+        <div id="visor-container">
+            <div class="monitor-frame" id="m-frame">
+                <div class="monitor-screen">
+                    <div id="mouse-overlay"></div>
+                    <iframe id="screen-iframe" src="about:blank"></iframe>
+                </div>
+                <div class="monitor-led" onclick="abrirNuevaPestana()" title="Abrir en nueva pestaña"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DIÁLOGOS DE LA UI DEL CANVAS -->
+    <dialog id="palette-dialog">
+        <h3 style="margin-bottom:15px; text-align:center; font-size:0.9rem">ELEGIR COLOR (MARCADOR TEXTUAL)</h3>
+        <div id="p-grid" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;"></div>
+    </dialog>
+
+    <dialog id="search-dialog">
+        <h3 style="font-size: 0.8rem; color: var(--accent); margin-bottom: 15px; text-align: center;">NAVEGACIÓN E ÍNDICE DE TEMAS</h3>
+        <ul id="results" style="list-style:none;"></ul>
+    </dialog>
+
+    <!-- BARRA NAVEGACIÓN INFERIOR -->
+    <nav class="bar">
+        <button class="nav-btn" onclick="goHome()">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Inicio</span>
+        </button>
+        <button id="paint-btn" class="nav-btn" onclick="prepararPaleta()">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+                <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                <path d="M2 2l5 5"></path>
+                <path d="M8.5 8.5l1 1"></path>
+            </svg>
+            <span>Subrayar</span>
+        </button>
+        <button id="pointer-btn" class="nav-btn" onclick="toggleLaser()">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="3"></circle>
+                <line x1="12" y1="2" x2="12" y2="5"></line>
+                <line x1="12" y1="19" x2="12" y2="22"></line>
+                <line x1="2" y1="12" x2="5" y2="12"></line>
+                <line x1="19" y1="12" x2="22" y2="12"></line>
+            </svg>
+            <span>Puntero</span>
+        </button>
+        <button id="visor-btn" class="nav-btn" onclick="toggleVisor('http://127.0.0.1:5501/index.html')">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+                <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+            <span>Visor</span>
+        </button>
+        <button class="nav-btn" onclick="openSearch()">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span id="reloj">00:00</span>
+        </button>
+    </nav>
+
+    <div id="toast-msg"></div>
+
+    <script>
+        let laserActive = false, visorActivo = false;
+        let lastScroll = 0, currentRange = null;
+        const colors = ["#facc15", "#38bdf8", "#00FF00", "#FFFFFF", "#FF00FF", "#00FFFF", "#FF0000", "#4834D4", "#F0932B", "#e2e8f0"];
+
+        function updateTime() {
+            const reloj = document.getElementById("reloj");
+            if (reloj) {
+                const now = new Date();
+                reloj.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            }
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        document.addEventListener("DOMContentLoaded", () => {
+            initPalette();
+            reVincularEventos();
+        });
+
+        function initPalette() {
+            const grid = document.getElementById("p-grid");
+            if (!grid) return;
+            grid.innerHTML = ""; 
+            colors.forEach(col => {
+                const btn = document.createElement("div");
+                btn.style.cssText = `width: calc(20% - 8px); aspect-ratio:1; border-radius:50%; background:${col}; cursor:pointer; border:2px solid rgba(255,255,255,0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.3);`;
+                btn.onclick = () => aplicarResaltado(col);
+                grid.appendChild(btn);
+            });
+        }
+
+        function mostrarToast(mensaje) {
+            const t = document.getElementById("toast-msg");
+            if (!t) return;
+            t.textContent = mensaje;
+            t.style.display = "block";
+            setTimeout(() => t.style.display = "none", 2500);
+        }
+
+        function prepararPaleta() {
+            const sel = window.getSelection();
+            if (sel.rangeCount > 0 && !sel.isCollapsed) {
+                currentRange = sel.getRangeAt(0).cloneRange();
+                const diag = document.getElementById("palette-dialog");
+                if (diag) diag.showModal();
+            } else {
+                mostrarToast("Primero subraya un texto con el mouse para pintar.");
+            }
+        }
+
+        function aplicarResaltado(col) {
+            if (!currentRange) return;
+            const span = document.createElement("span");
+            span.className = "highlight-span";
+            span.style.cssText = `border-bottom:3px solid ${col}; color:${col} !important; background:${col}15; cursor:pointer; padding: 0 4px; border-radius: 4px; font-weight: bold;`;
+
+            try {
+                span.appendChild(currentRange.extractContents());
+                currentRange.insertNode(span);
+                span.onclick = function (e) {
+                    e.stopPropagation();
+                    this.replaceWith(...this.childNodes);
+                };
+            } catch (e) { console.error("Error crítico al resaltar:", e); }
+
+            const diag = document.getElementById("palette-dialog");
+            if (diag) diag.close();
+            window.getSelection().removeAllRanges();
+        }
+
+        function reVincularEventos() {
+            document.querySelectorAll(".highlight-span").forEach(s => {
+                s.onclick = function (e) { e.stopPropagation(); this.replaceWith(...this.childNodes); };
+            });
+        }
+
+        function toggleVisor(url) {
+            const container = document.getElementById("visor-container");
+            const main = document.getElementById("content-main");
+            const iframe = document.getElementById("screen-iframe");
+            const wrapper = document.getElementById("content-wrapper");
+
+            if (!visorActivo) {
+                visorActivo = true;
+                if (wrapper) lastScroll = wrapper.scrollTop;
+
+                if (main) main.style.display = "none";
+                if (container) container.style.display = "flex";
+                if (iframe) iframe.src = url;
+
+                setTimeout(ajustarEscalaMonitor, 50);
+            } else {
+                visorActivo = false;
+                if (container) container.style.display = "none";
+                if (main) main.style.display = "block";
+                if (iframe) iframe.src = "about:blank";
+                if (wrapper) wrapper.scrollTop = lastScroll;
+            }
+            const btn = document.getElementById("visor-btn");
+            if (btn) btn.classList.toggle("active-tool", visorActivo);
+        }
+
+        function abrirNuevaPestana() {
+            const iframe = document.getElementById("screen-iframe");
+            if (iframe && iframe.src && iframe.src !== "about:blank") {
+                window.open(iframe.src, '_blank');
+            }
+        }
+
+        function ajustarEscalaMonitor() {
+            const frame = document.getElementById("m-frame");
+            const iframe = document.getElementById("screen-iframe");
+            const container = document.getElementById("visor-container");
+            if (!visorActivo || !container || !iframe || !frame) return;
+
+            const targetW = 1280, targetH = 800;
+            const availW = container.offsetWidth - 40, availH = container.offsetHeight - 60;
+            const scale = Math.min(availW / targetW, availH / targetH);
+
+            iframe.style.transform = `scale(${scale})`;
+            frame.style.width = (targetW * scale + 20) + "px";
+            frame.style.height = (targetH * scale + 35) + "px";
+        }
+
+        const puntero = document.createElement("div");
+        puntero.className = "punteroRojo";
+        document.body.appendChild(puntero);
+
+        function toggleLaser() {
+            laserActive = !laserActive;
+            puntero.style.display = laserActive ? "block" : "none";
+            const btn = document.getElementById("pointer-btn");
+            if (btn) btn.classList.toggle("active-tool", laserActive);
+
+            const overlay = document.getElementById("mouse-overlay");
+            if (visorActivo && overlay) overlay.style.display = laserActive ? "block" : "none";
+        }
+
+        document.addEventListener("mousemove", (e) => {
+            if (!laserActive) return;
+            puntero.style.left = e.clientX + "px";
+            puntero.style.top = e.clientY + "px";
+
+            const trail = document.createElement("div");
+            trail.className = "puntoEstela";
+            trail.style.left = e.clientX + "px";
+            trail.style.top = e.clientY + "px";
+            document.body.appendChild(trail);
+            setTimeout(() => trail.remove(), 500);
+        });
+
+        function goHome() {
+            if (visorActivo) toggleVisor();
+            const wrapper = document.getElementById("content-wrapper");
+            if (wrapper) wrapper.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openSearch() {
+            const dialog = document.getElementById("search-dialog");
+            if (!dialog) return;
+
+            const unidades = [
+                { id: "js-cero", nombre: "1. Entorno: Tu primer Archivo JS" },
+                { id: "js-variables", nombre: "2. Memoria: Variables y Condicionales" },
+                { id: "js-estructuras", nombre: "3. Agrupando: Objetos y Arrays" },
+                { id: "js-funciones", nombre: "4. Lógica: Funciones y Filtros" },
+                { id: "js-dom", nombre: "5. DOM: Interactividad Básica" },
+                { id: "js-crear-html", nombre: "6. DOM: Inyectando HTML" },
+                { id: "js-estado", nombre: "7. Arquitectura de 'Estado' Moderno" },
+                { id: "comp-ui", nombre: "8. Componentes: Menús Toggle" },
+                { id: "js-api", nombre: "9. Mundo Real: APIs, Fetch y Asincronismo" },
+                { id: "proyecto-final", nombre: "10. Desafío Práctico: Dashboard Admin" }
+            ];
+
+            dialog.innerHTML = `
+        <div style="display: flex; flex-direction: column; gap: 10px; padding: 5px;">
+            <h3 style="font-size: 0.75rem; color: var(--accent); margin-bottom: 5px; text-align: center; letter-spacing: 1px;">ÍNDICE JAVASCRIPT EXTENDIDO</h3>
+            <ul id="results" style="list-style:none; max-height:65vh; overflow-y:auto; margin:0; padding:0; scrollbar-width: thin;"></ul>
+        </div>
+    `;
+
+            const resultsList = document.getElementById("results");
+
+            unidades.forEach((unidad) => {
+                const li = document.createElement("li");
+                li.style.borderBottom = "1px solid #2d3343";
+
+                li.innerHTML = `
+            <a href="#${unidad.id}" style="
+                display: flex; 
+                align-items: center; 
+                gap: 12px; 
+                padding: 15px; 
+                text-decoration: none; 
+                color: #fff; 
+                text-transform: uppercase; 
+                font-size: 11px; 
+                transition: 0.2s;
+                width: 100%;
+                box-sizing: border-box;
+            ">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+                <span style="flex:1; opacity:0.9;">${unidad.nombre}</span>
+            </a>
+        `;
+
+                const link = li.querySelector("a");
+
+                link.onmouseover = () => { link.style.background = "rgba(250, 204, 21, 0.1)"; link.style.color = "var(--accent)"; };
+                link.onmouseout = () => { link.style.background = "transparent"; link.style.color = "#fff"; };
+
+                link.onclick = () => {
+                    if (typeof visorActivo !== 'undefined' && visorActivo) toggleVisor();
+                    dialog.close();
+                };
+
+                resultsList.appendChild(li);
+            });
+
+            dialog.showModal();
+        }
+
+        // SOLUCIÓN EFECTIVA PARA PORTAPAPELES
+        function copyCode(btn) {
+            const codeElement = btn.parentElement.parentElement.querySelector('code');
+            if (!codeElement) return;
+            const codeText = codeElement.innerText;
+            
+            const textArea = document.createElement("textarea");
+            textArea.value = codeText;
+            textArea.style.position = "fixed";
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.width = "2em";
+            textArea.style.height = "2em";
+            textArea.style.padding = "0";
+            textArea.style.border = "none";
+            textArea.style.outline = "none";
+            textArea.style.boxShadow = "none";
+            textArea.style.background = "transparent";
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if(successful){
+                    const originalText = btn.textContent;
+                    btn.textContent = "¡CÓDIGO COPIADO!";
+                    
+                    btn.style.background = "#fff";
+                    btn.style.color = "#000";
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.style.background = "var(--accent)";
+                        btn.style.color = "#000";
+                    }, 1500);
+                } else {
+                    console.error("Falló la ejecución execCommand.");
+                }
+            } catch (err) {
+                console.error("Error copiando código:", err);
+            }
+            
+            document.body.removeChild(textArea);
+        }
+    </script>
+</body>
+
+</html>
