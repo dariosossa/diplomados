@@ -1,0 +1,1033 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>MÓDULO TAILWIND CSS - DIPLOMADO EN DESARROLLO WEB</title>
+    <style>
+        :root {
+            --bg: #0f111a;
+            --surface: #1e222d;
+            --accent: #38bdf8; /* Azul Tailwind */
+            --text: #e2e8f0;
+            --text-dim: #94a3b8;
+            --border: #2d3343;
+            --nav-h: 75px;
+            --header-h: 60px;
+        }
+
+        /* Reset y Rendimiento de la Interfaz (Plataforma) */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        header#top-bar {
+            height: var(--header-h);
+            background: #12141c;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            font-size: 0.7rem;
+            text-align: center;
+            padding: 0 10px;
+        }
+
+        header#top-bar h1 {
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-dim);
+        }
+
+        #content-wrapper {
+            flex: 1;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            background: radial-gradient(circle at 50% 0%, #1a1c2c 0%, var(--bg) 100%);
+        }
+
+        main#content-main {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+
+        section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 30px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: white;
+            text-transform: uppercase;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            text-decoration: underline;
+            text-underline-offset: 6px;
+            line-height: 1.8;
+        }
+
+        p, li {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            color: #cbd5e1;
+        }
+
+        ul, ol { margin-left: 25px; margin-bottom: 20px; }
+        b, strong { color: var(--accent); font-weight: 600; }
+        .inline-code { background: #0f111a; padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border); font-family: monospace; color: #f87171; }
+
+        .icon-svg {
+            width: 22px; height: 22px;
+            stroke: currentColor; stroke-width: 2;
+            stroke-linecap: round; stroke-linejoin: round; fill: none;
+        }
+
+        /* VISOR DE MONITOR PROFESIONAL */
+        #visor-container {
+            display: none; position: fixed; top: var(--header-h); left: 0;
+            width: 100%; height: calc(100dvh - var(--header-h) - var(--nav-h));
+            background: radial-gradient(circle, #1a1c2c 0%, #050508 100%);
+            z-index: 5000; padding: 15px; flex-direction: column;
+            align-items: center; justify-content: center;
+        }
+        .monitor-frame {
+            background: #111; border: 10px solid #222; border-radius: 12px;
+            position: relative; box-shadow: 0 50px 120px rgba(0, 0, 0, 1);
+            display: flex; flex-direction: column; border-bottom-width: 20px;
+            max-width: 100%; max-height: 100%;
+        }
+        .monitor-screen {
+            background: #000; width: 100%; height: 100%; overflow: hidden;
+            position: relative; box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5);
+        }
+        #mouse-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 100; background: transparent; display: none; cursor: none;
+        }
+        #screen-iframe {
+            width: 1280px; height: 800px; background: white; border: none;
+            transform-origin: top left; position: absolute; z-index: 1;
+        }
+        .monitor-led {
+            position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%);
+            width: 6px; height: 3px; background: #00ff00; border-radius: 2px;
+            box-shadow: 0 0 8px #00ff00; cursor: pointer; transition: 0.3s;
+        }
+        .monitor-led:hover { box-shadow: 0 0 15px #00ff00; transform: translateX(-50%) scale(1.2); }
+
+        /* INTERFAZ CÓDIGO */
+        .code-block {
+            position: relative; margin: 10px 0 25px 0; background: #0d0f14;
+            border-radius: 8px; border: 1px solid var(--border); overflow: hidden;
+        }
+        .code-header {
+            background: #1a1c2c; padding: 8px 15px; font-family: monospace;
+            font-size: 0.85rem; color: #94a3b8; border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .copy-btn {
+            background: var(--accent); color: #000; border: none; padding: 4px 10px;
+            border-radius: 4px; font-size: 0.7rem; font-weight: bold; cursor: pointer; transition: 0.2s;
+        }
+        .copy-btn:hover { background: #fff; }
+        pre {
+            padding: 20px; font-family: 'Consolas', monospace; overflow-x: auto;
+            color: #cbd5e1; font-size: 0.95rem; line-height: 1.5; margin: 0;
+        }
+        /* Color especial para comentarios de CSS Clásico en el bloque de código */
+        .old-css { color: #8b9bb4; font-style: italic; display: block; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dashed #2d3343;}
+
+        .media-container {
+            position: relative; margin: 40px 0; border-radius: 12px;
+            overflow: hidden; border: 1px solid var(--border); background: #000;
+        }
+        .media-container img {
+            width: 100%; height: 250px; display: block; filter: brightness(0.8); object-fit: cover;
+        }
+        .texto-encima-imagen {
+            position: absolute; width: 100%; padding: 20px; color: white;
+            font-weight: 700; font-size: 1.6rem; text-align: center;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8); z-index: 10;
+        }
+        .texto-arriba { top: 0; background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent); }
+
+        .respuesta-box {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 10px; margin: 20px 0;
+        }
+        summary {
+            cursor: pointer; color: var(--accent); font-weight: bold; padding: 10px;
+            list-style: none; display: flex; align-items: center; gap: 8px;
+        }
+
+        /* CLASE ESTRICTA PARA ACTIVIDADES */
+        .actividad-caja {
+            padding: 25px; border: 2px dashed #2d3343; background-color: #ffffff !important;
+            border-radius: 8px; margin-top: 10px; box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+        .actividad-caja, .actividad-caja h3, .actividad-caja p, .actividad-caja li, 
+        .actividad-caja span, .actividad-caja b, .actividad-caja strong {
+            color: #000000 !important;
+        }
+        .actividad-caja a { color: #2563eb !important; font-weight: bold; }
+
+        nav.bar {
+            height: var(--nav-h); background: #1e222d; display: flex;
+            justify-content: space-between; border-top: 1px solid var(--border); z-index: 15000;
+        }
+        .nav-btn {
+            flex: 1; background: none; border: none; color: var(--text-dim); display: flex;
+            flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s;
+        }
+        .nav-btn span { font-size: 0.65rem; margin-top: 4px; font-weight: 600; }
+        .active-tool { color: var(--accent); background: rgba(56, 189, 248, 0.1); }
+
+        .punteroRojo {
+            position: fixed; width: 22px; height: 22px; background: red; border-radius: 50%;
+            pointer-events: none; z-index: 20000; display: none; transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px red, 0 0 40px red; border: 2px solid white;
+        }
+        .puntoEstela {
+            position: fixed; width: 15px; height: 15px; background: rgba(255, 0, 0, 0.5);
+            border-radius: 50%; pointer-events: none; z-index: 19999;
+            transform: translate(-50%, -50%); animation: fadeOut 0.5s forwards;
+        }
+        @keyframes fadeOut { to { opacity: 0; transform: translate(-50%, -50%) scale(0.1); } }
+        .highlight-span { border-bottom: 3px solid; font-weight: bold; cursor: pointer; padding: 0 2px; }
+
+        dialog {
+            background: var(--surface); border: 2px solid var(--accent); border-radius: 16px;
+            padding: 5px; color: white; margin: auto; width: 90%; max-width: 600px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+        dialog::backdrop { background: rgba(0, 0, 0, 0.8); }
+        #toast-msg {
+            position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
+            background: #ff4757; color: white; padding: 12px 25px; border-radius: 30px;
+            font-weight: bold; display: none; z-index: 18000;
+        }
+
+        @media (max-width: 768px) {
+            :root { --nav-h: 65px; --header-h: 50px; }
+            main#content-main { padding: 12px; padding-bottom: 80px; }
+            section { padding: 20px 15px; margin-bottom: 15px; border-radius: 8px; }
+            h2 { font-size: 1.4rem; }
+            h3 { font-size: 1.2rem; margin-top: 20px; }
+            p, li { font-size: 1.1rem; line-height: 1.6; }
+            pre { font-size: 0.85rem; padding: 20px 15px 15px; }
+            .monitor-frame { border-width: 6px; border-bottom-width: 12px; }
+            .nav-btn span { font-size: 0.6rem; letter-spacing: 0; }
+            dialog { width: 95%; padding: 20px; }
+        }
+    </style>
+</head>
+
+<body oncontextmenu="return false;">
+
+    <header id="top-bar">
+        <h1>MÓDULO TAILWIND CSS <span style="color:white">•</span> DESDE CERO A COMPONENTES</h1>
+    </header>
+
+    <div id="content-wrapper">
+        <main id="content-main">
+            
+            <!-- ==============================================
+                 SECCIÓN 1: INTRODUCCIÓN A TAILWIND
+                 ============================================== -->
+            <section id="tw-introduccion">
+                <h2>I. Tailwind CSS: Utility-First</h2>
+                <div class="media-container">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop" alt="Code Tailwind" loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        El adiós a los archivos CSS externos interminables.
+                    </div>
+                </div>
+
+                <p>
+                    <b>Tailwind CSS</b> revoluciona el desarrollo web eliminando la necesidad de escribir hojas de estilo semánticas (ej. <code class="inline-code">.tarjeta-principal</code>) en archivos separados. En su lugar, utilizamos <b>clases de utilidad</b> directamente en las etiquetas de nuestro HTML.
+                </p>
+
+                <h3 id="tw-instalacion">1. Instalación Rápida (CDN)</h3>
+                <p>Para aprender y practicar en archivos locales sin instalar herramientas complejas (como Node.js), utilizamos su enlace CDN. Solo debes pegarlo una vez en tu archivo HTML.</p>
+                <div class="code-block">
+                    <div class="code-header"><span>HTML: Vinculación de Tailwind</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>&lt;!-- Pega esto dentro de la etiqueta &lt;head&gt; de tu archivo HTML --&gt;
+&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</code></pre>
+                </div>
+            </section>
+
+            <!-- ==============================================
+                 SECCIÓN 2: FUNDAMENTOS BÁSICOS (TRADUCCIÓN CSS)
+                 ============================================== -->
+            <section id="tw-fundamentos">
+                <h2>II. Fundamentos: Traduciendo CSS Clásico</h2>
+                <p>Antes de crear componentes gigantes, debemos aprender cómo "habla" Tailwind. Cada propiedad que conoces en CSS tiene una clase equivalente, corta y lógica.</p>
+
+                <!-- 2.1 COLORES -->
+                <h3 id="tw-colores">2. Colores de Fondo y Texto</h3>
+                <p>Tailwind trae una paleta predefinida numerada del 50 (muy claro) al 900 (muy oscuro). El prefijo <code>bg-</code> es para el fondo (Background) y <code>text-</code> para las letras.</p>
+                
+                <div class="code-block">
+                    <div class="code-header"><span>Colores en Tailwind</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code><span class="old-css">/* EN CSS CLÁSICO HACÍAMOS ESTO:
+.alerta-error {
+    background-color: #ef4444; 
+    color: #ffffff;
+}
+*/</span>
+&lt;!-- EN TAILWIND SE HACE ASÍ DIRECTAMENTE: --&gt;
+&lt;div class="bg-red-500 text-white"&gt;
+  Ha ocurrido un error crítico.
+&lt;/div&gt;
+
+&lt;!-- Otro ejemplo: Fondo azul claro, texto azul oscuro --&gt;
+&lt;div class="bg-blue-100 text-blue-900"&gt;
+  Información guardada correctamente.
+&lt;/div&gt;</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary><svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>Actividad 1: Pinta tu primera caja</summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica Rápida</h3>
+                        <p>1. Crea un archivo <code>prueba.html</code> y ponle el CDN de Tailwind.</p>
+                        <p>2. Crea un <code>&lt;div&gt;</code> y añádele las clases para que tenga un fondo verde oscuro (green-800) y letras en verde muy clarito (green-100).</p>
+                    </div>
+                </details>
+
+                <!-- 2.2 ESPACIADO -->
+                <h3 id="tw-espaciado">3. Espaciado: Margin y Padding</h3>
+                <p>En Tailwind, el espaciado usa un sistema de cuartos de rem (1 unidad = 4px).<br>
+                <b>Padding (Interior):</b> Usamos la letra <code>p</code>. (ej. <code>p-4</code>, <code>px-2</code>, <code>pt-5</code>).<br>
+                <b>Margin (Exterior):</b> Usamos la letra <code>m</code>. (ej. <code>m-4</code>, <code>my-2</code>, <code>ml-5</code>).</p>
+                <ul style="font-size: 1rem;">
+                    <li><code>t</code> = Top (Arriba)</li>
+                    <li><code>b</code> = Bottom (Abajo)</li>
+                    <li><code>l</code> = Left (Izquierda)</li>
+                    <li><code>r</code> = Right (Derecha)</li>
+                    <li><code>x</code> = Eje X (Izquierda y Derecha)</li>
+                    <li><code>y</code> = Eje Y (Arriba y Abajo)</li>
+                </ul>
+
+                <div class="code-block">
+                    <div class="code-header"><span>Margin y Padding en Tailwind</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code><span class="old-css">/* EN CSS CLÁSICO HACÍAMOS ESTO:
+.caja {
+    padding: 16px;            /* Padding a todos lados */
+    padding-left: 32px;       /* Padding izquierdo grande */
+    margin-top: 20px;         /* Margen superior */
+    margin-bottom: 20px;      /* Margen inferior */
+}
+*/</span>
+&lt;!-- EN TAILWIND SE HACE ASÍ: --&gt;
+&lt;div class="p-4 pl-8 my-5 bg-slate-200"&gt;
+  Caja con espaciado perfecto.
+&lt;/div&gt;</code></pre>
+                </div>
+
+                <!-- 2.3 TIPOGRAFÍA -->
+                <h3 id="tw-tipografia">4. Tipografía y Textos</h3>
+                <p>Tailwind nos permite cambiar el tamaño, el grosor (weight) y la alineación usando prefijos lógicos.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>Textos en Tailwind</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code><span class="old-css">/* EN CSS CLÁSICO HACÍAMOS ESTO:
+h1 {
+    font-size: 24px;      
+    font-weight: 700;     /* Negrita */
+    text-align: center;   /* Centrado */
+    text-transform: uppercase; /* Mayúsculas */
+}
+*/</span>
+&lt;!-- EN TAILWIND SE HACE ASÍ: --&gt;
+&lt;h1 class="text-2xl font-bold text-center uppercase"&gt;
+  Título Principal
+&lt;/h1&gt;
+
+&lt;!-- Tamaños: text-xs, text-sm, text-base, text-lg, text-xl, text-2xl, text-4xl... --&gt;
+&lt;!-- Grosor: font-light, font-normal, font-semibold, font-bold, font-extrabold --&gt;</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary><svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>Actividad 2: Estructurando un Párrafo</summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica Rápida</h3>
+                        <p>Crea un <code>&lt;p&gt;</code> en tu HTML. Aplícale Tailwind para que el texto sea grande (lg), de color gris oscuro (gray-700), alineado a la derecha (right) y tenga un relleno general equivalente a 16px (4 unidades).</p>
+                    </div>
+                </details>
+
+                <!-- 2.4 BORDES Y SOMBRAS -->
+                <h3 id="tw-bordes">5. Bordes, Redondeado y Sombras (Efecto 3D)</h3>
+                <p>El aspecto visual moderno ("Tarjetas") se logra redondeando esquinas y aplicando sombras sutiles que separan elementos del fondo.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>Bordes y Sombras en Tailwind</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code><span class="old-css">/* EN CSS CLÁSICO HACÍAMOS ESTO:
+.tarjeta-basica {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+*/</span>
+&lt;!-- EN TAILWIND SE HACE ASÍ: --&gt;
+&lt;div class="border border-slate-200 rounded-lg shadow-md p-6 bg-white"&gt;
+  Esto ya parece una tarjeta profesional.
+&lt;/div&gt;
+
+&lt;!-- Redondeados: rounded-sm, rounded, rounded-lg, rounded-xl, rounded-full (circulos) --&gt;
+&lt;!-- Sombras: shadow-sm, shadow, shadow-md, shadow-lg, shadow-xl --&gt;</code></pre>
+                </div>
+
+                <!-- 2.5 FLEXBOX BÁSICO -->
+                <h3 id="tw-flex">6. Flexbox Básico en Tailwind</h3>
+                <p>Activar Flexbox es tan sencillo como poner la clase <code>flex</code>. Luego usas sus utilidades para alinear (items-...) y justificar (justify-...).</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>Flexbox en Tailwind</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code><span class="old-css">/* EN CSS CLÁSICO HACÍAMOS ESTO:
+.caja-centrada {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+*/</span>
+&lt;!-- EN TAILWIND SE HACE ASÍ: --&gt;
+&lt;div class="flex justify-center items-center gap-4 bg-slate-100 p-4"&gt;
+  &lt;div class="bg-blue-500 w-10 h-10 rounded-full"&gt;&lt;/div&gt;
+  &lt;div class="bg-red-500 w-10 h-10 rounded-full"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary><svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>Actividad 3: La Barra de Navegación Básica</summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica Rápida</h3>
+                        <p>Usa Flexbox en Tailwind para simular un Menú. Crea un contendor oscuro. Usa <code>flex</code> y <code>justify-between</code>. A la izquierda coloca el nombre de tu empresa (ej. LOGO) y a la derecha crea un botón que diga "Login". Aplica <code>items-center</code> para que no queden chuecos.</p>
+                    </div>
+                </details>
+            </section>
+
+            <!-- ==============================================
+                 SECCIÓN 3: BIBLIOTECA DE COMPONENTES
+                 ============================================== -->
+            <section id="tw-componentes">
+                <h2>III. Biblioteca de Componentes UI Completos</h2>
+                <p>
+                    ¡Ahora sí! Teniendo las bases claras (colores, espaciado, bordes y flexbox), vamos a combinarlas todas juntas para crear los componentes que necesitas en tu sistema final.
+                </p>
+
+                <!-- COMPONENTE 1: BOTONES -->
+                <h3 id="comp-boton">7. Botones Interactivos y Hover</h3>
+                <p>Agregamos interactividad. En Tailwind usamos el prefijo <code>hover:</code> antes de cualquier clase para indicar qué debe pasar al pasar el mouse por encima.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>Botón Interactivo</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code><span class="old-css">/* EN CSS CLÁSICO:
+ .btn { background: #2563eb; color: white; padding: 12px 24px; border-radius: 8px; transition: 0.3s; }
+ .btn:hover { background: #1d4ed8; transform: translateY(-2px); }
+*/</span>
+&lt;!-- EN TAILWIND: --&gt;
+&lt;button class="bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:bg-blue-700 hover:-translate-y-1 shadow-md hover:shadow-lg"&gt;
+  Confirmar Acción
+&lt;/button&gt;</code></pre>
+                </div>
+
+                <!-- COMPONENTE 2: HERO BANNER -->
+                <h3 id="comp-hero">8. Hero Banner con Overlay (Para tu index.html)</h3>
+                <p>Cabecera principal con una imagen de fondo y un filtro oscuro superpuesto para garantizar que el texto se lea perfecto.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>Hero Banner Completo</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code><span class="old-css">/* EN CSS CLÁSICO:
+ .hero { position: relative; height: 400px; background: url('img.jpg') center/cover; }
+ .overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
+ .contenido { position: relative; z-index: 10; color: white; text-align: center; }
+*/</span>
+&lt;!-- EN TAILWIND: --&gt;
+&lt;div class="relative bg-[url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200')] bg-cover bg-center h-[400px] flex items-center justify-center"&gt;
+  
+  &lt;!-- Filtro oscuro absoluto --&gt;
+  &lt;div class="absolute inset-0 bg-black/60"&gt;&lt;/div&gt;
+  
+  &lt;!-- Contenido protegido --&gt;
+  &lt;div class="relative z-10 text-center text-white px-4"&gt;
+    &lt;h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight"&gt;Sistema Innovador&lt;/h1&gt;
+    &lt;p class="text-lg md:text-xl text-gray-200 mb-6"&gt;Soluciones digitales a tu alcance.&lt;/p&gt;
+    &lt;button class="bg-blue-600 px-6 py-3 rounded-full font-bold hover:bg-blue-700 transition"&gt;Comenzar Ahora&lt;/button&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;</code></pre>
+                </div>
+
+                <!-- COMPONENTE 3: CARDS -->
+                <h3 id="comp-card">9. Card de Servicio (Para tu index.html)</h3>
+                <p>Observa cómo la combinación de <code>bg-white</code>, <code>rounded-xl</code>, <code>shadow-lg</code> y <code>overflow-hidden</code> (para cortar la foto en las esquinas) hace toda la magia.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>Card Semántica</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code><span class="old-css">/* EN CSS CLÁSICO:
+ .card { width: 320px; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
+ .card-img { width: 100%; height: 200px; object-fit: cover; }
+ .card-body { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+*/</span>
+&lt;!-- EN TAILWIND: --&gt;
+&lt;article class="max-w-sm bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl transition duration-300"&gt;
+  
+  &lt;div class="h-48 overflow-hidden"&gt;
+    &lt;img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b" class="w-full h-full object-cover" alt="Servicio"&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="p-6 flex flex-col gap-4"&gt;
+    &lt;h3 class="text-xl font-bold text-slate-800"&gt;Consultas Rápidas&lt;/h3&gt;
+    &lt;p class="text-slate-500 text-sm"&gt;Atención prioritaria 24/7 con historial en la nube de alta seguridad.&lt;/p&gt;
+    &lt;button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg transition"&gt;
+      Ver detalles
+    &lt;/button&gt;
+  &lt;/div&gt;
+
+&lt;/article&gt;</code></pre>
+                </div>
+
+                <!-- COMPONENTE 4: SPLIT SCREEN LOGIN -->
+                <h3 id="comp-login">10. Pantalla Dividida - Split Screen (Para login.html)</h3>
+                <p>Aquí usamos Media Queries de Tailwind. El prefijo <code>md:</code> significa "solo aplícate en pantallas medianas o más grandes (Tablets/PCs)". Por defecto (celulares), es una columna (<code>flex-col</code>).</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>Login Split Screen Responsivo</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code><span class="old-css">/* EN CSS CLÁSICO:
+ .layout { display: flex; height: 100vh; flex-direction: column; }
+ @media (min-width: 768px) { .layout { flex-direction: row; } }
+ .mitad-img { display: none; }
+ @media (min-width: 768px) { .mitad-img { display: flex; flex: 1; } }
+*/</span>
+&lt;!-- EN TAILWIND: --&gt;
+&lt;div class="flex h-screen w-full flex-col md:flex-row"&gt;
+  
+  &lt;!-- LADO IZQUIERDO: Imagen (hidden en móvil, flex al 50% en desktop) --&gt;
+  &lt;div class="hidden md:flex md:w-1/2 bg-slate-900 items-center justify-center bg-[url('https://images.unsplash.com/photo-1544197150-b99a580bb7a8')] bg-cover relative"&gt;
+    &lt;div class="absolute inset-0 bg-indigo-900/60 mix-blend-multiply"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- LADO DERECHO: Formulario (100% en móvil, 50% en desktop) --&gt;
+  &lt;div class="w-full md:w-1/2 flex items-center justify-center p-6 bg-slate-50"&gt;
+    &lt;form class="w-full max-w-md bg-white p-8 sm:p-10 rounded-2xl shadow-xl border border-slate-100"&gt;
+      &lt;h2 class="text-3xl font-extrabold mb-8 text-slate-800 text-center"&gt;Bienvenido&lt;/h2&gt;
+      
+      &lt;div class="mb-5"&gt;
+        &lt;label class="block text-slate-700 text-sm font-bold mb-2"&gt;Correo Electrónico&lt;/label&gt;
+        &lt;input type="email" class="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 focus:border-blue-500 focus:bg-white focus:ring-2 outline-none transition"&gt;
+      &lt;/div&gt;
+      
+      &lt;button class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition"&gt;Entrar&lt;/button&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;</code></pre>
+                </div>
+
+                <!-- COMPONENTE 5: TABLA CRUD -->
+                <h3 id="comp-crud">11. Tabla CRUD Responsiva (Para admin.html)</h3>
+                <p>Usando el mismo prefijo <code>md:</code>, hacemos que la tabla se muestre como bloques apilados (tarjetas) en el celular, y vuelva a ser fila de tabla (<code>md:table-row</code>) en escritorio.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>Tabla Mutante (Móvil a Escritorio)</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code><span class="old-css">/* EN CSS CLÁSICO:
+ @media (max-width: 768px) {
+  .tabla-crud thead { display: none; }
+  .tabla-crud tr { display: block; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 8px; }
+  .tabla-crud td { display: block; padding: 10px; text-align: right; }
+ }
+*/</span>
+&lt;!-- EN TAILWIND: --&gt;
+&lt;div class="overflow-x-auto bg-white rounded-xl shadow-md p-4 md:p-0 border border-slate-100"&gt;
+  &lt;table class="w-full text-left border-collapse"&gt;
+    
+    &lt;!-- CABECERA: Oculta en móvil --&gt;
+    &lt;thead class="hidden md:table-header-group bg-slate-800 text-white uppercase text-xs font-semibold tracking-wider"&gt;
+      &lt;tr&gt;
+        &lt;th class="p-4 rounded-tl-lg"&gt;ID&lt;/th&gt;
+        &lt;th class="p-4"&gt;Usuario&lt;/th&gt;
+        &lt;th class="p-4 rounded-tr-lg text-right"&gt;Acciones&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    
+    &lt;!-- CUERPO --&gt;
+    &lt;tbody class="block md:table-row-group"&gt;
+      
+      &lt;!-- FILA 1: 'block' en móvil (parece tarjeta), 'table-row' en pc --&gt;
+      &lt;tr class="block md:table-row border border-slate-200 md:border-b md:border-x-0 hover:bg-slate-50 mb-4 md:mb-0 rounded-lg md:rounded-none p-3 md:p-0 transition"&gt;
+        
+        &lt;td class="p-2 md:p-4 block md:table-cell text-sm font-bold text-slate-500"&gt;
+          &lt;span class="md:hidden text-xs text-slate-400 font-normal uppercase"&gt;ID: &lt;/span&gt;#101
+        &lt;/td&gt;
+        
+        &lt;td class="p-2 md:p-4 block md:table-cell text-blue-600 font-semibold"&gt;
+          &lt;span class="md:hidden text-xs text-slate-400 font-normal uppercase block"&gt;Usuario:&lt;/span&gt;
+          Rubén Darío
+        &lt;/td&gt;
+        
+        &lt;td class="p-2 md:p-4 block md:table-cell md:text-right mt-2 md:mt-0"&gt;
+          &lt;button class="bg-red-50 text-red-600 px-4 py-2 rounded-md text-sm font-medium hover:bg-red-100 w-full md:w-auto transition"&gt;Eliminar&lt;/button&gt;
+        &lt;/td&gt;
+        
+      &lt;/tr&gt;
+      
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+
+                <!-- COMPONENTE 6: DASHBOARD LAYOUT -->
+                <h3 id="comp-dashboard">12. Ecosistema Dashboard (Para tu Sistema)</h3>
+                <p>Estructura general de una aplicación. Consta de una barra lateral oscura (Sidebar) y un área central que abarca el 100% del alto (<code>h-screen</code>).</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>Dashboard App Shell</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code><span class="old-css">/* EN CSS CLÁSICO:
+ .app { display: flex; height: 100vh; overflow: hidden; }
+ .sidebar { width: 250px; background: #0f172a; }
+ .main { flex: 1; display: flex; flex-direction: column; }
+ .contenido { flex: 1; overflow-y: auto; padding: 20px; }
+*/</span>
+&lt;!-- EN TAILWIND: --&gt;
+&lt;div class="flex h-screen bg-slate-100 overflow-hidden font-sans"&gt;
+  
+  &lt;!-- SIDEBAR: Oculta en móviles, visible en desktop grandes (lg) --&gt;
+  &lt;aside class="hidden lg:flex w-64 flex-col bg-slate-900 text-white shadow-2xl z-20"&gt;
+    &lt;div class="h-16 flex items-center px-6 text-xl font-extrabold border-b border-slate-800"&gt;AdminPanel&lt;/div&gt;
+    &lt;nav class="flex-1 p-4 space-y-2 overflow-y-auto"&gt;
+      &lt;a href="#" class="block p-3 rounded-lg bg-blue-600 text-white shadow"&gt;📊 Dashboard&lt;/a&gt;
+      &lt;a href="#" class="block p-3 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white"&gt;👥 Usuarios&lt;/a&gt;
+    &lt;/nav&gt;
+  &lt;/aside&gt;
+
+  &lt;!-- COLUMNA DERECHA PRINCIPAL --&gt;
+  &lt;main class="flex-1 flex flex-col w-full relative"&gt;
+    
+    &lt;!-- NAVBAR SUPERIOR FIJA --&gt;
+    &lt;header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 lg:px-10 shadow-sm"&gt;
+      &lt;button class="lg:hidden text-slate-500 font-bold"&gt;☰ Menú&lt;/button&gt;
+      &lt;div class="flex items-center gap-3 text-slate-700 font-semibold"&gt;
+        &lt;span class="hidden sm:block"&gt;Administrador&lt;/span&gt;
+        &lt;div class="w-10 h-10 bg-blue-100 rounded-full border-2 border-blue-500"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/header&gt;
+
+    &lt;!-- ÁREA DE TRABAJO: Scroll independiente interno --&gt;
+    &lt;section class="flex-1 overflow-y-auto p-4 md:p-8"&gt;
+      &lt;h2 class="text-2xl md:text-3xl font-bold text-slate-800 mb-6"&gt;Gestión de Base de Datos&lt;/h2&gt;
+      
+      &lt;!-- Aquí pegarías el código de la TABLA CRUD o las CARDS --&gt;
+      &lt;div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm border-dashed text-slate-400"&gt;
+        Pega tu componente aquí...
+      &lt;/div&gt;
+
+    &lt;/section&gt;
+  &lt;/main&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+
+            </section>
+
+            <!-- ==============================================
+                 SECCIÓN 4: EL PROYECTO FINAL
+                 ============================================== -->
+            <section id="tw-proyecto">
+                <details class="respuesta-box" open>
+                    <summary><svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>EL PROYECTO FINAL (Aprobación del Módulo)</summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0; color:#2563eb !important;">Desafío: Sistema Web con Tailwind CSS</h3>
+                        <p>Demuestra tu dominio estructurando las 4 interfaces de un sistema web real (Temática Libre) utilizando <b>exclusivamente las clases de Tailwind CSS</b> enseñadas arriba:</p>
+                        
+                        <p><b>1. <code>index.html</code> (Página Pública):</b> Crea el componente "Hero Banner" superpuesto y debajo implementa una grilla Flexbox con al menos 3 Tarjetas de Servicio (Cards).</p>
+                        <p><b>2. <code>login.html</code> (Ingreso al Sistema):</b> Crea el formulario centrado utilizando el patrón de Pantalla Dividida (Split Screen responsivo a columnas en móviles).</p>
+                        <p><b>3. <code>admin.html</code> (Panel de Administración):</b> Implementa el Dashboard Layout completo (Sidebar + Header + Área de trabajo). Dentro del área de trabajo, coloca la Tabla CRUD Responsiva.</p>
+                        <p><b>4. <code>usuario.html</code> (Panel de Usuario):</b> Reutiliza el Dashboard Layout. En el área central, crea formularios sencillos combinando Flexbox y las Inputs del login.</p>
+                        
+                        <p style="color:#10b981 !important; font-weight:800; font-size:1.15rem; margin-top:20px;">💡 Instrucción Crítica: Para que los comandos funcionen, asegúrate de colocar el CDN <code>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</code> en la etiqueta <code>&lt;head&gt;</code> de tus 4 archivos HTML. ¡No necesitas crear ningún archivo .css!</p>
+                    </div>
+                </details>
+            </section>
+
+        </main>
+
+        <!-- VISOR INTERNO -->
+        <div id="visor-container">
+            <div class="monitor-frame" id="m-frame">
+                <div class="monitor-screen">
+                    <div id="mouse-overlay"></div>
+                    <iframe id="screen-iframe" src="about:blank"></iframe>
+                </div>
+                <div class="monitor-led" onclick="abrirNuevaPestana()" title="Abrir en nueva pestaña"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DIÁLOGOS DE LA UI DEL CANVAS -->
+    <dialog id="palette-dialog">
+        <h3 style="margin-bottom:15px; text-align:center; font-size:0.9rem">ELEGIR COLOR (MARCADOR TEXTUAL)</h3>
+        <div id="p-grid" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;"></div>
+    </dialog>
+
+    <dialog id="search-dialog">
+        <h3 style="font-size: 0.8rem; color: var(--accent); margin-bottom: 15px; text-align: center;">NAVEGACIÓN E ÍNDICE DE TEMAS</h3>
+        <ul id="results" style="list-style:none;"></ul>
+    </dialog>
+
+    <!-- BARRA NAVEGACIÓN INFERIOR -->
+    <nav class="bar">
+        <button class="nav-btn" onclick="goHome()">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Inicio</span>
+        </button>
+        <button id="paint-btn" class="nav-btn" onclick="prepararPaleta()">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+                <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                <path d="M2 2l5 5"></path>
+                <path d="M8.5 8.5l1 1"></path>
+            </svg>
+            <span>Subrayar</span>
+        </button>
+        <button id="pointer-btn" class="nav-btn" onclick="toggleLaser()">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="3"></circle>
+                <line x1="12" y1="2" x2="12" y2="5"></line>
+                <line x1="12" y1="19" x2="12" y2="22"></line>
+                <line x1="2" y1="12" x2="5" y2="12"></line>
+                <line x1="19" y1="12" x2="22" y2="12"></line>
+            </svg>
+            <span>Puntero</span>
+        </button>
+        <button id="visor-btn" class="nav-btn" onclick="toggleVisor('http://127.0.0.1:5501/index.html')">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+                <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+            <span>Visor</span>
+        </button>
+        <button class="nav-btn" onclick="openSearch()">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span id="reloj">00:00</span>
+        </button>
+    </nav>
+
+    <div id="toast-msg"></div>
+
+    <script>
+        let laserActive = false, visorActivo = false;
+        let lastScroll = 0, currentRange = null;
+        const colors = ["#00FFFF", "#FF0000", "#00FF00", "#FFFFFF", "#FF00FF", "#FFFF00", "#FF9F43", "#4834D4", "#F0932B", "#61DAFB"];
+
+        function updateTime() {
+            const reloj = document.getElementById("reloj");
+            if (reloj) {
+                const now = new Date();
+                reloj.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            }
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        document.addEventListener("DOMContentLoaded", () => {
+            initPalette();
+            reVincularEventos();
+        });
+
+        function initPalette() {
+            const grid = document.getElementById("p-grid");
+            if (!grid) return;
+            grid.innerHTML = ""; 
+            colors.forEach(col => {
+                const btn = document.createElement("div");
+                btn.style.cssText = `width: calc(20% - 8px); aspect-ratio:1; border-radius:50%; background:${col}; cursor:pointer; border:2px solid rgba(255,255,255,0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.3);`;
+                btn.onclick = () => aplicarResaltado(col);
+                grid.appendChild(btn);
+            });
+        }
+
+        function mostrarToast(mensaje) {
+            const t = document.getElementById("toast-msg");
+            if (!t) return;
+            t.textContent = mensaje;
+            t.style.display = "block";
+            setTimeout(() => t.style.display = "none", 2500);
+        }
+
+        function prepararPaleta() {
+            const sel = window.getSelection();
+            if (sel.rangeCount > 0 && !sel.isCollapsed) {
+                currentRange = sel.getRangeAt(0).cloneRange();
+                const diag = document.getElementById("palette-dialog");
+                if (diag) diag.showModal();
+            } else {
+                mostrarToast("Primero subraya un texto con el mouse para pintar.");
+            }
+        }
+
+        function aplicarResaltado(col) {
+            if (!currentRange) return;
+            const span = document.createElement("span");
+            span.className = "highlight-span";
+            span.style.cssText = `border-bottom:3px solid ${col}; color:${col} !important; background:${col}15; cursor:pointer; padding: 0 4px; border-radius: 4px; font-weight: bold;`;
+
+            try {
+                span.appendChild(currentRange.extractContents());
+                currentRange.insertNode(span);
+                span.onclick = function (e) {
+                    e.stopPropagation();
+                    this.replaceWith(...this.childNodes);
+                };
+            } catch (e) { console.error("Error crítico al resaltar:", e); }
+
+            const diag = document.getElementById("palette-dialog");
+            if (diag) diag.close();
+            window.getSelection().removeAllRanges();
+        }
+
+        function reVincularEventos() {
+            document.querySelectorAll(".highlight-span").forEach(s => {
+                s.onclick = function (e) { e.stopPropagation(); this.replaceWith(...this.childNodes); };
+            });
+        }
+
+        function toggleVisor(url) {
+            const container = document.getElementById("visor-container");
+            const main = document.getElementById("content-main");
+            const iframe = document.getElementById("screen-iframe");
+            const wrapper = document.getElementById("content-wrapper");
+
+            if (!visorActivo) {
+                visorActivo = true;
+                if (wrapper) lastScroll = wrapper.scrollTop;
+
+                if (main) main.style.display = "none";
+                if (container) container.style.display = "flex";
+                if (iframe) iframe.src = url;
+
+                setTimeout(ajustarEscalaMonitor, 50);
+            } else {
+                visorActivo = false;
+                if (container) container.style.display = "none";
+                if (main) main.style.display = "block";
+                if (iframe) iframe.src = "about:blank";
+                if (wrapper) wrapper.scrollTop = lastScroll;
+            }
+            const btn = document.getElementById("visor-btn");
+            if (btn) btn.classList.toggle("active-tool", visorActivo);
+        }
+
+        function abrirNuevaPestana() {
+            const iframe = document.getElementById("screen-iframe");
+            if (iframe && iframe.src && iframe.src !== "about:blank") {
+                window.open(iframe.src, '_blank');
+            }
+        }
+
+        function ajustarEscalaMonitor() {
+            const frame = document.getElementById("m-frame");
+            const iframe = document.getElementById("screen-iframe");
+            const container = document.getElementById("visor-container");
+            if (!visorActivo || !container || !iframe || !frame) return;
+
+            const targetW = 1280, targetH = 800;
+            const availW = container.offsetWidth - 40, availH = container.offsetHeight - 60;
+            const scale = Math.min(availW / targetW, availH / targetH);
+
+            iframe.style.transform = `scale(${scale})`;
+            frame.style.width = (targetW * scale + 20) + "px";
+            frame.style.height = (targetH * scale + 35) + "px";
+        }
+
+        const puntero = document.createElement("div");
+        puntero.className = "punteroRojo";
+        document.body.appendChild(puntero);
+
+        function toggleLaser() {
+            laserActive = !laserActive;
+            puntero.style.display = laserActive ? "block" : "none";
+            const btn = document.getElementById("pointer-btn");
+            if (btn) btn.classList.toggle("active-tool", laserActive);
+
+            const overlay = document.getElementById("mouse-overlay");
+            if (visorActivo && overlay) overlay.style.display = laserActive ? "block" : "none";
+        }
+
+        document.addEventListener("mousemove", (e) => {
+            if (!laserActive) return;
+            puntero.style.left = e.clientX + "px";
+            puntero.style.top = e.clientY + "px";
+
+            const trail = document.createElement("div");
+            trail.className = "puntoEstela";
+            trail.style.left = e.clientX + "px";
+            trail.style.top = e.clientY + "px";
+            document.body.appendChild(trail);
+            setTimeout(() => trail.remove(), 500);
+        });
+
+        function goHome() {
+            if (visorActivo) toggleVisor();
+            const wrapper = document.getElementById("content-wrapper");
+            if (wrapper) wrapper.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openSearch() {
+            const dialog = document.getElementById("search-dialog");
+            if (!dialog) return;
+
+            const unidades = [
+                { id: "tw-introduccion", nombre: "1. Introducción a Tailwind y CDN" },
+                { id: "tw-colores", nombre: "2. Bases: Colores de Fondo y Texto" },
+                { id: "tw-espaciado", nombre: "3. Bases: Espaciado (Margin/Padding)" },
+                { id: "tw-tipografia", nombre: "4. Bases: Tipografía" },
+                { id: "tw-bordes", nombre: "5. Bases: Bordes y Sombras" },
+                { id: "tw-flex", nombre: "6. Bases: Flexbox Básico" },
+                { id: "comp-boton", nombre: "7. Componente: Botones Interactivos" },
+                { id: "comp-hero", nombre: "8. Componente: Hero Banner (Landing)" },
+                { id: "comp-card", nombre: "9. Componente: Card Semántica" },
+                { id: "comp-login", nombre: "10. Componente: Login Split Screen" },
+                { id: "comp-crud", nombre: "11. Componente: Tabla CRUD Admin" },
+                { id: "comp-dashboard", nombre: "12. Componente: Dashboard Layout Maestro" },
+                { id: "tw-proyecto", nombre: "13. Desafío Práctico: Proyecto Final" }
+            ];
+
+            dialog.innerHTML = `
+        <div style="display: flex; flex-direction: column; gap: 10px; padding: 5px;">
+            <h3 style="font-size: 0.75rem; color: var(--accent); margin-bottom: 5px; text-align: center; letter-spacing: 1px;">ÍNDICE TAILWIND CSS</h3>
+            <ul id="results" style="list-style:none; max-height:65vh; overflow-y:auto; margin:0; padding:0; scrollbar-width: thin;"></ul>
+        </div>
+    `;
+
+            const resultsList = document.getElementById("results");
+
+            unidades.forEach((unidad) => {
+                const li = document.createElement("li");
+                li.style.borderBottom = "1px solid #2d3343";
+
+                li.innerHTML = `
+            <a href="#${unidad.id}" style="
+                display: flex; 
+                align-items: center; 
+                gap: 12px; 
+                padding: 15px; 
+                text-decoration: none; 
+                color: #fff; 
+                text-transform: uppercase; 
+                font-size: 11px; 
+                transition: 0.2s;
+                width: 100%;
+                box-sizing: border-box;
+            ">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+                <span style="flex:1; opacity:0.9;">${unidad.nombre}</span>
+            </a>
+        `;
+
+                const link = li.querySelector("a");
+
+                link.onmouseover = () => { link.style.background = "rgba(56, 189, 248, 0.1)"; link.style.color = "var(--accent)"; };
+                link.onmouseout = () => { link.style.background = "transparent"; link.style.color = "#fff"; };
+
+                link.onclick = () => {
+                    if (typeof visorActivo !== 'undefined' && visorActivo) toggleVisor();
+                    dialog.close();
+                };
+
+                resultsList.appendChild(li);
+            });
+
+            dialog.showModal();
+        }
+
+        // SOLUCIÓN EFECTIVA PARA PORTAPAPELES (IFRAME SAFE)
+        function copyCode(btn) {
+            const codeElement = btn.parentElement.parentElement.querySelector('code');
+            if (!codeElement) return;
+            const codeText = codeElement.innerText;
+            
+            const textArea = document.createElement("textarea");
+            textArea.value = codeText;
+            textArea.style.position = "fixed";
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.width = "2em";
+            textArea.style.height = "2em";
+            textArea.style.padding = "0";
+            textArea.style.border = "none";
+            textArea.style.outline = "none";
+            textArea.style.boxShadow = "none";
+            textArea.style.background = "transparent";
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if(successful){
+                    const originalText = btn.textContent;
+                    btn.textContent = "¡CÓDIGO COPIADO!";
+                    btn.style.background = "#fff";
+                    btn.style.color = "#000";
+                    
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.style.background = "var(--accent)";
+                    }, 1500);
+                } else {
+                    console.error("Falló la ejecución execCommand.");
+                }
+            } catch (err) {
+                console.error("Error copiando código:", err);
+            }
+            
+            document.body.removeChild(textArea);
+        }
+    </script>
+</body>
+
+</html>
