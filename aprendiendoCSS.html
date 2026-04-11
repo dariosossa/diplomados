@@ -1,0 +1,1780 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>MÓDULO CSS Y FLEXBOX - DIPLOMADO EN DESARROLLO WEB</title>
+    <style>
+        :root {
+            --bg: #0f111a;
+            --surface: #1e222d;
+            --accent: #61dafb;
+            --text: #e2e8f0;
+            --text-dim: #94a3b8;
+            --border: #2d3343;
+            --nav-h: 75px;
+            --header-h: 60px;
+        }
+
+        /* Reset y Rendimiento */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        header#top-bar {
+            height: var(--header-h);
+            background: #12141c;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            font-size: 0.7rem;
+        }
+
+        header#top-bar h1 {
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-dim);
+        }
+
+        #content-wrapper {
+            flex: 1;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            background: radial-gradient(circle at 50% 0%, #1a1c2c 0%, var(--bg) 100%);
+        }
+
+        main#content-main {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+
+        section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 30px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: white;
+            text-transform: uppercase;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            text-decoration: underline;
+            text-underline-offset: 6px;
+            line-height: 1.8;
+        }
+
+        p, li {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            color: #cbd5e1;
+        }
+
+        ul, ol { margin-left: 25px; margin-bottom: 20px; }
+        b, strong { color: var(--accent); font-weight: 600; }
+
+        .icon-svg {
+            width: 22px; height: 22px;
+            stroke: currentColor; stroke-width: 2;
+            stroke-linecap: round; stroke-linejoin: round; fill: none;
+        }
+
+        /* VISOR DE MONITOR PROFESIONAL */
+        #visor-container {
+            display: none; position: fixed; top: var(--header-h); left: 0;
+            width: 100%; height: calc(100dvh - var(--header-h) - var(--nav-h));
+            background: radial-gradient(circle, #1a1c2c 0%, #050508 100%);
+            z-index: 5000; padding: 15px; flex-direction: column;
+            align-items: center; justify-content: center;
+        }
+        .monitor-frame {
+            background: #111; border: 10px solid #222; border-radius: 12px;
+            position: relative; box-shadow: 0 50px 120px rgba(0, 0, 0, 1);
+            display: flex; flex-direction: column; border-bottom-width: 20px;
+            max-width: 100%; max-height: 100%;
+        }
+        .monitor-screen {
+            background: #000; width: 100%; height: 100%; overflow: hidden;
+            position: relative; box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5);
+        }
+        #mouse-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 100; background: transparent; display: none; cursor: none;
+        }
+        #screen-iframe {
+            width: 1280px; height: 800px; background: white; border: none;
+            transform-origin: top left; position: absolute; z-index: 1;
+        }
+        .monitor-led {
+            position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%);
+            width: 6px; height: 3px; background: #00ff00; border-radius: 2px;
+            box-shadow: 0 0 8px #00ff00; cursor: pointer; transition: 0.3s;
+        }
+        .monitor-led:hover { box-shadow: 0 0 15px #00ff00; transform: translateX(-50%) scale(1.2); }
+
+        /* INTERFAZ CÓDIGO */
+        .code-block {
+            position: relative; margin: 10px 0 25px 0; background: #0d0f14;
+            border-radius: 8px; border: 1px solid var(--border); overflow: hidden;
+        }
+        .code-header {
+            background: #1a1c2c; padding: 8px 15px; font-family: monospace;
+            font-size: 0.85rem; color: #94a3b8; border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .copy-btn {
+            background: var(--accent); color: #000; border: none; padding: 4px 10px;
+            border-radius: 4px; font-size: 0.7rem; font-weight: bold; cursor: pointer; transition: 0.2s;
+        }
+        .copy-btn:hover { background: #fff; }
+        pre {
+            padding: 20px; font-family: 'Consolas', monospace; overflow-x: auto;
+            color: #cbd5e1; font-size: 0.95rem; line-height: 1.5; margin: 0;
+        }
+
+        .media-container {
+            position: relative; margin: 40px 0; border-radius: 12px;
+            overflow: hidden; border: 1px solid var(--border); background: #000;
+        }
+        .media-container img {
+            width: 100%; height: 250px; display: block; filter: brightness(0.8); object-fit: cover;
+        }
+        .texto-encima-imagen {
+            position: absolute; width: 100%; padding: 20px; color: white;
+            font-weight: 700; font-size: 1.6rem; text-align: center;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8); z-index: 10;
+        }
+        .texto-arriba { top: 0; background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent); }
+
+        .respuesta-box {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 10px; margin: 20px 0;
+        }
+        summary {
+            cursor: pointer; color: var(--accent); font-weight: bold; padding: 10px;
+            list-style: none; display: flex; align-items: center; gap: 8px;
+        }
+
+        /* CLASE ESTRICTA PARA ACTIVIDADES (FONDO BLANCO, LETRA NEGRA) */
+        .actividad-caja {
+            padding: 25px; border: 2px dashed #2d3343; background-color: #ffffff !important;
+            border-radius: 8px; margin-top: 10px; box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+        .actividad-caja, .actividad-caja h3, .actividad-caja p, .actividad-caja li, 
+        .actividad-caja span, .actividad-caja b, .actividad-caja strong {
+            color: #000000 !important;
+        }
+        .actividad-caja a { color: #2563eb !important; font-weight: bold; }
+
+        nav.bar {
+            height: var(--nav-h); background: #1e222d; display: flex;
+            justify-content: space-between; border-top: 1px solid var(--border); z-index: 15000;
+        }
+        .nav-btn {
+            flex: 1; background: none; border: none; color: var(--text-dim); display: flex;
+            flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s;
+        }
+        .nav-btn span { font-size: 0.65rem; margin-top: 4px; font-weight: 600; }
+        .active-tool { color: var(--accent); background: rgba(97, 218, 251, 0.1); }
+
+        .punteroRojo {
+            position: fixed; width: 22px; height: 22px; background: red; border-radius: 50%;
+            pointer-events: none; z-index: 20000; display: none; transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px red, 0 0 40px red; border: 2px solid white;
+        }
+        .puntoEstela {
+            position: fixed; width: 15px; height: 15px; background: rgba(255, 0, 0, 0.5);
+            border-radius: 50%; pointer-events: none; z-index: 19999;
+            transform: translate(-50%, -50%); animation: fadeOut 0.5s forwards;
+        }
+        @keyframes fadeOut { to { opacity: 0; transform: translate(-50%, -50%) scale(0.1); } }
+        .highlight-span { border-bottom: 3px solid; font-weight: bold; cursor: pointer; padding: 0 2px; }
+
+        dialog {
+            background: var(--surface); border: 2px solid var(--accent); border-radius: 16px;
+            padding: 5px; color: white; margin: auto; width: 90%; max-width: 600px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+        dialog::backdrop { background: rgba(0, 0, 0, 0.8); }
+        #toast-msg {
+            position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
+            background: #ff4757; color: white; padding: 12px 25px; border-radius: 30px;
+            font-weight: bold; display: none; z-index: 18000;
+        }
+
+        @media (max-width: 768px) {
+            :root { --nav-h: 65px; --header-h: 50px; }
+            main#content-main { padding: 12px; padding-bottom: 80px; }
+            section { padding: 20px 15px; margin-bottom: 15px; border-radius: 8px; }
+            h2 { font-size: 1.4rem; }
+            h3 { font-size: 1.2rem; margin-top: 20px; }
+            p, li { font-size: 1.1rem; line-height: 1.6; }
+            pre { font-size: 0.85rem; padding: 20px 15px 15px; }
+            .monitor-frame { border-width: 6px; border-bottom-width: 12px; }
+            .nav-btn span { font-size: 0.6rem; letter-spacing: 0; }
+            dialog { width: 95%; padding: 20px; }
+        }
+    </style>
+</head>
+
+<body oncontextmenu="return false;">
+
+    <header id="top-bar">
+        <h1>MÓDULO CSS Y FLEXBOX <span style="color:white">•</span> APLICACIÓN PRÁCTICA</h1>
+    </header>
+
+    <div id="content-wrapper">
+        <main id="content-main">
+            
+            <!-- ==============================================
+                 SECCIÓN 1: FUNDAMENTOS Y SELECTORES
+                 ============================================== -->
+            <section id="modulo-fundamentos">
+                <h2>I. Fundamentos de CSS</h2>
+                <div class="media-container">
+                    <img src="https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?q=80&w=1200&auto=format&fit=crop" alt="CSS Design" loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        El lenguaje estructurado para la presentación y diseño de interfaces web.
+                    </div>
+                </div>
+
+                <p>
+                    <b>CSS</b> (Cascading Style Sheets o Hojas de Estilo en Cascada) es el lenguaje utilizado para definir la presentación visual de un documento estructurado en HTML. Controla elementos como la tipografía, los colores, el espaciado, la disposición de los elementos y su adaptabilidad a diferentes dispositivos.
+                </p>
+
+                <h3 id="css-estructura">1. Sintaxis y Archivos</h3>
+                <p>CSS opera mediante <b>Reglas</b>. Una regla se compone de un <b>Selector</b> (el elemento objetivo) y un bloque de <b>Declaraciones</b> delimitado por llaves (las propiedades a modificar).</p>
+                <div class="code-block">
+                    <div class="code-header"><span>Estructura de Sintaxis CSS</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>/* Selector */
+p {
+  /* Declaración: Propiedad y Valor */
+  color: blue;
+  font-size: 18px;
+}</code></pre>
+                </div>
+
+                <h3 id="css-conectar">2. Vinculación de CSS con HTML</h3>
+                <p>
+                    La práctica estándar y recomendada para el desarrollo web es utilizar hojas de estilo externas. Esto permite separar la estructura (HTML) de la presentación (CSS). Se vincula mediante la etiqueta <code class="inline-code">&lt;link&gt;</code> en el <code class="inline-code">&lt;head&gt;</code> del documento HTML.
+                </p>
+
+                <h3 id="css-esqueleto">3. Estructura HTML Base</h3>
+                <p>
+                    El siguiente bloque de código representa la estructura básica de un documento HTML5, configurado para integrar una hoja de estilos externa.
+                </p>
+                
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>index.html (Estructura Base)</span>
+                        <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    </div>
+                    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Prácticas de CSS&lt;/title&gt;
+    
+    &lt;!-- Vinculación de la hoja de estilos externa --&gt;
+    &lt;link rel="stylesheet" href="css/style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;!-- Contenido principal del documento --&gt;
+    &lt;h1&gt;Módulo de CSS Aplicado&lt;/h1&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+
+                <h3 id="css-limpiar">4. Reset CSS (Normalización de estilos)</h3>
+                <p>
+                    Los navegadores web aplican márgenes y rellenos predeterminados a diversos elementos HTML. Para asegurar consistencia en el diseño a través de diferentes navegadores, se utiliza una regla de "Reset Universal".
+                </p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>css/style.css (Reset Universal)</span>
+                        <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+                    </div>
+                    <pre><code>/* Reset de propiedades predeterminadas */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Fundamental para el cálculo de dimensiones */
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box" open>
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 1: Preparación del Entorno Base
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Configuración Inicial</h3>
+                        <p>Para establecer el entorno de desarrollo del módulo, sigue estos pasos:</p>
+                        <p>1. Crea un directorio denominado <b>ProyectoCSS</b>.</p>
+                        <p>2. Abre el directorio utilizando tu editor de código (ej. Visual Studio Code).</p>
+                        <p>3. Crea un archivo <b>index.html</b> y añade la estructura HTML base provista anteriormente.</p>
+                        <p>4. Crea un subdirectorio llamado <b>css</b> y, dentro de él, un archivo <b>style.css</b>.</p>
+                        <p>5. Copia el <b>Reset CSS Universal</b> al inicio del archivo <code>style.css</code>.</p>
+                        <p>6. Visualiza el archivo <code>index.html</code> en el navegador. Confirma que el encabezado no posee márgenes respecto a los bordes de la ventana, indicando que el archivo CSS está correctamente vinculado y el reset está funcionando.</p>
+                    </div>
+                </details>
+
+                <h3 id="css-boxmodel">5. Arquitectura del Modelo de Caja (Box Model)</h3>
+                <p>
+                    El principio fundamental del diseño web radica en que todo elemento HTML se renderiza como una caja rectangular. Esta caja está compuesta por cuatro áreas concéntricas:
+                </p>
+
+                <div style="font-family: system-ui, sans-serif; width: 100%; max-width: 550px; padding: 20px; border: 2px dashed #475569; border-radius: 12px; background: #1a1d26; margin: 20px auto; color: white;">
+                    <div style="background-color: #cbd5e1; padding: 45px; border-radius: 6px; position: relative; display: flex; align-items: stretch; min-height: 280px;">
+                        <span style="position: absolute; top: 12px; left: 12px; font-size: 10px; font-weight: bold; background: rgba(255,255,255,0.9); padding: 2px 6px; border-radius: 4px; color: #1e293b; z-index: 10;">
+                            1. MARGIN (Margen Exterior)
+                        </span>
+                        <div style="border: 12px solid #475569; background-color: #fef08a; position: relative; flex: 1; display: flex; align-items: stretch;">
+                            <span style="position: absolute; top: -22px; right: 10px; font-size: 10px; font-weight: bold; background: #475569; color: white; padding: 2px 6px; border-radius: 4px; z-index: 10;">
+                                2. BORDER (Borde Físico)
+                            </span>
+                            <div style="padding: 40px; position: relative; flex: 1; display: flex; align-items: stretch;">
+                                <span style="position: absolute; bottom: 12px; right: 12px; font-size: 10px; font-weight: bold; background: rgba(255,255,255,0.9); padding: 2px 6px; border-radius: 4px; color: #1e293b; z-index: 10;">
+                                    3. PADDING (Espacio Interno)
+                                </span>
+                                <div style="background-color: #4ade80; color: #064e3b; flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; font-weight: bold; border-radius: 4px; text-align: center;">
+                                    <span style="font-size: 15px;">4. CONTENT</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 2: Inspección Estructural
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Herramientas de Desarrollo</h3>
+                        <p>1. Abre una página web funcional (por ejemplo, el buscador principal de Google).</p>
+                        <p>2. Presiona clic derecho sobre cualquier elemento y selecciona "Inspeccionar".</p>
+                        <p>3. En el panel de herramientas para desarrolladores, ubica la representación gráfica del "Box Model". Al pasar el cursor sobre las distintas capas del modelo, observarás cómo el navegador resalta el elemento en la página utilizando diferentes colores (comúnmente azul para contenido, verde para padding, y naranja para margin).</p>
+                    </div>
+                </details>
+
+                <h3 id="css-selectores">6. Selectores de Estructura: ID y Class</h3>
+                <div class="code-block">
+                    <div class="code-header"><span>HTML (Definición de Selectores)</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>&lt;!-- Atributo ID (#): Define un identificador exclusivo por documento. --&gt;
+&lt;div id="contenedor-principal"&gt;Bloque Principal Exclusivo&lt;/div&gt;
+
+&lt;!-- Atributo CLASS (.): Define una clase reutilizable para múltiples elementos. --&gt;
+&lt;div class="bloque-estandar"&gt;Bloque Genérico 1&lt;/div&gt;
+&lt;div class="bloque-estandar"&gt;Bloque Genérico 2&lt;/div&gt;</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header"><span>CSS (Reglas para Selectores)</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>/* Selector ID (Utiliza el prefijo #) */
+#contenedor-principal {
+    margin: 40px;
+    padding: 30px;
+    border: 4px solid;
+}
+
+/* Selector de Clase (Utiliza el prefijo .) */
+.bloque-estandar {
+    margin: 15px;
+    padding: 10px;
+    border: 2px dashed;
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 3: Especificidad y Reutilización
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Aplicación de Selectores</h3>
+                        <p>1. Integra el código HTML y CSS provisto en los archivos correspondientes de tu proyecto.</p>
+                        <p>2. En el archivo HTML, duplica el elemento que contiene la clase <code>bloque-estandar</code> cuatro veces más.</p>
+                        <p>3. Guarda los cambios y actualiza el navegador. Verifica cómo los nuevos elementos heredan instantáneamente las propiedades de margen, relleno y borde punteado, demostrando la eficiencia de las clases reutilizables frente a los identificadores únicos.</p>
+                    </div>
+                </details>
+
+                <h3 id="css-espaciado">7. Gestión del Espaciado: Margin y Padding</h3>
+                <ul>
+                    <li><b>Padding:</b> Define el espacio entre el contenido del elemento y su propio borde.</li>
+                    <li><b>Margin:</b> Define el espacio exterior del elemento, separándolo de otros elementos adyacentes en el flujo del documento.</li>
+                </ul>
+
+                <div class="code-block">
+                    <div class="code-header"><span>HTML</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>&lt;div class="elemento-espaciado"&gt;
+    Elemento con propiedades de espaciado aplicadas.
+&lt;/div&gt;
+
+&lt;div class="elemento-centrado"&gt;
+    Elemento centrado horizontalmente.
+&lt;/div&gt;</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header"><span>CSS</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>.elemento-espaciado {
+    background-color: #64748b;
+    /* PADDING: Asigna 20px de espacio interno en los 4 lados */
+    padding: 20px; 
+    /* MARGIN: Superior(10px) Derecho(20px) Inferior(30px) Izquierdo(40px) */
+    margin: 10px 20px 30px 40px; 
+}
+
+.elemento-centrado {
+    background-color: #3b82f6;
+    color: white;
+    width: 300px;
+    padding: 20px;
+    /* TÉCNICA DE CENTRADO: El valor 'auto' en los márgenes laterales 
+       calcula el espacio disponible y centra el elemento en su contenedor. */
+    margin: 50px auto; 
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 4: Control del Espacio
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Ajuste de Dimensiones Internas</h3>
+                        <p>1. Incorpora el código HTML y CSS en el proyecto base.</p>
+                        <p>2. Modifica el valor de Padding de <code>.elemento-espaciado</code> cambiándolo a <code>50px</code>.</p>
+                        <p>3. Observa en el navegador cómo el área interna del elemento se expande, desplazando el texto más hacia el centro sin alterar el margen exterior.</p>
+                    </div>
+                </details>
+
+                <h3 id="css-bordes-propiedades">8. Propiedades Estructurales de Bordes</h3>
+                <p>La delimitación visual de una caja se define mediante tres propiedades fundamentales de borde: Grosor (width), Estilo (style) y Color.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>HTML</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>&lt;div class="borde-estandar"&gt;Elemento con borde delimitado&lt;/div&gt;</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header"><span>CSS</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>.borde-estandar {
+  /* Declaración agrupada: Grosor | Estilo | Color */
+  border: 3px solid black;
+  padding: 20px;
+}</code></pre>
+                </div>
+
+                <h3 id="css-tipos-borde">9. Variaciones de Estilo de Borde</h3>
+                <p>El comportamiento de trazado del borde puede modificarse para distintos propósitos de interfaz:</p>
+                <ul>
+                    <li><b>solid:</b> Trazado continuo estandar.</li>
+                    <li><b>dashed:</b> Trazado discontinuo mediante guiones (útil para zonas de arrastrar y soltar).</li>
+                    <li><b>dotted:</b> Trazado de puntos continuos.</li>
+                    <li><b>double:</b> Trazado de línea paralela doble.</li>
+                </ul>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 5: Implementación de Bordes
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Trazados Visuales</h3>
+                        <p>1. Crea cuatro elementos <code>&lt;div&gt;</code> en el archivo HTML, asignando a cada uno una clase distinta (ej. <code>.borde-solido</code>, <code>.borde-punteado</code>).</p>
+                        <p>2. Aplica mediante CSS un estilo de borde diferente a cada clase utilizando la declaración agrupada (ej. <code>border: 2px dashed black;</code>).</p>
+                    </div>
+                </details>
+
+                <h3 id="css-colores-formatos">10. Sistemas de Representación de Color</h3>
+                <ul>
+                    <li><b>Hexadecimal (#):</b> Representación alfanumérica de 6 caracteres del modelo RGB. Ej: <code class="inline-code">#ff0000</code> (Rojo base). Es el formato predominante en la industria.</li>
+                    <li><b>RGB:</b> Representación decimal de valores de Rojo, Verde y Azul (0 a 255). Ej: <code class="inline-code">rgb(0, 255, 0)</code>.</li>
+                    <li><b>RGBA:</b> Añade el canal Alfa (Alpha) para gestionar la opacidad. Ej: <code class="inline-code">rgba(0, 0, 255, 0.5)</code> (Azul con 50% de opacidad).</li>
+                </ul>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 6: Aplicación de Códigos Hexadecimales
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Paleta de Colores</h3>
+                        <p>1. Añade un div con la clase <code>.contenedor-color</code> en el HTML.</p>
+                        <p>2. Define en CSS la propiedad <code>background-color: #3b82f6;</code> y un padding de 40px para la clase.</p>
+                        <p>3. Utiliza una herramienta externa como el selector de color del navegador, escoge un tono distinto, copia su valor hexadecimal y reemplaza el color azul en el código CSS.</p>
+                    </div>
+                </details>
+
+                <h3 id="css-bordes-lados">11. Control Individual de Bordes</h3>
+                <p>Las propiedades de borde pueden segmentarse para afectar únicamente a un costado específico del elemento. Esto es práctico para crear resaltados de interfaz.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>HTML</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>&lt;div class="bloque-destacado"&gt;
+    Información importante con resaltado lateral.
+&lt;/div&gt;</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header"><span>CSS</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>.bloque-destacado {
+    /* Define el borde exclusivamente en el margen izquierdo */
+    border-left: 6px solid #3b82f6; 
+    background-color: #f8fafc; 
+    padding: 15px 20px; 
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 7: Resaltado Direccional
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Bordes Específicos</h3>
+                        <p>1. Implementa el código anterior para visualizar el bloque con resaltado izquierdo.</p>
+                        <p>2. Modifica la propiedad <code>border-left</code> por <code>border-bottom</code>. Evalúa cómo el diseño se transforma estructuralmente en un subrayado en lugar de un indicador lateral.</p>
+                    </div>
+                </details>
+
+                <h3 id="css-redondear">12. Manipulación de Geometría (Border-Radius)</h3>
+                <p>La propiedad <code class="inline-code">border-radius</code> suaviza las esquinas rectangulares nativas. Si el elemento posee dimensiones equitativas en ancho y alto, aplicar un valor del 50% genera una circunferencia perfecta.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>HTML</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>&lt;div class="elemento-circular"&gt;Círculo&lt;/div&gt;</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header"><span>CSS</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>.elemento-circular {
+    background-color: #10b981;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* Transición de cuadrado a circunferencia */
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 8: Transformación Geométrica
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Círculos y Elipses</h3>
+                        <p>1. Añade la clase <code>.elemento-circular</code> a tu documento.</p>
+                        <p>2. Altera la propiedad <code>width</code> estableciéndola en 150px manteniendo el radio de 50%. Analiza la deformación estructural que resulta en una forma elíptica debido a la diferencia de proporciones.</p>
+                    </div>
+                </details>
+
+                <h3 id="css-tamano-cajas">13. Dimensionamiento Fijo y Estricto (Width y Height)</h3>
+                <p>Establecer dimensiones utilizando píxeles (<code class="inline-code">px</code>) restringe la caja a un tamaño absoluto y constante. Esta técnica es aplicable para elementos no escalables como íconos vectoriales.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>HTML</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>&lt;div class="contenedor-rigido"&gt;Dimensiones estáticas (200x200)&lt;/div&gt;</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header"><span>CSS</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>.contenedor-rigido {
+    width: 200px;
+    height: 200px;
+    background-color: #ef4444;
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 9: Evaluación de Rigidez
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Comprobación de límites en Píxeles</h3>
+                        <p>1. Incorpora la clase <code>.contenedor-rigido</code> a la estructura de tu proyecto.</p>
+                        <p>2. Modifica progresivamente el tamaño horizontal de la ventana del navegador hasta que sea inferior a 200px. Nota la aparición de la barra de desplazamiento horizontal, evidenciando la falta de adaptabilidad de las unidades absolutas.</p>
+                    </div>
+                </details>
+
+                <h3 id="css-relativas">14. Dimensiones Relativas y Funciones de Cálculo (vw, vh, calc)</h3>
+                <p>El diseño adaptativo requiere unidades de medida relativas que respondan a las dimensiones del entorno de visualización.</p>
+                <ul>
+                    <li><b>% (Porcentaje):</b> Dimensión calculada en proporción al área de su contenedor principal directo.</li>
+                    <li><b>vw (Viewport Width):</b> Dimensión calculada en relación al 100% de la anchura total de la pantalla.</li>
+                    <li><b>vh (Viewport Height):</b> Dimensión calculada en relación al 100% de la altura de la pantalla.</li>
+                    <li><b>calc():</b> Función CSS nativa para resolver operaciones aritméticas de dimensionamiento de manera dinámica.</li>
+                </ul>
+
+                <div class="code-block">
+                    <div class="code-header"><span>CSS</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>.ancho-viewport { width: 100vw; background: #f59e0b; }
+.alto-viewport { height: 50vh; background: #10b981; }
+
+.contenedor-calculado {
+    /* Ocupa el espacio vertical disponible deduciendo 100 píxeles */
+    height: calc(100vh - 100px);
+    background: #8b5cf6;
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 10: Adaptabilidad Dinámica
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Elementos Fluidos</h3>
+                        <p>1. Añade elementos al HTML y aplica las tres clases del código superior.</p>
+                        <p>2. Redimensiona la ventana del navegador en ambos ejes. Observa el comportamiento fluido en el que el navegador recalcula automáticamente las dimensiones de las cajas basadas en el área de visión sin generar barras de desplazamiento problemáticas.</p>
+                    </div>
+                </details>
+
+                <h3 id="css-color-fuentes">15. Renderizado de Color Tipográfico</h3>
+                <p>La declaración de color para elementos de texto se controla a través de la propiedad <code class="inline-code">color</code>.</p>
+                
+                <div class="code-block">
+                    <div class="code-header"><span>CSS</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>.estado-critico { color: #ef4444; }
+.estado-aprobado { color: #10b981; }</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 11: Comunicación Visual
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Jerarquía del Color</h3>
+                        <p>Aplica las clases CSS de "estado-critico" y "estado-aprobado" en dos párrafos distintos para estructurar un sistema visual simple que notifique al usuario de un error y un éxito en una transacción.</p>
+                    </div>
+                </details>
+
+                <h3 id="css-color-fondo">16. Control de Fondos (Background-color)</h3>
+                <p>La propiedad <code class="inline-code">background-color</code> define el color de área del elemento, respetando su modelo de caja interno.</p>
+                
+                <div class="code-block">
+                    <div class="code-header"><span>CSS</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>.panel-oscuro { 
+    background-color: #111827; 
+    color: white; /* Relación de contraste requerida para legibilidad */
+    padding: 20px;
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 12: Relación de Contraste
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Legibilidad y Contraste</h3>
+                        <p>Diseña un contenedor <code>&lt;div&gt;</code> asignando un fondo oscuro. Intenta leer el texto contenido sin aplicar explícitamente <code>color: white;</code>. Este ejercicio subraya la necesidad técnica de gestionar siempre un contraste adecuado en las capas de presentación.</p>
+                    </div>
+                </details>
+
+                <h3 id="css-imagen-fondo">17. Imágenes de Fondo y Mapeo Object-Fit</h3>
+                <p>Para incluir contenido gráfico dentro del modelo de caja manteniendo proporciones estructurales, se utiliza `background-image` o la etiqueta `<img/>` junto a la propiedad `object-fit`.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>HTML</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>&lt;div class="banner-cabecera"&gt;
+    &lt;h1&gt;Estructura Visual&lt;/h1&gt;
+&lt;/div&gt;
+
+&lt;img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b" alt="Paisaje" class="imagen-adaptada"&gt;</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header"><span>CSS</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>/* Método A: Capa de Fondo CSS */
+.banner-cabecera {
+    width: 100%; 
+    height: 300px;
+    background-image: url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b");
+    /* Ajusta la imagen a los límites del contenedor garantizando la cobertura total */
+    background-size: cover; 
+    background-position: center; 
+    color: white;
+}
+
+/* Método B: Elemento Imagen HTML */
+.imagen-adaptada {
+    width: 300px;
+    height: 300px;
+    /* Previene la distorsión del aspecto ratio original al forzar las dimensiones */
+    object-fit: cover; 
+    border-radius: 10px;
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 13: Ajuste de Elementos Multimedia
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Comportamiento Cover</h3>
+                        <p>1. Transfiere el código de <code>.banner-cabecera</code> a tu documento.</p>
+                        <p>2. Suprime temporalmente la propiedad <code>background-size: cover;</code>. Evalúa la respuesta visual ante resoluciones de imagen que no coinciden con las dimensiones de la caja.</p>
+                    </div>
+                </details>
+
+                <h3 id="css-tamano-texto">18. Escala Tipográfica (Unidades Rem)</h3>
+                <p>Para asegurar un diseño escalable en las fuentes tipográficas se emplea la unidad <b>rem</b>, la cual escala en relación al valor raíz del documento (habitualmente 16px).</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>CSS</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>.texto-base { font-size: 1rem; } /* Equivale a 16px en entornos predeterminados */
+.encabezado-primario { font-size: 2.5rem; } /* Equivale a 40px (2.5 x 16) */</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 14: Escala de Proporciones
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Jerarquía mediante REM</h3>
+                        <p>Aplica un sistema jerárquico a tres bloques de texto definiendo tamaños en CSS correspondientes a <code>1rem</code>, <code>1.5rem</code> y <code>2rem</code>. Verifica la proporción escalar establecida.</p>
+                    </div>
+                </details>
+
+                <h3 id="css-tipo-letra">19. Integración API de Fuentes (Google Fonts)</h3>
+                <p>Las fuentes predeterminadas del sistema operativo son limitadas. La práctica estándar implica la carga externa de tipografías desde servicios en la nube.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>HTML (Sección Head)</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>&lt;!-- Pre-conexión y solicitud de hoja de estilos tipográfica externa --&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"&gt;</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header"><span>CSS</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>body { 
+    /* Asignación global heredada de la familia tipográfica importada */
+    font-family: 'Poppins', sans-serif; 
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 15: Tipografía Externa
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Vinculación de Fuentes</h3>
+                        <p>Integra el llamado a la API de Google Fonts con la familia "Poppins" en el documento HTML, y establece la propiedad en el selector global de cuerpo <code>body</code>. Evalúa el impacto estructural sobre los textos previamente ingresados.</p>
+                    </div>
+                </details>
+
+                <h3 id="css-negrita-alineacion">20. Alineación y Pesos (Font-Weight y Text-Align)</h3>
+                <p>Propiedades que controlan el énfasis visual del texto y la estructura de lectura.</p>
+                
+                <div class="code-block">
+                    <div class="code-header"><span>CSS</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>.texto-enfatizado { 
+    font-weight: 700; /* Incremento del peso tipográfico */
+    text-transform: uppercase; /* Transformación a caracteres en mayúscula */
+} 
+.texto-centrado { text-align: center; }
+
+.bloque-lectura { 
+    /* Interlineado ajustado para optimizar el rastreo ocular (estándar 1.6) */
+    line-height: 1.6; 
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 16: Formato Editorial
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Reglas de Legibilidad</h3>
+                        <p>Construye un bloque extenso de texto y asígnale las propiedades <code>line-height: 1.6;</code> y <code>text-align: justify;</code>. Comprueba cómo adquiere un formato editorial profesional de alto estándar.</p>
+                    </div>
+                </details>
+
+                <h3 id="css-display">21. La Propiedad Display: Modificación de la Naturaleza del Renderizado</h3>
+                <p>Define las reglas de comportamiento del elemento con respecto al flujo del documento DOM.</p>
+                <ul>
+                    <li><b>block:</b> Demanda la totalidad del ancho horizontal del contenedor. Propicia un salto de línea en su finalización. Permite establecer dimensiones específicas.</li>
+                    <li><b>inline:</b> El elemento adapta su área estrictamente al tamaño del contenido. Se posiciona en la misma línea que el elemento precedente. Inhabilita las propiedades width/height.</li>
+                    <li><b>inline-block:</b> Combina el flujo secuencial horizontal de tipo inline, pero habilita las propiedades de dimensionamiento de tipo block.</li>
+                </ul>
+
+                <div class="code-block">
+                    <div class="code-header"><span>CSS</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>.forzar-flujo-bloque { display: block; background: #ef4444; }
+
+.forzar-flujo-linea { display: inline; background: #3b82f6; color: white;}
+
+.hibrido-dimensional { 
+    display: inline-block; 
+    width: 250px; /* Dimensionamiento procesado correctamente */
+    background: #10b981;
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 17: Mutación de Atributos
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Display Override</h3>
+                        <p>Aplica la regla <code>display: block;</code> sobre dos elementos <code>&lt;a&gt;</code> consecutivos. Observa la alteración del comportamiento en el DOM donde los hipervínculos abandonan su posición colindante para distribuirse verticalmente.</p>
+                    </div>
+                </details>
+
+                <h3 id="css-ocultar">22. Ocultamiento de Elementos del DOM</h3>
+                <p>Las técnicas de remoción visual difieren en el manejo del espacio asignado al objeto en el flujo de la página.</p>
+                
+                <div class="code-block">
+                    <div class="code-header"><span>CSS</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>.remover-flujo { 
+    /* El elemento es anulado. El DOM colapsa la estructura recuperando el espacio libre. */
+    display: none; 
+} 
+.preservar-espacio { 
+    /* El elemento pierde su representación visual pero el DOM reserva su espacio original. */
+    visibility: hidden; 
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 18: Gestión de Espacio Vacío
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Interacción Display vs Visibility</h3>
+                        <p>Estructura tres elementos tipo bloque de forma apilada. Intercala las propiedades <code>display: none;</code> y <code>visibility: hidden;</code> en el bloque intermedio. Examina la diferencia estructural del comportamiento de los demás elementos.</p>
+                    </div>
+                </details>
+
+                <h3 id="css-cursor">23. Interacción: Modificadores del Cursor</h3>
+                <p>Altera el puntero nativo para denotar estados interactivos específicos sobre un contenedor.</p>
+                
+                <div class="code-block">
+                    <div class="code-header"><span>CSS</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>.cursor-accion { 
+    cursor: pointer; /* Notifica un área funcional clicable. */
+} 
+.cursor-denegado { 
+    cursor: not-allowed; /* Indica incapacidad de interacción o proceso deshabilitado. */
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 19: Retroalimentación de Usuario (UX)
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Simulación de Eventos</h3>
+                        <p>Declara una etiqueta estándar (ej. <code>&lt;div&gt;</code>) e implementa la regla <code>cursor: pointer;</code>. Evalúa cómo el navegador comunica al usuario la posible funcionalidad del bloque, actuando como un botón figurativo.</p>
+                    </div>
+                </details>
+
+                <h3 id="css-sombras">24. Renderizado 3D en 2D: Box-Shadow</h3>
+                <p>Inyecta perspectiva y capas de separación entre los elementos estableciendo sombras perimetrales direccionales.</p>
+                
+                <div class="code-block">
+                    <div class="code-header"><span>CSS</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>.capa-superior {
+    padding: 30px;
+    background: white;
+    /* Composición: Desplazamiento X | Desplazamiento Y | Nivel de desenfoque | RGBA */
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 20: Efecto de Elevación
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Separación de Capas</h3>
+                        <p>Diseña un contenedor base. Aplica la regla <code>box-shadow</code> para simular elevación respecto a la capa secundaria de la interfaz, logrando un patrón de tarjeta de presentación estándar.</p>
+                    </div>
+                </details>
+
+                <h3 id="css-overflow">25. Contención de Datos y Control de Desbordamiento (Overflow)</h3>
+                <p>Las dimensiones de las cajas pueden ser restrictivas; el volumen de texto que superen dichas proporciones ocasionará un derrame visual problemático fuera del contenedor. Esto requiere el manejo del comando Overflow.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>CSS</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>.contenedor-estricto {
+    width: 200px; height: 100px;
+    border: 2px solid black;
+    
+    /* Configuración recomendada. Activa dinámicamente un scrollbar interno 
+       únicamente si el límite dimensional de la caja es sobrepasado. */
+    overflow: auto; 
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 21: Aislamiento de Scroll
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Scroll Componentizado</h3>
+                        <p>Construye un bloque CSS limitado en dimensiones y complétalo con textos de gran magnitud. Implementa la regla <code>overflow: auto;</code> para evitar la alteración del formato externo de la página.</p>
+                    </div>
+                </details>
+
+                <h3 id="css-animaciones">26. Animaciones Interactivas (Transition y Hover)</h3>
+                <p>La regla de <b>transición</b> procesa las variaciones de propiedades a través de interpolación temporal progresiva, evitando actualizaciones abruptas al aplicar pseudo-clases dinámicas de eventos como <code>:hover</code>.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>CSS</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>.elemento-animado {
+    background-color: #3b82f6;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 8px;
+    
+    /* DECLARACIÓN DE CÁLCULO PROGRESIVO: Atributos Afectados | Duración | Curva Bézier */
+    transition: all 0.3s ease; 
+}
+
+/* Pseudo-Clase Activadora: Accionada cuando el sensor del cursor intercepta la caja */
+.elemento-animado:hover {
+    background-color: #1e3a8a;
+    /* Alteración estructural: Modifica la escala vectorial al 110% de manera animada */
+    transform: scale(1.1); 
+    box-shadow: 0px 8px 15px rgba(0,0,0,0.2);
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 22: Generación de Interactividad
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Micro-Interacciones</h3>
+                        <p>Realiza pruebas sobre el componente usando la función de interpolación. Tras observar el cambio progresivo, desactiva temporalmente el atributo <code>transition</code> del código para registrar las diferencias visuales negativas en la presentación final.</p>
+                    </div>
+                </details>
+
+                <h3 id="css-media">27. Media Queries y Adaptación Responsiva</h3>
+                <p>Reglas lógicas condicionales. Permiten inyectar secuencias especiales de código CSS sobre la página tras realizar una consulta y validación con los valores de las dimensiones de hardware de la pantalla del equipo origen.</p>
+                <p>La metodología <b>Mobile First</b> consiste en determinar el código estructural base a la resolución mínima. Evaluaciones de pantallas superiores van sobrescribiendo estos cimientos.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>CSS (Lógica Condicional Mobile-First)</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>/* 1. ESTRUCTURA BASE PREESTABLECIDA (Aplicada a resoluciones bajas - Móvil) */
+.caja-evaluada { 
+    background-color: #ef4444; 
+    width: 100%; 
+} 
+
+/* 2. MEDIA QUERY - CONDICIONAL (Disparo activo al superar los 768 píxeles - Desktop) */
+@media (min-width: 768px) {
+    .caja-evaluada { 
+        background-color: #10b981; /* Sobrescribe la regla de color */
+        width: 50%; /* Sobrescribe y limita la regla de ancho total */
+    } 
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 23: Monitoreo de Breakpoints
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Condicionales Responsivos</h3>
+                        <p>Pega y evalúa el fragmento de Media Query presentado. Modifica la proporción de anchura de tu navegador arrastrando manualmente sus bordes, evaluando el quiebre de la configuración y activación de reglas subsecuentes generadas en el cruce de los 768px definidos.</p>
+                    </div>
+                </details>
+
+            </section>
+
+            <!-- ==============================================
+                 SECCIÓN 2: FLEXBOX Y MOTOR ALINEADOR
+                 ============================================== -->
+            <section id="modulo-flexbox">
+                <h2>II. Flexbox: Motor Vectorial Estructural</h2>
+                <div class="media-container">
+                    <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=1200&auto=format&fit=crop" alt="Flexbox Layout" loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        Mecanismo estandarizado para alineación en sistemas de diseño unidimensional.
+                    </div>
+                </div>
+
+                <p>
+                    <b>Flexbox</b> (Flexible Box Layout) constituye el motor nativo primario de estructuración CSS desarrollado para distribuir grupos y contenedores sobre el flujo unilineal (una distribución en eje X u eje Y). 
+                </p>
+
+                <h3 id="css-display-flex">28. Contenedores y Configuración de Dirección de Flujo</h3>
+                <p>El requerimiento técnico esencial inicial exige definir una etiqueta contenedora padre e inicializarla con el comando <code class="inline-code">display: flex;</code>. Esta acción activa las funciones interactivas para reubicación de sus descendientes.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>HTML</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>&lt;!-- Elemento Principal y Agrupador Vectorial --&gt;
+&lt;div class="agrupador-flex"&gt;
+    &lt;div class="modulo-hijo"&gt;1&lt;/div&gt;
+    &lt;div class="modulo-hijo"&gt;2&lt;/div&gt;
+    &lt;div class="modulo-hijo"&gt;3&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header"><span>CSS</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>.agrupador-flex {
+    display: flex; /* Iniciación del motor estructural */
+    
+    /* FLEX-DIRECTION: Configura el sentido del flujo lineal.
+       'row': Fila de base horizontal (Izquierda-Derecha). Valor Standard.
+       'column': Columna base vertical (Arriba-Abajo). Eje crítico en Mobile Layout. */
+    flex-direction: row; 
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 24: Administración de Ejes Estructurales
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Mutación de Vectores Flexibles</h3>
+                        <p>1. Construye el esquema inicial y verifica la acomodación continua de sus bloques secundarios.</p>
+                        <p>2. Accede a CSS, localiza la directiva <code>flex-direction: row;</code>, y re-asígnale el argumento <code>column</code>. Con ello observarás las directrices base del cambio a patrones en dispositivos móviles donde todos los elementos cambian del modelo fila al comportamiento columnar general.</p>
+                    </div>
+                </details>
+
+                <h3 id="css-justify-content">29. Propiedad Justify Content (Alineación en Eje Primario X)</h3>
+                <p>Regula la separación de elementos y su anclaje sobre el eje de flujo que dicta Flexbox.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>CSS (Control de Desplazamientos Horizontales)</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>.barra-horizontal-flex {
+    display: flex;
+    flex-direction: row;
+    
+    /* JUSTIFY-CONTENT:
+       'flex-start': Condensación de componentes al sector originario de partida.
+       'flex-end': Condensación total al sector final del bloque delimitado.
+       'center': Centralización aglutinada equitativamente en medio.
+       'space-between': Envía a los bordes y crea un espacio único vacío de por medio.
+       'space-around': Separa en bloques homogéneos mediante márgenes parejos. */
+       
+    justify-content: space-between; 
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 25: Espaciado Estructural Base
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Distribución Total y Separación</h3>
+                        <p>Haz pruebas activando el argumento <code>justify-content: space-between;</code> sobre tu agrupador de la actividad previa. Con dos elementos, esto resultará de inmediato en uno adosado a cada pared de los extremos, una acción elemental y prioritaria requerida al constituir diseños como Navbars u otras interfaces de cabeza del documento.</p>
+                    </div>
+                </details>
+
+                <h3 id="css-align-items">30. Propiedad Align Items (Alineación en Eje Transversal Y)</h3>
+                <p>Si la previa gestionaba el eje Horizontal, esta es su herramienta complementaria que gestiona todo reajuste en los espacios Verticales de los componentes Flex.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>CSS (Alineación Y Perfecta)</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>.contenedor-centralizacion {
+    display: flex;
+    justify-content: center; /* Alinea centralmente de modo Horizontal */
+    align-items: center;     /* Alinea centralmente de modo Vertical cruzado */
+    height: 100vh;           /* Altura requerida igual a todo el entorno visible total */
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 26: El Centrado Absoluto Perfecto
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Ejes Interseccionados</h3>
+                        <p>Genera en CSS un bloque que simule las propiedades expuestas incluyendo una gran altura base. Inserta una caja menor al interior y verifica la ejecución de ambas propiedades simultáneas de 'center' que mantienen al hijo flotando infaliblemente exacto al medio del documento en todo momento.</p>
+                    </div>
+                </details>
+
+                <h3 id="css-flex-wrap">31. Propiedad Flex Wrap (Gestión de Elementos Excedentes)</h3>
+                <p>En el flujo predeterminado flex, las cajas internas son presionadas unas con otras para que calcen juntas al modificarse sus dimensiones. Para evitarlo utilizamos <code>flex-wrap</code>, el cual rompe la línea cuando superan los bordes y crea arreglos ordenados consecutivos inferiores.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>CSS</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>.catalogo-adaptativo {
+    display: flex;
+    /* 'wrap': Ordena a todos los elementos que excedan su área, continuar 
+               la serie reubicándose en la siguiente fila inferior dinámica. */
+    flex-wrap: wrap; 
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 27: Envolturas de Catálogos Automáticas
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Efecto Wrap en Redimensionamientos</h3>
+                        <p>Agrega numerosas cajas (con dimensionamientos estrictos en píxeles preestablecidos) a tu estructura. Verifica su compresión. A continuación adjunta <code>flex-wrap: wrap;</code> a su nivel contenedor Padre. Analiza el comportamiento resultante durante la compresión sistemática de la visualización web de escritorio a móvil.</p>
+                    </div>
+                </details>
+
+                <h3 id="css-gap">32. Generación Inteligente de Brechas Inter-Elementos (Gap)</h3>
+                <p>Las propiedades primigenias de margin añaden distancias alrededor y afueras del contenedor global, lo que ensucia cálculos estéticos. Gap genera un espaciado vacío "únicamente" en el centro o separación existente entre entidades Flex anexadas.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>CSS</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>.galeria-ordenada {
+    display: flex;
+    flex-wrap: wrap;
+    /* Configura las áreas sin contacto exactamente como un canal de 20px */
+    gap: 20px; 
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Actividad 28: Depuración General y Márgenes Removidos
+                    </summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0;">Práctica: Aplicando Separación Nativa Flexbox</h3>
+                        <p>Elimina todos los estilos "margin" agregados manualmente desde el bloque de tus elementos secundarios, para remplazar y controlar centralizadamente esta labor unificándola a su contenedor padre a través de un valor global y organizado de <code>gap: 20px;</code>.</p>
+                    </div>
+                </details>
+
+            </section>
+
+            <!-- ==============================================
+                 SECCIÓN 3: CONSTRUYENDO COMPONENTES UI REALES
+                 ============================================== -->
+            <section id="modulo-componentes">
+                <h2>III. Diseño de Componentes de Interfaz (UI)</h2>
+                <div class="media-container">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop" alt="UI Components" loading="lazy" />
+                    <div class="texto-encima-imagen texto-arriba">
+                        Arquitectura avanzada de botones, formularios y layouts corporativos.
+                    </div>
+                </div>
+
+                <h3 id="css-boton">33. Construcción Botones Modulares BEM/OOCSS</h3>
+                <p>Aplicando Box Model, Bordes, Colores y Transiciones, transformamos el botón nativo del HTML en un componente funcional utilizando una clase base primaria junto a modificaciones externas suplementarias (Modelo BEM / OOCSS).</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>HTML & CSS</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>&lt;!-- HTML --&gt;
+&lt;div style="display:flex; gap:15px;"&gt;
+    &lt;button class="btn btn-secundario"&gt;Cancelar&lt;/button&gt;
+    &lt;button class="btn btn-primario"&gt;Confirmar&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+/* LA CLASE BASE .btn (El esqueleto estructural de diseño generalizado) */
+.btn {
+    padding: 12px 24px; border: none; border-radius: 8px; 
+    font-family: inherit; font-size: 1rem; font-weight: 600;
+    cursor: pointer; transition: all 0.3s ease; 
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: scale(0.95); }
+
+/* CLASES MODIFICADORAS (Inyección estética) */
+.btn-primario { background-color: #2563eb; color: white; }
+.btn-primario:hover { background-color: #1d4ed8; }
+
+/* Botón Secundario (Borde Transparente Neutral) */
+.btn-secundario { background-color: transparent; color: #475569; border: 2px solid #cbd5e1; }
+.btn-secundario:hover { background-color: #f1f5f9; }
+&lt;/style&gt;</code></pre>
+                </div>
+
+                <h3 id="css-card">34. Organización en Interfaces de Card Semánticas (Con Header Cover)</h3>
+                <p>Las tarjetas agrupan bloques visuales usando la etiqueta semántica HTML <code>&lt;article&gt;</code> y aplicando la propiedad <code>overflow: hidden</code> sobre las representaciones fotográficas.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>HTML & CSS</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>&lt;!-- HTML --&gt;
+&lt;article class="card-producto"&gt;
+    &lt;!-- Imagen de Cabecera Cover --&gt;
+    &lt;div class="card-cover"&gt;
+        &lt;img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=800" alt="Zapatillas"&gt;
+    &lt;/div&gt;
+    &lt;!-- Cuerpo Textual Componentizado --&gt;
+    &lt;div class="card-cuerpo"&gt;
+        &lt;h3&gt;Zapatillas Modernas&lt;/h3&gt;
+        &lt;p&gt;Elementos para desarrollo especializado.&lt;/p&gt;
+        &lt;button class="btn btn-primario"&gt;Ver Información&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/article&gt;
+
+&lt;style&gt;
+.card-producto {
+    width: 320px; background-color: white; border-radius: 12px;
+    /* OVERFLOW HIDDEN VITAL: Recorta las esquinas cuadradas de la imagen interior
+       para que se ajuste a los bordes redondeados del componente central */
+    overflow: hidden; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    display: flex; flex-direction: column;
+}
+.card-cover img {
+    width: 100%; height: 220px;
+    /* OBJECT-FIT COVER: Evita problemas de ratio deformado fotográfico */
+    object-fit: cover; 
+}
+.card-cuerpo { padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+.card-cuerpo h3, .card-cuerpo p { margin: 0; color: #111827; }
+&lt;/style&gt;</code></pre>
+                </div>
+
+                <h3 id="css-form">35. Integración a Formularios y Logins Multi-Columnas de Pantalla Dividida</h3>
+                <p>Para sistemas complejos y áreas de recolección de usuario, implementamos apagado de contornos genéricos, y creamos particiones mediante flexbox combinando inputs organizados.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>CSS (Lógica Funcional del Input y Grillas Flex)</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>/* Organización matricial Flexbox */
+.form-fila {
+    display: flex; gap: 20px; 
+    /* Efectúa el paso responsivo natural a dispositivos moviles adaptado */
+    flex-wrap: wrap; 
+}
+.input-mitad {
+    /* Toma una fracción equitativa al espacio restante calculando el límite a 220px */
+    flex: 1 1 220px; 
+}
+
+/* Modificadores universales de elementos del DOM */
+input[type="text"], input[type="password"] {
+    width: 100%; padding: 12px 16px; border-radius: 8px;
+    border: 1.5px solid #cbd5e1; background-color: #f8fafc;
+    transition: 0.3s;
+}
+/* Reacción de Interfaz Activa al Selector Visual Usuario */
+input[type="text"]:focus {
+    outline: none; /* Anula trazados asimétricos predeterminados en browsers */
+    border-color: #3b82f6; 
+    background-color: white; 
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15); /* Estructura un anillo extra visualizador externo */
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box">
+                    <summary><svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>Actividad 29: Pantallas Divididas y Logins</summary>
+                    <div class="actividad-caja">
+                        <p>1. Construye un contendor padre que tenga <code>display: flex; height: 100vh;</code>.</p>
+                        <p>2. Dentro añade un elemento Izquierdo con la foto mostrada, y uno derecho con un formulario completo en blanco y tus diseños base.</p>
+                        <p>3. Aplica a ambos elementos hijos un <code>flex: 1;</code> dividiendo efectivamente las proporciones totales a la mitad (50%).</p>
+                        <p>4. Establece una Media Query global: <code>@media (max-width: 900px) { .contenedor-padre { flex-direction: column; } }</code>. Comprueba su adaptabilidad instantánea a un flujo móvil de alta usabilidad.</p>
+                    </div>
+                </details>
+
+                <h3 id="css-crud">36. Interfaces Complejas: Tablas CRUD Modulares y Flexbox Responsive</h3>
+                <p>Las tablas estándares del código base reportan problemas masivos de ocultamiento lateral en resoluciones pequeñas móviles. Suplimos esto con bloques simulados usando la distribución unilineal Flexbox.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>HTML & CSS (Tabla Administrativa Simulada a Multidispositivo)</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>&lt;!-- HTML Estructura Base --&gt;
+&lt;div class="fila-flex cabecera-gris"&gt;
+    &lt;div class="col"&gt;ID&lt;/div&gt;
+    &lt;div class="col col-doble"&gt;Usuario Asunto&lt;/div&gt;
+    &lt;div class="col"&gt;Acción Modificadora&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="fila-flex registro-db"&gt;
+    &lt;div class="col"&gt;#101&lt;/div&gt;
+    &lt;div class="col col-doble"&gt;Problemas de Base de Datos&lt;/div&gt;
+    &lt;div class="col"&gt;&lt;button class="btn btn-secundario"&gt;Borrar&lt;/button&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+.fila-flex { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #eee; }
+.cabecera-gris { background-color: #f8fafc; font-weight: bold; }
+.registro-db:hover { background-color: #f1f5f9; }
+
+/* Control Fraccionario en la Arquitectura de Columna Interna */
+.col { flex: 1; } /* Consumo estandar a proporciones idénticas */
+.col-doble { flex: 2; } /* Consumo masivo enfocado. Exige doblar medidas al navegador */
+
+/* SOLUCIÓN RESPONSIVE COMPLEJA (MEDIA QUERY ACTIVA EN < 768px) */
+@media (max-width: 768px) {
+    .cabecera-gris { display: none; /* Subyugado ocultamiento visual */ }
+    .fila-flex { 
+        flex-direction: column; /* Agrupa a las columnas como Tarjetas apiladas. Requerimiento esencial. */
+        margin: 15px; border: 1px solid #eee; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+}
+&lt;/style&gt;</code></pre>
+                </div>
+
+                <h3 id="css-navbar">37. Navbars Funcionales, Menús Dropdown y Sidebars de Plataformas</h3>
+                <p>Las estructuras de barra lateral de control (Sidebar) e interfaces Superiores de Web Applications incorporan <code>space-between</code>, anclaje visual (Fixed o Sticky) para conservar presencia interactiva, y posicionamientos Absolutos desplegables superpuestos para componentes extras no intrusivos.</p>
+
+                <div class="code-block">
+                    <div class="code-header"><span>CSS (Fundamentos Dropdown Absoluto y Layout Total)</span><button class="copy-btn" onclick="copyCode(this)">COPIAR</button></div>
+                    <pre><code>/* 1. ANCLA DEL MENÚ DESPLEGABLE */
+.li-padre { 
+    position: relative; /* Define entorno para elementos desplegables en este límite Z */
+}
+.ul-cajon-dropdown {
+    display: none; /* Estado inicial Oculto */
+    position: absolute; /* Extraído del flujo normal de los documentos DOM */
+    top: 100%; left: 0;
+    min-width: 200px;
+    background: white; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-radius: 8px;
+    z-index: 1000; /* Relevancia máxima visual y frontal */
+}
+
+/* 2. EFECTO ACTIVADOR Y EVENTO */
+.li-padre:hover .ul-cajon-dropdown {
+    display: block;
+}
+
+/* 3. ENSAMBLE DEL LAYOUT Y CÓDIGO MAESTRO DEL ECOSISTEMA (DASHBOARD) */
+.layout-pantalla-dividida {
+    display: flex; 
+    height: calc(100vh - 64px); /* Calculo total remanente al deducir Navbars */
+}
+.sidebar-lateral {
+    width: 250px; /* Rigurosa sin alteraciones */
+    background-color: #0f172a;
+    overflow-y: auto; 
+}
+.area-central-informacion {
+    flex: 1; /* Ocupa al 100% todo resto residual de monitor */
+    background-color: #f1f5f9;
+    padding: 40px;
+    overflow-y: auto; /* Activador scroll independiente e interno al contexto */
+}
+@media (max-width: 900px) {
+    .sidebar-lateral { display: none; /* Extracción para pantallas no óptimas móviles */ }
+}</code></pre>
+                </div>
+
+                <details class="respuesta-box" open>
+                    <summary><svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>Actividad 30: PROYECTO FINAL (El Desafío Maestro)</summary>
+                    <div class="actividad-caja">
+                        <h3 style="margin-top:0; color:#2563eb !important;">El Proyecto Final: Desarrollo de un Sistema Web Completo</h3>
+                        <p>Demuestra tu dominio de CSS diseñando las interfaces completas para un sistema web real. <b>La temática es libre</b> (ej. Tienda E-Commerce, Software Clínico, Inventario Estudiantil, Plataforma de Envios).</p>
+                        
+                        <p>Deberás estructurar tu proyecto creando <b>cuatro páginas HTML</b> interconectadas, aplicando obligatoriamente Diseño Responsivo (Mobile-First) a todas ellas:</p>
+                        
+                        <p><b>1. Página de Aterrizaje (<code>index.html</code>):</b><br>
+                        Construye la portada pública de tu sistema. Debe incluir una Navbar Pública pegajosa (Sticky) con algún menú dropdown oculto, un Banner Fotográfico (Hero Image) con capa superpuesta de filtro oscuro, y una cuadrícula controlada en Flexbox con 3 Cards Verticales que detallen los servicios primarios del negocio.</p>
+
+                        <p><b>2. Página de Inicio de Sesión (<code>login.html</code>):</b><br>
+                        Diseña una interfaz de pantalla dividida (Split Screen). Un lado estará protagonizado por una imagen representativa y publicitaria, y el otro estará provisto por el formulario principal organizado, enfocado y alineado perfectamente al centro del área.</p>
+                        
+                        <p><b>3. Panel de Administrador (<code>admin.html</code>):</b><br>
+                        Crea el panel de control del sistema. Aplica el Layout centralizado con Sidebar fija a la izquierda y Navbar tipo WebApp en formato oscuro. En el área principal (área de trabajo remanente de scroll aislado), coloca un bloque con tarjetas de métricas numéricas. En el inferior, diseña íntegramente una <b>Tabla CRUD Flexbox</b> para gestionar componentes de bases de datos. Dicha tabla debe mutar obligatoriamente y reformularse como tarjetas apiladas dinámicas si la ventana se reduce al formato móvil.</p>
+
+                        <p><b>4. Panel de Usuario Común (<code>usuario.html</code>):</b><br>
+                        Diseña la interfaz secundaria para el registro y actualización del usuario final. Genera implementaciones de Pestañas (Tabs) interactivas utilizando JS simple para poder intercalar secciones o bloques descriptivos diferentes, y haz uso de tus formularios CSS previamente formulados a dos columnas dinámicas dentro del panel.</p>
+                        
+                        <p style="color:#ef4444 !important; font-weight:800; font-size:1.15rem; margin-top:20px;">🚨 REGLA TÉCNICA REQUERIDA: Deberás implementar el uso de un ecosistema estricto de Clases Modulares Base y Modificadoras (BEM / OOCSS) y prescindir completamente de tipografías y fuentes estándar del sistema en favor de importaciones externas por enlace web (Google Fonts u homólogos).</p>
+
+                        <p style="color:#10b981 !important; font-weight:800; font-size:1.2rem; margin-top:10px;">¡Finalizar y unificar con solvencia todos estos componentes en un solo Software es la prueba indiscutible que certifica la comprensión estructural FrontEnd! Envía los resultados y capturas cuando finalices.</p>
+                    </div>
+                </details>
+
+            </section>
+        </main>
+
+        <!-- VISOR INTERNO -->
+        <div id="visor-container">
+            <div class="monitor-frame" id="m-frame">
+                <div class="monitor-screen">
+                    <div id="mouse-overlay"></div>
+                    <iframe id="screen-iframe" src="about:blank"></iframe>
+                </div>
+                <div class="monitor-led" onclick="abrirNuevaPestana()" title="Abrir en nueva pestaña"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DIÁLOGOS DE LA UI DEL CANVAS -->
+    <dialog id="palette-dialog">
+        <h3 style="margin-bottom:15px; text-align:center; font-size:0.9rem">ELEGIR COLOR (MARCADOR TEXTUAL)</h3>
+        <div id="p-grid" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;"></div>
+    </dialog>
+
+    <dialog id="search-dialog">
+        <h3 style="font-size: 0.8rem; color: var(--accent); margin-bottom: 15px; text-align: center;">NAVEGACIÓN E ÍNDICE DE TEMAS</h3>
+        <ul id="results" style="list-style:none;"></ul>
+    </dialog>
+
+    <!-- BARRA NAVEGACIÓN INFERIOR -->
+    <nav class="bar">
+        <button class="nav-btn" onclick="goHome()">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Inicio</span>
+        </button>
+        <button id="paint-btn" class="nav-btn" onclick="prepararPaleta()">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+                <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                <path d="M2 2l5 5"></path>
+                <path d="M8.5 8.5l1 1"></path>
+            </svg>
+            <span>Subrayar</span>
+        </button>
+        <button id="pointer-btn" class="nav-btn" onclick="toggleLaser()">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="3"></circle>
+                <line x1="12" y1="2" x2="12" y2="5"></line>
+                <line x1="12" y1="19" x2="12" y2="22"></line>
+                <line x1="2" y1="12" x2="5" y2="12"></line>
+                <line x1="19" y1="12" x2="22" y2="12"></line>
+            </svg>
+            <span>Puntero</span>
+        </button>
+        <button id="visor-btn" class="nav-btn" onclick="toggleVisor('http://127.0.0.1:5501/index.html')">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+                <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+            <span>Visor</span>
+        </button>
+        <button class="nav-btn" onclick="openSearch()">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span id="reloj">00:00</span>
+        </button>
+    </nav>
+
+    <div id="toast-msg"></div>
+
+    <script>
+        let laserActive = false, visorActivo = false;
+        let lastScroll = 0, currentRange = null;
+        const colors = ["#00FFFF", "#FF0000", "#00FF00", "#FFFFFF", "#FF00FF", "#FFFF00", "#FF9F43", "#4834D4", "#F0932B", "#61DAFB"];
+
+        function updateTime() {
+            const reloj = document.getElementById("reloj");
+            if (reloj) {
+                const now = new Date();
+                reloj.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            }
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        document.addEventListener("DOMContentLoaded", () => {
+            initPalette();
+            reVincularEventos();
+        });
+
+        function initPalette() {
+            const grid = document.getElementById("p-grid");
+            if (!grid) return;
+            grid.innerHTML = ""; 
+            colors.forEach(col => {
+                const btn = document.createElement("div");
+                btn.style.cssText = `width: calc(20% - 8px); aspect-ratio:1; border-radius:50%; background:${col}; cursor:pointer; border:2px solid rgba(255,255,255,0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.3);`;
+                btn.onclick = () => aplicarResaltado(col);
+                grid.appendChild(btn);
+            });
+        }
+
+        function mostrarToast(mensaje) {
+            const t = document.getElementById("toast-msg");
+            if (!t) return;
+            t.textContent = mensaje;
+            t.style.display = "block";
+            setTimeout(() => t.style.display = "none", 2500);
+        }
+
+        function prepararPaleta() {
+            const sel = window.getSelection();
+            if (sel.rangeCount > 0 && !sel.isCollapsed) {
+                currentRange = sel.getRangeAt(0).cloneRange();
+                const diag = document.getElementById("palette-dialog");
+                if (diag) diag.showModal();
+            } else {
+                mostrarToast("Primero subraya un texto con el mouse para pintar.");
+            }
+        }
+
+        function aplicarResaltado(col) {
+            if (!currentRange) return;
+            const span = document.createElement("span");
+            span.className = "highlight-span";
+            span.style.cssText = `border-bottom:3px solid ${col}; color:${col} !important; background:${col}15; cursor:pointer; padding: 0 4px; border-radius: 4px; font-weight: bold;`;
+
+            try {
+                span.appendChild(currentRange.extractContents());
+                currentRange.insertNode(span);
+                span.onclick = function (e) {
+                    e.stopPropagation();
+                    this.replaceWith(...this.childNodes);
+                };
+            } catch (e) { console.error("Error crítico al resaltar:", e); }
+
+            const diag = document.getElementById("palette-dialog");
+            if (diag) diag.close();
+            window.getSelection().removeAllRanges();
+        }
+
+        function reVincularEventos() {
+            document.querySelectorAll(".highlight-span").forEach(s => {
+                s.onclick = function (e) { e.stopPropagation(); this.replaceWith(...this.childNodes); };
+            });
+        }
+
+        function toggleVisor(url) {
+            const container = document.getElementById("visor-container");
+            const main = document.getElementById("content-main");
+            const iframe = document.getElementById("screen-iframe");
+            const wrapper = document.getElementById("content-wrapper");
+
+            if (!visorActivo) {
+                visorActivo = true;
+                if (wrapper) lastScroll = wrapper.scrollTop;
+
+                if (main) main.style.display = "none";
+                if (container) container.style.display = "flex";
+                if (iframe) iframe.src = url;
+
+                setTimeout(ajustarEscalaMonitor, 50);
+            } else {
+                visorActivo = false;
+                if (container) container.style.display = "none";
+                if (main) main.style.display = "block";
+                if (iframe) iframe.src = "about:blank";
+                if (wrapper) wrapper.scrollTop = lastScroll;
+            }
+            const btn = document.getElementById("visor-btn");
+            if (btn) btn.classList.toggle("active-tool", visorActivo);
+        }
+
+        function abrirNuevaPestana() {
+            const iframe = document.getElementById("screen-iframe");
+            if (iframe && iframe.src && iframe.src !== "about:blank") {
+                window.open(iframe.src, '_blank');
+            }
+        }
+
+        function ajustarEscalaMonitor() {
+            const frame = document.getElementById("m-frame");
+            const iframe = document.getElementById("screen-iframe");
+            const container = document.getElementById("visor-container");
+            if (!visorActivo || !container || !iframe || !frame) return;
+
+            const targetW = 1280, targetH = 800;
+            const availW = container.offsetWidth - 40, availH = container.offsetHeight - 60;
+            const scale = Math.min(availW / targetW, availH / targetH);
+
+            iframe.style.transform = `scale(${scale})`;
+            frame.style.width = (targetW * scale + 20) + "px";
+            frame.style.height = (targetH * scale + 35) + "px";
+        }
+
+        const puntero = document.createElement("div");
+        puntero.className = "punteroRojo";
+        document.body.appendChild(puntero);
+
+        function toggleLaser() {
+            laserActive = !laserActive;
+            puntero.style.display = laserActive ? "block" : "none";
+            const btn = document.getElementById("pointer-btn");
+            if (btn) btn.classList.toggle("active-tool", laserActive);
+
+            const overlay = document.getElementById("mouse-overlay");
+            if (visorActivo && overlay) overlay.style.display = laserActive ? "block" : "none";
+        }
+
+        document.addEventListener("mousemove", (e) => {
+            if (!laserActive) return;
+            puntero.style.left = e.clientX + "px";
+            puntero.style.top = e.clientY + "px";
+
+            const trail = document.createElement("div");
+            trail.className = "puntoEstela";
+            trail.style.left = e.clientX + "px";
+            trail.style.top = e.clientY + "px";
+            document.body.appendChild(trail);
+            setTimeout(() => trail.remove(), 500);
+        });
+
+        function goHome() {
+            if (visorActivo) toggleVisor();
+            const wrapper = document.getElementById("content-wrapper");
+            if (wrapper) wrapper.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openSearch() {
+            const dialog = document.getElementById("search-dialog");
+            if (!dialog) return;
+
+            const unidades = [
+                { id: "css-preparacion", nombre: "1. Preparación y Reset CSS" },
+                { id: "css-boxmodel", nombre: "2. Modelo de Caja (Box Model)" },
+                { id: "css-selectores", nombre: "3. Selectores Básicos: ID y Class" },
+                { id: "css-espacio-bordes", nombre: "4. Espaciado y Bordes" },
+                { id: "css-colores-fondos", nombre: "5. Colores y Fondos" },
+                { id: "css-dimensiones", nombre: "6. Dimensiones (Píxeles vs Relativas)" },
+                { id: "css-tipografia", nombre: "7. Tipografía y Textos" },
+                { id: "css-display", nombre: "8. Display, Visibilidad y Overflow" },
+                { id: "css-sombras", nombre: "9. Sombras, Cursores y Animaciones" },
+                { id: "css-media", nombre: "10. Media Queries (Diseño Responsivo)" },
+                { id: "css-display-flex", nombre: "11. Flexbox: Contenedor y Dirección" },
+                { id: "css-alineacion", nombre: "12. Flexbox: Alineación y Espaciado" },
+                { id: "css-boton", nombre: "13. Componentes: Botones Modulares (BEM)" },
+                { id: "css-card", nombre: "14. Componentes: Cards Semánticas" },
+                { id: "css-form", nombre: "15. Componentes: Formularios Multipanel" },
+                { id: "css-crud", nombre: "16. Componentes: Tabla CRUD Modular Flexbox" },
+                { id: "css-navbar", nombre: "17. Componentes: Navbar, Dropdowns y Dashboard" },
+                { id: "css-sidebar-dash", nombre: "18. Ensamblaje Final: Layout General y Proyecto Maestro" }
+            ];
+
+            dialog.innerHTML = `
+        <div style="display: flex; flex-direction: column; gap: 10px; padding: 5px;">
+            <h3 style="font-size: 0.75rem; color: var(--accent); margin-bottom: 5px; text-align: center; letter-spacing: 1px;">ÍNDICE TEMÁTICO DE CSS</h3>
+            <ul id="results" style="list-style:none; max-height:65vh; overflow-y:auto; margin:0; padding:0; scrollbar-width: thin;"></ul>
+        </div>
+    `;
+
+            const resultsList = document.getElementById("results");
+
+            unidades.forEach((unidad) => {
+                const li = document.createElement("li");
+                li.style.borderBottom = "1px solid #2d3343";
+
+                li.innerHTML = `
+            <a href="#${unidad.id}" style="
+                display: flex; 
+                align-items: center; 
+                gap: 12px; 
+                padding: 15px; 
+                text-decoration: none; 
+                color: #fff; 
+                text-transform: uppercase; 
+                font-size: 11px; 
+                transition: 0.2s;
+                width: 100%;
+                box-sizing: border-box;
+            ">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+                <span style="flex:1; opacity:0.9;">${unidad.nombre}</span>
+            </a>
+        `;
+
+                const link = li.querySelector("a");
+
+                link.onmouseover = () => { link.style.background = "rgba(97, 218, 251, 0.1)"; link.style.color = "var(--accent)"; };
+                link.onmouseout = () => { link.style.background = "transparent"; link.style.color = "#fff"; };
+
+                link.onclick = () => {
+                    if (typeof visorActivo !== 'undefined' && visorActivo) toggleVisor();
+                    dialog.close();
+                };
+
+                resultsList.appendChild(li);
+            });
+
+            dialog.showModal();
+        }
+
+        // SOLUCIÓN EFECTIVA PARA PORTAPAPELES (IFRAME SAFE)
+        function copyCode(btn) {
+            const codeElement = btn.parentElement.parentElement.querySelector('code');
+            if (!codeElement) return;
+            const codeText = codeElement.innerText;
+            
+            const textArea = document.createElement("textarea");
+            textArea.value = codeText;
+            textArea.style.position = "fixed";
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.width = "2em";
+            textArea.style.height = "2em";
+            textArea.style.padding = "0";
+            textArea.style.border = "none";
+            textArea.style.outline = "none";
+            textArea.style.boxShadow = "none";
+            textArea.style.background = "transparent";
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if(successful){
+                    const originalText = btn.textContent;
+                    btn.textContent = "¡CÓDIGO COPIADO!";
+                    btn.style.background = "#fff";
+                    btn.style.color = "#000";
+                    
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.style.background = "var(--accent)";
+                    }, 1500);
+                } else {
+                    console.error("Falló la ejecución execCommand.");
+                }
+            } catch (err) {
+                console.error("Error copiando código:", err);
+            }
+            
+            document.body.removeChild(textArea);
+        }
+    </script>
+</body>
+
+</html>
