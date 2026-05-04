@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Web: Vista Casos Explicada al Detalle</title>
+    <style>
+        /* ESTILOS DEL MANUAL (Solo presentación) */
+        body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; color: #333; max-width: 1200px; margin: 0 auto; padding: 2rem; background-color: #f3f4f6; }
+        h1 { color: #111827; border-bottom: 3px solid #c5a059; padding-bottom: 1rem; text-align: center; font-size: 2.5rem; }
+        h2 { color: #1f2937; margin-top: 0; font-size: 1.8rem; }
+        .seccion { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); margin-bottom: 3rem; border-top: 5px solid #1f2937; }
+        p { font-size: 1.05rem; margin-bottom: 1rem; }
+        .codigo-contenedor { position: relative; margin-top: 1rem; margin-bottom: 2rem; }
+        pre { background-color: #1e293b; color: #f8fafc; padding: 3rem 1.5rem 1.5rem; border-radius: 8px; overflow-x: auto; font-size: 0.95rem; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); line-height: 1.5; }
+        code { font-family: 'Courier New', Courier, monospace; }
+        .btn-copiar { position: absolute; top: 10px; right: 10px; background-color: #c5a059; color: #000; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85rem; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .btn-copiar:hover { background-color: #d4af37; transform: translateY(-2px); }
+        .btn-copiar.copiado { background-color: #10b981; color: white; }
+    </style>
+</head>
+<body>
+
+    <h1>Código Explicado al Detalle: casos.html</h1>
+    <p style="text-align: center; margin-bottom: 3rem; font-size: 1.2rem;">Este es el archivo que se carga dentro del iframe central. Hemos documentado <strong>cada línea de código</strong> para entender cómo se construye una vista CRUD profesional.</p>
+
+    <!-- CÓDIGO COMPLETO: CSS CLÁSICO -->
+    <div class="seccion">
+        <h2>Opción 1: HTML y CSS Clásico</h2>
+        
+        <div class="codigo-contenedor">
+            <button class="btn-copiar" onclick="copiarCodigo(this)">Copiar Código Completo</button>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Gestión de Casos&lt;/title&gt;
+  
+  &lt;style&gt;
+    /* =========================================
+       1. RESET Y ESTILOS BASE
+       ========================================= */
+    * { 
+      margin: 0;               /* Elimina márgenes exteriores nativos */
+      padding: 0;              /* Elimina rellenos interiores nativos */
+      box-sizing: border-box;  /* Evita que los bordes modifiquen el tamaño real de las cajas */
+    }
+    body { 
+      font-family: sans-serif; /* Tipografía limpia para lectura en pantalla */
+      background-color: #ffffff; /* Fondo blanco para contrastar con el gris del iframe padre */
+      padding: 2rem;           /* Separación interior de 32px para que la tabla no pegue a los bordes de la pantalla */
+      color: #333;             /* Gris muy oscuro (evita el negro absoluto para no cansar la vista) */
+    }
+
+    /* =========================================
+       2. CABECERA PRINCIPAL (Título y Botón)
+       ========================================= */
+    .cabecera-crud { 
+      display: flex;               /* Activa Flexbox para alinear título y botón en la misma fila */
+      justify-content: space-between; /* Manda los títulos a la izquierda y el botón a la derecha al máximo */
+      align-items: center;         /* Centra verticalmente ambos elementos */
+      margin-bottom: 2rem;         /* Margen de 32px hacia abajo para separarlo del buscador */
+    }
+    .titulos h1 { 
+      font-family: "Playfair Display", serif; /* Fuente elegante con remates (serif) */
+      font-size: 2rem;             /* Tamaño de letra de 32px */
+      color: #0f172a;              /* Color azul marino casi negro */
+      margin-bottom: 5px;          /* Separación de 5px con el texto descriptivo de abajo */
+    }
+    .titulos p { 
+      color: #64748b;              /* Texto secundario en gris medio */
+      font-size: 0.95rem;          /* Tamaño un poco menor al estándar */
+    }
+    
+    /* Botón "+ Nuevo Caso" */
+    .btn-primario { 
+      background: #c5a059;         /* Fondo dorado institucional */
+      color: black;                /* Texto negro */
+      font-weight: bold;           /* Letra gruesa (negrita) */
+      padding: 10px 20px;          /* Relleno: 10px arriba/abajo, 20px izq/der */
+      border: none;                /* Quita el borde gris por defecto de HTML */
+      border-radius: 8px;          /* Esquinas redondeadas (8px) */
+      cursor: pointer;             /* Cambia la flecha del ratón a una manito */
+      transition: 0.3s;            /* Suaviza los cambios de estado (como el hover) en 0.3 segundos */
+    }
+    .btn-primario:hover { 
+      background: #0f172a;         /* Al pasar el ratón, cambia fondo a azul oscuro */
+      color: #c5a059;              /* Al pasar el ratón, cambia texto a dorado */
+    }
+
+    /* =========================================
+       3. BARRA DE BÚSQUEDA Y FILTROS
+       ========================================= */
+    .barra-herramientas { 
+      display: flex;               /* Flexbox para poner input y select en línea */
+      gap: 1rem;                   /* Separación exacta de 16px entre elementos internos */
+      margin-bottom: 1.5rem;       /* Margen hacia abajo de 24px para separarlo de la tabla */
+      background: #f8fafc;         /* Fondo gris extraclaro para destacar el área de búsqueda */
+      padding: 15px;               /* Relleno interno de la caja gris */
+      border-radius: 8px;          /* Redondeo de la caja gris */
+      border: 1px solid #e2e8f0;   /* Borde gris sutil */
+    }
+    
+    /* Input para buscar texto */
+    .input-buscar { 
+      flex: 1;                     /* CLAVE: Obliga al input a crecer y ocupar todo el espacio libre de la fila */
+      padding: 10px 15px;          /* Da altura y espacio interior al campo de texto */
+      border: 1px solid #cbd5e1;   /* Borde gris claro */
+      border-radius: 6px;          /* Redondeo sutil del input */
+      outline: none;               /* Elimina el halo azul por defecto de los navegadores al escribir */
+    }
+    .input-buscar:focus { 
+      border-color: #c5a059;       /* Al hacer clic, el borde se vuelve dorado */
+    }
+    
+    /* Selector desplegable de estados */
+    .select-filtro { 
+      padding: 10px 15px;          /* Misma altura que el input de búsqueda */
+      border: 1px solid #cbd5e1;   /* Mismo borde gris claro */
+      border-radius: 6px;          /* Mismo redondeo */
+      outline: none;               /* Sin halo azul */
+      background: white;           /* Fuerza que el fondo sea blanco (previene estilos raros en Firefox/Safari) */
+    }
+
+    /* =========================================
+       4. ESTRUCTURA DE LA TABLA (CRUD)
+       ========================================= */
+    .contenedor-tabla { 
+      border: 1px solid #e2e8f0;   /* Borde fino exterior que rodea TODA la tabla */
+      border-radius: 8px;          /* Redondea el contenedor (para que la tabla parezca redonda) */
+      overflow-x: auto;            /* Si la tabla es gigante en móviles, añade una barra de scroll horizontal SOLO aquí */
+    }
+    .tabla-datos { 
+      width: 100%;                 /* Ocupa el 100% del contenedor */
+      border-collapse: collapse;   /* Elimina espacios dobles entre las celdas contiguas */
+      text-align: left;            /* Alinea todos los textos a la izquierda */
+    }
+    
+    /* Celda de encabezado (<th>) */
+    .tabla-datos th { 
+      background: #f8fafc;         /* Fondo gris claro para destacar que son títulos */
+      padding: 12px 15px;          /* Relleno interno */
+      color: #475569;              /* Letra gris oscura */
+      font-size: 0.85rem;          /* Letra un poco más pequeña */
+      text-transform: uppercase;   /* Todo a MAYÚSCULAS automáticamente */
+      border-bottom: 2px solid #e2e8f0; /* Línea separadora inferior más gruesa */
+    }
+    
+    /* Celda de datos (<td>) */
+    .tabla-datos td { 
+      padding: 15px;               /* Relleno interno cómodo */
+      border-bottom: 1px solid #e2e8f0; /* Línea separadora fina entre cada fila de registros */
+      color: #334155;              /* Texto estándar */
+      font-size: 0.95rem;          /* Tamaño normal */
+    }
+    
+    /* Fila de la tabla al pasar el ratón (<tr>) */
+    .tabla-datos tbody tr:hover { 
+      background: #f8fafc;         /* Ilumina la fila entera con un gris muy sutil para saber dónde estamos leyendo */
+    }
+
+    /* =========================================
+       5. BADGES (Insignias de Estado)
+       ========================================= */
+    .badge { 
+      padding: 4px 10px;           /* Relleno muy ajustado al texto */
+      border-radius: 20px;         /* Borde curvo al máximo para dar efecto "píldora" */
+      font-size: 0.75rem;          /* Letra muy pequeñita */
+      font-weight: bold;           /* Negrita para resaltar */
+      text-transform: uppercase;   /* Todo mayúsculas */
+    }
+    .badge-verde { 
+      background: #dcfce7;         /* Fondo verde pastel claro */
+      color: #166534;              /* Texto verde oscuro (buen contraste) */
+    } 
+    .badge-gris { 
+      background: #f1f5f9;         /* Fondo gris pastel claro */
+      color: #475569;              /* Texto gris oscuro */
+    }  
+
+    /* =========================================
+       6. BOTONES DE ACCIÓN (Ver, Editar, Borrar)
+       ========================================= */
+    .acciones { 
+      display: flex;               /* Alinea los botones de acción horizontalmente */
+      gap: 8px;                    /* Separación de 8px entre ellos */
+    }
+    .btn-accion { 
+      padding: 5px 10px;           /* Botones compactos */
+      border-radius: 4px;          /* Redondeo pequeño */
+      border: none;                /* Sin borde de línea exterior */
+      font-size: 0.8rem;           /* Letra pequeña */
+      font-weight: bold;           /* Letra gruesa */
+      cursor: pointer;             /* Icono de manito */
+    }
+    
+    /* Botón Acción Neutra (Ver) */
+    .ver { background: #f1f5f9; color: #475569; } 
+    .ver:hover { background: #e2e8f0; } /* Oscurece el gris al hover */
+    
+    /* Botón Acción Modificar (Editar) */
+    .editar { background: #e0f2fe; color: #0369a1; } /* Fondo azul claro, texto azul oscuro */
+    .editar:hover { background: #bae6fd; } /* Oscurece el azul al hover */
+    
+    /* Botón Acción Peligro (Borrar) */
+    .borrar { background: #fee2e2; color: #b91c1c; } /* Fondo rojo claro, texto rojo fuerte */
+    .borrar:hover { background: #fecaca; } /* Oscurece el rojo al hover */
+
+    /* =========================================
+       7. CONTROLES DE PAGINACIÓN
+       ========================================= */
+    .paginacion { 
+      display: flex;               /* Flexbox en fila */
+      justify-content: space-between; /* "Mostrando casos..." a la izquierda, botones a la derecha */
+      align-items: center;         /* Centrado vertical */
+      margin-top: 1.5rem;          /* Espacio arriba para no pegarse a la tabla */
+      font-size: 0.9rem;           /* Letra chica */
+      color: #64748b;              /* Color gris medio */
+    }
+    .botones-pagina { 
+      display: flex;               /* Flexbox para los botoncitos numéricos */
+      gap: 5px;                    /* 5px de separación entre páginas */
+    }
+    .botones-pagina button { 
+      padding: 5px 12px;           /* Forma de cuadrado/rectángulo pequeño */
+      border: 1px solid #cbd5e1;   /* Borde gris */
+      background: white;           /* Fondo blanco */
+      border-radius: 4px;          /* Puntas apenas redondas */
+      cursor: pointer;             /* Manito */
+    }
+    
+    /* El selector :not([disabled]) asegura que el hover solo funcione si el botón NO está bloqueado */
+    .botones-pagina button:hover:not([disabled]) { 
+      background: #f1f5f9;         /* Fondo gris claro al pasar el ratón */
+    }
+    
+    /* Clase especial para la página donde estamos parados actualmente */
+    .botones-pagina button.activa { 
+      background: #c5a059;         /* Fondo dorado */
+      color: white;                /* Letra blanca */
+      border-color: #c5a059;       /* Borde dorado */
+    }
+    
+    /* Selector para botones con el atributo HTML 'disabled' */
+    .botones-pagina button[disabled] { 
+      opacity: 0.5;                /* Baja la visibilidad a la mitad */
+      cursor: not-allowed;         /* Cambia la flecha por el símbolo de "prohibido" */
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;!-- =========================================
+       ESTRUCTURA HTML DE LA VISTA
+       ========================================= --&gt;
+       
+  &lt;!-- CABECERA --&gt;
+  &lt;header class="cabecera-crud"&gt;
+    &lt;div class="titulos"&gt;
+      &lt;h1&gt;Gestión de Casos&lt;/h1&gt;
+      &lt;p&gt;Administre y supervise los expedientes activos e inactivos.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;button class="btn-primario"&gt;+ Nuevo Caso&lt;/button&gt;
+  &lt;/header&gt;
+
+  &lt;!-- BARRA DE BÚSQUEDA --&gt;
+  &lt;div class="barra-herramientas"&gt;
+    &lt;!-- input type="text": Campo libre para escribir --&gt;
+    &lt;input type="text" class="input-buscar" placeholder="Buscar por cliente o expediente..."&gt;
+    
+    &lt;!-- select: Crea una lista desplegable con opciones (option) --&gt;
+    &lt;select class="select-filtro"&gt;
+      &lt;option value="todos"&gt;Todos los estados&lt;/option&gt;
+      &lt;option value="abierto"&gt;Abiertos&lt;/option&gt;
+      &lt;option value="cerrado"&gt;Cerrados&lt;/option&gt;
+    &lt;/select&gt;
+  &lt;/div&gt;
+
+  &lt;!-- TABLA PRINCIPAL --&gt;
+  &lt;div class="contenedor-tabla"&gt;
+    &lt;table class="tabla-datos"&gt;
+      
+      &lt;!-- thead (Table Head): Fila de encabezados --&gt;
+      &lt;thead&gt;
+        &lt;!-- tr (Table Row): Fila. th (Table Header): Celda de título --&gt;
+        &lt;tr&gt;
+          &lt;th&gt;Expediente&lt;/th&gt;
+          &lt;th&gt;Cliente&lt;/th&gt;
+          &lt;th&gt;Asunto&lt;/th&gt;
+          &lt;th&gt;Estado&lt;/th&gt;
+          &lt;th&gt;Acciones&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      
+      &lt;!-- tbody (Table Body): El cuerpo con los datos dinámicos --&gt;
+      &lt;tbody&gt;
+        
+        &lt;!-- Fila de datos número 1 --&gt;
+        &lt;tr&gt;
+          &lt;!-- td (Table Data): Celda estándar. strong: Aplica negrita semántica --&gt;
+          &lt;td&gt;&lt;strong&gt;#CVL-045&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Inmobiliaria Sol&lt;/td&gt;
+          &lt;td&gt;Demanda por incumplimiento&lt;/td&gt;
+          
+          &lt;!-- Badge Verde aplicado al estado "Abierto" --&gt;
+          &lt;td&gt;&lt;span class="badge badge-verde"&gt;Abierto&lt;/span&gt;&lt;/td&gt;
+          
+          &lt;!-- Celda que agrupa los botones CRUD --&gt;
+          &lt;td class="acciones"&gt;
+            &lt;button class="btn-accion ver"&gt;Ver&lt;/button&gt;
+            &lt;button class="btn-accion editar"&gt;Editar&lt;/button&gt;
+            &lt;button class="btn-accion borrar"&gt;Borrar&lt;/button&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt;
+        
+        &lt;!-- Fila de datos número 2 --&gt;
+        &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;#PNL-089&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Juan Gómez&lt;/td&gt;
+          &lt;td&gt;Asesoría preventiva&lt;/td&gt;
+          
+          &lt;!-- Badge Gris aplicado al estado "Cerrado" --&gt;
+          &lt;td&gt;&lt;span class="badge badge-gris"&gt;Cerrado&lt;/span&gt;&lt;/td&gt;
+          
+          &lt;td class="acciones"&gt;
+            &lt;button class="btn-accion ver"&gt;Ver&lt;/button&gt;
+            &lt;button class="btn-accion editar"&gt;Editar&lt;/button&gt;
+            &lt;button class="btn-accion borrar"&gt;Borrar&lt;/button&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/div&gt;
+
+  &lt;!-- PAGINACIÓN --&gt;
+  &lt;div class="paginacion"&gt;
+    &lt;p&gt;Mostrando 1 a 2 de 24 casos&lt;/p&gt;
+    &lt;div class="botones-pagina"&gt;
+      &lt;!-- Atributo 'disabled' anula el botón porque no hay página anterior --&gt;
+      &lt;button disabled&gt;Anterior&lt;/button&gt;
+      &lt;!-- Clase 'activa' para la página 1 --&gt;
+      &lt;button class="activa"&gt;1&lt;/button&gt;
+      &lt;button&gt;2&lt;/button&gt;
+      &lt;button&gt;Siguiente&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </div>
+    </div>
+
+    <!-- CÓDIGO COMPLETO: TAILWIND CSS -->
+    <div class="seccion">
+        <h2>Opción 2: Tailwind CSS Totalmente Documentado</h2>
+        <p>En este bloque, hemos dividido los atributos HTML para poder explicar clase por clase exactamente qué equivalente CSS están aplicando.</p>
+        <div class="codigo-contenedor">
+            <button class="btn-copiar" onclick="copiarCodigo(this)">Copiar Código Completo</button>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Gestión de Casos - Tailwind&lt;/title&gt;
+  
+  &lt;!-- CARGA DE LIBRERÍA CDN: Convierte las clases HTML a CSS automáticamente --&gt;
+  &lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;!-- 
+  ================= 1. ESTILOS BASE DEL BODY =================
+  font-sans: Tipografía sans-serif.
+  antialiased: Suavizado de bordes de texto.
+  bg-white: Fondo de color blanco puro (#ffffff).
+  p-8: Padding de tamaño 8 (32px) en todos los lados para despegarlo del iframe.
+  text-slate-800: Color de texto gris muy oscuro.
+--&gt;
+&lt;body class="font-sans antialiased bg-white p-8 text-slate-800"&gt;
+
+  &lt;!-- 
+    ================= 2. CABECERA =================
+    flex: Pone el grupo de títulos y el botón en la misma fila horizontal.
+    justify-between: Empuja los títulos a la orilla izquierda y el botón a la orilla derecha.
+    items-center: Centra verticalmente los elementos de esa fila.
+    mb-8: Margin-bottom de tamaño 8 (32px) para separarse de la barra de búsqueda.
+  --&gt;
+  &lt;header class="flex justify-between items-center mb-8"&gt;
+    
+    &lt;div&gt;
+      &lt;!-- 
+        font-serif: Usa fuente elegante con remates.
+        text-3xl: Tamaño grande de unos 30px.
+        font-bold: Negrita.
+        text-slate-900: Color gris casi negro intenso.
+        mb-1: Margin-bottom pequeñito (4px) para separar del párrafo.
+      --&gt;
+      &lt;h1 class="font-serif text-3xl font-bold text-slate-900 mb-1"&gt;Gestión de Casos&lt;/h1&gt;
+      
+      &lt;!-- text-slate-500: Gris medio. text-sm: Texto pequeño (14px). --&gt;
+      &lt;p class="text-slate-500 text-sm"&gt;Administre y supervise los expedientes activos e inactivos.&lt;/p&gt;
+    &lt;/div&gt;
+    
+    &lt;!-- 
+      BOTÓN NUEVO CASO
+      bg-[#c5a059]: [Uso de valor arbitrario] Color hexadecimal personalizado Dorado.
+      text-black: Letra negra.
+      font-bold: Letra en negrita.
+      px-5: Padding Izquierda/Derecha de 20px.
+      py-2.5: Padding Arriba/Abajo de 10px.
+      rounded-lg: Borde redondeado Large (8px).
+      shadow-sm: Agrega una pequeña sombra base.
+      transition-colors: Agrega una animación de CSS para que el cambio de color tome 0.15s.
+      (ESTADOS HOVER):
+      hover:bg-[#0f172a]: Al pasar el ratón, cambia fondo a azul marino.
+      hover:text-[#c5a059]: Al pasar el ratón, cambia texto a dorado.
+    --&gt;
+    &lt;button class="bg-[#c5a059] text-black font-bold px-5 py-2.5 rounded-lg hover:bg-[#0f172a] hover:text-[#c5a059] transition-colors shadow-sm"&gt;
+      + Nuevo Caso
+    &lt;/button&gt;
+  &lt;/header&gt;
+
+  &lt;!-- 
+    ================= 3. BARRA DE HERRAMIENTAS =================
+    flex: Coloca buscador y filtro en fila.
+    flex-wrap: Si la pantalla es un celular y no caben en la misma fila, los apila.
+    gap-4: Espacio de 16px entre el buscador y el filtro.
+    mb-6: margin-bottom de 24px.
+    bg-slate-50: Fondo gris extraclaro (#f8fafc).
+    p-4: padding de 16px dentro de la caja gris.
+    rounded-lg: Borde redondeado de 8px.
+    border border-slate-200: Borde sólido de 1px color gris claro.
+  --&gt;
+  &lt;div class="flex flex-wrap gap-4 mb-6 bg-slate-50 p-4 rounded-lg border border-slate-200"&gt;
+    
+    &lt;!-- 
+      BUSCADOR (Input)
+      flex-1: Toma toooodo el espacio horizontal que sobra en la fila.
+      min-w-[200px]: Garantiza que al menos mida 200px de ancho.
+      px-4 py-2: Padding interno.
+      border border-slate-300: Borde estándar de campos de texto.
+      rounded-md: Borde redondo Medium (6px).
+      outline-none: Quita el halo azul asqueroso nativo de Chrome/Edge al clickear.
+      (ESTADO FOCUS - Al hacer clic dentro):
+      focus:border-[#c5a059]: Pinta el borde de dorado.
+      focus:ring-2: Crea una sombra en forma de anillo de 2px de grosor.
+      focus:ring-[#c5a059]/20: Pinta el anillo de dorado y el "/20" le da 20% de opacidad (transparente).
+      transition-all: Anima todo esto.
+    --&gt;
+    &lt;input type="text" placeholder="Buscar por cliente o expediente..." 
+           class="flex-1 min-w-[200px] px-4 py-2 border border-slate-300 rounded-md outline-none focus:border-[#c5a059] focus:ring-2 focus:ring-[#c5a059]/20 transition-all"&gt;
+    
+    &lt;!-- 
+      FILTRO (Select)
+      bg-white: Obligatorio para asegurar que el desplegable sea blanco y no herede gris en Safari/Firefox.
+    --&gt;
+    &lt;select class="px-4 py-2 border border-slate-300 rounded-md bg-white outline-none focus:border-[#c5a059]"&gt;
+      &lt;option value="todos"&gt;Todos los estados&lt;/option&gt;
+      &lt;option value="abierto"&gt;Abiertos&lt;/option&gt;
+      &lt;option value="cerrado"&gt;Cerrados&lt;/option&gt;
+    &lt;/select&gt;
+  &lt;/div&gt;
+
+  &lt;!-- 
+    ================= 4. CONTENEDOR DE LA TABLA =================
+    border border-slate-200 rounded-lg: Caja con borde gris sutil.
+    overflow-x-auto: Si la tabla es muy ancha (ej. pantallas pequeñas), crea un scroll horizontal SOLO dentro de esta caja.
+  --&gt;
+  &lt;div class="border border-slate-200 rounded-lg overflow-x-auto"&gt;
+    
+    &lt;!-- 
+      w-full: Tabla al 100% de ancho de su caja.
+      text-left: Alineación de textos a la izquierda.
+      border-collapse: Une los bordes de celdas adyacentes.
+      whitespace-nowrap: Prohíbe que una frase (ej. "Demanda por incumplimiento") se rompa en dos líneas.
+    --&gt;
+    &lt;table class="w-full text-left border-collapse whitespace-nowrap"&gt;
+      
+      &lt;!-- 
+        bg-slate-50: Fondo gris claro.
+        border-b border-slate-200: Borde inferior para delimitar dónde empiezan los datos.
+      --&gt;
+      &lt;thead class="bg-slate-50 border-b border-slate-200"&gt;
+        &lt;tr&gt;
+          &lt;!-- 
+            p-4: Padding (16px).
+            text-xs: Tamaño de letra extra pequeño (12px).
+            font-bold: Negrita.
+            text-slate-500: Gris medio.
+            uppercase: Convierte a MAYÚSCULAS.
+            tracking-wider: Agrega letter-spacing para separar un poquito cada letra (se ve mejor en mayúsculas).
+          --&gt;
+          &lt;th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider"&gt;Expediente&lt;/th&gt;
+          &lt;th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider"&gt;Cliente&lt;/th&gt;
+          &lt;th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider"&gt;Asunto&lt;/th&gt;
+          &lt;th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider"&gt;Estado&lt;/th&gt;
+          &lt;th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider"&gt;Acciones&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      
+      &lt;!-- 
+        divide-y divide-slate-200: Utilidad "mágica" de Tailwind. 
+        En lugar de ponerle border-bottom a cada celda td, esto le dice a la tabla:
+        "Dibuja una línea de 1px color gris ENTRE CADA FILA (tr) hija".
+      --&gt;
+      &lt;tbody class="divide-y divide-slate-200"&gt;
+        
+        &lt;!-- 
+          FILA DE DATOS
+          hover:bg-slate-50: Al pasar el ratón por cualquier parte de la fila, se pinta de gris claro.
+          transition-colors: Animación suave.
+        --&gt;
+        &lt;tr class="hover:bg-slate-50 transition-colors"&gt;
+          
+          &lt;!-- p-4: Padding 16px. font-bold text-slate-900: Negrita y color casi negro para resaltar el ID --&gt;
+          &lt;td class="p-4 font-bold text-slate-900"&gt;#CVL-045&lt;/td&gt;
+          
+          &lt;!-- p-4 text-slate-700: Gris normal --&gt;
+          &lt;td class="p-4 text-slate-700"&gt;Inmobiliaria Sol&lt;/td&gt;
+          
+          &lt;!-- p-4 text-slate-600: Gris sutil --&gt;
+          &lt;td class="p-4 text-slate-600"&gt;Demanda por incumplimiento&lt;/td&gt;
+          
+          &lt;td class="p-4"&gt;
+            &lt;!-- 
+              ================= 5. BADGE VERDE =================
+              bg-green-100: Fondo verde clarito pastel.
+              text-green-800: Letra verde oscuro fuerte.
+              px-2.5 py-1: Padding corto.
+              rounded-full: Crea el borde tipo píldora.
+              text-xs font-bold uppercase: Letra pequeña, negrita y mayúsculas.
+            --&gt;
+            &lt;span class="bg-green-100 text-green-800 px-2.5 py-1 rounded-full text-xs font-bold uppercase"&gt;Abierto&lt;/span&gt;
+          &lt;/td&gt;
+          
+          &lt;!-- 
+            ================= 6. BOTONES DE ACCIÓN =================
+            p-4: Padding normal de celda.
+            flex: Flexbox dentro del <td>.
+            gap-2: Separación de 8px (0.5rem) entre cada botón interno.
+          --&gt;
+          &lt;td class="p-4 flex gap-2"&gt;
+            
+            &lt;!-- 
+              BOTÓN VER (Gris)
+              bg-slate-100: Fondo gris clarito. text-slate-600: Letra gris.
+              px-3 py-1.5: Padding. rounded-md: Redondeo mediano (6px). text-xs font-bold: Letra mini negrita.
+              hover:bg-slate-200: Al pasar el ratón lo oscurece un poco.
+            --&gt;
+            &lt;button class="bg-slate-100 text-slate-600 px-3 py-1.5 rounded-md text-xs font-bold hover:bg-slate-200"&gt;Ver&lt;/button&gt;
+            
+            &lt;!-- 
+              BOTÓN EDITAR (Azul)
+              bg-blue-50: Fondo azul clarísimo. text-blue-700: Letra azul intensa.
+              hover:bg-blue-100: Al pasar ratón oscurece fondo azul.
+            --&gt;
+            &lt;button class="bg-blue-50 text-blue-700 px-3 py-1.5 rounded-md text-xs font-bold hover:bg-blue-100"&gt;Editar&lt;/button&gt;
+            
+            &lt;!-- 
+              BOTÓN BORRAR (Rojo)
+              bg-red-50: Fondo rojo clarísimo. text-red-700: Letra rojo fuerte.
+              hover:bg-red-100: Al pasar ratón oscurece fondo rojo.
+            --&gt;
+            &lt;button class="bg-red-50 text-red-700 px-3 py-1.5 rounded-md text-xs font-bold hover:bg-red-100"&gt;Borrar&lt;/button&gt;
+          
+          &lt;/td&gt;
+        &lt;/tr&gt;
+
+        &lt;!-- FILA 2 --&gt;
+        &lt;tr class="hover:bg-slate-50 transition-colors"&gt;
+          &lt;td class="p-4 font-bold text-slate-900"&gt;#PNL-089&lt;/td&gt;
+          &lt;td class="p-4 text-slate-700"&gt;Juan Gómez&lt;/td&gt;
+          &lt;td class="p-4 text-slate-600"&gt;Asesoría preventiva&lt;/td&gt;
+          &lt;td class="p-4"&gt;
+            &lt;!-- 
+              BADGE GRIS
+              bg-slate-100: Fondo gris claro pastel.
+              text-slate-600: Texto gris.
+            --&gt;
+            &lt;span class="bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full text-xs font-bold uppercase"&gt;Cerrado&lt;/span&gt;
+          &lt;/td&gt;
+          &lt;td class="p-4 flex gap-2"&gt;
+            &lt;button class="bg-slate-100 text-slate-600 px-3 py-1.5 rounded-md text-xs font-bold hover:bg-slate-200"&gt;Ver&lt;/button&gt;
+            &lt;button class="bg-blue-50 text-blue-700 px-3 py-1.5 rounded-md text-xs font-bold hover:bg-blue-100"&gt;Editar&lt;/button&gt;
+            &lt;button class="bg-red-50 text-red-700 px-3 py-1.5 rounded-md text-xs font-bold hover:bg-red-100"&gt;Borrar&lt;/button&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt;
+
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/div&gt;
+
+  &lt;!-- 
+    ================= 7. PAGINACIÓN =================
+    flex justify-between items-center: Pone el párrafo a la izq y los números a la der, centrados.
+    mt-6: Margin-top de 24px.
+    text-sm text-slate-500: Párrafo gris en letra pequeña.
+  --&gt;
+  &lt;div class="flex justify-between items-center mt-6 text-sm text-slate-500"&gt;
+    &lt;p&gt;Mostrando 1 a 2 de 24 casos&lt;/p&gt;
+    
+    &lt;!-- flex gap-1: Agrupa los botones numéricos separados por solo 4px (gap-1) --&gt;
+    &lt;div class="flex gap-1"&gt;
+      
+      &lt;!-- 
+        Botón Inhabilitado ("Anterior")
+        px-3 py-1.5 border border-slate-300 rounded bg-white: Estructura base de botón cuadrado blanco.
+        opacity-50: 50% de transparencia visual. 
+        cursor-not-allowed: Icono de bloqueo. 
+        disabled: Atributo HTML que deshabilita el click real en el navegador.
+      --&gt;
+      &lt;button class="px-3 py-1.5 border border-slate-300 rounded bg-white opacity-50 cursor-not-allowed" disabled&gt;Anterior&lt;/button&gt;
+      
+      &lt;!-- 
+        Página Actual Activa ("1")
+        border-[#c5a059] bg-[#c5a059] text-white font-bold: Caja dorada, borde dorado y letra blanca gordita.
+      --&gt;
+      &lt;button class="px-3 py-1.5 border border-[#c5a059] bg-[#c5a059] text-white rounded font-bold"&gt;1&lt;/button&gt;
+      
+      &lt;!-- 
+        Páginas Disponibles ("2", "Siguiente")
+        hover:bg-slate-50 transition-colors: Al pasar el ratón se iluminan levemente de gris.
+      --&gt;
+      &lt;button class="px-3 py-1.5 border border-slate-300 rounded bg-white hover:bg-slate-50 transition-colors"&gt;2&lt;/button&gt;
+      &lt;button class="px-3 py-1.5 border border-slate-300 rounded bg-white hover:bg-slate-50 transition-colors"&gt;Siguiente&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </div>
+    </div>
+
+    <!-- SCRIPT PARA EL BOTÓN DE COPIAR -->
+    <script>
+        function copiarCodigo(boton) {
+            const pre = boton.parentElement.querySelector('pre');
+            const textoCodigo = pre.innerText;
+
+            navigator.clipboard.writeText(textoCodigo).then(() => {
+                const textoOriginal = boton.innerText;
+                boton.innerText = '¡Copiado!';
+                boton.classList.add('copiado');
+
+                setTimeout(() => {
+                    boton.innerText = textoOriginal;
+                    boton.classList.remove('copiado');
+                }, 2000);
+            }).catch(err => {
+                console.error('Error al copiar: ', err);
+                boton.innerText = 'Error';
+            });
+        }
+    </script>
+
+</body>
+</html>
