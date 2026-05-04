@@ -17,8 +17,8 @@
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased">
 
-    <!-- Barra de navegacion movil -->
-    <nav class="md:hidden bg-white border-b border-slate-200 p-4 sticky top-0 z-30 flex justify-between items-center shadow-sm">
+    <!-- Barra de navegacion (ahora siempre visible) -->
+    <nav class="bg-white border-b border-slate-200 p-4 sticky top-0 z-30 flex justify-between items-center shadow-sm">
         <h1 class="text-xl font-bold text-blue-600">Manual Tailwind</h1>
         <!-- Boton Menu Sandwich -->
         <button id="mobile-menu-btn" class="p-2 text-slate-600 hover:text-slate-900 focus:outline-none rounded-md hover:bg-slate-100 transition-colors">
@@ -30,14 +30,14 @@
 
     <div class="flex max-w-[1400px] mx-auto">
         
-        <!-- Overlay oscuro para moviles -->
-        <div id="sidebar-overlay" class="fixed inset-0 bg-slate-900/50 z-40 hidden md:hidden transition-opacity"></div>
+        <!-- Overlay oscuro -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-slate-900/50 z-40 hidden transition-opacity"></div>
 
-        <!-- Menu lateral -->
-        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 h-screen overflow-y-auto bg-white border-r border-slate-200 p-6 shadow-2xl transform -translate-x-full transition-transform duration-300 ease-in-out md:sticky md:top-0 md:translate-x-0 md:shadow-sm md:z-0">
+        <!-- Menu lateral (ahora siempre oculto hasta que se haga clic) -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 h-screen overflow-y-auto bg-white border-r border-slate-200 p-6 shadow-2xl transform -translate-x-full transition-transform duration-300 ease-in-out">
             
-            <!-- Boton cerrar (solo movil) -->
-            <button id="close-sidebar-btn" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-800 md:hidden focus:outline-none rounded-md hover:bg-slate-100 transition-colors">
+            <!-- Boton cerrar -->
+            <button id="close-sidebar-btn" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-800 focus:outline-none rounded-md hover:bg-slate-100 transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
@@ -49,15 +49,20 @@
             </div>
             
             <nav class="space-y-1">
-                <a href="#plantilla" class="block px-3 py-2 text-sm font-medium rounded-lg hover:bg-blue-50 text-slate-700">1. Estructura Básica</a>
+                <a href="#plantilla" class="block px-3 py-2 text-sm font-medium rounded-lg hover:bg-blue-50 text-slate-700">1. Estructura Basica</a>
                 <a href="#pad-mar" class="block px-3 py-2 text-sm font-medium rounded-lg hover:bg-blue-50 text-slate-700">2. Padding y Margen</a>
                 <a href="#bordes" class="block px-3 py-2 text-sm font-medium rounded-lg hover:bg-blue-50 text-slate-700">3. Colocar Bordes</a>
                 <a href="#dimensiones" class="block px-3 py-2 text-sm font-medium rounded-lg hover:bg-blue-50 text-slate-700">4. Ancho y Alto</a>
                 <a href="#textos" class="block px-3 py-2 text-sm font-medium rounded-lg hover:bg-blue-50 text-slate-700">5. Tamaños de Letra</a>
                 <a href="#colores" class="block px-3 py-2 text-sm font-medium rounded-lg hover:bg-blue-50 text-slate-700">6. Colores (Fondo y Letra)</a>
                 <a href="#sombras" class="block px-3 py-2 text-sm font-medium rounded-lg hover:bg-blue-50 text-slate-700">7. Colocar Sombras</a>
-                <a href="#imagenes" class="block px-3 py-2 text-sm font-medium rounded-lg hover:bg-blue-50 text-slate-700">8. Manejar Imágenes</a>
+                <a href="#imagenes" class="block px-3 py-2 text-sm font-medium rounded-lg hover:bg-blue-50 text-slate-700">8. Manejar Imagenes</a>
                 <a href="#flexbox" class="block px-3 py-2 text-sm font-medium rounded-lg hover:bg-blue-50 text-slate-700">9. Usar Flexbox</a>
+                <a href="#grid" class="block px-3 py-2 text-sm font-medium rounded-lg hover:bg-blue-50 text-slate-700">10. Cuadriculas (Grid)</a>
+                <a href="#posicionamiento" class="block px-3 py-2 text-sm font-medium rounded-lg hover:bg-blue-50 text-slate-700">11. Posicionamiento</a>
+                <a href="#responsivo" class="block px-3 py-2 text-sm font-medium rounded-lg hover:bg-blue-50 text-slate-700">12. Diseño Responsivo</a>
+                <a href="#interacciones" class="block px-3 py-2 text-sm font-medium rounded-lg hover:bg-blue-50 text-slate-700">13. Hover y Focus</a>
+                <a href="#animaciones" class="block px-3 py-2 text-sm font-medium rounded-lg hover:bg-blue-50 text-slate-700">14. Animaciones</a>
             </nav>
         </aside>
 
@@ -74,12 +79,12 @@
             <section id="plantilla" class="mb-16 scroll-mt-24">
                 <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
                     <div class="p-6 md:p-8 border-b border-slate-100">
-                        <h3 class="text-2xl font-bold text-slate-800 mb-4">1. Estructura Básica (Plantilla de inicio)</h3>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">1. Estructura Basica (Plantilla de inicio)</h3>
                         <p class="text-slate-600 mb-4">
-                            <strong>El primer paso:</strong> Para que las clases de Tailwind funcionen en tu archivo HTML, necesitas importar su código desde internet. Esto se hace agregando una sola línea de código en la sección <code class="bg-slate-100 px-1 rounded">&lt;head&gt;</code> de tu documento.
+                            <strong>El primer paso:</strong> Para que las clases de Tailwind funcionen en tu archivo HTML, necesitas importar su codigo desde internet. Esto se hace agregando una sola linea de codigo en la seccion <code class="bg-slate-100 px-1 rounded">&lt;head&gt;</code> de tu documento.
                         </p>
                         <p class="text-slate-600">
-                            A esta línea se le llama <strong>CDN</strong> (Content Delivery Network). Copia el código de abajo, pégalo en un archivo llamado <code>index.html</code>, ábrelo en tu navegador y ya podrás empezar a diseñar.
+                            A esta linea se le llama <strong>CDN</strong> (Content Delivery Network). Copia el codigo de abajo, pegalo en un archivo llamado <code>index.html</code>, abrelo en tu navegador y ya podras empezar a diseñar.
                         </p>
                     </div>
                     
@@ -486,6 +491,224 @@
                 </div>
             </section>
 
+            <!-- 10. GRID (CUADRICULAS) -->
+            <section id="grid" class="mb-16 scroll-mt-24">
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-6 md:p-8 border-b border-slate-100">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">10. Como usar Cuadriculas (Grid)</h3>
+                        <p class="text-slate-600 mb-4">
+                            <strong>La regla:</strong> Si Flexbox sirve para hacer filas, Grid sirve para hacer tablas o galerias de imagenes. Activalo con la palabra <code class="bg-slate-100 px-1 rounded">grid</code> y dile cuantas columnas quieres tener.
+                        </p>
+                        <ul class="list-disc pl-5 text-slate-600 space-y-2 mb-6">
+                            <li>Activar: <code class="bg-slate-100 px-1 rounded">grid</code>.</li>
+                            <li>Definir columnas: Usa <code class="bg-slate-100 px-1 rounded">grid-cols-2</code> (para dos columnas), <code class="bg-slate-100 px-1 rounded">grid-cols-3</code>, <code class="bg-slate-100 px-1 rounded">grid-cols-4</code>, etc.</li>
+                            <li>Separacion: Igual que en flexbox, usa <code class="bg-slate-100 px-1 rounded">gap-4</code> para que las celdas de la cuadricula no se peguen.</li>
+                            <li>Ocupar mas espacio: A un hijo le puedes poner <code class="bg-slate-100 px-1 rounded">col-span-2</code> para obligarlo a estirarse y devorar el espacio de dos columnas el solo.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-slate-900 relative">
+                        <button onclick="copyCode(this)" class="absolute top-4 right-4 bg-slate-700 text-white text-xs px-4 py-2 rounded hover:bg-slate-600">Copiar Codigo</button>
+                        <pre class="p-6 text-sm text-sky-300 font-mono overflow-x-auto"><code>&lt;!-- 
+  =============================================
+  EJEMPLOS DE GRID (Galerias y Tablas)
+  =============================================
+--&gt;
+
+&lt;!-- GALERIA DE 3 COLUMNAS:
+     grid: Activa el modo cuadricula.
+     grid-cols-3: Le dice a la caja padre que divida el espacio exacto para 3 elementos.
+     gap-4: Separa las celdas para que no se vean pegadas. --&gt;
+&lt;div class="grid grid-cols-3 gap-4"&gt;
+    &lt;div class="bg-purple-500 p-4 text-white"&gt;Columna 1&lt;/div&gt;
+    &lt;div class="bg-purple-500 p-4 text-white"&gt;Columna 2&lt;/div&gt;
+    &lt;div class="bg-purple-500 p-4 text-white"&gt;Columna 3&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- COLUMNAS DESIGUALES (Usando span):
+     Tenemos una cuadricula de 3 columnas de nuevo.
+     Pero el primer hijo tiene "col-span-2". Esto hace que la primera 
+     caja abarque el espacio de 2 columnas, dejando a la ultima sola en la 3ra. --&gt;
+&lt;div class="grid grid-cols-3 gap-4 mt-4"&gt;
+    &lt;div class="col-span-2 bg-pink-500 p-4 text-white"&gt;Yo soy gordo y ocupo dos lugares&lt;/div&gt;
+    &lt;div class="bg-pink-400 p-4 text-white"&gt;Yo soy normal&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 11. POSICIONAMIENTO -->
+            <section id="posicionamiento" class="mb-16 scroll-mt-24">
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-6 md:p-8 border-b border-slate-100">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">11. Como Flotar cosas (Posicionamiento)</h3>
+                        <p class="text-slate-600 mb-4">
+                            <strong>La regla:</strong> A veces quieres poner una insignia roja de "Descuento" flotando sobre una foto. Necesitas la clase <code class="bg-slate-100 px-1 rounded">relative</code> para el padre y <code class="bg-slate-100 px-1 rounded">absolute</code> para el hijo.
+                        </p>
+                        <ul class="list-disc pl-5 text-slate-600 space-y-2 mb-6">
+                            <li>El Padre: Ponle <code class="bg-slate-100 px-1 rounded">relative</code>. Si olvidas esto, el hijo saldra volando a las esquinas de tu pagina web. Al poner relative, estas creando los "limites" para que el hijo flote solo dentro de esa caja.</li>
+                            <li>El Hijo Flotante: Ponle <code class="bg-slate-100 px-1 rounded">absolute</code>.</li>
+                            <li>Mover el Hijo: Ahora puedes usar coordenadas para pegar el hijo a las paredes del padre: <code class="bg-slate-100 px-1 rounded">top-0</code> (arriba), <code class="bg-slate-100 px-1 rounded">bottom-0</code> (abajo), <code class="bg-slate-100 px-1 rounded">left-0</code> (izquierda), <code class="bg-slate-100 px-1 rounded">right-0</code> (derecha).</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-slate-900 relative">
+                        <button onclick="copyCode(this)" class="absolute top-4 right-4 bg-slate-700 text-white text-xs px-4 py-2 rounded hover:bg-slate-600">Copiar Codigo</button>
+                        <pre class="p-6 text-sm text-sky-300 font-mono overflow-x-auto"><code>&lt;!-- 
+  =============================================
+  EJEMPLOS DE POSICIONAMIENTO ABSOLUTO
+  =============================================
+--&gt;
+
+&lt;!-- EL PADRE (La caja de la foto de un producto):
+     relative: La regla mas importante. Bloquea a los elementos flotantes
+     para que no se escapen de esta caja de fondo gris. --&gt;
+&lt;div class="relative bg-gray-200 w-64 h-64 border border-gray-400"&gt;
+    
+    &lt;p class="p-4"&gt;Foto de un zapato deportivo&lt;/p&gt;
+
+    &lt;!-- EL HIJO FLOTANTE (La insignia de oferta):
+         absolute: Arranca a este elemento del flujo normal y lo hace volar.
+         top-0: Lo pega al techo de la caja padre.
+         right-0: Lo pega a la pared derecha de la caja padre. --&gt;
+    &lt;div class="absolute top-0 right-0 bg-red-500 text-white px-2 py-1"&gt;
+        50% OFF
+    &lt;/div&gt;
+
+&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 12. DISEÑO RESPONSIVO -->
+            <section id="responsivo" class="mb-16 scroll-mt-24">
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-6 md:p-8 border-b border-slate-100">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">12. Como adaptar a Celulares y PC (Responsivo)</h3>
+                        <p class="text-slate-600 mb-4">
+                            <strong>La regla:</strong> En Tailwind <em>todo</em> se piensa primero para celulares pequeños. Cualquier clase normal que pongas, aplicara al celular. Si quieres que algo cambie cuando la pantalla es grande (en una laptop), le pones un prefijo especial.
+                        </p>
+                        <ul class="list-disc pl-5 text-slate-600 space-y-2 mb-6">
+                            <li><code class="bg-slate-100 px-1 rounded">sm:</code> (Small): Para pantallas de tabletas pequeñas (640px o mas).</li>
+                            <li><code class="bg-slate-100 px-1 rounded">md:</code> (Medium): Para tabletas grandes tipo iPad (768px o mas).</li>
+                            <li><code class="bg-slate-100 px-1 rounded">lg:</code> (Large): Para monitores de computadora o laptops (1024px o mas).</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-slate-900 relative">
+                        <button onclick="copyCode(this)" class="absolute top-4 right-4 bg-slate-700 text-white text-xs px-4 py-2 rounded hover:bg-slate-600">Copiar Codigo</button>
+                        <pre class="p-6 text-sm text-sky-300 font-mono overflow-x-auto"><code>&lt;!-- 
+  =============================================
+  EJEMPLOS DE DISEÑO RESPONSIVO
+  =============================================
+--&gt;
+
+&lt;!-- CAMBIAR COLOR SEGUN LA PANTALLA:
+     bg-red-500: Por defecto la caja sera roja (esto lo veran los celulares).
+     lg:bg-blue-500: Si la pantalla crece a tamaño computadora, Tailwind
+     sobreescribe la regla anterior y cambia la caja a color azul. --&gt;
+&lt;div class="bg-red-500 lg:bg-blue-500 p-4 text-white"&gt;
+    Soy Rojo en celular, pero Azul en computadora
+&lt;/div&gt;
+
+&lt;!-- ACOMODAR LAS FILAS:
+     flex-col: Por defecto, en celulares el flexbox apilara las cosas 
+     de arriba hacia abajo (para que no se achiquen demasiado).
+     md:flex-row: Cuando estemos en una tableta y haya espacio de sobra, 
+     se alinearan de lado a lado. --&gt;
+&lt;div class="flex flex-col md:flex-row gap-4 mt-4"&gt;
+    &lt;div class="bg-gray-700 text-white p-4"&gt;Arriba en movil, a la Izquierda en PC&lt;/div&gt;
+    &lt;div class="bg-gray-700 text-white p-4"&gt;Abajo en movil, a la Derecha en PC&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 13. HOVER Y FOCUS -->
+            <section id="interacciones" class="mb-16 scroll-mt-24">
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-6 md:p-8 border-b border-slate-100">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">13. Como manejar pasar el raton (Hover y Focus)</h3>
+                        <p class="text-slate-600 mb-4">
+                            <strong>La regla:</strong> Si quieres que un boton cambie de color cuando el usuario pase el raton por encima, escribes <code class="bg-slate-100 px-1 rounded">hover:</code> seguido de la clase que quieres cambiar.
+                        </p>
+                        <ul class="list-disc pl-5 text-slate-600 space-y-2 mb-6">
+                            <li><code class="bg-slate-100 px-1 rounded">hover:</code> Reacciona cuando el raton se posa sobre el elemento.</li>
+                            <li><code class="bg-slate-100 px-1 rounded">focus:</code> Reacciona cuando le das clic a una caja de texto para escribir (los famosos bordes azules de los formularios).</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-slate-900 relative">
+                        <button onclick="copyCode(this)" class="absolute top-4 right-4 bg-slate-700 text-white text-xs px-4 py-2 rounded hover:bg-slate-600">Copiar Codigo</button>
+                        <pre class="p-6 text-sm text-sky-300 font-mono overflow-x-auto"><code>&lt;!-- 
+  =============================================
+  EJEMPLOS DE HOVER Y FOCUS
+  =============================================
+--&gt;
+
+&lt;!-- EFECTO HOVER EN UN BOTON:
+     bg-blue-500: El color normal cuando no lo estas tocando.
+     hover:bg-blue-700: El color mas oscuro que toma al pasarle el mouse. --&gt;
+&lt;button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"&gt;
+    Pasa el raton aqui
+&lt;/button&gt;
+
+&lt;!-- EFECTO FOCUS EN UN FORMULARIO:
+     border-gray-300: Borde gris aburrido normal.
+     outline-none: Quita el borde negro feo que traen los navegadores por defecto.
+     focus:border-blue-500: Al hacerle clic para escribir, el borde se vuelve azul.
+     focus:ring: Al hacerle clic, añade un resplandor luminoso al borde. --&gt;
+&lt;input type="text" placeholder="Escribe tu nombre" 
+       class="border-2 border-gray-300 outline-none focus:border-blue-500 focus:ring-2 p-2 mt-4 rounded"&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 14. ANIMACIONES -->
+            <section id="animaciones" class="mb-16 scroll-mt-24">
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-6 md:p-8 border-b border-slate-100">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">14. Como usar Animaciones</h3>
+                        <p class="text-slate-600 mb-4">
+                            <strong>La regla:</strong> Hay dos tipos de movimiento en Tailwind. Las "Transiciones" (hacer que un cambio de Hover sea suave en lugar de brusco) y las "Animaciones infinitas" (cosas que no paran de moverse).
+                        </p>
+                        <ul class="list-disc pl-5 text-slate-600 space-y-2 mb-6">
+                            <li>Suavizar el hover: Usa la clase obligatoria <code class="bg-slate-100 px-1 rounded">transition</code>. Y para hacer que dure un poquito mas usa <code class="bg-slate-100 px-1 rounded">duration-300</code> (eso son 300 milisegundos).</li>
+                            <li>Ruedita de carga: Usa <code class="bg-slate-100 px-1 rounded">animate-spin</code>.</li>
+                            <li>Latido falso de "Cargando": Usa <code class="bg-slate-100 px-1 rounded">animate-pulse</code>.</li>
+                            <li>Rebote: Usa <code class="bg-slate-100 px-1 rounded">animate-bounce</code>.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-slate-900 relative">
+                        <button onclick="copyCode(this)" class="absolute top-4 right-4 bg-slate-700 text-white text-xs px-4 py-2 rounded hover:bg-slate-600">Copiar Codigo</button>
+                        <pre class="p-6 text-sm text-sky-300 font-mono overflow-x-auto"><code>&lt;!-- 
+  =============================================
+  EJEMPLOS DE MOVIMIENTO
+  =============================================
+--&gt;
+
+&lt;!-- TRANSICION SUAVE:
+     Tenemos un hover que cambia el color. Si no le ponemos "transition",
+     el cambio de azul claro a oscuro seria violento e inmediato.
+     Con transition y duration-300, el color se oscurece fluidamente. --&gt;
+&lt;button class="bg-blue-400 hover:bg-blue-800 transition duration-300 text-white p-2 rounded"&gt;
+    Hover muy suavecito
+&lt;/button&gt;
+
+&lt;!-- ANIMATE-SPIN: (Ideal para decirle al usuario "Espera, estamos cargando")
+     Hacemos una caja redonda (rounded-full).
+     Le ponemos un borde gris, pero el borde de ARRIBA se lo ponemos azul (border-t-blue-500).
+     Al aplicarle animate-spin, la caja empezara a dar vueltas sobre si misma. --&gt;
+&lt;div class="w-8 h-8 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin mt-4"&gt;&lt;/div&gt;
+
+&lt;!-- ANIMATE-PULSE: (Para mostrar lineas falsas cuando no hay internet todavia)
+     Aplica un efecto de desvanecimiento que hace que la caja "respire". --&gt;
+&lt;div class="w-48 h-4 bg-gray-400 rounded animate-pulse mt-4"&gt;&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
             <footer class="mt-20 border-t border-slate-200 pt-10 pb-20 text-center text-slate-500">
                 <p>Copia y pega los bloques de codigo directamente en tu HTML. Solo cambia las palabras por tu propio contenido.</p>
             </footer>
@@ -495,36 +718,42 @@
 
     <script>
         // --- LOGICA DEL MENU SANDWICH (MOVIL) ---
+        // Aqui llamamos a los botones usando el ID que le dimos en el HTML
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const closeSidebarBtn = document.getElementById('close-sidebar-btn');
         const sidebar = document.getElementById('sidebar');
         const sidebarOverlay = document.getElementById('sidebar-overlay');
         const sidebarLinks = sidebar.querySelectorAll('nav a');
 
-        // Funcion para abrir/cerrar el menu
+        // Funcion que abre o cierra el menu
         function toggleMenu() {
-            sidebar.classList.toggle('-translate-x-full'); // Muestra/oculta el panel
-            sidebarOverlay.classList.toggle('hidden');     // Muestra/oculta el fondo oscuro
+            // El menu esta oculto porque esta empujado a la izquierda ("-translate-x-full").
+            // Al quitar y poner esta clase con "toggle", logramos el efecto de que entre o salga.
+            sidebar.classList.toggle('-translate-x-full');
+            // Muestra u oculta la capa negra del fondo
+            sidebarOverlay.classList.toggle('hidden');     
         }
 
-        // Eventos de click en los botones
+        // Le decimos al navegador que escuche el "Clic" del usuario en los botones
         mobileMenuBtn.addEventListener('click', toggleMenu);
         closeSidebarBtn.addEventListener('click', toggleMenu);
         sidebarOverlay.addEventListener('click', toggleMenu);
 
-        // Si estamos en movil, cerrar el menu al hacer click en cualquier enlace
+        // Cerrar el menu automaticamente cuando den clic a un enlace
         sidebarLinks.forEach(link => {
             link.addEventListener('click', () => {
-                if (window.innerWidth < 768) { // 768px es el ancho del breakpoint "md"
-                    toggleMenu();
-                }
+                toggleMenu();
             });
         });
 
-        // --- LOGICA PARA COPIAR CODIGO ---
+        // --- LOGICA PARA EL BOTON "COPIAR CODIGO" ---
         function copyCode(button) {
+            // Busca la etiqueta "pre" que esta inmediatamente despues del boton
             const pre = button.nextElementSibling;
+            // Extrae solo el texto limpio
             const codeText = pre.innerText.trim();
+            
+            // Creamos un area de texto invisible para copiar la informacion
             const textarea = document.createElement('textarea');
             textarea.value = codeText;
             textarea.setAttribute('readonly', '');
@@ -533,14 +762,16 @@
             document.body.appendChild(textarea);
             
             textarea.select();
-            document.execCommand('copy');
+            document.execCommand('copy'); // Ejecuta el comando de copiar del sistema
             document.body.removeChild(textarea);
 
+            // Cambiar visualmente el boton para confirmar la accion
             const originalText = button.innerText;
             button.innerText = 'Copiado';
             button.classList.add('bg-green-500', 'hover:bg-green-600');
             button.classList.remove('bg-slate-700', 'hover:bg-slate-600');
             
+            // Devolver el boton a la normalidad despues de 2 segundos
             setTimeout(() => {
                 button.innerText = originalText;
                 button.classList.remove('bg-green-500', 'hover:bg-green-600');
