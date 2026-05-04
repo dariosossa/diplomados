@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Tailwind CSS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 8px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        pre::-webkit-scrollbar-track { background: #1f2937; }
+        pre::-webkit-scrollbar-thumb { background: #4b5563; }
+        pre::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+
+    <!-- Barra de navegacion movil -->
+    <nav class="md:hidden bg-white border-b border-slate-200 p-4 sticky top-0 z-50 flex justify-between items-center shadow-sm">
+        <h1 class="text-xl font-bold text-blue-600">Manual Tailwind</h1>
+        <p class="text-xs text-slate-500 font-medium">Desliza para leer</p>
+    </nav>
+
+    <div class="flex max-w-[1400px] mx-auto">
+        <!-- Menu lateral -->
+        <aside class="hidden md:block w-72 h-screen sticky top-0 overflow-y-auto bg-white border-r border-slate-200 p-6 z-40 shadow-sm">
+            <div class="mb-8 border-b border-slate-100 pb-6">
+                <h1 class="text-2xl font-black tracking-tight text-slate-900 leading-none">Manual<br><span class="text-blue-600">Tailwind</span></h1>
+                <p class="text-xs text-slate-500 mt-2 font-medium uppercase">Reglas paso a paso</p>
+            </div>
+            
+            <nav class="space-y-1">
+                <a href="#pad-mar" class="block px-3 py-2 text-sm font-medium rounded-lg hover:bg-blue-50 text-slate-700">1. Padding y Margen</a>
+                <a href="#bordes" class="block px-3 py-2 text-sm font-medium rounded-lg hover:bg-blue-50 text-slate-700">2. Colocar Bordes</a>
+                <a href="#dimensiones" class="block px-3 py-2 text-sm font-medium rounded-lg hover:bg-blue-50 text-slate-700">3. Ancho y Alto</a>
+                <a href="#textos" class="block px-3 py-2 text-sm font-medium rounded-lg hover:bg-blue-50 text-slate-700">4. Tamaños de Letra</a>
+                <a href="#colores" class="block px-3 py-2 text-sm font-medium rounded-lg hover:bg-blue-50 text-slate-700">5. Colores (Fondo y Letra)</a>
+                <a href="#sombras" class="block px-3 py-2 text-sm font-medium rounded-lg hover:bg-blue-50 text-slate-700">6. Colocar Sombras</a>
+                <a href="#imagenes" class="block px-3 py-2 text-sm font-medium rounded-lg hover:bg-blue-50 text-slate-700">7. Manejar Imágenes</a>
+                <a href="#flexbox" class="block px-3 py-2 text-sm font-medium rounded-lg hover:bg-blue-50 text-slate-700">8. Usar Flexbox</a>
+            </nav>
+        </aside>
+
+        <!-- Contenido Principal -->
+        <main class="flex-1 p-4 md:p-8 lg:p-12 w-full min-w-0">
+            <header class="mb-12 max-w-3xl">
+                <h2 class="text-4xl md:text-5xl font-black text-slate-900 mb-6 leading-tight">Como escribir las clases</h2>
+                <p class="text-xl text-slate-600 mb-4 leading-relaxed">
+                    Aqui aprenderas la formula exacta para crear cualquier diseño. Tailwind funciona uniendo un prefijo (la propiedad) con un sufijo (el valor).
+                </p>
+            </header>
+
+            <!-- 1. PADDING Y MARGEN -->
+            <section id="pad-mar" class="mb-16 scroll-mt-24">
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-6 md:p-8 border-b border-slate-100">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">1. Como colocar Padding y Margen</h3>
+                        <p class="text-slate-600 mb-4">
+                            <strong>La regla:</strong> Escribe la letra base, luego la direccion (opcional), un guion, y un numero.
+                        </p>
+                        <ul class="list-disc pl-5 text-slate-600 space-y-2 mb-6">
+                            <li>Letra base: <code class="bg-slate-100 px-1 rounded">p</code> para padding (espacio por dentro) o <code class="bg-slate-100 px-1 rounded">m</code> para margen (espacio por fuera).</li>
+                            <li>Direccion: <code class="bg-slate-100 px-1 rounded">t</code> (arriba), <code class="bg-slate-100 px-1 rounded">b</code> (abajo), <code class="bg-slate-100 px-1 rounded">l</code> (izquierda), <code class="bg-slate-100 px-1 rounded">r</code> (derecha), <code class="bg-slate-100 px-1 rounded">x</code> (lados), <code class="bg-slate-100 px-1 rounded">y</code> (arriba y abajo). Si no pones direccion, aplica a todos los lados.</li>
+                            <li>Numeros comunes: 2, 4, 6, 8, 12, 16.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-slate-900 relative">
+                        <button onclick="copyCode(this)" class="absolute top-4 right-4 bg-slate-700 text-white text-xs px-4 py-2 rounded hover:bg-slate-600">Copiar Codigo</button>
+                        <pre class="p-6 text-sm text-sky-300 font-mono overflow-x-auto"><code>&lt;!-- p-8: Aplica padding (espacio interno) tamaño 8 en todos los lados --&gt;
+&lt;div class="p-8 bg-blue-500 text-white"&gt;Caja con espacio por dentro&lt;/div&gt;
+
+&lt;!-- pt-4: Padding solo arriba (top). pb-4: Padding solo abajo (bottom) --&gt;
+&lt;div class="pt-4 pb-4 bg-green-500 text-white"&gt;Espacio arriba y abajo&lt;/div&gt;
+
+&lt;!-- px-6: Padding en el eje X (izquierda y derecha a la vez) --&gt;
+&lt;div class="px-6 bg-purple-500 text-white"&gt;Espacio a los lados&lt;/div&gt;
+
+&lt;!-- m-10: Aplica margen (espacio externo que aleja otras cajas) tamaño 10 --&gt;
+&lt;div class="m-10 bg-red-500 text-white"&gt;Caja alejada del resto&lt;/div&gt;
+
+&lt;!-- mx-auto: El truco especial. Pone margen izquierdo y derecho en automatico. 
+     Sirve para centrar una caja en medio de la pantalla. --&gt;
+&lt;div class="mx-auto w-64 bg-yellow-500 text-black"&gt;Caja centrada&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. BORDES -->
+            <section id="bordes" class="mb-16 scroll-mt-24">
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-6 md:p-8 border-b border-slate-100">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">2. Como colocar Bordes</h3>
+                        <p class="text-slate-600 mb-4">
+                            <strong>La regla:</strong> Para que aparezca un borde, necesitas tres piezas separadas: encender el borde, darle grosor y darle color. Para redondear esquinas usas otra palabra.
+                        </p>
+                        <ul class="list-disc pl-5 text-slate-600 space-y-2 mb-6">
+                            <li>Encender: Escribe <code class="bg-slate-100 px-1 rounded">border</code>. Esto crea una linea fina.</li>
+                            <li>Grosor (opcional): Escribe <code class="bg-slate-100 px-1 rounded">border-2</code>, <code class="bg-slate-100 px-1 rounded">border-4</code> o <code class="bg-slate-100 px-1 rounded">border-8</code>.</li>
+                            <li>Color: Escribe <code class="bg-slate-100 px-1 rounded">border-</code> seguido del color y el numero (ejemplo: <code class="bg-slate-100 px-1 rounded">border-red-500</code>).</li>
+                            <li>Redondear: Escribe <code class="bg-slate-100 px-1 rounded">rounded</code>. Para hacerlo mas redondo usa <code class="bg-slate-100 px-1 rounded">rounded-md</code>, <code class="bg-slate-100 px-1 rounded">rounded-lg</code>, <code class="bg-slate-100 px-1 rounded">rounded-xl</code> o <code class="bg-slate-100 px-1 rounded">rounded-full</code> (para circulos).</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-slate-900 relative">
+                        <button onclick="copyCode(this)" class="absolute top-4 right-4 bg-slate-700 text-white text-xs px-4 py-2 rounded hover:bg-slate-600">Copiar Codigo</button>
+                        <pre class="p-6 text-sm text-sky-300 font-mono overflow-x-auto"><code>&lt;!-- border: activa la linea. border-gray-300: le da color. rounded: redondea poco --&gt;
+&lt;div class="border border-gray-300 rounded p-4"&gt;Caja basica&lt;/div&gt;
+
+&lt;!-- border-4: linea gruesa. border-blue-500: color azul. rounded-xl: muy redondo --&gt;
+&lt;div class="border-4 border-blue-500 rounded-xl p-4"&gt;Caja con borde grueso&lt;/div&gt;
+
+&lt;!-- border-b-2: Solo pone borde abajo (bottom) de grosor 2 --&gt;
+&lt;div class="border-b-2 border-red-500 p-2"&gt;Linea subrayada abajo&lt;/div&gt;
+
+&lt;!-- rounded-full: Convierte un cuadrado perfecto en un circulo --&gt;
+&lt;div class="border-2 border-green-500 rounded-full w-24 h-24"&gt;&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. ANCHO Y ALTO -->
+            <section id="dimensiones" class="mb-16 scroll-mt-24">
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-6 md:p-8 border-b border-slate-100">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">3. Como cambiar Ancho y Alto</h3>
+                        <p class="text-slate-600 mb-4">
+                            <strong>La regla:</strong> Usa <code class="bg-slate-100 px-1 rounded">w-</code> para el Ancho (Width) y <code class="bg-slate-100 px-1 rounded">h-</code> para el Alto (Height).
+                        </p>
+                        <ul class="list-disc pl-5 text-slate-600 space-y-2 mb-6">
+                            <li>Totalidad: <code class="bg-slate-100 px-1 rounded">w-full</code> (ocupa el 100% del espacio), <code class="bg-slate-100 px-1 rounded">h-screen</code> (ocupa el alto completo de la pantalla).</li>
+                            <li>Fracciones: <code class="bg-slate-100 px-1 rounded">w-1/2</code> (mitad), <code class="bg-slate-100 px-1 rounded">w-1/3</code> (un tercio).</li>
+                            <li>Medidas fijas: Igual que el padding, usa numeros como <code class="bg-slate-100 px-1 rounded">w-16</code>, <code class="bg-slate-100 px-1 rounded">w-32</code>, <code class="bg-slate-100 px-1 rounded">h-64</code>.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-slate-900 relative">
+                        <button onclick="copyCode(this)" class="absolute top-4 right-4 bg-slate-700 text-white text-xs px-4 py-2 rounded hover:bg-slate-600">Copiar Codigo</button>
+                        <pre class="p-6 text-sm text-sky-300 font-mono overflow-x-auto"><code>&lt;!-- w-full: Se estira de lado a lado ocupando todo el ancho disponible --&gt;
+&lt;div class="w-full bg-blue-200 p-2"&gt;Boton ancho 100%&lt;/div&gt;
+
+&lt;!-- w-1/2: Ocupa exactamente la mitad del espacio --&gt;
+&lt;div class="w-1/2 bg-red-200 p-2"&gt;Boton a la mitad 50%&lt;/div&gt;
+
+&lt;!-- w-32 h-32: Medidas fijas iguales crean un cuadrado perfecto --&gt;
+&lt;div class="w-32 h-32 bg-green-200"&gt;Cuadrado fijo&lt;/div&gt;
+
+&lt;!-- max-w-sm: Truco avanzado. Evita que la caja crezca demasiado en pantallas grandes.
+     Limita el ancho a un tamaño maximo "small" (pequeño). --&gt;
+&lt;div class="max-w-sm w-full bg-purple-200"&gt;No crecere mas de 384 pixeles&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. TAMAÑOS DE LETRA -->
+            <section id="textos" class="mb-16 scroll-mt-24">
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-6 md:p-8 border-b border-slate-100">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">4. Como cambiar los Tamaños de Letra</h3>
+                        <p class="text-slate-600 mb-4">
+                            <strong>La regla:</strong> Escribe <code class="bg-slate-100 px-1 rounded">text-</code> y añade el sufijo de tamaño como si fuera una etiqueta de ropa.
+                        </p>
+                        <ul class="list-disc pl-5 text-slate-600 space-y-2 mb-6">
+                            <li>Pequeños: <code class="bg-slate-100 px-1 rounded">text-xs</code> (extra small), <code class="bg-slate-100 px-1 rounded">text-sm</code> (small).</li>
+                            <li>Normal: <code class="bg-slate-100 px-1 rounded">text-base</code> (es el tamaño por defecto si no pones nada).</li>
+                            <li>Grandes: <code class="bg-slate-100 px-1 rounded">text-lg</code> (large), <code class="bg-slate-100 px-1 rounded">text-xl</code> (extra large).</li>
+                            <li>Titulares: <code class="bg-slate-100 px-1 rounded">text-2xl</code>, <code class="bg-slate-100 px-1 rounded">text-4xl</code>, hasta <code class="bg-slate-100 px-1 rounded">text-9xl</code>.</li>
+                            <li>Grosor: Usa <code class="bg-slate-100 px-1 rounded">font-bold</code> (negrita), <code class="bg-slate-100 px-1 rounded">font-light</code> (fina), <code class="bg-slate-100 px-1 rounded">font-black</code> (muy gruesa).</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-slate-900 relative">
+                        <button onclick="copyCode(this)" class="absolute top-4 right-4 bg-slate-700 text-white text-xs px-4 py-2 rounded hover:bg-slate-600">Copiar Codigo</button>
+                        <pre class="p-6 text-sm text-sky-300 font-mono overflow-x-auto"><code>&lt;!-- text-4xl: Letra muy grande. font-bold: Negrita --&gt;
+&lt;h1 class="text-4xl font-bold"&gt;Titulo principal de la pagina&lt;/h1&gt;
+
+&lt;!-- text-xl: Un poco mas grande que lo normal --&gt;
+&lt;h2 class="text-xl"&gt;Subtitulo de seccion&lt;/h2&gt;
+
+&lt;!-- text-sm: Letra pequeña. text-center: Centra el texto --&gt;
+&lt;p class="text-sm text-center"&gt;Texto pequeño centrado en la pantalla.&lt;/p&gt;
+
+&lt;!-- uppercase: Convierte todo el texto a MAYUSCULAS automaticamente --&gt;
+&lt;p class="text-xs uppercase"&gt;Aviso legal muy pequeño&lt;/p&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. COLORES -->
+            <section id="colores" class="mb-16 scroll-mt-24">
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-6 md:p-8 border-b border-slate-100">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">5. Como cambiar Color de Fondo y de Letra</h3>
+                        <p class="text-slate-600 mb-4">
+                            <strong>La regla para Fondos:</strong> Escribe <code class="bg-slate-100 px-1 rounded">bg-</code> (background), seguido del nombre del color en ingles, un guion, y un numero del 50 al 900 (intensidad). Ejemplo: <code class="bg-slate-100 px-1 rounded">bg-blue-500</code>.<br><br>
+                            <strong>La regla para Textos:</strong> Escribe <code class="bg-slate-100 px-1 rounded">text-</code>, el nombre del color en ingles, un guion, y el numero de intensidad. Ejemplo: <code class="bg-slate-100 px-1 rounded">text-red-700</code>.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-slate-900 relative">
+                        <button onclick="copyCode(this)" class="absolute top-4 right-4 bg-slate-700 text-white text-xs px-4 py-2 rounded hover:bg-slate-600">Copiar Codigo</button>
+                        <pre class="p-6 text-sm text-sky-300 font-mono overflow-x-auto"><code>&lt;!-- bg-blue-500: Fondo azul termino medio. text-white: Letra blanca pura --&gt;
+&lt;div class="bg-blue-500 text-white p-4"&gt;Boton azul&lt;/div&gt;
+
+&lt;!-- bg-red-100: Fondo rojo muy claro. text-red-800: Texto rojo muy oscuro.
+     Esta combinacion es excelente para mensajes de error suaves. --&gt;
+&lt;div class="bg-red-100 text-red-800 p-4"&gt;Error: Hubo un problema&lt;/div&gt;
+
+&lt;!-- bg-gray-900: Fondo gris casi negro. text-yellow-400: Letra amarilla brillante --&gt;
+&lt;div class="bg-gray-900 text-yellow-400 p-4"&gt;Modo oscuro&lt;/div&gt;
+
+&lt;!-- bg-transparent: Fondo invisible. Solo se vera el texto --&gt;
+&lt;div class="bg-transparent text-blue-600"&gt;Enlace sin fondo&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. SOMBRAS -->
+            <section id="sombras" class="mb-16 scroll-mt-24">
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-6 md:p-8 border-b border-slate-100">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">6. Como colocar Sombras</h3>
+                        <p class="text-slate-600 mb-4">
+                            <strong>La regla:</strong> Escribe la palabra <code class="bg-slate-100 px-1 rounded">shadow</code>. Si solo pones eso, da una sombra suave. Para hacerla mas grande, añade el sufijo de tamaño como en la letra.
+                        </p>
+                        <ul class="list-disc pl-5 text-slate-600 space-y-2 mb-6">
+                            <li>Basica: <code class="bg-slate-100 px-1 rounded">shadow-sm</code> (sombra pequeña), <code class="bg-slate-100 px-1 rounded">shadow</code> (sombra normal).</li>
+                            <li>Grande: <code class="bg-slate-100 px-1 rounded">shadow-md</code> (mediana), <code class="bg-slate-100 px-1 rounded">shadow-lg</code> (grande), <code class="bg-slate-100 px-1 rounded">shadow-xl</code> (extra grande). Estas hacen parecer que la caja flota.</li>
+                            <li>Sin sombra: <code class="bg-slate-100 px-1 rounded">shadow-none</code> (util para quitar sombras en celulares).</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-slate-900 relative">
+                        <button onclick="copyCode(this)" class="absolute top-4 right-4 bg-slate-700 text-white text-xs px-4 py-2 rounded hover:bg-slate-600">Copiar Codigo</button>
+                        <pre class="p-6 text-sm text-sky-300 font-mono overflow-x-auto"><code>&lt;!-- shadow-sm: Una sombra apenas visible, da un aspecto limpio --&gt;
+&lt;div class="bg-white p-4 shadow-sm rounded-md"&gt;Tarjeta sencilla&lt;/div&gt;
+
+&lt;!-- shadow-lg: Sombra grande, ideal para menues desplegables o ventanas importantes --&gt;
+&lt;div class="bg-white p-4 shadow-lg rounded-lg"&gt;Tarjeta flotante&lt;/div&gt;
+
+&lt;!-- shadow-xl: Efecto de mucha profundidad, como si estuviera muy cerca de ti --&gt;
+&lt;div class="bg-white p-4 shadow-xl rounded-xl"&gt;Ventana emergente&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. IMAGENES -->
+            <section id="imagenes" class="mb-16 scroll-mt-24">
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-6 md:p-8 border-b border-slate-100">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">7. Como manejar Imagenes</h3>
+                        <p class="text-slate-600 mb-4">
+                            <strong>La regla:</strong> Las imagenes suelen desbordarse o deformarse. Para controlarlas, siempre aplicales clases de tamaño y ajuste de objeto.
+                        </p>
+                        <ul class="list-disc pl-5 text-slate-600 space-y-2 mb-6">
+                            <li>Prevenir que se salga: Ponle siempre <code class="bg-slate-100 px-1 rounded">w-full</code> para que se adapte al ancho de la caja en la que esta metida.</li>
+                            <li>Evitar que se deforme: Si le das un ancho y alto fijo a una imagen, se puede estirar feo. Usa <code class="bg-slate-100 px-1 rounded">object-cover</code>. Esto recorta la imagen perfectamente sin deformarla, como una foto de perfil.</li>
+                            <li>Bordes: Puedes usar <code class="bg-slate-100 px-1 rounded">rounded</code> igual que en las cajas para redondear las esquinas de la foto.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-slate-900 relative">
+                        <button onclick="copyCode(this)" class="absolute top-4 right-4 bg-slate-700 text-white text-xs px-4 py-2 rounded hover:bg-slate-600">Copiar Codigo</button>
+                        <pre class="p-6 text-sm text-sky-300 font-mono overflow-x-auto"><code>&lt;!-- w-full: La imagen ocupa todo el ancho de la caja donde la metas.
+     h-auto: Mantiene la proporcion original.
+     rounded-lg: Le redondea las esquinas. --&gt;
+&lt;img src="foto.jpg" class="w-full h-auto rounded-lg" alt="Paisaje"&gt;
+
+&lt;!-- PARA FOTOS DE PERFIL O CUADRADOS PERFECTOS:
+     Le damos un ancho (w-24) y un alto (h-24) exactos.
+     rounded-full: La convierte en un circulo.
+     object-cover: ES LA CLASE MAGICA. Evita que la cara se vea estirada 
+     o aplastada, recortando sobrantes invisiblemente. --&gt;
+&lt;img src="perfil.jpg" class="w-24 h-24 rounded-full object-cover" alt="Usuario"&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 8. FLEXBOX -->
+            <section id="flexbox" class="mb-16 scroll-mt-24">
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-6 md:p-8 border-b border-slate-100">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">8. Como usar Flexbox (Alinear cosas)</h3>
+                        <p class="text-slate-600 mb-4">
+                            <strong>La regla:</strong> Flexbox sirve para alinear elementos (como poner un texto al lado de un boton). Siempre debes aplicar la palabra <code class="bg-slate-100 px-1 rounded">flex</code> a la caja "Padre" que contiene las cosas. Al hacer esto, las cosas de adentro se pondran en una fila horizontal inmediatamente.
+                        </p>
+                        <ul class="list-disc pl-5 text-slate-600 space-y-2 mb-6">
+                            <li>Activar: <code class="bg-slate-100 px-1 rounded">flex</code> (en la caja que envuelve todo).</li>
+                            <li>Separar las cosas (Horizontal): <code class="bg-slate-100 px-1 rounded">justify-between</code> (uno a la izquierda, otro a la derecha), <code class="bg-slate-100 px-1 rounded">justify-center</code> (todo al centro horizontal).</li>
+                            <li>Alinear cosas (Vertical): <code class="bg-slate-100 px-1 rounded">items-center</code> (centra las cosas de arriba a abajo, ideal para alinear un icono con un texto).</li>
+                            <li>Espaciado entre ellos: Usa <code class="bg-slate-100 px-1 rounded">gap-2</code>, <code class="bg-slate-100 px-1 rounded">gap-4</code>, etc., para meter espacio hueco entre los elementos sin usar margenes.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-slate-900 relative">
+                        <button onclick="copyCode(this)" class="absolute top-4 right-4 bg-slate-700 text-white text-xs px-4 py-2 rounded hover:bg-slate-600">Copiar Codigo</button>
+                        <pre class="p-6 text-sm text-sky-300 font-mono overflow-x-auto"><code>&lt;!-- ALINEAR DOS COSAS SEPARADAS (Ejemplo: Titulo a la izquierda, boton a la derecha):
+     flex: Activa el modo fila.
+     justify-between: Empuja el titulo a la izquierda y el boton a la derecha.
+     items-center: Asegura que el boton no quede mas arriba ni abajo que el texto. --&gt;
+&lt;div class="flex justify-between items-center bg-gray-100 p-4"&gt;
+    &lt;h2&gt;Mi Titulo&lt;/h2&gt;
+    &lt;button class="bg-blue-500 text-white p-2"&gt;Accion&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- CENTRAR TOTALMENTE ALGO:
+     flex: Activa el modo fila.
+     justify-center: Centra de izquierda a derecha.
+     items-center: Centra de arriba a abajo. --&gt;
+&lt;div class="flex justify-center items-center h-64 bg-gray-200"&gt;
+    &lt;p&gt;Estoy flotando justo en el medio&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- PONER ELEMENTOS LADO A LADO CON ESPACIO:
+     flex: Los pone en fila.
+     gap-4: Coloca un espacio limpio entre cada boton sin tener que usar margenes. --&gt;
+&lt;div class="flex gap-4"&gt;
+    &lt;button class="bg-red-500 p-2 text-white"&gt;Cancelar&lt;/button&gt;
+    &lt;button class="bg-green-500 p-2 text-white"&gt;Guardar&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="mt-20 border-t border-slate-200 pt-10 pb-20 text-center text-slate-500">
+                <p>Copia y pega los bloques de codigo directamente en tu HTML. Solo cambia las palabras por tu propio contenido.</p>
+            </footer>
+
+        </main>
+    </div>
+
+    <script>
+        function copyCode(button) {
+            const pre = button.nextElementSibling;
+            const codeText = pre.innerText.trim();
+            const textarea = document.createElement('textarea');
+            textarea.value = codeText;
+            textarea.setAttribute('readonly', '');
+            textarea.style.position = 'absolute';
+            textarea.style.left = '-9999px';
+            document.body.appendChild(textarea);
+            
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            const originalText = button.innerText;
+            button.innerText = 'Copiado';
+            button.classList.add('bg-green-500', 'hover:bg-green-600');
+            button.classList.remove('bg-slate-700', 'hover:bg-slate-600');
+            
+            setTimeout(() => {
+                button.innerText = originalText;
+                button.classList.remove('bg-green-500', 'hover:bg-green-600');
+                button.classList.add('bg-slate-700', 'hover:bg-slate-600');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
