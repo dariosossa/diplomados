@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Web: Dashboard Explicado al Detalle</title>
+    <style>
+        /* ESTILOS DEL MANUAL (Solo presentación) */
+        body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; color: #333; max-width: 1100px; margin: 0 auto; padding: 2rem; background-color: #f3f4f6; }
+        h1 { color: #111827; border-bottom: 3px solid #c5a059; padding-bottom: 1rem; text-align: center; font-size: 2.5rem; }
+        h2 { color: #1f2937; margin-top: 0; font-size: 1.8rem; }
+        .seccion { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); margin-bottom: 3rem; border-top: 5px solid #1f2937; }
+        p { font-size: 1.05rem; margin-bottom: 1rem; }
+        .codigo-contenedor { position: relative; margin-top: 1rem; margin-bottom: 2rem; }
+        pre { background-color: #1e293b; color: #f8fafc; padding: 3rem 1.5rem 1.5rem; border-radius: 8px; overflow-x: auto; font-size: 0.95rem; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); line-height: 1.5; }
+        code { font-family: 'Courier New', Courier, monospace; }
+        .btn-copiar { position: absolute; top: 10px; right: 10px; background-color: #c5a059; color: #000; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85rem; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .btn-copiar:hover { background-color: #d4af37; transform: translateY(-2px); }
+        .btn-copiar.copiado { background-color: #10b981; color: white; }
+    </style>
+</head>
+<body>
+
+    <h1>Código Explicado al Detalle: index-admin.html</h1>
+    <p style="text-align: center; margin-bottom: 3rem; font-size: 1.2rem;">Este es el archivo principal del panel que contiene la barra lateral (Sidebar) y el <em>iframe</em>. Cada propiedad CSS y cada clase de Tailwind está comentada para el aula.</p>
+
+    <!-- CÓDIGO COMPLETO: CSS CLÁSICO -->
+    <div class="seccion">
+        <h2>Opción 1: HTML y CSS Clásico</h2>
+        
+        <div class="codigo-contenedor">
+            <button class="btn-copiar" onclick="copiarCodigo(this)">Copiar Código Completo</button>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Panel de Control - Valerius Abogados&lt;/title&gt;
+  
+  &lt;style&gt;
+    /* =========================================
+       1. RESET Y ESTILOS BASE
+       ========================================= */
+    * { 
+      margin: 0;               /* Quita márgenes externos de todos los elementos */
+      padding: 0;              /* Quita rellenos internos de todos los elementos */
+      box-sizing: border-box;  /* Evita que los bordes modifiquen el ancho/alto de las cajas */
+    }
+    body { 
+      font-family: sans-serif; /* Tipografía general limpia */
+      background-color: #f8fafc; /* Fondo general gris clarito */
+    }
+
+    /* =========================================
+       2. ESTRUCTURA PRINCIPAL (FLEXBOX)
+       ========================================= */
+    .admin-layout { 
+      display: flex;           /* Activa Flexbox para poner la barra a la izq y el iframe a la der */
+      height: 100vh;           /* Altura estricta del 100% de la ventana visible del navegador */
+      overflow: hidden;        /* Oculta cualquier cosa que se salga de la pantalla (evita scroll doble) */
+    }
+
+    /* =========================================
+       3. BARRA LATERAL (SIDEBAR)
+       ========================================= */
+    .sidebar { 
+      width: 260px;            /* Ancho estricto y fijo para la barra lateral */
+      background: #0f172a;     /* Fondo azul marino muy oscuro */
+      color: white;            /* Todo el texto dentro será blanco por defecto */
+      display: flex;           /* Flexbox interno en la barra lateral */
+      flex-direction: column;  /* Apila los elementos en columna (arriba hacia abajo) */
+      padding: 20px;           /* Relleno interno de 20px en los 4 lados */
+    }
+    
+    /* Logotipo de la Barra Lateral */
+    .sidebar-logo { 
+      font-size: 1.5rem;       /* Tamaño de letra grande (24px aprox) */
+      color: #c5a059;          /* Letras color dorado institucional */
+      font-weight: 700;        /* Letra muy en negrita */
+      margin-bottom: 2rem;     /* Empuja el menú de abajo separándolo 32px */
+      border-bottom: 1px solid #1e293b; /* Línea separadora inferior de color gris oscuro */
+      padding-bottom: 1rem;    /* Espacio entre el texto del logo y la línea separadora */
+    }
+    
+    /* Contenedor del Menú de Navegación */
+    .sidebar-menu { 
+      flex-grow: 1;            /* ¡CLAVE! Hace que este contenedor ocupe TODO el espacio vertical libre, empujando el botón de salir hacia el fondo */
+      display: flex;           /* Activa Flexbox para los enlaces */
+      flex-direction: column;  /* Apila los enlaces uno debajo del otro */
+      gap: 10px;               /* Separación exacta de 10px entre cada enlace */
+    }
+    
+    /* Enlaces del Menú */
+    .sidebar-menu a { 
+      color: #cbd5e1;          /* Texto gris clarito (no blanco puro) para no cansar la vista */
+      text-decoration: none;   /* Quita la línea inferior típica de los links */
+      padding: 12px 15px;      /* Alto y ancho interno para que parezcan botones */
+      border-radius: 8px;      /* Esquinas redondeadas */
+      transition: 0.3s;        /* Animación suave de colores al hacer hover */
+    }
+    .sidebar-menu a:hover { 
+      background: #1e293b;     /* Fondo gris oscuro al pasar el ratón */
+      color: white;            /* Texto blanco brillante al pasar el ratón */
+    }
+    
+    /* Enlace Activo (La página donde estamos parados) */
+    .sidebar-menu a.activo { 
+      background: #c5a059;     /* Fondo dorado */
+      color: black;            /* Texto negro */
+      font-weight: bold;       /* Negrita para resaltar */
+    }
+    
+    /* Botón Cerrar Sesión (Ubicado al final de la barra) */
+    .btn-salir { 
+      color: #f87171;          /* Texto color rojo pastel */
+      text-decoration: none;   /* Quita subrayado */
+      font-weight: 600;        /* Semi-negrita */
+      padding: 12px 15px;      /* Mismas medidas que los enlaces del menú */
+    }
+
+    /* =========================================
+       4. ÁREA PRINCIPAL E IFRAME
+       ========================================= */
+    .area-principal { 
+      flex: 1;                 /* Ocupa TODO el ancho sobrante de la pantalla que la barra lateral no usa */
+      padding: 1.5rem;         /* Espacio interno de 24px alrededor del iframe */
+    }
+    
+    .iframe-contenido { 
+      width: 100%;             /* Ocupa el 100% del ancho del .area-principal */
+      height: 100%;            /* Ocupa el 100% de la altura del .area-principal */
+      border: none;            /* Quita el borde nativo, grueso y feo de los iframes */
+      border-radius: 12px;     /* Redondea las esquinas del iframe */
+      background: white;       /* Fondo blanco detrás de los contenidos del iframe */
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); /* Sombra muy sutil para que parezca una tarjeta flotando sobre el fondo gris */
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;!-- 2. ESTRUCTURA PRINCIPAL --&gt;
+  &lt;div class="admin-layout"&gt;
+    
+    &lt;!-- 3. BARRA LATERAL --&gt;
+    &lt;aside class="sidebar"&gt;
+      &lt;div class="sidebar-logo"&gt;Valerius Admin&lt;/div&gt;
+      
+      &lt;!-- MENÚ: Contiene los enlaces con 'target' hacia el iframe --&gt;
+      &lt;nav class="sidebar-menu"&gt;
+        &lt;!-- El atributo target="visor_crud" abre esta URL dentro del iframe --&gt;
+        &lt;a href="casos.html" target="visor_crud" class="activo"&gt;Gestión de Casos&lt;/a&gt;
+        &lt;a href="clientes.html" target="visor_crud"&gt;Clientes&lt;/a&gt;
+        &lt;a href="facturas.html" target="visor_crud"&gt;Facturación&lt;/a&gt;
+      &lt;/nav&gt;
+      
+      &lt;!-- Botón inferior para salir del sistema --&gt;
+      &lt;a href="login.html" class="btn-salir"&gt;Cerrar Sesión&lt;/a&gt;
+    &lt;/aside&gt;
+
+    &lt;!-- 4. ÁREA PRINCIPAL (IFRAME) --&gt;
+    &lt;main class="area-principal"&gt;
+      &lt;!-- 
+        name="visor_crud": Identificador que buscan los enlaces 'target'.
+        src="casos.html": Página que se carga por defecto al entrar al panel. 
+      --&gt;
+      &lt;iframe name="visor_crud" src="casos.html" class="iframe-contenido" title="Visor de Datos"&gt;&lt;/iframe&gt;
+    &lt;/main&gt;
+
+  &lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </div>
+    </div>
+
+    <!-- CÓDIGO COMPLETO: TAILWIND CSS -->
+    <div class="seccion">
+        <h2>Opción 2: Tailwind CSS</h2>
+        <div class="codigo-contenedor">
+            <button class="btn-copiar" onclick="copiarCodigo(this)">Copiar Código Completo</button>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Panel de Control - Tailwind&lt;/title&gt;
+  
+  &lt;!-- CARGA DE LIBRERÍA CDN --&gt;
+  &lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;!-- 
+  ================= 1. ESTILOS BASE DEL BODY =================
+  font-sans: Tipografía sans-serif.
+  antialiased: Suavizado de bordes en Mac/iOS.
+  bg-slate-50: Color de fondo gris extraclaro (#f8fafc) para todo el panel.
+  text-slate-800: Color de texto general oscuro.
+--&gt;
+&lt;body class="font-sans antialiased bg-slate-50 text-slate-800"&gt;
+
+  &lt;!-- 
+    ================= 2. ESTRUCTURA PRINCIPAL =================
+    flex: Pone la barra lateral y el iframe uno al lado del otro en horizontal.
+    h-screen: height: 100vh. Altura exacta de la ventana.
+    overflow-hidden: Impide que haya barra de desplazamiento general en el navegador.
+  --&gt;
+  &lt;div class="flex h-screen overflow-hidden"&gt;
+    
+    &lt;!-- 
+      ================= 3. BARRA LATERAL (SIDEBAR) =================
+      w-64: width de 16rem (256px). Ancho fijo de la barra.
+      bg-[#0f172a]: Fondo azul marino oscuro.
+      text-white: Letra blanca por defecto.
+      flex flex-col: Alineación en columna (apila logo, menú y botón salir hacia abajo).
+      p-6: padding de 1.5rem (24px) alrededor del borde interno.
+    --&gt;
+    &lt;aside class="w-64 bg-[#0f172a] text-white flex flex-col p-6"&gt;
+      
+      &lt;!-- 
+        LOGOTIPO
+        text-[#c5a059]: Letra dorada.
+        text-2xl font-bold: Tamaño grande y negrita.
+        mb-8: margin-bottom de 32px (separa del menú).
+        pb-4: padding-bottom de 16px (separa el texto de la línea de abajo).
+        border-b border-slate-800: Aplica un borde inferior de 1px color gris oscuro.
+      --&gt;
+      &lt;div class="text-[#c5a059] text-2xl font-bold mb-8 pb-4 border-b border-slate-800"&gt;
+        Valerius Admin
+      &lt;/div&gt;
+      
+      &lt;!-- 
+        MENÚ DE ENLACES
+        flex-grow: Esta clase es VITAL. Hace que el <div> crezca para ocupar todo el 
+                   espacio sobrante en la barra lateral. Eso obliga al botón de "Cerrar Sesión" 
+                   a quedarse aplastado en la parte inferior.
+        flex flex-col gap-2: Apila los <a> uno sobre otro, con separación de 8px (0.5rem).
+      --&gt;
+      &lt;nav class="flex-grow flex flex-col gap-2"&gt;
+        
+        &lt;!-- 
+          ENLACE ACTIVO (Donde estamos parados)
+          bg-[#c5a059]: Fondo dorado.
+          text-black font-bold: Letra negra y gorda.
+          px-4 py-3: padding interno.
+          rounded-lg: Borde redondo 8px.
+        --&gt;
+        &lt;a href="casos.html" target="visor_crud" class="bg-[#c5a059] text-black font-bold px-4 py-3 rounded-lg"&gt;
+          Gestión de Casos
+        &lt;/a&gt;
+        
+        &lt;!-- 
+          ENLACE INACTIVO
+          text-slate-300: Texto gris claro normal.
+          px-4 py-3 rounded-lg: Mismo tamaño y forma.
+          hover:bg-slate-800 hover:text-white: Al pasar ratón se pone gris oscuro con texto blanco vivo.
+          transition-colors: Animación.
+        --&gt;
+        &lt;a href="clientes.html" target="visor_crud" class="text-slate-300 px-4 py-3 rounded-lg hover:bg-slate-800 hover:text-white transition-colors"&gt;
+          Clientes
+        &lt;/a&gt;
+        &lt;a href="facturas.html" target="visor_crud" class="text-slate-300 px-4 py-3 rounded-lg hover:bg-slate-800 hover:text-white transition-colors"&gt;
+          Facturación
+        &lt;/a&gt;
+
+      &lt;/nav&gt;
+
+      &lt;!-- 
+        BOTÓN SALIR
+        text-red-400 font-bold: Letra roja pastel y gruesa.
+        px-4 py-3: Padding interno.
+        hover:text-red-300: Ratón encima pone el rojo más claro.
+        mt-auto: margin-top: auto. Asegura que siempre esté pegado al borde inferior.
+      --&gt;
+      &lt;a href="login.html" class="text-red-400 font-bold px-4 py-3 hover:text-red-300 mt-auto"&gt;
+        Cerrar Sesión
+      &lt;/a&gt;
+    &lt;/aside&gt;
+
+    &lt;!-- 
+      ================= 4. ÁREA DEL IFRAME =================
+      flex-1: Toma el resto del ancho de la pantalla (100% menos los 256px de la barra lateral).
+      p-6: Padding de 24px en todos los lados.
+    --&gt;
+    &lt;main class="flex-1 p-6"&gt;
+      
+      &lt;!-- 
+        IFRAME DE CONTENIDO
+        name="visor_crud": Recibe la orden de los "target" del menú.
+        src="casos.html": Archivo que carga por defecto.
+        w-full h-full: Ocupa el 100% de la etiqueta <main>.
+        border-none: Quita borde gris nativo.
+        rounded-xl: Borde extra redondeado (12px).
+        shadow-sm: Sombra sutil.
+        bg-white: Fondo blanco.
+      --&gt;
+      &lt;iframe name="visor_crud" src="casos.html" class="w-full h-full border-none rounded-xl shadow-sm bg-white"&gt;&lt;/iframe&gt;
+      
+    &lt;/main&gt;
+
+  &lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </div>
+    </div>
+
+    <!-- SCRIPT PARA EL BOTÓN DE COPIAR -->
+    <script>
+        function copiarCodigo(boton) {
+            const pre = boton.parentElement.querySelector('pre');
+            const textoCodigo = pre.innerText;
+
+            navigator.clipboard.writeText(textoCodigo).then(() => {
+                const textoOriginal = boton.innerText;
+                boton.innerText = '¡Copiado!';
+                boton.classList.add('copiado');
+
+                setTimeout(() => {
+                    boton.innerText = textoOriginal;
+                    boton.classList.remove('copiado');
+                }, 2000);
+            }).catch(err => {
+                console.error('Error al copiar: ', err);
+                boton.innerText = 'Error';
+            });
+        }
+    </script>
+
+</body>
+</html>
