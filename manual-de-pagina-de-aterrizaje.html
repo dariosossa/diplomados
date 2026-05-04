@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Web: CSS Clásico vs Tailwind CSS</title>
+    <style>
+        /* ESTILOS DEL MANUAL (Afectan solo a la presentación del documento) */
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #f3f4f6;
+        }
+        h1 { color: #111827; border-bottom: 3px solid #c5a059; padding-bottom: 1rem; text-align: center; font-size: 2.5rem; }
+        h2 { color: #1f2937; margin-top: 0; font-size: 1.8rem; }
+        h3 { color: #c5a059; margin-top: 1.5rem; border-left: 4px solid #c5a059; padding-left: 10px; }
+        .seccion { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); margin-bottom: 3rem; border-top: 5px solid #1f2937; }
+        p, li { font-size: 1.05rem; }
+        
+        /* Contenedor de código con botón de copiar */
+        .codigo-contenedor {
+            position: relative;
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+        }
+        pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 3rem 1.5rem 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.95rem;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+            line-height: 1.5;
+        }
+        code { font-family: 'Courier New', Courier, monospace; }
+        .btn-copiar {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #c5a059;
+            color: #000;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .btn-copiar:hover { background-color: #d4af37; transform: translateY(-2px); }
+        .btn-copiar.copiado { background-color: #10b981; color: white; }
+    </style>
+</head>
+<body>
+
+    <h1>Manual de Construcción: Valerius Abogados</h1>
+    <p style="text-align: center; margin-bottom: 3rem; font-size: 1.2rem;">Aprende a construir una Landing Page profesional comparando <strong>CSS Clásico</strong> y <strong>Tailwind CSS</strong> paso a paso.</p>
+
+    <!-- SECCIÓN 0: ESTRUCTURA BÁSICA -->
+    <div class="seccion">
+        <h2>0. Estructura Básica del Documento</h2>
+        <p>Antes de comenzar a escribir el código de nuestro diseño, necesitamos preparar el archivo HTML base para que el navegador lo entienda y reconozca nuestros estilos.</p>
+
+        <h3>Método 1: HTML y CSS Clásico</h3>
+        <p>En el método tradicional, creamos un archivo HTML y lo vinculamos a un archivo CSS externo mediante la etiqueta <code>&lt;link&gt;</code>.</p>
+        <div class="codigo-contenedor">
+            <button class="btn-copiar" onclick="copiarCodigo(this)">Copiar</button>
+<pre><code>&lt;!-- Archivo: index.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Valerius Abogados&lt;/title&gt;
+  
+  &lt;!-- Enlace a nuestro archivo CSS externo --&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  
+  &lt;!-- Aquí irá el contenido de nuestra página --&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+
+
+/* Archivo: style.css (Reset básico de márgenes) */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: sans-serif;
+}</code></pre>
+        </div>
+
+        <h3>Método 2: Tailwind CSS</h3>
+        <p>Para usar Tailwind rápidamente sin instalar programas en tu computadora, utilizamos su versión <strong>CDN</strong> (Content Delivery Network). Solo necesitas pegar un <code>&lt;script&gt;</code> en el encabezado de tu HTML. ¡No necesitas un archivo CSS extra!</p>
+        <div class="codigo-contenedor">
+            <button class="btn-copiar" onclick="copiarCodigo(this)">Copiar</button>
+<pre><code>&lt;!-- Archivo: index.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Valerius Abogados - Tailwind&lt;/title&gt;
+  
+  &lt;!-- SCRIPT OBLIGATORIO: Con esto Tailwind funcionará en tu navegador --&gt;
+  &lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body class="font-sans antialiased"&gt;
+  
+  &lt;!-- Aquí irá el contenido con las clases utilitarias de Tailwind --&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 1: NAVEGACIÓN -->
+    <div class="seccion">
+        <h2>1. Barra de Navegación (Header)</h2>
+        <p>Creamos el encabezado superior con el logotipo, los enlaces y el botón de inicio de sesión.</p>
+
+        <h3>Método 1: HTML y CSS Clásico</h3>
+        <div class="codigo-contenedor">
+            <button class="btn-copiar" onclick="copiarCodigo(this)">Copiar</button>
+<pre><code>&lt;header class="barra-navegacion"&gt;
+  &lt;div class="logo"&gt;
+    &lt;span class="marca"&gt;Valerius&lt;/span&gt;
+    &lt;span class="subtexto"&gt;Abogados & Asociados&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;nav class="enlaces-nav"&gt;
+    &lt;a href="#inicio"&gt;Inicio&lt;/a&gt;
+    &lt;a href="#equipo"&gt;Equipo&lt;/a&gt;
+    &lt;a href="#contacto"&gt;Contacto&lt;/a&gt;
+    &lt;a href="#login" class="enlace-login"&gt;Iniciar Sesión&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;style&gt;
+.barra-navegacion { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: #0f172a; flex-wrap: wrap; }
+.logo { display: flex; flex-direction: column; }
+.marca { font-size: 1.6rem; color: #c5a059; font-weight: 700; }
+.subtexto { font-size: 0.7rem; color: #94a3b8; letter-spacing: 3px; }
+.enlaces-nav { display: flex; gap: 2rem; align-items: center; }
+.enlaces-nav a { color: #c5a059; text-decoration: none; font-weight: 600; transition: color 0.3s ease; }
+.enlaces-nav a:hover { color: white; }
+.enlace-login { border: 2px solid #c5a059; padding: 6px 16px; border-radius: 20px; }
+.enlace-login:hover { background: #c5a059; color: black; }
+&lt;/style&gt;</code></pre>
+        </div>
+
+        <h3>Método 2: Tailwind CSS</h3>
+        <div class="codigo-contenedor">
+            <button class="btn-copiar" onclick="copiarCodigo(this)">Copiar</button>
+<pre><code>&lt;!-- justify-between: Separa logo y menú. items-center: Centra verticalmente. --&gt;
+&lt;header class="flex justify-between items-center bg-[#0f172a] px-[5%] py-[15px] flex-wrap"&gt;
+  
+  &lt;div class="flex flex-col"&gt;
+    &lt;span class="text-[#c5a059] text-[1.6rem] font-bold"&gt;Valerius&lt;/span&gt;
+    &lt;span class="text-[#94a3b8] text-[0.7rem] tracking-[3px]"&gt;Abogados & Asociados&lt;/span&gt;
+  &lt;/div&gt;
+
+  &lt;nav class="flex gap-8 items-center"&gt;
+    &lt;a href="#inicio" class="text-[#c5a059] font-semibold hover:text-white transition-colors"&gt;Inicio&lt;/a&gt;
+    &lt;a href="#equipo" class="text-[#c5a059] font-semibold hover:text-white transition-colors"&gt;Equipo&lt;/a&gt;
+    &lt;a href="#contacto" class="text-[#c5a059] font-semibold hover:text-white transition-colors"&gt;Contacto&lt;/a&gt;
+    
+    &lt;!-- Botón de Login con bordes redondeados y hover --&gt;
+    &lt;a href="#login" class="text-[#c5a059] font-semibold border-2 border-[#c5a059] px-4 py-1.5 rounded-full hover:bg-[#c5a059] hover:text-black transition-all"&gt;
+      Iniciar Sesión
+    &lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;</code></pre>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 2: PORTADA -->
+    <div class="seccion">
+        <h2>2. Portada Principal (Hero)</h2>
+        <p>La sección visual inicial con una imagen de fondo oscurecida.</p>
+
+        <h3>Método 1: HTML y CSS Clásico</h3>
+        <div class="codigo-contenedor">
+            <button class="btn-copiar" onclick="copiarCodigo(this)">Copiar</button>
+<pre><code>&lt;section class="portada"&gt;
+  &lt;div&gt;
+    &lt;h1&gt;La justicia es la base de una &lt;span&gt;sociedad libre&lt;/span&gt;&lt;/h1&gt;
+    &lt;p&gt;Soluciones legales estratégicas&lt;/p&gt;
+    &lt;a href="#contacto" class="btn-primario"&gt;Contactar&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;style&gt;
+.portada { min-height: 100vh; display: flex; justify-content: center; align-items: center; text-align: center; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('img.jpg') center/cover; color: white; padding: 20px; }
+.portada h1 { font-family: "Playfair Display", serif; font-size: 3rem; line-height: 1.3; }
+.portada span { color: #c5a059; }
+.portada p { margin-top: 10px; color: #94a3b8; margin-bottom: 25px; }
+.btn-primario { background: #c5a059; color: black; padding: 10px 20px; border-radius: 30px; text-decoration: none; font-weight: 700; transition: 0.3s; }
+.btn-primario:hover { background: black; color: #c5a059; }
+&lt;/style&gt;</code></pre>
+        </div>
+
+        <h3>Método 2: Tailwind CSS</h3>
+        <div class="codigo-contenedor">
+            <button class="btn-copiar" onclick="copiarCodigo(this)">Copiar</button>
+<pre><code>&lt;!-- min-h-screen: Altura 100vh. bg-[url(...)]: Imagen de fondo. --&gt;
+&lt;section class="min-h-screen flex justify-center items-center text-center p-5 text-white bg-[linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.7)),url('img.jpg')] bg-cover bg-center"&gt;
+  &lt;div&gt;
+    &lt;h1 class="font-serif text-5xl leading-tight"&gt;
+      La justicia es la base de una &lt;span class="text-[#c5a059]"&gt;sociedad libre&lt;/span&gt;
+    &lt;/h1&gt;
+    &lt;p class="mt-3 mb-6 text-slate-400"&gt;Soluciones legales estratégicas&lt;/p&gt;
+    
+    &lt;a href="#contacto" class="bg-[#c5a059] text-black px-6 py-2.5 rounded-full font-bold hover:bg-black hover:text-[#c5a059] transition-all"&gt;
+      Contactar
+    &lt;/a&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 3: ESTADÍSTICAS -->
+    <div class="seccion">
+        <h2>3. Barra de Estadísticas</h2>
+        <p>Tres bloques dorados mostrando datos importantes de la firma.</p>
+
+        <h3>Método 1: HTML y CSS Clásico</h3>
+        <div class="codigo-contenedor">
+            <button class="btn-copiar" onclick="copiarCodigo(this)">Copiar</button>
+<pre><code>&lt;section class="barra-estadisticas"&gt;
+  &lt;div class="item-estadistica"&gt;&lt;span&gt;+30&lt;/span&gt;&lt;br&gt;Años&lt;/div&gt;
+  &lt;div class="item-estadistica"&gt;&lt;span&gt;98%&lt;/span&gt;&lt;br&gt;Éxito&lt;/div&gt;
+  &lt;div class="item-estadistica"&gt;&lt;span&gt;+200&lt;/span&gt;&lt;br&gt;Casos&lt;/div&gt;
+&lt;/section&gt;
+
+&lt;style&gt;
+.barra-estadisticas { display: flex; flex-wrap: wrap; gap: 20px; padding: 3rem 5%; background: #0f172a; justify-content: center; }
+.item-estadistica { flex: 1 1 250px; max-width: 300px; text-align: center; padding: 25px; background: #c5a059; border-radius: 10px; border: 2px solid transparent; transition: 0.3s; }
+.item-estadistica:hover { background: black; color: #c5a059; border-color: #c5a059; }
+.item-estadistica span:first-child { font-size: 3rem; font-weight: 700; }
+&lt;/style&gt;</code></pre>
+        </div>
+
+        <h3>Método 2: Tailwind CSS</h3>
+        <div class="codigo-contenedor">
+            <button class="btn-copiar" onclick="copiarCodigo(this)">Copiar</button>
+<pre><code>&lt;!-- flex-wrap: Permite que bajen de línea en móviles --&gt;
+&lt;section class="flex flex-wrap gap-5 py-12 px-[5%] bg-[#0f172a] justify-center"&gt;
+  
+  &lt;!-- flex-auto y max-w-[300px]: Se ajustan al espacio pero no crecen infinitamente --&gt;
+  &lt;div class="flex-auto max-w-[300px] text-center p-6 bg-[#c5a059] rounded-lg border-2 border-transparent hover:bg-black hover:text-[#c5a059] hover:border-[#c5a059] transition-all"&gt;
+    &lt;span class="text-5xl font-bold"&gt;+30&lt;/span&gt;&lt;br&gt;Años
+  &lt;/div&gt;
+
+  &lt;div class="flex-auto max-w-[300px] text-center p-6 bg-[#c5a059] rounded-lg border-2 border-transparent hover:bg-black hover:text-[#c5a059] hover:border-[#c5a059] transition-all"&gt;
+    &lt;span class="text-5xl font-bold"&gt;98%&lt;/span&gt;&lt;br&gt;Éxito
+  &lt;/div&gt;
+
+  &lt;div class="flex-auto max-w-[300px] text-center p-6 bg-[#c5a059] rounded-lg border-2 border-transparent hover:bg-black hover:text-[#c5a059] hover:border-[#c5a059] transition-all"&gt;
+    &lt;span class="text-5xl font-bold"&gt;+200&lt;/span&gt;&lt;br&gt;Casos
+  &lt;/div&gt;
+
+&lt;/section&gt;</code></pre>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 4: QUIÉNES SOMOS -->
+    <div class="seccion">
+        <h2>4. Nuestra Firma (Quiénes Somos)</h2>
+        <p>Misión y visión presentadas en elegantes tarjetas con borde superior dorado.</p>
+
+        <h3>Método 1: HTML y CSS Clásico</h3>
+        <div class="codigo-contenedor">
+            <button class="btn-copiar" onclick="copiarCodigo(this)">Copiar</button>
+<pre><code>&lt;section class="quienes-somos"&gt;
+  &lt;div class="contenedor-quienes"&gt;
+    &lt;h2&gt;Nuestra Firma&lt;/h2&gt;
+    &lt;p class="intro-texto"&gt;Ofrecemos soluciones legales de la más alta calidad...&lt;/p&gt;
+    &lt;div class="cuadricula-mv"&gt;
+      &lt;div class="tarjeta-mv"&gt;
+        &lt;h3&gt;Nuestra Misión&lt;/h3&gt;
+        &lt;p&gt;Proporcionar asesoría jurídica integral...&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;style&gt;
+.quienes-somos { padding: 5rem 5%; background: #ffffff; text-align: center; }
+.contenedor-quienes { max-width: 1200px; margin: 0 auto; }
+.quienes-somos h2 { font-family: "Playfair Display", serif; font-size: 2.5rem; color: #0f172a; margin-bottom: 1.5rem; }
+.intro-texto { color: #64748b; max-width: 800px; margin: 0 auto 3rem auto; line-height: 1.8; }
+.cuadricula-mv { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; }
+.tarjeta-mv { flex: 1 1 300px; background: #f8fafc; padding: 3rem 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-top: 4px solid #c5a059; text-align: left; transition: transform 0.3s ease; }
+.tarjeta-mv:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+.tarjeta-mv h3 { font-family: "Playfair Display", serif; font-size: 1.8rem; color: #0f172a; margin-bottom: 1rem; }
+.tarjeta-mv p { color: #64748b; line-height: 1.7; }
+&lt;/style&gt;</code></pre>
+        </div>
+
+        <h3>Método 2: Tailwind CSS</h3>
+        <div class="codigo-contenedor">
+            <button class="btn-copiar" onclick="copiarCodigo(this)">Copiar</button>
+<pre><code>&lt;section class="py-20 px-[5%] bg-white text-center"&gt;
+  &lt;div class="max-w-6xl mx-auto"&gt;
+    &lt;h2 class="font-serif text-4xl text-[#0f172a] mb-6"&gt;Nuestra Firma&lt;/h2&gt;
+    &lt;p class="text-slate-500 max-w-3xl mx-auto mb-12 leading-relaxed"&gt;Ofrecemos soluciones legales de la más alta calidad...&lt;/p&gt;
+    
+    &lt;div class="flex flex-wrap gap-8 justify-center"&gt;
+      
+      &lt;!-- hover:-translate-y-1: Eleva la tarjeta al pasar el ratón --&gt;
+      &lt;div class="flex-1 min-w-[300px] bg-slate-50 p-12 rounded-2xl shadow-sm border-t-4 border-[#c5a059] text-left hover:-translate-y-1 hover:shadow-xl transition-all duration-300"&gt;
+        &lt;h3 class="font-serif text-3xl text-[#0f172a] mb-4"&gt;Nuestra Misión&lt;/h3&gt;
+        &lt;p class="text-slate-500 leading-relaxed"&gt;Proporcionar asesoría jurídica integral...&lt;/p&gt;
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 5: EQUIPO -->
+    <div class="seccion">
+        <h2>5. Tarjetas del Equipo</h2>
+        <p>Cuadrícula con fotos circulares y perfil de cada especialista.</p>
+
+        <h3>Método 1: HTML y CSS Clásico</h3>
+        <div class="codigo-contenedor">
+            <button class="btn-copiar" onclick="copiarCodigo(this)">Copiar</button>
+<pre><code>&lt;section class="abogados"&gt;
+  &lt;h2&gt;Nuestros Especialistas&lt;/h2&gt;
+  &lt;div class="contenedor-equipo"&gt;
+    &lt;div class="miembro-equipo"&gt;
+      &lt;img src="foto.jpg" alt="Abogado"&gt;
+      &lt;h3&gt;Dr. Juan Pérez&lt;/h3&gt;
+      &lt;p&gt;Derecho Civil&lt;/p&gt;
+      &lt;div class="descripcion"&gt;Especialista en litigios.&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;style&gt;
+.abogados { padding: 5rem 5%; background: #f8fafc; text-align: center; }
+.abogados h2 { font-family: "Playfair Display", serif; font-size: 2.5rem; margin-bottom: 3rem; color: #0f172a; }
+.contenedor-equipo { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; max-width: 1200px; margin: 0 auto; }
+.miembro-equipo { flex: 1 1 280px; max-width: 380px; background: white; padding: 2.5rem 1.5rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-bottom: 4px solid transparent; transition: 0.3s; }
+.miembro-equipo:hover { border-bottom-color: #c5a059; box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+.miembro-equipo img { width: 130px; height: 130px; border-radius: 50%; object-fit: cover; margin-bottom: 1.5rem; border: 3px solid #c5a059; padding: 3px; }
+.miembro-equipo h3 { font-size: 1.3rem; color: #0f172a; margin-bottom: 0.5rem; }
+.miembro-equipo p { color: #c5a059; font-weight: 600; margin-bottom: 1rem; }
+.miembro-equipo .descripcion { color: #64748b; font-size: 0.9rem; }
+&lt;/style&gt;</code></pre>
+        </div>
+
+        <h3>Método 2: Tailwind CSS</h3>
+        <div class="codigo-contenedor">
+            <button class="btn-copiar" onclick="copiarCodigo(this)">Copiar</button>
+<pre><code>&lt;section class="py-20 px-[5%] bg-slate-50 text-center"&gt;
+  &lt;h2 class="font-serif text-4xl text-slate-900 mb-12"&gt;Nuestros Especialistas&lt;/h2&gt;
+
+  &lt;div class="flex flex-wrap justify-center gap-8 max-w-6xl mx-auto"&gt;
+    
+    &lt;div class="flex-1 min-w-[280px] max-w-[380px] bg-white p-10 rounded-2xl shadow-sm border-b-4 border-transparent hover:border-[#c5a059] hover:shadow-xl hover:-translate-y-1 transition-all duration-300"&gt;
+      &lt;!-- object-cover asegura que la foto no se deforme --&gt;
+      &lt;img src="foto.jpg" class="w-32 h-32 rounded-full object-cover mx-auto mb-6 border-4 border-[#c5a059] p-1" alt="Dr. Juan Pérez"&gt;
+      &lt;h3 class="text-xl text-slate-900 font-bold mb-2"&gt;Dr. Juan Pérez&lt;/h3&gt;
+      &lt;p class="text-[#c5a059] font-semibold text-sm mb-4"&gt;Derecho Civil&lt;/p&gt;
+      &lt;p class="text-slate-500 text-sm leading-relaxed"&gt;Especialista en litigios.&lt;/p&gt;
+    &lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 6: CONTACTO -->
+    <div class="seccion">
+        <h2>6. Formulario de Contacto</h2>
+        <p>Un diseño en tarjeta gigante dividida en dos columnas: información y formulario.</p>
+
+        <h3>Método 1: HTML y CSS Clásico</h3>
+        <div class="codigo-contenedor">
+            <button class="btn-copiar" onclick="copiarCodigo(this)">Copiar</button>
+<pre><code>&lt;section class="seccion-contacto"&gt;
+  &lt;div class="contenedor-contacto"&gt;
+    &lt;div class="info-contacto"&gt;
+      &lt;h2&gt;Hablemos de su caso&lt;/h2&gt;
+      &lt;p&gt;contacto@valerius.com&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="formulario-contacto"&gt;
+      &lt;form&gt;
+        &lt;input type="text" placeholder="Nombre"&gt;
+        &lt;button class="btn-primario"&gt;Enviar&lt;/button&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;style&gt;
+.seccion-contacto { padding: 5rem 5%; background: #ffffff; }
+.contenedor-contacto { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+.info-contacto { flex: 1 1 350px; background: linear-gradient(135deg, #0f172a, #1e293b); color: white; padding: 4rem 3rem; }
+.info-contacto h2 { font-family: "Playfair Display", serif; color: #c5a059; margin-bottom: 1rem; }
+.formulario-contacto { flex: 1 1 450px; padding: 4rem 3rem; background: #f8fafc; }
+.formulario-contacto input { width: 100%; padding: 15px; margin-bottom: 1rem; border: 1px solid #cbd5e1; border-radius: 8px; }
+.formulario-contacto input:focus { border-color: #c5a059; outline: none; box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.2); }
+&lt;/style&gt;</code></pre>
+        </div>
+
+        <h3>Método 2: Tailwind CSS</h3>
+        <div class="codigo-contenedor">
+            <button class="btn-copiar" onclick="copiarCodigo(this)">Copiar</button>
+<pre><code>&lt;!-- Contenedor principal con sombra y bordes redondeados globales --&gt;
+&lt;section class="py-20 px-[5%] bg-white"&gt;
+  &lt;div class="flex flex-wrap max-w-6xl mx-auto rounded-3xl overflow-hidden shadow-2xl"&gt;
+    
+    &lt;!-- Columna Izquierda: Info (Fondo Gradiente oscuro) --&gt;
+    &lt;div class="flex-1 min-w-[300px] bg-gradient-to-br from-slate-900 to-slate-800 text-white p-12"&gt;
+      &lt;h2 class="font-serif text-3xl text-[#c5a059] mb-4"&gt;Hablemos de su caso&lt;/h2&gt;
+      &lt;p class="text-slate-400 mb-8"&gt;Nuestro equipo está listo para brindarle asesoría.&lt;/p&gt;
+      &lt;p class="font-bold"&gt;contacto@valerius.com&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Columna Derecha: Formulario (Fondo claro) --&gt;
+    &lt;div class="flex-1 min-w-[300px] bg-slate-50 p-12"&gt;
+      &lt;form class="flex flex-col gap-4"&gt;
+        &lt;!-- focus:ring crea un aura dorada al hacer clic en el input --&gt;
+        &lt;input type="text" placeholder="Nombre completo" class="w-full p-4 border border-slate-300 rounded-lg outline-none focus:border-[#c5a059] focus:ring-4 focus:ring-[#c5a059]/20 transition-all"&gt;
+        
+        &lt;textarea placeholder="Detalles..." rows="4" class="w-full p-4 border border-slate-300 rounded-lg outline-none focus:border-[#c5a059] focus:ring-4 focus:ring-[#c5a059]/20 transition-all"&gt;&lt;/textarea&gt;
+        
+        &lt;button class="w-full bg-[#c5a059] text-black font-bold p-4 rounded-full hover:bg-black hover:text-[#c5a059] transition-colors mt-4"&gt;Solicitar Asesoría&lt;/button&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 7: PIE DE PÁGINA -->
+    <div class="seccion">
+        <h2>7. Pie de Página (Footer)</h2>
+        <p>Cierre de la página con logo, enlaces rápidos y horarios de atención.</p>
+
+        <h3>Método 1: HTML y CSS Clásico</h3>
+        <div class="codigo-contenedor">
+            <button class="btn-copiar" onclick="copiarCodigo(this)">Copiar</button>
+<pre><code>&lt;footer class="pie-pagina"&gt;
+  &lt;div class="contenedor-pie"&gt;
+    &lt;div class="columna-pie"&gt;
+      &lt;span class="marca"&gt;Valerius&lt;/span&gt;
+      &lt;p&gt;Defendemos sus derechos con integridad.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="columna-pie"&gt;
+      &lt;h3&gt;Enlaces&lt;/h3&gt;
+      &lt;ul class="enlaces-pie"&gt;
+        &lt;li&gt;&lt;a href="#inicio"&gt;Inicio&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="pie-inferior"&gt;© 2026 Valerius Abogados.&lt;/div&gt;
+&lt;/footer&gt;
+
+&lt;style&gt;
+.pie-pagina { background: #020617; color: #94a3b8; padding: 4rem 5% 2rem; }
+.contenedor-pie { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 3rem; border-bottom: 1px solid #1e293b; padding-bottom: 3rem; margin-bottom: 2rem; }
+.columna-pie { flex: 1 1 250px; }
+.columna-pie h3 { color: white; font-size: 1.2rem; margin-bottom: 1.5rem; font-weight: 600; }
+.enlaces-pie { list-style: none; padding: 0; }
+.enlaces-pie a { color: #94a3b8; text-decoration: none; transition: 0.3s; }
+.enlaces-pie a:hover { color: #c5a059; padding-left: 8px; }
+.pie-inferior { text-align: center; font-size: 0.9rem; color: #64748b; }
+&lt;/style&gt;</code></pre>
+        </div>
+
+        <h3>Método 2: Tailwind CSS</h3>
+        <div class="codigo-contenedor">
+            <button class="btn-copiar" onclick="copiarCodigo(this)">Copiar</button>
+<pre><code>&lt;footer class="bg-slate-950 text-slate-400 py-16 px-[5%]"&gt;
+  
+  &lt;!-- border-b y pb-12 crean la línea divisoria inferior --&gt;
+  &lt;div class="max-w-6xl mx-auto flex flex-wrap justify-between gap-12 border-b border-slate-800 pb-12 mb-8"&gt;
+    
+    &lt;div class="flex-1 min-w-[250px]"&gt;
+      &lt;span class="text-[#c5a059] text-2xl font-bold block mb-4"&gt;Valerius&lt;/span&gt;
+      &lt;p class="leading-relaxed text-sm"&gt;Defendemos sus derechos con integridad, excelencia y compromiso.&lt;/p&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="flex-1 min-w-[250px]"&gt;
+      &lt;h3 class="text-white text-lg font-bold mb-6"&gt;Enlaces Rápidos&lt;/h3&gt;
+      &lt;ul class="list-none p-0 flex flex-col gap-3"&gt;
+        &lt;li&gt;&lt;a href="#inicio" class="hover:text-[#c5a059] hover:pl-2 transition-all"&gt;Inicio&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#equipo" class="hover:text-[#c5a059] hover:pl-2 transition-all"&gt;El Equipo&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+
+    &lt;div class="flex-1 min-w-[250px]"&gt;
+      &lt;h3 class="text-white text-lg font-bold mb-6"&gt;Horario&lt;/h3&gt;
+      &lt;p class="mb-2"&gt;&lt;strong class="text-white"&gt;Lunes a Viernes:&lt;/strong&gt;&lt;br&gt;09:00 AM - 06:00 PM&lt;/p&gt;
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+
+  &lt;div class="text-center text-sm text-slate-500"&gt;
+    &lt;p&gt;© 2026 Valerius Abogados. Todos los derechos reservados.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/footer&gt;</code></pre>
+        </div>
+    </div>
+
+    <!-- SCRIPT PARA EL BOTÓN DE COPIAR -->
+    <script>
+        function copiarCodigo(boton) {
+            const pre = boton.parentElement.querySelector('pre');
+            const textoCodigo = pre.innerText;
+
+            navigator.clipboard.writeText(textoCodigo).then(() => {
+                const textoOriginal = boton.innerText;
+                boton.innerText = '¡Copiado!';
+                boton.classList.add('copiado');
+
+                setTimeout(() => {
+                    boton.innerText = textoOriginal;
+                    boton.classList.remove('copiado');
+                }, 2000);
+            }).catch(err => {
+                console.error('Error al copiar: ', err);
+                boton.innerText = 'Error';
+            });
+        }
+    </script>
+
+</body>
+</html>
