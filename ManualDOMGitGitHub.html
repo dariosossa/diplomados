@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Práctico: DOM y Git/GitHub</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --text-color: #333;
+            --bg-color: #f8f9fa;
+            --sidebar-bg: #ffffff;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+            --border-color: #e5e7eb;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            display: flex;
+            line-height: 1.6;
+        }
+
+        /* Botón del Menú */
+        .menu-toggle {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 1001;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .menu-toggle:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* Navegación Lateral */
+        .sidebar {
+            width: 280px;
+            background-color: var(--sidebar-bg);
+            height: 100vh;
+            position: fixed;
+            left: -280px; /* Oculto por defecto */
+            top: 0;
+            overflow-y: auto;
+            border-right: 1px solid var(--border-color);
+            padding: 70px 20px 20px 20px; /* Espacio superior para que no tape el botón */
+            transition: left 0.3s ease; /* Animación de deslizamiento */
+            z-index: 1000;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar.active {
+            left: 0; /* Mostrar menú */
+        }
+
+        .sidebar h2 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .sidebar ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .sidebar li {
+            margin-bottom: 8px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #4b5563;
+            font-size: 0.95rem;
+            display: block;
+            padding: 5px 0;
+            transition: color 0.2s;
+        }
+
+        .sidebar a:hover {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        /* Contenido Principal */
+        .content {
+            margin-left: 0; /* Modificado para ocupar todo el ancho */
+            padding: 70px 40px 40px 40px; /* Espacio extra superior para el botón fijo */
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto; /* Centra el contenido */
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: #1f2937;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #374151;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        ul, ol {
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        /* Estilos de Código */
+        pre {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            position: relative;
+            font-family: "Fira Code", Consolas, Monaco, monospace;
+            font-size: 0.9rem;
+        }
+
+        code {
+            font-family: inherit;
+        }
+
+        p code, li code {
+            background-color: #e5e7eb;
+            color: #ef4444;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #4b5563;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--primary-color);
+        }
+
+        .alert {
+            background-color: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        /* Diseño Responsivo */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 280px;
+                height: 100vh;
+                position: fixed;
+                border-right: 1px solid var(--border-color);
+                border-bottom: none;
+            }
+            .content {
+                padding: 70px 20px 20px 20px;
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Botón para alternar menú -->
+    <button id="btn-menu" class="menu-toggle">
+        ☰ Menú
+    </button>
+
+    <!-- Menú Lateral -->
+    <nav class="sidebar" id="sidebar">
+        <h2>Parte 1: DOM</h2>
+        <ul>
+            <li><a href="#dom-intro">1. ¿Qué es el DOM?</a></li>
+            <li><a href="#dom-seleccionar">2. Seleccionar Elementos</a></li>
+            <li><a href="#dom-modificar">3. Modificar Elementos</a></li>
+            <li><a href="#dom-crear">4. Crear y Eliminar</a></li>
+            <li><a href="#dom-eventos">5. Eventos</a></li>
+        </ul>
+
+        <h2>Parte 2: Git / GitHub</h2>
+        <ul>
+            <li><a href="#git-intro">1. Conceptos Básicos</a></li>
+            <li><a href="#git-instalar">2. Instalación de Git</a></li>
+            <li><a href="#git-cuenta">3. Crear cuenta en GitHub</a></li>
+            <li><a href="#git-config">4. Configuración Inicial</a></li>
+            <li><a href="#git-flujo">5. Flujo Básico (Local)</a></li>
+            <li><a href="#git-ramas">6. Ramas (Branches)</a></li>
+            <li><a href="#git-github">7. GitHub (Remoto)</a></li>
+            <li><a href="#git-vscode">8. Conectar con VS Code</a></li>
+            <li><a href="#git-ignorados">9. Ignorar Archivos (.gitignore) ⭐</a></li>
+            <li><a href="#git-errores">10. Deshacer Errores</a></li>
+        </ul>
+
+        <h2>Práctica</h2>
+        <ul>
+            <li><a href="#ejercicios-dom">Ejercicios DOM</a></li>
+            <li><a href="#ejercicios-git">Ejercicios Git</a></li>
+        </ul>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <main class="content">
+        <h1>Manual Práctico: DOM y Git/GitHub</h1>
+        <p>Este manual web sirve como referencia rápida para la manipulación del Document Object Model mediante JavaScript puro (Vanilla JS) y el uso avanzado de Git y GitHub para control de versiones.</p>
+
+        <!-- SECCIÓN DOM -->
+        <section id="parte-1-dom">
+            <h2 style="border-bottom: 2px solid #2563eb; padding-bottom: 10px;">PARTE 1: El DOM (Document Object Model)</h2>
+            
+            <h3 id="dom-intro">1. ¿Qué es el DOM?</h3>
+            <p>El DOM es una interfaz de programación para documentos HTML. Representa la página como un árbol de nodos (elementos padre, hijo, hermano) permitiendo que JavaScript cambie la estructura, estilo y contenido en tiempo real.</p>
+
+            <h3 id="dom-seleccionar">2. Seleccionar Elementos</h3>
+            <p>El primer paso para manipular la web es "capturar" los elementos HTML.</p>
+            <pre><code>// 1. Por ID (Único)
+const titulo = document.getElementById('mi-titulo');
+
+// 2. Por Clase o Etiqueta (Devuelven colecciones HTML)
+const botones = document.getElementsByClassName('btn');
+const parrafos = document.getElementsByTagName('p');
+
+// 3. Selectores CSS (La forma MODERNA)
+const primerBoton = document.querySelector('.btn'); // Devuelve solo el primero
+const todosLosBotones = document.querySelectorAll('.btn'); // Devuelve todos (NodeList)</code></pre>
+
+            <h3 id="dom-modificar">3. Modificar Elementos</h3>
+            <p>Cambia el contenido, los estilos en línea o las clases de CSS.</p>
+            <pre><code>const caja = document.querySelector('#mi-caja');
+
+// --- Contenido ---
+caja.textContent = 'Texto seguro sin HTML'; 
+caja.innerHTML = '&lt;strong&gt;Texto en negrita&lt;/strong&gt;'; // Usa con cuidado (riesgo XSS)
+
+// --- Estilos CSS (usar camelCase) ---
+caja.style.backgroundColor = '#2563eb';
+caja.style.display = 'none';
+
+// --- Clases CSS ---
+caja.classList.add('activa');    // Añadir
+caja.classList.remove('oculta'); // Quitar
+caja.classList.toggle('modo-oscuro'); // Alternar (si está la quita, si no, la pone)</code></pre>
+
+            <h3 id="dom-crear">4. Crear y Eliminar Elementos</h3>
+            <pre><code>// --- Crear ---
+// 1. Crear nodo
+const nuevoParrafo = document.createElement('p');
+// 2. Modificarlo
+nuevoParrafo.textContent = 'Soy un párrafo dinámico';
+nuevoParrafo.classList.add('destacado');
+// 3. Inyectarlo en el DOM
+const contenedor = document.querySelector('#contenedor');
+contenedor.appendChild(nuevoParrafo); // Lo pone al final
+// contenedor.prepend(nuevoParrafo); // Lo pone al principio
+
+// --- Eliminar ---
+const elementoViejo = document.querySelector('#viejo');
+elementoViejo.remove();</code></pre>
+
+            <h3 id="dom-eventos">5. Eventos (Interactividad)</h3>
+            <p>Detectar clicks, teclado, formularios, etc.</p>
+            <pre><code>const boton = document.querySelector('#btn-guardar');
+const form = document.querySelector('#mi-formulario');
+
+// Evento de Click
+boton.addEventListener('click', function(evento) {
+    console.log('¡Me hiciste click!');
+    console.log('Elemento clickeado:', evento.target);
+});
+
+// Evento de Formulario
+form.addEventListener('submit', function(evento) {
+    evento.preventDefault(); // Evita que la página se recargue
+    alert('Formulario procesado con JS');
+});</code></pre>
+        </section>
+
+        <!-- SECCIÓN GIT -->
+        <section id="parte-2-git" style="margin-top: 60px;">
+            <h2 style="border-bottom: 2px solid #2563eb; padding-bottom: 10px;">PARTE 2: Git y GitHub</h2>
+
+            <h3 id="git-intro">1. Conceptos Básicos</h3>
+            <ul>
+                <li><strong>Git:</strong> Motor local de control de versiones.</li>
+                <li><strong>GitHub:</strong> Servidor web que aloja tus repositorios de Git y facilita la colaboración.</li>
+            </ul>
+
+            <h3 id="git-instalar">2. Instalación de Git</h3>
+            <p>Antes de usar Git, necesitas instalarlo en tu computadora:</p>
+            <ul>
+                <li><strong>Windows:</strong> Descarga el instalador desde <a href="https://git-scm.com/downloads" target="_blank" style="color: var(--primary-color);">git-scm.com</a> y ejecuta el archivo <code>.exe</code> (puedes dejar todas las opciones que vienen marcadas por defecto).</li>
+                <li><strong>macOS:</strong> Abre la terminal y escribe <code>git --version</code>. Si no lo tienes, te aparecerá una ventana pidiendo instalar las herramientas de línea de comandos de Apple. También puedes instalarlo usando Homebrew: <code>brew install git</code>.</li>
+                <li><strong>Linux (Ubuntu/Debian):</strong> Abre tu terminal y ejecuta el comando <code>sudo apt install git</code>.</li>
+            </ul>
+            <pre><code># Para comprobar que se instaló correctamente, abre tu terminal y escribe:
+git --version</code></pre>
+
+            <h3 id="git-cuenta">3. Crear cuenta en GitHub</h3>
+            <p>Para guardar tus proyectos en la nube y colaborar, necesitas una cuenta gratuita:</p>
+            <ol>
+                <li>Ve a <a href="https://github.com/" target="_blank" style="color: var(--primary-color);">github.com</a>.</li>
+                <li>Haz clic en el botón <strong>"Sign up"</strong> (Registrarse) arriba a la derecha.</li>
+                <li>Ingresa tu correo electrónico, crea una contraseña segura y elige tu nombre de usuario.</li>
+                <li>Resuelve el puzzle de seguridad y verifica tu cuenta con el código enviado a tu correo.</li>
+            </ol>
+
+            <h3 id="git-config">4. Configuración Inicial</h3>
+            <pre><code>git config --global user.name "Tu Nombre"
+git config --global user.email "tu@email.com"
+git config --global init.defaultBranch main # Establecer main como rama por defecto</code></pre>
+
+            <h3 id="git-flujo">5. Flujo de Trabajo Básico</h3>
+            <pre><code>git init                  # Iniciar repositorio
+git status                # Ver estado de los archivos
+git add index.html        # Añadir un archivo específico al stage
+git add .                 # Añadir TODOS los archivos modificados
+git commit -m "Mensaje"   # Guardar los cambios con un mensaje claro</code></pre>
+
+            <h3 id="git-ramas">6. Ramas (Branches)</h3>
+            <pre><code>git branch                # Listar ramas locales
+git switch nueva-rama     # Moverse a una rama existente
+git switch -c fix-menu    # Crear y moverse a una rama nueva
+git merge fix-menu        # Fusionar rama 'fix-menu' en tu rama actual</code></pre>
+
+            <h3 id="git-github">7. GitHub (Remoto)</h3>
+            <pre><code>git remote add origin https://github.com/usuario/repo.git # Vincular
+git push -u origin main   # Subir por primera vez
+git push                  # Subir cambios (después de la primera vez)
+git pull                  # Bajar los cambios del servidor
+git clone https://...     # Clonar un repositorio completo</code></pre>
+
+            <h3 id="git-vscode">8. Conectar con Visual Studio Code (Fácil)</h3>
+            <p>VS Code tiene una excelente integración visual con Git y GitHub que te permite evitar escribir comandos en la terminal para las tareas cotidianas:</p>
+            <ol>
+                <li>Abre la carpeta de tu proyecto en VS Code.</li>
+                <li>Ve al panel de <strong>Control de código fuente</strong> en la barra lateral izquierda (el icono que parece un árbol de ramificaciones o presiona <code>Ctrl+Shift+G</code>).</li>
+                <li>Si tu proyecto no tiene Git aún, haz clic en el botón <strong>"Initialize Repository"</strong> (equivale a usar <code>git init</code>).</li>
+                <li>Para guardar cambios, escribe un mensaje en la caja de texto superior y haz clic en el botón <strong>"Commit"</strong> (acepta si te pregunta si deseas añadir todos los archivos al 'stage').</li>
+                <li>Para enviar el código a GitHub, haz clic en el botón <strong>"Publish Branch"</strong> o "Publish to GitHub".</li>
+                <li><strong>El paso de conexión:</strong> La primera vez que hagas esto, VS Code te pedirá permiso para acceder a GitHub. Se abrirá una ventana en tu navegador web. Simplemente haz clic en <strong>"Autorizar"</strong> y la conexión estará hecha.</li>
+                <li>¡Listo! A partir de ahora podrás usar el botón "Sync Changes" (Sincronizar cambios) para hacer <i>push</i> y <i>pull</i> de manera automática.</li>
+            </ol>
+
+            <h3 id="git-ignorados">9. Ignorar Archivos (.gitignore) ⭐ (Avanzado)</h3>
+            <p>El archivo <code>.gitignore</code> es vital en cualquier proyecto. Se crea en la raíz del proyecto y le dice a Git qué archivos <strong>jamás</strong> debe rastrear ni subir (ej. carpetas muy pesadas, contraseñas, configuraciones personales).</p>
+            
+            <div class="alert">
+                <strong>¿Cómo crearlo?</strong> Simplemente crea un archivo de texto llamado exactamente <code>.gitignore</code> (con el punto al inicio).
+            </div>
+
+            <h4>Patrones de escritura en .gitignore:</h4>
+            <pre><code># --- CARPETAS ---
+node_modules/       # Ignora toda la carpeta node_modules (vital en JS)
+dist/               # Ignora la carpeta de compilación
+build/
+
+# --- ARCHIVOS ESPECÍFICOS ---
+.env                # ¡MUY IMPORTANTE! Ignora variables de entorno/contraseñas
+config.json         # Archivo específico
+database.sqlite     # Bases de datos locales
+
+# --- POR EXTENSIÓN ---
+*.log               # Ignora todos los archivos que terminen en .log
+*.zip               # Ignora todos los zips
+*.DS_Store          # Archivos de sistema de Mac
+
+# --- EXCEPCIONES (El símbolo !) ---
+*.log               # Ignora todos los .log
+!produccion.log     # EXCEPTO este archivo en particular
+
+# --- RUTAS ESPECÍFICAS ---
+logs/*.txt          # Ignora los .txt solo dentro de la carpeta logs/
+</code></pre>
+
+            <div class="alert">
+                <strong>¡Problema Común! "He añadido el archivo al .gitignore pero Git lo sigue subiendo"</strong><br>
+                Esto ocurre porque Git ya había registrado ese archivo <i>antes</i> de que lo pusieras en el .gitignore. Para que Git "olvide" los archivos y aplique el .gitignore correctamente, debes limpiar la caché:
+            </div>
+            
+            <pre><code># 1. Quitar todos los archivos de la caché de Git (no los borra de tu disco duro)
+git rm -r --cached .
+
+# 2. Volver a añadir todo (ahora Git respetará el .gitignore)
+git add .
+
+# 3. Hacer un commit para guardar el estado limpio
+git commit -m "Limpiar caché de archivos y aplicar .gitignore"</code></pre>
+
+            <h3 id="git-errores">10. Deshacer Errores</h3>
+            <pre><code># Ver historial de commits
+git log --oneline
+
+# Modificar el mensaje del ÚLTIMO commit o añadirle archivos que olvidaste
+git commit --amend -m "Nuevo mensaje corregido"
+
+# Revertir un archivo a como estaba en el último commit (Pierdes cambios no guardados)
+git restore nombre-archivo.html
+
+# Eliminar un commit (Peligroso si ya hiciste push)
+git reset --hard HEAD~1   # Borra el commit y los cambios en el código
+git reset --soft HEAD~1   # Borra el commit pero mantiene tu código intacto en el editor</code></pre>
+
+        </section>
+
+        <!-- SECCIÓN DE EJERCICIOS -->
+        <section id="ejercicios-dom" style="margin-top: 60px;">
+            <h2 style="border-bottom: 2px solid #2563eb; padding-bottom: 10px;">PARTE 3: Ejercicios Prácticos (Paso a Paso)</h2>
+            <p>Sigue estas instrucciones detalladas para poner en práctica lo aprendido. Crea una carpeta nueva en tu computadora llamada <code>practica-curso</code> para empezar.</p>
+
+            <h3>Retos de DOM</h3>
+            <ol>
+                <li>
+                    <strong>El Botón Mágico (Eventos básicos):</strong>
+                    <ul>
+                        <li><strong>Paso 1:</strong> Crea un archivo <code>index.html</code>. Añade un botón con <code>id="btn-magico"</code> y un párrafo vacío con <code>id="mensaje"</code>.</li>
+                        <li><strong>Paso 2:</strong> Abre una etiqueta <code>&lt;script&gt;</code> al final de tu HTML (antes de cerrar el body).</li>
+                        <li><strong>Paso 3:</strong> Usa <code>document.getElementById()</code> en JavaScript para capturar el botón y el párrafo. Guárdalos en variables.</li>
+                        <li><strong>Paso 4:</strong> Añádele un evento al botón: <code>boton.addEventListener('click', function() { ... })</code>.</li>
+                        <li><strong>Paso 5:</strong> Dentro de la función, haz que el texto del párrafo cambie: <code>parrafo.textContent = "¡Hola, DOM!";</code></li>
+                    </ul>
+                </li>
+                <br>
+                <li>
+                    <strong>Modo Oscuro (Modificar clases):</strong>
+                    <ul>
+                        <li><strong>Paso 1:</strong> En tu HTML, añade una etiqueta <code>&lt;style&gt;</code> en el head y crea una clase CSS: <code>.tema-oscuro { background-color: #333; color: white; }</code></li>
+                        <li><strong>Paso 2:</strong> Añade un nuevo botón en tu HTML con <code>id="btn-tema"</code>.</li>
+                        <li><strong>Paso 3:</strong> En JavaScript, selecciona ese botón y selecciona toda la página usando <code>const cuerpo = document.body;</code></li>
+                        <li><strong>Paso 4:</strong> Añade el evento <i>click</i> al botón y dentro usa: <code>cuerpo.classList.toggle('tema-oscuro');</code>. ¡Haz clic varias veces para ver la magia!</li>
+                    </ul>
+                </li>
+                <br>
+                <li>
+                    <strong>Lista Dinámica (Crear elementos - Avanzado):</strong>
+                    <ul>
+                        <li><strong>Paso 1:</strong> Crea un <code>&lt;input id="tarea"&gt;</code>, un <code>&lt;button id="btn-agregar"&gt;</code> y una lista vacía <code>&lt;ul id="lista"&gt;&lt;/ul&gt;</code>.</li>
+                        <li><strong>Paso 2:</strong> En JS, selecciona los tres elementos.</li>
+                        <li><strong>Paso 3:</strong> Al hacer click en el botón, crea un "li" nuevo usando: <code>const nuevoLi = document.createElement('li');</code></li>
+                        <li><strong>Paso 4:</strong> Ponle texto al "li" extrayendo el valor del input: <code>nuevoLi.textContent = input.value;</code></li>
+                        <li><strong>Paso 5:</strong> Insértalo en la página: <code>lista.appendChild(nuevoLi);</code></li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3 id="ejercicios-git" style="margin-top: 30px;">Retos de Git y GitHub</h3>
+            <ol>
+                <li>
+                    <strong>Tu primer Repo (Flujo local):</strong><br>
+                    Abre la terminal en la carpeta donde creaste tus HTML y ejecuta estos comandos en orden:
+                    <ul>
+                        <li><code>git init</code> (Inicia el rastreo en la carpeta).</li>
+                        <li><code>git status</code> (Verás tu index.html en rojo).</li>
+                        <li><code>git add .</code> (Prepara todos los archivos para guardarlos).</li>
+                        <li><code>git commit -m "Mi primer código de DOM terminado"</code> (Guarda la versión).</li>
+                    </ul>
+                </li>
+                <br>
+                <li>
+                    <strong>El Archivo Oculto (.gitignore):</strong>
+                    <ul>
+                        <li><strong>Paso 1:</strong> Crea un archivo en tu carpeta llamado <code>privado.txt</code> y escribe un secreto dentro.</li>
+                        <li><strong>Paso 2:</strong> Crea otro archivo llamado exactamente <code>.gitignore</code></li>
+                        <li><strong>Paso 3:</strong> Abre el archivo .gitignore, escribe dentro la palabra <code>privado.txt</code> y guarda.</li>
+                        <li><strong>Paso 4:</strong> Ejecuta <code>git status</code>. Verás que Git detecta el .gitignore, ¡pero ignora por completo la existencia de tu archivo privado!</li>
+                    </ul>
+                </li>
+                <br>
+                <li>
+                    <strong>Viaje Multiverso (Ramas y Fusión):</strong>
+                    <ul>
+                        <li><strong>Paso 1:</strong> Crea una línea temporal alternativa: <code>git switch -c nueva-cabecera</code></li>
+                        <li><strong>Paso 2:</strong> Abre tu HTML, ponle un <code>&lt;h1&gt;Mi Súper Página&lt;/h1&gt;</code> al principio y guarda el archivo.</li>
+                        <li><strong>Paso 3:</strong> Guarda los cambios en Git: <code>git add .</code> seguido de <code>git commit -m "Añadido título principal"</code>.</li>
+                        <li><strong>Paso 4:</strong> Viaja al pasado/línea original: <code>git switch main</code>. <i>(¡Mira tu código en el editor, el H1 desapareció mágicamente!)</i></li>
+                        <li><strong>Paso 5:</strong> Trae el código del futuro al presente: <code>git merge nueva-cabecera</code>. <i>(¡El H1 volvió!)</i></li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+    </main>
+
+    <!-- JavaScript para interactividad -->
+    <script>
+        // Funcionalidad para copiar el código al portapapeles
+        document.querySelectorAll('pre').forEach(preBlock => {
+            // Crear botón
+            const copyButton = document.createElement('button');
+            copyButton.className = 'copy-btn';
+            copyButton.textContent = 'Copiar';
+            
+            // Añadir funcionalidad al hacer click
+            copyButton.addEventListener('click', () => {
+                const codeText = preBlock.querySelector('code').innerText;
+                
+                // Método clásico compatible (execCommand) en lugar de navigator.clipboard 
+                // para evitar problemas de permisos en iframes o entornos aislados
+                const textarea = document.createElement('textarea');
+                textarea.value = codeText;
+                // Prevenir scroll al añadir
+                textarea.style.top = "0";
+                textarea.style.left = "0";
+                textarea.style.position = "fixed";
+                document.body.appendChild(textarea);
+                textarea.focus();
+                textarea.select();
+
+                try {
+                    document.execCommand('copy');
+                    copyButton.textContent = '¡Copiado!';
+                    copyButton.style.backgroundColor = '#10b981'; // Verde éxito
+                    
+                    setTimeout(() => {
+                        copyButton.textContent = 'Copiar';
+                        copyButton.style.backgroundColor = '#4b5563'; // Volver al gris
+                    }, 2000);
+                } catch (err) {
+                    copyButton.textContent = 'Error';
+                    copyButton.style.backgroundColor = '#ef4444'; // Rojo error
+                }
+
+                document.body.removeChild(textarea);
+            });
+
+            // Añadir el botón al bloque <pre>
+            preBlock.appendChild(copyButton);
+        });
+
+        // Lógica para mostrar/ocultar el menú
+        const btnMenu = document.getElementById('btn-menu');
+        const sidebar = document.getElementById('sidebar');
+
+        btnMenu.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+
+        // Resaltado de navegación activa y cerrar menú al hacer click
+        const navLinks = document.querySelectorAll('.sidebar a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                navLinks.forEach(l => l.style.fontWeight = 'normal');
+                e.target.style.fontWeight = 'bold';
+                
+                // Ocultar el menú automáticamente al seleccionar una opción
+                sidebar.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
