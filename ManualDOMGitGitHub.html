@@ -95,6 +95,7 @@
             display: block;
             padding: 5px 0;
             transition: color 0.2s;
+            line-height: 1.4;
         }
 
         .sidebar a:hover {
@@ -145,15 +146,28 @@
             margin-bottom: 5px;
         }
 
-        /* Estilos de Código */
-        pre {
+        /* Estilos de Código y Botón Copiar */
+        .code-container {
             background-color: var(--code-bg);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: flex-end;
+            background-color: #2d2d2d;
+            padding: 8px 15px;
+            border-bottom: 1px solid #404040;
+        }
+
+        pre {
             color: var(--code-text);
             padding: 20px;
-            border-radius: 8px;
             overflow-x: auto;
-            margin-bottom: 20px;
-            position: relative;
+            margin: 0; /* Reseteado porque el contenedor maneja los márgenes */
             font-family: "Fira Code", Consolas, Monaco, monospace;
             font-size: 0.9rem;
         }
@@ -171,21 +185,29 @@
         }
 
         .copy-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #4b5563;
-            color: white;
-            border: none;
+            background-color: transparent;
+            color: #d1d5db;
+            border: 1px solid #6b7280;
             border-radius: 4px;
-            padding: 5px 10px;
+            padding: 4px 10px;
             font-size: 0.8rem;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .copy-btn:hover {
-            background-color: var(--primary-color);
+            background-color: #4b5563;
+            color: white;
+            border-color: #9ca3af;
+        }
+
+        .copy-btn.success {
+            background-color: #10b981;
+            color: white;
+            border-color: #10b981;
         }
 
         .alert {
@@ -235,16 +257,16 @@
 
         <h2>Parte 2: Git / GitHub</h2>
         <ul>
-            <li><a href="#git-intro">1. Conceptos Básicos</a></li>
-            <li><a href="#git-instalar">2. Instalación de Git</a></li>
-            <li><a href="#git-cuenta">3. Crear cuenta en GitHub</a></li>
-            <li><a href="#git-config">4. Configuración Inicial</a></li>
-            <li><a href="#git-flujo">5. Flujo Básico (Local)</a></li>
-            <li><a href="#git-ramas">6. Ramas (Branches)</a></li>
-            <li><a href="#git-github">7. GitHub (Remoto)</a></li>
-            <li><a href="#git-vscode">8. Conectar con VS Code</a></li>
-            <li><a href="#git-ignorados">9. Ignorar Archivos (.gitignore) ⭐</a></li>
-            <li><a href="#git-errores">10. Deshacer Errores</a></li>
+            <li><a href="#git-intro">1. Diferencia entre Git y GitHub</a></li>
+            <li><a href="#git-instalar">2. Instalar Git en tu PC</a></li>
+            <li><a href="#git-cuenta">3. Crear tu cuenta de GitHub</a></li>
+            <li><a href="#git-config">4. Configurar tu Nombre y Email</a></li>
+            <li><a href="#git-flujo">5. Guardar cambios (add, commit)</a></li>
+            <li><a href="#git-ramas">6. Trabajar con Ramas (branch, merge)</a></li>
+            <li><a href="#git-github">7. Subir a Internet (push, pull, clone)</a></li>
+            <li><a href="#git-vscode">8. Usar VS Code (Sin comandos)</a></li>
+            <li><a href="#git-ignorados">9. Ocultar archivos (.gitignore) ⭐</a></li>
+            <li><a href="#git-errores">10. Solucionar problemas y errores</a></li>
         </ul>
 
         <h2>Práctica</h2>
@@ -334,126 +356,104 @@ form.addEventListener('submit', function(evento) {
         <section id="parte-2-git" style="margin-top: 60px;">
             <h2 style="border-bottom: 2px solid #2563eb; padding-bottom: 10px;">PARTE 2: Git y GitHub</h2>
 
-            <h3 id="git-intro">1. Conceptos Básicos</h3>
+            <h3 id="git-intro">1. Diferencia entre Git y GitHub</h3>
             <ul>
-                <li><strong>Git:</strong> Motor local de control de versiones.</li>
-                <li><strong>GitHub:</strong> Servidor web que aloja tus repositorios de Git y facilita la colaboración.</li>
+                <li><strong>Git:</strong> Motor local de control de versiones. (El programa instalado en tu PC).</li>
+                <li><strong>GitHub:</strong> Servidor web que aloja tus repositorios de Git y facilita la colaboración en la nube.</li>
             </ul>
 
-            <h3 id="git-instalar">2. Instalación de Git</h3>
+            <h3 id="git-instalar">2. Instalar Git en tu PC</h3>
             <p>Antes de usar Git, necesitas instalarlo en tu computadora:</p>
             <ul>
-                <li><strong>Windows:</strong> Descarga el instalador desde <a href="https://git-scm.com/downloads" target="_blank" style="color: var(--primary-color);">git-scm.com</a> y ejecuta el archivo <code>.exe</code> (puedes dejar todas las opciones que vienen marcadas por defecto).</li>
-                <li><strong>macOS:</strong> Abre la terminal y escribe <code>git --version</code>. Si no lo tienes, te aparecerá una ventana pidiendo instalar las herramientas de línea de comandos de Apple. También puedes instalarlo usando Homebrew: <code>brew install git</code>.</li>
-                <li><strong>Linux (Ubuntu/Debian):</strong> Abre tu terminal y ejecuta el comando <code>sudo apt install git</code>.</li>
+                <li><strong>Windows:</strong> Descarga el instalador desde <a href="https://git-scm.com/downloads" target="_blank" style="color: var(--primary-color);">git-scm.com</a> y ejecuta el archivo <code>.exe</code> (puedes dejar todas las opciones por defecto).</li>
+                <li><strong>macOS:</strong> Abre la terminal y escribe <code>git --version</code>. Si no lo tienes, te pedirá instalarlo. También puedes usar <code>brew install git</code>.</li>
+                <li><strong>Linux (Ubuntu/Debian):</strong> Abre tu terminal y ejecuta <code>sudo apt install git</code>.</li>
             </ul>
-            <pre><code># Para comprobar que se instaló correctamente, abre tu terminal y escribe:
+            <pre><code># Para comprobar que se instaló correctamente, escribe:
 git --version</code></pre>
 
-            <h3 id="git-cuenta">3. Crear cuenta en GitHub</h3>
-            <p>Para guardar tus proyectos en la nube y colaborar, necesitas una cuenta gratuita:</p>
+            <h3 id="git-cuenta">3. Crear tu cuenta de GitHub</h3>
+            <p>Para guardar tus proyectos en la nube, necesitas una cuenta:</p>
             <ol>
                 <li>Ve a <a href="https://github.com/" target="_blank" style="color: var(--primary-color);">github.com</a>.</li>
-                <li>Haz clic en el botón <strong>"Sign up"</strong> (Registrarse) arriba a la derecha.</li>
-                <li>Ingresa tu correo electrónico, crea una contraseña segura y elige tu nombre de usuario.</li>
-                <li>Resuelve el puzzle de seguridad y verifica tu cuenta con el código enviado a tu correo.</li>
+                <li>Haz clic en el botón <strong>"Sign up"</strong> arriba a la derecha.</li>
+                <li>Ingresa tu correo, crea una contraseña y elige tu nombre de usuario.</li>
             </ol>
 
-            <h3 id="git-config">4. Configuración Inicial</h3>
+            <h3 id="git-config">4. Configurar tu Nombre y Email</h3>
+            <p>Git necesita saber quién hace los cambios. Haz esto una sola vez en tu PC:</p>
             <pre><code>git config --global user.name "Tu Nombre"
 git config --global user.email "tu@email.com"
-git config --global init.defaultBranch main # Establecer main como rama por defecto</code></pre>
+git config --global init.defaultBranch main # Establecer main como rama principal</code></pre>
 
-            <h3 id="git-flujo">5. Flujo de Trabajo Básico</h3>
-            <pre><code>git init                  # Iniciar repositorio
-git status                # Ver estado de los archivos
-git add index.html        # Añadir un archivo específico al stage
-git add .                 # Añadir TODOS los archivos modificados
-git commit -m "Mensaje"   # Guardar los cambios con un mensaje claro</code></pre>
+            <h3 id="git-flujo">5. Guardar cambios (add, commit)</h3>
+            <pre><code>git init                  # 1. Iniciar el rastreo en la carpeta actual
+git status                # 2. Ver qué archivos han cambiado
+git add index.html        # 3. Preparar un archivo específico
+git add .                 # 3b. O preparar TODOS los archivos modificados
+git commit -m "Mensaje"   # 4. Guardar la versión de los archivos preparados</code></pre>
 
-            <h3 id="git-ramas">6. Ramas (Branches)</h3>
-            <pre><code>git branch                # Listar ramas locales
+            <h3 id="git-ramas">6. Trabajar con Ramas (branch, merge)</h3>
+            <p>Útiles para probar cosas nuevas sin romper el código original.</p>
+            <pre><code>git branch                # Listar ramas que existen
 git switch nueva-rama     # Moverse a una rama existente
-git switch -c fix-menu    # Crear y moverse a una rama nueva
-git merge fix-menu        # Fusionar rama 'fix-menu' en tu rama actual</code></pre>
+git switch -c fix-menu    # Crear una rama nueva y moverse a ella
+git merge fix-menu        # Fusionar los cambios de 'fix-menu' a tu rama actual</code></pre>
 
-            <h3 id="git-github">7. GitHub (Remoto)</h3>
-            <pre><code>git remote add origin https://github.com/usuario/repo.git # Vincular
-git push -u origin main   # Subir por primera vez
+            <h3 id="git-github">7. Subir a Internet (push, pull, clone)</h3>
+            <pre><code>git remote add origin https://github.com/usuario/repo.git # Vincular tu PC con GitHub
+git push -u origin main   # Subir tu código a GitHub por primera vez
 git push                  # Subir cambios (después de la primera vez)
-git pull                  # Bajar los cambios del servidor
-git clone https://...     # Clonar un repositorio completo</code></pre>
+git pull                  # Bajar a tu PC los últimos cambios de GitHub
+git clone https://...     # Descargar un repositorio completo a tu PC</code></pre>
 
-            <h3 id="git-vscode">8. Conectar con Visual Studio Code (Fácil)</h3>
-            <p>VS Code tiene una excelente integración visual con Git y GitHub que te permite evitar escribir comandos en la terminal para las tareas cotidianas:</p>
+            <h3 id="git-vscode">8. Usar VS Code (Sin comandos)</h3>
+            <p>VS Code tiene una integración visual que te evita escribir comandos en la terminal:</p>
             <ol>
                 <li>Abre la carpeta de tu proyecto en VS Code.</li>
-                <li>Ve al panel de <strong>Control de código fuente</strong> en la barra lateral izquierda (el icono que parece un árbol de ramificaciones o presiona <code>Ctrl+Shift+G</code>).</li>
-                <li>Si tu proyecto no tiene Git aún, haz clic en el botón <strong>"Initialize Repository"</strong> (equivale a usar <code>git init</code>).</li>
-                <li>Para guardar cambios, escribe un mensaje en la caja de texto superior y haz clic en el botón <strong>"Commit"</strong> (acepta si te pregunta si deseas añadir todos los archivos al 'stage').</li>
-                <li>Para enviar el código a GitHub, haz clic en el botón <strong>"Publish Branch"</strong> o "Publish to GitHub".</li>
-                <li><strong>El paso de conexión:</strong> La primera vez que hagas esto, VS Code te pedirá permiso para acceder a GitHub. Se abrirá una ventana en tu navegador web. Simplemente haz clic en <strong>"Autorizar"</strong> y la conexión estará hecha.</li>
-                <li>¡Listo! A partir de ahora podrás usar el botón "Sync Changes" (Sincronizar cambios) para hacer <i>push</i> y <i>pull</i> de manera automática.</li>
+                <li>Ve al panel de <strong>Control de código fuente</strong> en la barra lateral izquierda (el icono de ramificaciones o <code>Ctrl+Shift+G</code>).</li>
+                <li>Haz clic en <strong>"Initialize Repository"</strong> (equivale a <code>git init</code>).</li>
+                <li>Para guardar, escribe un mensaje en la caja y haz clic en <strong>"Commit"</strong> (te preguntará si deseas añadir todos los archivos; dile que sí, equivale a <code>git add .</code>).</li>
+                <li>Para subir a internet, haz clic en <strong>"Publish Branch"</strong>. VS Code te pedirá autorizar tu cuenta de GitHub en el navegador.</li>
+                <li>A partir de ahora, usa el botón <strong>"Sync Changes"</strong> para subir (push) y bajar (pull) automáticamente.</li>
             </ol>
 
-            <h3 id="git-ignorados">9. Ignorar Archivos (.gitignore) ⭐ (Avanzado)</h3>
-            <p>El archivo <code>.gitignore</code> es vital en cualquier proyecto. Se crea en la raíz del proyecto y le dice a Git qué archivos <strong>jamás</strong> debe rastrear ni subir (ej. carpetas muy pesadas, contraseñas, configuraciones personales).</p>
+            <h3 id="git-ignorados">9. Ocultar archivos (.gitignore) ⭐</h3>
+            <p>Crea un archivo llamado <code>.gitignore</code> en tu proyecto para decirle a Git qué archivos <strong>jamás</strong> debe subir (ej. contraseñas, carpetas pesadas).</p>
             
-            <div class="alert">
-                <strong>¿Cómo crearlo?</strong> Simplemente crea un archivo de texto llamado exactamente <code>.gitignore</code> (con el punto al inicio).
-            </div>
-
-            <h4>Patrones de escritura en .gitignore:</h4>
             <pre><code># --- CARPETAS ---
-node_modules/       # Ignora toda la carpeta node_modules (vital en JS)
-dist/               # Ignora la carpeta de compilación
+node_modules/       # Ignora toda la carpeta (típico en JavaScript)
 build/
 
 # --- ARCHIVOS ESPECÍFICOS ---
-.env                # ¡MUY IMPORTANTE! Ignora variables de entorno/contraseñas
-config.json         # Archivo específico
-database.sqlite     # Bases de datos locales
+.env                # Ignora variables de entorno (¡Contraseñas!)
+database.sqlite
 
 # --- POR EXTENSIÓN ---
-*.log               # Ignora todos los archivos que terminen en .log
-*.zip               # Ignora todos los zips
-*.DS_Store          # Archivos de sistema de Mac
-
-# --- EXCEPCIONES (El símbolo !) ---
-*.log               # Ignora todos los .log
-!produccion.log     # EXCEPTO este archivo en particular
-
-# --- RUTAS ESPECÍFICAS ---
-logs/*.txt          # Ignora los .txt solo dentro de la carpeta logs/
+*.log               # Ignora todos los que terminen en .log
 </code></pre>
 
             <div class="alert">
-                <strong>¡Problema Común! "He añadido el archivo al .gitignore pero Git lo sigue subiendo"</strong><br>
-                Esto ocurre porque Git ya había registrado ese archivo <i>antes</i> de que lo pusieras en el .gitignore. Para que Git "olvide" los archivos y aplique el .gitignore correctamente, debes limpiar la caché:
+                <strong>¿Git sigue subiendo un archivo que ya pusiste en el .gitignore?</strong><br>
+                Pasa porque Git ya lo estaba rastreando de antes. Límpialo con estos 3 comandos:
             </div>
             
-            <pre><code># 1. Quitar todos los archivos de la caché de Git (no los borra de tu disco duro)
-git rm -r --cached .
+            <pre><code>git rm -r --cached .      # 1. Limpiar caché (no borra archivos reales)
+git add .                 # 2. Volver a añadir (ahora respeta el .gitignore)
+git commit -m "Fix cache" # 3. Guardar el estado limpio</code></pre>
 
-# 2. Volver a añadir todo (ahora Git respetará el .gitignore)
-git add .
+            <h3 id="git-errores">10. Solucionar problemas y errores</h3>
+            <pre><code>git log --oneline         # Ver historial resumido de cambios
 
-# 3. Hacer un commit para guardar el estado limpio
-git commit -m "Limpiar caché de archivos y aplicar .gitignore"</code></pre>
-
-            <h3 id="git-errores">10. Deshacer Errores</h3>
-            <pre><code># Ver historial de commits
-git log --oneline
-
-# Modificar el mensaje del ÚLTIMO commit o añadirle archivos que olvidaste
+# Modificar el mensaje del ÚLTIMO commit o añadir archivos que olvidaste
 git commit --amend -m "Nuevo mensaje corregido"
 
-# Revertir un archivo a como estaba en el último commit (Pierdes cambios no guardados)
+# Revertir un archivo a como estaba guardado (Pierdes cambios actuales)
 git restore nombre-archivo.html
 
-# Eliminar un commit (Peligroso si ya hiciste push)
-git reset --hard HEAD~1   # Borra el commit y los cambios en el código
-git reset --soft HEAD~1   # Borra el commit pero mantiene tu código intacto en el editor</code></pre>
+# Borrar el último commit (Peligroso si ya subiste a GitHub)
+git reset --hard HEAD~1   # Borra el commit y borra los cambios de tu editor
+git reset --soft HEAD~1   # Borra el commit pero mantiene tu código intacto</code></pre>
 
         </section>
 
@@ -536,22 +536,33 @@ git reset --soft HEAD~1   # Borra el commit pero mantiene tu código intacto en 
 
     <!-- JavaScript para interactividad -->
     <script>
-        // Funcionalidad para copiar el código al portapapeles
+        // Nueva funcionalidad para encapsular el código y poner el botón afuera (en una barra superior)
         document.querySelectorAll('pre').forEach(preBlock => {
-            // Crear botón
+            // Crear el contenedor principal
+            const wrapper = document.createElement('div');
+            wrapper.className = 'code-container';
+
+            // Crear la cabecera oscura
+            const header = document.createElement('div');
+            header.className = 'code-header';
+            
+            // Crear botón de copiar
             const copyButton = document.createElement('button');
             copyButton.className = 'copy-btn';
-            copyButton.textContent = 'Copiar';
+            copyButton.innerHTML = '📋 Copiar'; // Usamos un emoji para que se vea mejor
             
-            // Añadir funcionalidad al hacer click
+            // Reestructurar el DOM: insertar wrapper antes del pre, meter cabecera y pre dentro del wrapper
+            preBlock.parentNode.insertBefore(wrapper, preBlock);
+            header.appendChild(copyButton);
+            wrapper.appendChild(header);
+            wrapper.appendChild(preBlock);
+
+            // Añadir funcionalidad al hacer click en el botón
             copyButton.addEventListener('click', () => {
                 const codeText = preBlock.querySelector('code').innerText;
                 
-                // Método clásico compatible (execCommand) en lugar de navigator.clipboard 
-                // para evitar problemas de permisos en iframes o entornos aislados
                 const textarea = document.createElement('textarea');
                 textarea.value = codeText;
-                // Prevenir scroll al añadir
                 textarea.style.top = "0";
                 textarea.style.left = "0";
                 textarea.style.position = "fixed";
@@ -561,23 +572,19 @@ git reset --soft HEAD~1   # Borra el commit pero mantiene tu código intacto en 
 
                 try {
                     document.execCommand('copy');
-                    copyButton.textContent = '¡Copiado!';
-                    copyButton.style.backgroundColor = '#10b981'; // Verde éxito
+                    copyButton.innerHTML = '✅ ¡Copiado!';
+                    copyButton.classList.add('success');
                     
                     setTimeout(() => {
-                        copyButton.textContent = 'Copiar';
-                        copyButton.style.backgroundColor = '#4b5563'; // Volver al gris
+                        copyButton.innerHTML = '📋 Copiar';
+                        copyButton.classList.remove('success');
                     }, 2000);
                 } catch (err) {
-                    copyButton.textContent = 'Error';
-                    copyButton.style.backgroundColor = '#ef4444'; // Rojo error
+                    copyButton.innerHTML = '❌ Error';
                 }
 
                 document.body.removeChild(textarea);
             });
-
-            // Añadir el botón al bloque <pre>
-            preBlock.appendChild(copyButton);
         });
 
         // Lógica para mostrar/ocultar el menú
